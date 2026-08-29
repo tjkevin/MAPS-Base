@@ -1,0 +1,954 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:15,327",
+    "content": "小二年成为作家的作家人啊对那时候已经四十岁了四十岁突发欺想要写小说要跟同一人比我中国的作家的没有这么晚开人写作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:15,327",
+    "end_time": "00:00:18,913",
+    "content": "西人之前까요?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:18,913",
+    "end_time": "00:00:22,217",
+    "content": "教教大學教技術節目的課程",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:22,217",
+    "end_time": "00:00:28,184",
+    "content": "主要原因可能还是一直喜欢一些小说吧,一直喜欢。以前...",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:28,184",
+    "end_time": "00:00:29,510",
+    "content": "沒這種可能性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:29,510",
+    "end_time": "00:00:31,341",
+    "content": "后来发现有这种可能性来",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:31,341",
+    "end_time": "00:00:33,951",
+    "content": "您做人能不能看到微生吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:33,951",
+    "end_time": "00:00:35,509",
+    "content": "维持生活 做朋友",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:35,509",
+    "end_time": "00:00:42,838",
+    "content": "當然我覺得當作家正的田在中國能夠維持生活吧現在誰就能當作家了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:42,838",
+    "end_time": "00:00:53,426",
+    "content": "小声呀 我不是放上一大令人啊 我比较喜欢卡尔维我走着真的 说实在喜欢卡尔维诺 喜欢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:53,426",
+    "end_time": "00:00:56,118",
+    "content": "Ich verstehe doch der Anfang, es ist enterprise.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:56,118",
+    "end_time": "00:00:58,024",
+    "content": "加3S转",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:58,024",
+    "end_time": "00:01:00,185",
+    "content": "大体还是喜欢南欧的作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:00,185",
+    "end_time": "00:01:05,001",
+    "content": "美國的作家不是太喜歡因為我覺得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:05,001",
+    "end_time": "00:01:10,219",
+    "content": "美国这个地方有点缺少文化传统因为我毕竟是个中国人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:10,219",
+    "end_time": "00:01:12,801",
+    "content": "中国人的理事很优秀啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:12,801",
+    "end_time": "00:01:17,055",
+    "content": "我也不太清楚啊因为它不在书店里买的都在书它是那么买",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:17,055",
+    "end_time": "00:01:21,325",
+    "content": "書店好像不太願意賣角色吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:21,325",
+    "end_time": "00:01:22,331",
+    "content": "추냄 부여입",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:22,331",
+    "end_time": "00:01:27,921",
+    "content": "總的不關於我也不關於我我可能有點個人媽還是不說也好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:27,921",
+    "end_time": "00:01:29,028",
+    "content": "In the end, unlike malignant conditions, but too much. So the problem is you two are having a pregnant brisket. But when you're taking part in a sexmarine transplanting problem, for example. Now let's test notepede transplant. Someone called me or from the diseases for the patient in breastallows.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,028",
+    "end_time": "00:01:32,114",
+    "content": "可能大概是纯想降的多吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:32,114",
+    "end_time": "00:01:34,936",
+    "content": "也有历史写出来,我也有未来的小说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:34,936",
+    "end_time": "00:01:51,638",
+    "content": "春夏下的基督你是否認爲有兩種思考回去或者兩種思維繁學一個東方的一個西方你覺得能不能去分嗎還是這種說話是無聊我覺得可能想辦法無聊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:51,638",
+    "end_time": "00:02:02,537",
+    "content": "相當無聊,一般來的時候認為東方思想方式跟西方很不一樣,這種說話本身就在演示著什麼。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:02,537",
+    "end_time": "00:02:05,780",
+    "content": "我只有一深深因为是一个没看过",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:05,780",
+    "end_time": "00:02:11,914",
+    "content": "其实这些节目都是同一个物种只能思想的方法和一个动作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:11,914",
+    "end_time": "00:02:13,782",
+    "content": "Berahn堅德",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:13,782",
+    "end_time": "00:02:17,484",
+    "content": "簡單的能蓋過出來吧可能有一段時間",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:17,484",
+    "end_time": "00:02:19,855",
+    "content": "就懷疑的色彩吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:19,855",
+    "end_time": "00:02:21,757",
+    "content": "把一眼天發生的事情",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:21,757",
+    "end_time": "00:02:23,149",
+    "content": "到底是怎么回事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:23,149",
+    "end_time": "00:02:26,240",
+    "content": "有個朋友說是我也想說了在追問自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:26,240",
+    "end_time": "00:02:27,290",
+    "content": "Prematial circuit",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:27,290",
+    "end_time": "00:02:29,754",
+    "content": "所以那些事前的理解是不是对的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:29,754",
+    "end_time": "00:02:34,697",
+    "content": "可能这过去的经历都有关系吧你要想想想说是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:34,697",
+    "end_time": "00:02:36,024",
+    "content": "吸息",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:36,024",
+    "end_time": "00:02:37,281",
+    "content": "成交的性爱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:37,281",
+    "end_time": "00:02:42,610",
+    "content": "反覆的,他當然是在一定的時間背頂下的就是王二哥命令",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:42,610",
+    "end_time": "00:02:44,210",
+    "content": "人性受壓力的傷",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:44,210",
+    "end_time": "00:02:48,485",
+    "content": "然后不断追问那个时候人对性爱会有怎么样的理解",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:48,485",
+    "end_time": "00:02:51,110",
+    "content": "然后一成一双的盘了一下去边",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:51,110",
+    "end_time": "00:02:52,567",
+    "content": "大概就这么一种动",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:52,567",
+    "end_time": "00:03:04,992",
+    "content": "我失掉就是要一件一件事情的来呗我当然我兴趣对那个历史实际整个的心情但是我宁愿一件一件的去分析",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:04,992",
+    "end_time": "00:03:12,752",
+    "content": "我跟不一樣的地方就是我來四十歲以前一直是做技術我媽媽可以辦一個事情也像一個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:12,752",
+    "end_time": "00:03:14,694",
+    "content": "下一个功能试一样去放了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:14,694",
+    "end_time": "00:03:16,733",
+    "content": "我昨天跟了一個人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:16,733",
+    "end_time": "00:03:23,659",
+    "content": "香港的朋友在打电话说他在小时候我在小时候他看了半天他看不太明白是什么意思",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:23,659",
+    "end_time": "00:03:26,711",
+    "content": "因为那个里面有很多大路的事情",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:26,711",
+    "end_time": "00:03:32,657",
+    "content": "小說裡他講一個故事一個人對王大大跟美玲給提了一條提商了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:32,657",
+    "end_time": "00:03:35,395",
+    "content": "然後聽得很彈,覺得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:35,395",
+    "end_time": "00:03:42,812",
+    "content": "回头学种回头学种然后他就老要追问一下为什么人家能够替我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:42,812",
+    "end_time": "00:03:46,163",
+    "content": "这写了很多大字报,论它自己被踢上了是。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:46,163",
+    "end_time": "00:03:53,888",
+    "content": "这要用中文讲起来可能就比较深动可是我又不知道可以翻译成外国语言就怎么样了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:53,888",
+    "end_time": "00:03:56,199",
+    "content": "他被提上了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:56,199",
+    "end_time": "00:04:19,286",
+    "content": "聽得他生之氣上了,所以他歸頭學著當時在羅哈哥面裡,一人被提成這種傷大家都覺得很好笑,覺得很有意思但是他自己老要討論他受傷的一件事本身黑色英文肯定是的,不過我自己覺得他是一種真實的黑色英文黑色英文很真實的黑色英文,因為",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:19,286",
+    "end_time": "00:04:23,944",
+    "content": "中国有一些历史实际本身就是黑造幼姆斯的实际",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:23,944",
+    "end_time": "00:04:30,288",
+    "content": "北京和肯定是現代化了,但也越邊越炒了。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:30,288",
+    "end_time": "00:04:47,576",
+    "content": "你沒有什麼也在表現你的手動呢嗯你比上那些大屋頂的房子你們不覺得他臭嗎所以錄影的是大屋頂謝謝我也知道他們的用意是刻意的詳施北京漂亮一點按結果是音樂作業難看",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:47,576",
+    "end_time": "00:05:06,297",
+    "content": "我想可能过一些年就能想起来不过你 你要是在黑色涌货之中生活的时候你的涌货感就没有了得等它过去以后才会那当然中国本身就大所以当然是最大的同性链国家了这个就没有问题",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:06,297",
+    "end_time": "00:05:18,158",
+    "content": "这也说到孩子们就带点专门信了那好多代表说一些西方的性款磨迹病被认为是性款磨迹病了在中国就是用飞性的渠道也能传人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:18,158",
+    "end_time": "00:05:25,622",
+    "content": "他不如说 戴富告诉我的最新的区道那是非常非常隐形干颜在国外就是新车摸区道挺重要的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:25,622",
+    "end_time": "00:05:29,629",
+    "content": "那是我一人的你没相信是幸福的吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:29,629",
+    "end_time": "00:05:32,987",
+    "content": "啊出口的文化是混合啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:32,987",
+    "end_time": "00:05:40,000",
+    "content": "我觉得是好的这样大家能有一点平常性互相有好的相处吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:40,000",
+    "end_time": "00:05:42,555",
+    "content": "一面只要不是非法都好吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:42,555",
+    "end_time": "00:05:46,699",
+    "content": "反正现在已经比过去松很多了吧放了一点稍微",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:46,699",
+    "end_time": "00:05:50,392",
+    "content": "過去還是自己這個人自覺的在受控制",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:50,392",
+    "end_time": "00:06:10,399",
+    "content": "不过这个话很不容易解释了因为它比较多最不幸的现在特别幸运现在我们说的是中国新闻媒介新闻的问题对那个是表面上的是实际上还是大家思愿在受控制",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:10,399",
+    "end_time": "00:06:12,742",
+    "content": "几个米放打在里面的呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:12,742",
+    "end_time": "00:06:19,511",
+    "content": "你看我现在我觉得我是一个年轻人因为在单位里头人家就叫我同志",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:19,511",
+    "end_time": "00:06:24,267",
+    "content": "因為我同志的,可是我要是一個老人的你叫我先生",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:24,267",
+    "end_time": "00:06:26,329",
+    "content": "你去别河内了就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:26,329",
+    "end_time": "00:06:33,987",
+    "content": "我也小人的听把我叫同志因为最并不意味的是党人了或是什么呢因为我还比较年轻",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:33,987",
+    "end_time": "00:06:38,586",
+    "content": "就是党的意思就是说你们都每个人都很想住大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:38,586",
+    "end_time": "00:06:52,629",
+    "content": "没有如果打了就是你不够好所以他就假设每个人那些如果打了我被叫的同志就是说我还年轻还有机会的意思那我要是被叫的先生的就是我老的没有机会的意思",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:52,629",
+    "end_time": "00:07:00,803",
+    "content": "我的意思还是等后人的方法还是人自愿受控制过去好像是公共厕所里面吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:00,803",
+    "end_time": "00:07:01,932",
+    "content": "火汗在面里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:01,932",
+    "end_time": "00:07:04,882",
+    "content": "在那裡傳的各種正式的謠言",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:04,882",
+    "end_time": "00:07:13,742",
+    "content": "然后假如穿摇眼被领导教计谈话的时候,人家问到你,这些话从哪儿听来的,就说是在测索里面听见。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:13,742",
+    "end_time": "00:07:23,687",
+    "content": "我过去在北大工作就知道地下文学是在客桌上大家拿刀子客的客桌上上面有一些比较丰富多彩的话",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:23,687",
+    "end_time": "00:07:25,706",
+    "content": "古は想 Days",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:25,706",
+    "end_time": "00:07:28,579",
+    "content": "北大一个教师有一个桌子叫同一链专作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:28,579",
+    "end_time": "00:07:35,786",
+    "content": "你装得像客裁很长的可能能跳作文学了是最重要的事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:35,786",
+    "end_time": "00:07:39,543",
+    "content": "제가",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:39,543",
+    "end_time": "00:07:48,564",
+    "content": "协议要提军训对要到军队的收信里协议协议要提军训多么好啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:48,564",
+    "end_time": "00:07:56,610",
+    "content": "排長對我多好 同時同住然後同睡 也是睡的一個被窩裡大個打擊就這麼一個故事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:56,610",
+    "end_time": "00:08:00,774",
+    "content": "它沒有成人?啊沒有成人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:00,774",
+    "end_time": "00:08:02,615",
+    "content": "这是非常正式的线",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:02,615",
+    "end_time": "00:08:05,959",
+    "content": "但是中國同一念者的日子也是不好過的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:05,959",
+    "end_time": "00:08:10,309",
+    "content": "你明白呢不知道一般的中国人都比较打着巧吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:10,309",
+    "end_time": "00:08:24,204",
+    "content": "有好多人跟我写证说他就是从白天勇真的同性联呐这有问题就是比较困难因为长期来中国人的传统文化比较如叫其实又不是叫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:24,204",
+    "end_time": "00:08:26,163",
+    "content": "反正是没有什么可比性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:26,163",
+    "end_time": "00:08:32,403",
+    "content": "不想粥料那么正式但是也很像一种粥料不是一种单纯的文化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:32,403",
+    "end_time": "00:08:33,815",
+    "content": "здесь стреляет quiere",
+    "confidence": 0,
+    "language": "ru"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:33,815",
+    "end_time": "00:08:39,072",
+    "content": "他就不是说辱笑了我觉得我也比较过因为那个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:39,072",
+    "end_time": "00:08:48,532",
+    "content": "就是这个形式还一样,就是西方的基督教或者什么呀,都是提供一个生活的目的,然后让你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:48,532",
+    "end_time": "00:08:55,532",
+    "content": "按照這個生活方式生活中國這個儒教的是挺為了生活方式但是沒有目的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:55,532",
+    "end_time": "00:08:57,018",
+    "content": "letter Timrhan than",
+    "confidence": 0,
+    "language": "tr"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:57,018",
+    "end_time": "00:08:59,251",
+    "content": "那一次也差不多,反正放置身搖了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:59,251",
+    "end_time": "00:09:00,855",
+    "content": "这如笑的特点",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:00,855",
+    "end_time": "00:09:09,784",
+    "content": "不是,就是中國這個國家它就像一個如校國家是個規定生活要目的但是生活一定要方式有了方式就夠了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:09,784",
+    "end_time": "00:09:13,068",
+    "content": "Me service to on me you know still better still",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:13,068",
+    "end_time": "00:09:14,138",
+    "content": "還怕吃完",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:14,138",
+    "end_time": "00:09:20,216",
+    "content": "我別累了那是一件不可避免的事情害怕不害怕都一樣了 是的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:20,216",
+    "end_time": "00:09:22,640",
+    "content": "那道德觀念的基礎啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:22,640",
+    "end_time": "00:09:25,572",
+    "content": "你要是從我個人的信念來說的話",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:25,572",
+    "end_time": "00:09:32,951",
+    "content": "我并不希望有什么东西成为新的大能观念的基础我还相信个人相信个人的智慧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:32,951",
+    "end_time": "00:09:36,224",
+    "content": "把自己的價格關起來",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:36,224",
+    "end_time": "00:09:38,010",
+    "content": "我才认为通教是好的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:38,010",
+    "end_time": "00:09:39,543",
+    "content": "算是好的因为",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:39,543",
+    "end_time": "00:09:48,283",
+    "content": "像新教的一种比较更随和的宗教更容易看出来吧它有确实有教育教育人帮助人的作诱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:48,283",
+    "end_time": "00:09:50,029",
+    "content": "開始中掉它",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:50,029",
+    "end_time": "00:09:58,100",
+    "content": "我認為它最主要的還不是它的作用應該還是說它提供那種生活的目的它是宋教的主題了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:58,100",
+    "end_time": "00:10:18,058",
+    "content": "我也不信強述,我還說得對不對可能應該說是個自由主義今天我們要介紹作家王小波他公司的年前就開始發表作品可知道最近幾年才掌握頭角因為他的近期作品當中發展出了一種自己的風格非常獨特,也很新鮮這引起了獨者和評論界的重視",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:18,058",
+    "end_time": "00:10:22,101",
+    "content": "最近他出版了一本中平小说集《黄金时代》",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:22,101",
+    "end_time": "00:13:46,134",
+    "content": "這裡面大概是他的三天代表的做,第一是黃金時代,第二是隔壁時期的愛情,還有我的鷹陽兩屆。對這本書有好評,也有爭議。下面國情黃小波自己來談談,結果,你的作品當中有很多是以愛情所為主題的。還沒有寫了照男少女的愛情,夫妻之間的愛情甚至還有忽然戀。可是我覺得你的愛情當中沒有失意,不必愛不浪漫。就算說有你孩子去趕了十幾年三路,像他這個一種人去表達愛情。最後說完的話是,媽媽媽,我要家裡,我要做你的老婆,就是怎麼會這樣。這可能跟我個人經歷和寫到的生活都有關係吧。然後個人為例吧,我是經歷文革、插隊。當你問教師,當街道工廠的工人,最後又幫了大學教師,當中學者,如今到達到達,你將近四十二,四十已經過了吧。在寫,情謠那樣的寶藍王子,陳天上女,因為我自己都覺得挺潘草。那你不覺得愛情是神聖嗎?愛情當然是神聖,但是他在各種各樣的生活裡,愛情都是神聖,誰愛情在這神聖上的。你的寫的那些女孩子,各個都非常漂亮,就到了,人到中年也是孫女優存。跟寫的這些男主人,男的角色,要不就是特意吵,要不就是啥,要不就有毛病,是不是這樣?我可能有一點了吧,我雖然不就很在意,你先主義的理論,可能對他觀點是怎樣,像一個前外女的女生主義者,你不成了這個假保譽了,變了這種男人都有的,像假保譽了。你的主義的當中,有些主義者說你是黑色幽默,不像說像你描寫,我應該是說的五道場面,一個人被一個一大堵場的,場毛給扎裝了,其中四五指還漏在身體外的,然後這個人就站到熬的產校,主義者在邊上看到了,說心裡說,就發原因不會發腐營了,你是不是在刻意的追求,講的一種手法用意境?我覺得也沒有很刻意的在追求,我那時候看到的生活就是這樣的,你看像我這個年齡的人,經歷過文革、經歷過五道,經歷過很多荒談的事件,今天看起來像很沉弄、很悲慘,但當我是個孩子的時候,看起來就是覺得很懂,真的不覺得有別的,那你覺得這些最大人,拿血都正在醒嗎?是啊,別人可能都這樣瞄解,但我個人覺得,對於好的基產的世界,除了黑色的音樂,沒有更何時的手法來寫了,我個人寫作的準則是,在舉衷的衛星,取心的衛重,特別基產的故事,你在很嚴重的那個曲線的話,就太沉弄,太沉弄了。你的作品當中有多少社會?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:46,134",
+    "end_time": "00:21:11,788",
+    "content": "性描寫,尽管有人说你的性描寫是很棒的,是单净的,是那种不是你握错的。你自己不觉得这种描寫的话会有四所用,不接着是何乐乐。首先,比如说我小河里的神的性描寫,都是故事必须的,情点所必须的。其实我觉得人总是反独卷看的水平太低,而他独卷需要引导啊,需要去下去,这样子再来说好这样说,其实也不是这样,你觉得不是要引导吗?怎么说,你看近青年小夫在独点,谁会少了,因为感觉小夫,独留水平都很高。我还在写作为说,我从来不觉得自己可以当人在那边顶纹的功夫,是什么的。我个计划我还是许为何独人在平冷的对话,比如我们总交流,有一种交流。那你前一时当后有没有,今晚你怎么说了,前一时当后有没有计划,用性描寫来信独者来,出生你作品。我肯定是没有的,因为这个书,比这个书而第一本书,第一本书出现了都有困难,还有你亲戚有这个描寺,人出书都很大的困难,还说什么促销的。我想问你,你家里有怎么几个?前五个,你三个老四。兄弟呢?兄弟三个老四。那你的作品当中都是一笔第一人称写的,这个主人都叫娃,那就是你自己吧。我可能这种说的,我觉得不能这么说。为什么?小时候有些事都按照我一个人上,我老婆都不敢。我其实是一个非常老师的人,是吧?老婆没有对你有怀疑吗?对,没有,确实是很可惜的。那我们就归写先信你。谢谢你。就是我们的作家广小波。这在买的都是什么,欧城注重什么它又宽烖,数材集合编辨识型双,我在与你还有一个主人这是经受的漸漏提倒。这个广东师他写了一个都是直觉,渺乔的表面产品成我就没了,它又大概就没动了,我感觉大家可能要通缉地拉,说说的很小时候,最后写唱的以后,你不要再改的,你自己就先把他把你揪住出宝,在那儿和顶着过面,有这样的感觉,这个时候是我这个写的两个人人。你这个就是介绍说明,那就是其实我听了很多人都认为,像你他华军时代里高,那个华军时代是写的最好,你很小时候,现在不那么我,那他说我或者说,我听说你明白为什么,会有这种都这样的公司。我现在,其实可能,也可能是自吃的,但我觉得这种感觉,都跟大家所共有的,但现在小时候,家人,他好像都会有一两专,刚谈一专的精神,不是他去吃他过去,不必要,因为现在的反方,有种学校,就是思想简直,不太完美,他能这样一生,这一生都有一点 operating,各位所分享的是生活 afar的事件,对对吗?生活的原因是什麼?為什麼會是這樣?為什麼會是這樣?所以你對生活的發現是什麼?就是譬如說你為地本是時光有生活的對生活有什麼樣的發現?我發現生活可能會起初發揮的生活有很多虛偽的成分像洋蔥頭一樣一層一層的皮兒都是假的但是我撥到最後還沒撥到西爾娜那你下一步要看所是什麼樣的問題?下一步不想寫那種自分自打的小說我只想寫想像的小說我快不得不笑但是想像的脈絨是什麼?你還是有一個不喜要的?那當我想到的時候才能真正地知道所以想像沒開始之前對一個地方是未知的所以才有意思像中央傳統的看法是把文化當作一種什麼這個我會當那種工具是你來控制人的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:21:11,788",
+    "end_time": "00:22:21,819",
+    "content": "他以為自己心目中的話,當然不是這樣。我自己心目中的文化就包括藝術,而科學基本上,從某種意義上是黨同的,都是點人帶來幸福的快樂的東西。就一樣。就像所謂《東方主義》裡說,當然上會各種整體更忽視個人的尊嚴啊,什麼聲明。我不相信這種東西,我還是我很反對。我覺得以前回了必須要有尊嚴。如果個人的尊嚴只有整體這種生活不合遺,所以一生,生涯就是一個任何地方都被當作一個人物來看的,不是一個東西來看的。那中國人他過去可能有尊嚴,他在黨內啊,或者在內內,或者在自己家裡有尊嚴,他在那裡有尊嚴,沒你不愉快。去買了一個東西來看的。我希望買了一個東西,都被當作一個人物來看的。這就是我說的字,我把我鋸蟻的。",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

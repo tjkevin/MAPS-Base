@@ -1,0 +1,514 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,764",
+    "content": "接下来我欢迎新城",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,764",
+    "end_time": "00:00:03,069",
+    "content": "표정 bissual sposób 졸개 들 gravity 짚짝",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:03,069",
+    "end_time": "00:00:04,161",
+    "content": "然后它就有一只",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:04,161",
+    "end_time": "00:00:06,274",
+    "content": "期末先生 Hit it",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:06,274",
+    "end_time": "00:00:10,186",
+    "content": "要是不介意也可以签我的我们这个镜头呢当时",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:10,186",
+    "end_time": "00:00:11,880",
+    "content": "往中谐这张位置一到一百",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:11,880",
+    "end_time": "00:00:19,675",
+    "content": "那必須有老戰也不好我們要戰4個小時那拿受得了所以新陳今天其實我們有一個小跳",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:19,675",
+    "end_time": "00:00:24,352",
+    "content": "如果挑战成功就送出新年文創离包一个给我们直播所以以为这个新年文",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:24,352",
+    "end_time": "00:00:26,792",
+    "content": "這個是讓你送我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:26,792",
+    "end_time": "00:00:30,030",
+    "content": "欸又在想我會說一句金週話再就是說別人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:30,030",
+    "end_time": "00:00:33,177",
+    "content": "你就是个少你就是个少你就是个少",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:33,177",
+    "end_time": "00:00:34,569",
+    "content": "就是给大家收的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:34,569",
+    "end_time": "00:00:39,914",
+    "content": "一起哎呦这个差别就很大了对啊哎呀能不能再说一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:39,914",
+    "end_time": "00:00:41,707",
+    "content": "哦,這個也好聽",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:41,707",
+    "end_time": "00:00:45,462",
+    "content": "但前我們跟我們號碼有一點點區別這個會不會發",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:45,462",
+    "end_time": "00:00:53,210",
+    "content": "就是那種是那個熱乾麵之後然後嘴巴裡面很有力量感的那種就是一種掉就在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:53,210",
+    "end_time": "00:00:54,402",
+    "content": "就很重",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:54,402",
+    "end_time": "00:00:59,130",
+    "content": "我到舞台就有这种感觉明明他很何来的跟我说句话他感觉跟我在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:59,130",
+    "end_time": "00:01:01,097",
+    "content": "但他又很熱心我剛剛有...",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:01,097",
+    "end_time": "00:01:02,459",
+    "content": "行了我们不是先把这个新电温程",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:02,459",
+    "end_time": "00:01:05,706",
+    "content": "好后台的工作人会把这个礼物呢因为这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:05,706",
+    "end_time": "00:01:07,748",
+    "content": "一条许可不可以这样好了用三个词",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:07,748",
+    "end_time": "00:01:11,867",
+    "content": "金融化又回到鳩蝶海裡二、三個詞",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:11,867",
+    "end_time": "00:01:14,671",
+    "content": "完美什麼翻譯翻譯完美什麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:14,671",
+    "end_time": "00:01:16,414",
+    "content": "在在水面在水面你看你让我说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:16,414",
+    "end_time": "00:01:18,079",
+    "content": "对啊这句完美什么后面两个字",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:18,079",
+    "end_time": "00:01:19,677",
+    "content": "我會被重殺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:19,677",
+    "end_time": "00:01:21,588",
+    "content": "呀要朝廿宇都可以了可以记痯的许多业",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:21,588",
+    "end_time": "00:01:29,921",
+    "content": "我們是方言的不但算說了或者叫三倍快樂三倍快樂這又有聽到三倍快樂",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,921",
+    "end_time": "00:01:32,570",
+    "content": "我這麼端水的人我還說這種話是對",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:32,570",
+    "end_time": "00:01:36,081",
+    "content": "可能我也希望了我也隨便說說先花個坑再說",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:36,081",
+    "end_time": "00:01:37,251",
+    "content": "看到他另外一面对看到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:37,251",
+    "end_time": "00:01:38,810",
+    "content": "對 顯示會來開放式",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:38,810",
+    "end_time": "00:01:43,121",
+    "content": "好好熟交論第一個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:43,121",
+    "end_time": "00:01:51,394",
+    "content": "可以对 那太太好了第三个章学那行行行行或者谁训练这一学真的是今天已经了我们这个经典",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:51,394",
+    "end_time": "00:01:54,871",
+    "content": "是我们这是开放式的问题嘛好 下一个问题我们门稍微关起来",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:54,871",
+    "end_time": "00:01:56,096",
+    "content": "就在天赐的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:57,271",
+    "end_time": "00:01:59,533",
+    "content": "我们没有因为我们这个大平是切掉的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:59,533",
+    "end_time": "00:02:04,724",
+    "content": "他真是先清楚表達辦理補市場",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:04,724",
+    "end_time": "00:02:06,337",
+    "content": "是皇倫戰具的幸福",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:06,337",
+    "end_time": "00:02:08,407",
+    "content": "小高老师在这里就成了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:08,407",
+    "end_time": "00:02:10,073",
+    "content": "你看到不要小董老师跟我在这里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:10,073",
+    "end_time": "00:02:14,703",
+    "content": "那我们唱的同一首歌是不对对吧我们两个一块唱的啊对啊对啊小老的在这里也是这样的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:14,703",
+    "end_time": "00:02:19,100",
+    "content": "对上了 这个就是由元 好不好最后给我们直播间的朋友送一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:19,100",
+    "end_time": "00:02:21,342",
+    "content": "2026呢 希望大家",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:21,342",
+    "end_time": "00:02:24,099",
+    "content": "不能忘記因為這個錄下來做成聲音的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:24,099",
+    "end_time": "00:02:26,177",
+    "content": "那祝大家2026",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:26,177",
+    "end_time": "00:02:36,186",
+    "content": "好一下子被人老幹不了哈哈哈哈因为你去要录下来好朋友录下来我一下就认真了我要说起来录下来就走出了你的舒适区了在我就拍一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:36,186",
+    "end_time": "00:02:38,818",
+    "content": "還是更喜歡吉他不訓的你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:38,818",
+    "end_time": "00:02:41,270",
+    "content": "非常兴致有拍有很多的内容我先",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:41,270",
+    "end_time": "00:02:44,622",
+    "content": "好没问题就这么定了来拍照拍理的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:44,622",
+    "end_time": "00:02:47,265",
+    "content": "我站着吗对你站着站着我来看来看",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:47,265",
+    "end_time": "00:02:51,343",
+    "content": "比6吧比7000年多的比6比6000年多的比5今年比66",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:51,343",
+    "end_time": "00:02:52,961",
+    "content": "我没有指引",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:52,961",
+    "end_time": "00:02:54,259",
+    "content": "확실히 오래 бог wished",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:54,259",
+    "end_time": "00:02:56,161",
+    "content": "新的这个POS 100 到2026年过完",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:56,161",
+    "end_time": "00:02:57,443",
+    "content": "也快了也没几个小时了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:57,443",
+    "end_time": "00:02:58,903",
+    "content": "可以可以可以刚才是打的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:58,903",
+    "end_time": "00:03:01,128",
+    "content": "跟浪 salut混属敵人叫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:01,128",
+    "end_time": "00:03:02,943",
+    "content": "这就没有呢现在确定可以达",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:02,943",
+    "end_time": "00:03:03,998",
+    "content": "大家先多 Ein停",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:03,998",
+    "end_time": "00:03:08,992",
+    "content": "有没出来有了要再笑我了没有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:08,992",
+    "end_time": "00:03:14,723",
+    "content": "好了好了谢谢你啊我讲新诚是预示不荒的没关系可以跟她开玩笑对我一点都不荒",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:14,723",
+    "end_time": "00:03:21,189",
+    "content": "他心態非常好謝謝謝謝一位到傳一下我的OKOK好不見辛苦了拜拜拜拜",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

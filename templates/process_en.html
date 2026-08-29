@@ -1,0 +1,239 @@
+{% extends "base_en.html" %}
+
+{% block title %}Data Processing - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Data Processing</h1>
+
+    <div class="card mb-3 border-primary">
+        <div class="card-body py-3">
+            <div class="fw-semibold mb-2">Processing mode</div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="procMode" id="modeManual" value="manual" checked>
+                <label class="form-check-label" for="modeManual">(1) Manual processing</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="procMode" id="modeAlgorithm" value="algorithm">
+                <label class="form-check-label" for="modeAlgorithm">(2) Algorithm / batch processing</label>
+            </div>
+            <p class="small text-muted mb-0 mt-2">Manual: human review and transcription. Algorithm: automated pipelines (e.g. ASR, multimodal extraction).</p>
+        </div>
+    </div>
+
+    <div id="algorithmProcessingPanel" class="d-none mb-4">
+        <div class="alert alert-info mb-0">
+            <strong>Algorithm mode</strong>: configure batch jobs or APIs on the server; this page focuses on manual task flow. Results can be searched under <em>Data Management</em>.
+        </div>
+    </div>
+
+    <div id="manualProcessingPanel">
+    <ul class="nav nav-tabs mb-4" id="processingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="type1-tab" data-bs-toggle="tab" data-bs-target="#type1" type="button" role="tab">
+                Type 1 Tasks (Inspection)
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
+                Type 2 Tasks (Transcription)
+            </button>
+        </li>
+    </ul>
+    
+    <div class="tab-content" id="processingTabsContent">
+        <!-- Type 1 Tasks -->
+        <div class="tab-pane fade show active" id="type1" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Video Player</h5>
+                        </div>
+                        <div class="card-body">
+                            <video id="videoPlayer1" class="w-100" controls>
+                                <source src="" type="video/webm">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Text Inspection</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="inspectionForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Original Text</label>
+                                    <div id="originalText" class="form-control" style="height: 150px; overflow-y: auto;"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="corrections" class="form-label">Corrections</label>
+                                    <textarea class="form-control" id="corrections" rows="5"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comments" class="form-label">Comments</label>
+                                    <textarea class="form-control" id="comments" rows="3"></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-success" name="action" value="approve">
+                                        <i class="fas fa-check"></i> Approve
+                                    </button>
+                                    <button type="submit" class="btn btn-danger" name="action" value="reject">
+                                        <i class="fas fa-times"></i> Reject
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Type 2 Tasks -->
+        <div class="tab-pane fade" id="type2" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Video Player</h5>
+                        </div>
+                        <div class="card-body">
+                            <video id="videoPlayer2" class="w-100" controls>
+                                <source src="" type="video/webm">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Transcription</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="transcriptionForm">
+                                <div class="mb-3">
+                                    <label for="transcription" class="form-label">Enter Transcription</label>
+                                    <textarea class="form-control" id="transcription" rows="10"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Transcription
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function syncProcessMode() {
+    const manual = document.getElementById('modeManual').checked;
+    document.getElementById('manualProcessingPanel').classList.toggle('d-none', !manual);
+    document.getElementById('algorithmProcessingPanel').classList.toggle('d-none', manual);
+}
+document.getElementById('modeManual').addEventListener('change', syncProcessMode);
+document.getElementById('modeAlgorithm').addEventListener('change', syncProcessMode);
+syncProcessMode();
+
+// Type 1 Task Handling
+document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const action = e.submitter.value;
+    const formData = {
+        action: action,
+        corrections: document.getElementById('corrections').value,
+        comments: document.getElementById('comments').value
+    };
+    
+    try {
+        const response = await fetch('/api/process/inspect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Submission failed');
+        
+        const data = await response.json();
+        alert(data.message || 'Inspection submitted successfully');
+        // Load next task
+        loadNextTask(1);
+    } catch (err) {
+        console.error('Submission error:', err);
+        alert('Failed to submit inspection');
+    }
+});
+
+// Type 2 Task Handling
+document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = {
+        transcription: document.getElementById('transcription').value
+    };
+    
+    try {
+        const response = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Submission failed');
+        
+        const data = await response.json();
+        alert(data.message || 'Transcription saved successfully');
+        // Load next task
+        loadNextTask(2);
+    } catch (err) {
+        console.error('Submission error:', err);
+        alert('Failed to save transcription');
+    }
+});
+
+// Load next task based on type
+async function loadNextTask(type) {
+    try {
+        const response = await fetch(`/api/process/next-task?type=${type}`);
+        if (!response.ok) throw new Error('Failed to load next task');
+        
+        const data = await response.json();
+        if (data.task) {
+            const videoPlayer = document.getElementById(`videoPlayer${type}`);
+            videoPlayer.src = data.task.video_url;
+            
+            if (type === 1) {
+                document.getElementById('originalText').textContent = data.task.text;
+                document.getElementById('corrections').value = '';
+                document.getElementById('comments').value = '';
+            } else {
+                document.getElementById('transcription').value = '';
+            }
+        } else {
+            alert('No more tasks available');
+        }
+    } catch (err) {
+        console.error('Error loading next task:', err);
+        alert('Failed to load next task');
+    }
+}
+
+// Initialize first tasks
+loadNextTask(1);
+loadNextTask(2);
+</script>
+{% endblock %} 

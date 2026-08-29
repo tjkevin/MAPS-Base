@@ -1,0 +1,4 @@
+transformers>=4.38.0
+opencv-python>=4.9.0.0
+Pillow>=10.0.0
+

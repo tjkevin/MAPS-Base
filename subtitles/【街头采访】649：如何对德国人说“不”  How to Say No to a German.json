@@ -1,0 +1,242 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:20,341",
+    "content": "Nein, dieses kleine Wörtchen fällt mir manchmal ganz schön schwer aus zu sprechen und deswegen werde ich heute hier in Berlin die Leute fragen, wie sie im Alltag nein sagen. Los geht's! Wann hast du zum letzten Mal Nein zu etwas gesagt? Gestern erst!",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:20,341",
+    "end_time": "00:00:23,368",
+    "content": "So eine Verabredung. Hat ich keine Lust drauf, ganz ehrlich.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:23,368",
+    "end_time": "00:00:26,277",
+    "content": "Und wie war das? Wie wurdest du gefragt und wie hast du gern Antworten?",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:26,277",
+    "end_time": "00:00:32,246",
+    "content": "Ich wurde angerufen und geantwortet, wie habe ich geantwortet, einfach, dass ich keine Lust habe, ehrlich sein.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:32,246",
+    "end_time": "00:00:33,496",
+    "content": "Und wie war die Reaktion?",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:33,496",
+    "end_time": "00:00:35,871",
+    "content": "völlig in Ordnung und da freien, nennt man es auch mal hin.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:35,871",
+    "end_time": "00:00:42,408",
+    "content": "Wann war das letzte Mal, dass du Nein zu jemandem gesagt hast? Träglich mehrmals, heute.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:42,408",
+    "end_time": "00:00:44,073",
+    "content": "Sag mal ein Beispiel, eine Situation.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:44,073",
+    "end_time": "00:01:05,427",
+    "content": "Also er hat mich gefragt, ob ich irgendwo hingehen will. Ich meine, nein, das ist das. Ja, hier. Wir wollten irgendwo hingehen. Ach ja, wir wollten zu einem verlassenen Ort mit mir gehen. Hier Belez, heisst du, Belez. Heuch nein gesagt, kein Bock drauf. So hast du es gesagt, nein, hab ich kein Bock drauf. Vorhin erst. Auf Arbeit, ja.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:05,427",
+    "end_time": "00:01:15,125",
+    "content": "Wie war die Situation? Positiv. Was wurden Sie gefragt? Ob ich was mache, war nicht gerne machen wollte.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:15,125",
+    "end_time": "00:02:08,550",
+    "content": "War das keine Arbeitsanweisung? Muss man ja manchmal ja sagen? Nein, war Kennearbeit anfällig. Nein, will ich nicht machen. Brauch ich nicht machen. Alles gut. Haben Sie das wirklich so gesagt? Will ich nicht machen? Brauch ich nicht. Ich brauche es nicht. Genau, andersrum. Gestern im Team Meeting habe ich Nein gesagt, als man mir vorgeschlagen hat, eine Variante zu verändern und meine Arbeitsweise, die für mich technisch keinen Sinn macht. Ich wollte Ihnen das bitte weiter hin, andere Wege suchen, um es so weiter beizubehalten, wie es passend ist. Ich wurde gefragt, ob ich eine Theaterkarte nutzen wollte, die mich nicht kosten würde. Aber da ich schon eine Verabredung hatte, hab ich gesagt, nein, ich würde sich auf die Theaterkarte. Warum hab ich zum letzten Mal Nein gesagt? Wollen Sie eine Fahrkarte für die BVG kaufen? Nein. Wer wollte Ihnen denn eine Fahrkarte verkaufen? Der Fahrkarte hat ein Automat.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:08,550",
+    "end_time": "00:02:13,522",
+    "content": "Oh God, ee, ee, Juliandramatic'ım diyor,",
+    "confidence": 0,
+    "language": "tr"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:13,522",
+    "end_time": "00:02:37,962",
+    "content": "Ich bin immer der, ich sag immer ja, ich bin die Jahr-Sagerin. Oh nein. Wie lebt es sich als Jahr-Sagerin? Sehr schwer. Man sollte man nein sagen, also die Grenzen setzen. Das merkt man erst später. Mhm. Und wie so fällt dir das so schwer? Ähm, weil ... was ich nicht ... Ich bin einfach so erzogen. Ich ...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:37,962",
+    "end_time": "00:02:39,002",
+    "content": "Ich wollte immer das ...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:39,002",
+    "end_time": "00:02:40,161",
+    "content": "Das...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:40,161",
+    "end_time": "00:02:58,293",
+    "content": "Die Menschen mich mögen. Eine Nein-Sagen fällt immer schwer. Erst mal, ich bin eher ein Ja-Sauger. Also so. Erzähl mir mehr. Mehr? Also, wie bist du ein Ja-Sauger? Jetzt sind's ein Jobangebot, was ich nicht machen wollte. Und konnte dann sozusagen nicht Nein-Sagen sein. Hab Ja gesagt.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:58,293",
+    "end_time": "00:03:38,706",
+    "content": "Moment, sagt das, erklär mir das noch mal von vorne. Es ging letztendlich um eine Theaterperformance, wo ich quasi im Background sein sollte und kohografic arbeiten sollte. Die haben mich als Performer gefragt, und dann konnte ich nicht einsagen. Wie sind wir als Deutsche? Sind wir gut im Nein sagen? Nein, schlecht. Ich glaube, auch schlecht. Nur Japaner sind noch schlechter als wir. Diese Frage kommt von einer japanischen Zuhörerin, Zuschauerin von uns, die hat gefragt, hey, mir fällt es so schwer, nein zu sagen, weil in Japan machen wir das nicht. Genau.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:38,706",
+    "end_time": "00:04:07,677",
+    "content": "Ja, ja, ich weiß das. Und du sagst, wir sind da so ähnlich wie die Japaner. Wir sind doch so direkt angeblich. Die japanische Mitte-Morne ist öfter nein als ich. Das war der Weg, die ich schon gewöhnt hat. Das ist auch eine Weltgit, in der man das machen kann. Genau. Unsere VG. Und glaubst du, dass wir Deutschen alle eher gut oder eher schlecht im Linen sagen sind? Nein, ich glaube eher schlecht. Also, was ich aus meinen Familien und Freundes keines Kenne viele sagen, öfters nein, ja, aber die meisten aus meiner Familie sagen immer ja, um...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:07,677",
+    "end_time": "00:04:11,844",
+    "content": "wollen immer allen helfen, kommt vom Dorf, das man sowieso in den nächsten Lieben.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:11,844",
+    "end_time": "00:04:16,499",
+    "content": "Da freut man sich immer, wenn er nachbarn mal rüberkuckt und einfach mal Fragen stellt. Wie geht's dir? Was machst du?",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:16,499",
+    "end_time": "00:04:25,973",
+    "content": "Und hast du mal Zeit, mir kurz zu helfen. Na klar, komm ich rüber. Uuuuh, ähm... Wir Deutschen sagen, glaub ich, ziemlich gerne nein. Lieber nein als ja.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:25,973",
+    "end_time": "00:04:27,812",
+    "content": "für ihre meiner Aufassung.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:27,812",
+    "end_time": "00:04:30,697",
+    "content": "Ich glaube, die Berliner sind ganz gut im Reinsagen.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:30,697",
+    "end_time": "00:04:53,362",
+    "content": "Vielleicht andere Gegenden, wo es schwerer fällt. Aber ich glaube, die Deutschen können ganz gut einsehen sagen. Aber wir Berliner sind auch bekannt dafür unfreundlich zu sein. Hängt das zusammen? Ja. Wichtig. Genau. Und du bist ja nach Deutschland gezogen aus Slovenien. Wichtig. Wie sind denn die Deutschen? Sind wir gut im Nein sagen? Oder schlecht im Nein sagen?",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:53,362",
+    "end_time": "00:04:57,202",
+    "content": "Ähm... Ich würde sagen, gut.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:57,202",
+    "end_time": "00:05:13,144",
+    "content": "Wie machen wir das? Die Deutschen sind direkt her, würde ich sagen. Und die achten nicht die Gefühle von anderen. Die sagen einfach so direkt nein oder ja. Das klingt ja grausam. Wir hören nicht auf die Gschauen, nicht auf die Gefühle der anderen.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:13,144",
+    "end_time": "00:05:16,817",
+    "content": "Ja, so habe ich empfinde ich das.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:16,817",
+    "end_time": "00:05:32,555",
+    "content": "Na wir achten, glaube ich schon, ich glaube Deutschland ist ja super unterschiedlich. Berlin ist nicht München. Riesiger Unterschied. Und ich glaube schon, dass wir darauf achten, die andere Person nicht zu verletzen und er eine Ausrede oder eine Lüge zwischen schieben.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:32,555",
+    "end_time": "00:05:51,139",
+    "content": "Aber wir sollten einfach viel mehr authentisch sein zu uns stehen und die Wahrheit sagen. Also ich freue mich über deinen Vorschlag, bin heute müde und macht den Gegenvorschlag. Du müsst ja auch nicht sauer und sagst du ja cool, okay? Oder auch nicht? Das ist eine gute Frage. Ich glaube, wir sind eher...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:51,139",
+    "end_time": "00:06:45,225",
+    "content": "Ja, sagen wir bei der Arbeit. Ich hab das Gefühl, wir haben immer so einen Druck, dass wir alles machen müssen und immer durchziehen müssen und stark sein müssen. Ich glaube aber andererseits privat, hab ich das Gefühl, dass man, dass die Leute häufiger ja sagen könnten, also eher Nein sagen. Also, dass die Leute ein bisschen lebensfreudiger sein könnten und ein paar mehr Möglichkeiten und Optionen nutzen könnten, die sie haben und auch mehr Jahrdazusagen sollten sich in der Gesellschaft einzubringen und Aktivitäten und Dinge zu initiieren. Also so ein bisschen zweierlei würde ich sagen. Wie kann man ein Nein freundlich formulieren? Diese Feinheiten lernt man am besten in einem persönlichen",
+    "confidence": 0,
+    "language": "de"
+  }
+]

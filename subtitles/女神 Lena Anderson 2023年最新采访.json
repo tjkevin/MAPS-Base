@@ -1,0 +1,522 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:04,500",
+    "content": "Okay, so apparently today we have the beautiful Lida Anderson.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:04,500",
+    "end_time": "00:00:06,368",
+    "content": "Johnny is okay.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:06,368",
+    "end_time": "00:00:12,734",
+    "content": "So banana fever today, wow! We are so glad to have you here.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:12,734",
+    "end_time": "00:00:17,879",
+    "content": "coming back just for us how you doing? Happy to be here. Yeah so...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:17,879",
+    "end_time": "00:00:33,515",
+    "content": "It was a long time, isn't it? Yeah, a few years. Like, 2019 is when we last got collaborated? Yeah, that's like for musical. It's like for years going on. Share. Wow. And so first, how have you been?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:33,515",
+    "end_time": "00:00:37,009",
+    "content": "Pretty good. I haven't really been shooting too much.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:37,009",
+    "end_time": "00:00:40,515",
+    "content": "or at all really as far as boy girl goes. Yeah.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:40,515",
+    "end_time": "00:00:52,243",
+    "content": "But why do you stop shooting for Boyne Girl on a set? Actually for a little long time right? Yeah. So now? It's a really long time. Well I got sick in 2019.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:52,243",
+    "end_time": "00:01:04,198",
+    "content": "I kind of needed to take care of my health for a while. Sure. Yeah. Absolutely. That makes sense. Yeah, and then I just didn't really get back into it, you know? Yeah, exactly. And then, then...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:04,198",
+    "end_time": "00:01:05,819",
+    "content": "Uh, but hey.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:05,819",
+    "end_time": "00:01:14,555",
+    "content": "you know, sometimes you make exceptions. Yeah. I was excited when I got the call for my age. Yeah. That's the rest of the session. Oh, that's guys.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:14,555",
+    "end_time": "00:01:20,332",
+    "content": "I won't say it's a full return but it's only a return for you guys.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:20,332",
+    "end_time": "00:01:29,301",
+    "content": "So thank you for being here. So happy to be here. Thanks for having me. Yeah, well done back to shirt. So, you know, Nina, have you ever...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:29,301",
+    "end_time": "00:01:46,560",
+    "content": "Like, do you even know why you're so popular in China, Manana, or maybe Taiwan as well? Not really. I've been told that I fit the beauty standards because I'm pale and tall. Yeah? Yeah. Yeah. And then for some reason, I think he was...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:46,560",
+    "end_time": "00:01:50,609",
+    "content": "Before we even shot last time, like back in 1919, you were pretty popular.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:50,609",
+    "end_time": "00:01:56,641",
+    "content": "Over there. Yeah, most of my fans are from China actually. Yeah, you are popular.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:56,641",
+    "end_time": "00:02:01,501",
+    "content": "but I do agree with that. Yeah, you definitely fit the standard.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:01,501",
+    "end_time": "00:02:17,441",
+    "content": "If you travel there, you know, you travel there, it's gonna be a man. You're gonna be like, recognize that's a ride. That would be crazy. I'm really sure about that. It's so weird, because here there's not as much of a fan base. It's mostly in China, so I'm kinda...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:17,441",
+    "end_time": "00:02:25,122",
+    "content": "Yeah, yeah, yeah, well, you won't be any time soon. You won't be soon enough. Well, we're there for sure. But, uh...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:25,122",
+    "end_time": "00:02:26,366",
+    "content": "Tell us um",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:26,366",
+    "end_time": "00:02:31,049",
+    "content": "You have that experience of yours when you try to open a beach air can and what happens?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:31,049",
+    "end_time": "00:02:32,825",
+    "content": "Okay, I don't, I don't um...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:32,825",
+    "end_time": "00:03:28,965",
+    "content": "I don't speak any Mandarin or anything and I had heard from one of my friends from China that you know there's this thing called Leachat and I should get on there and talk to my fans. So I downloaded it and I had no idea what it was. I thought it was like a social media thing. I didn't realize it was more of like texting and then I downloaded Weibo. Weibo, right? Weibo, yeah. And I think I posted my like username or number whatever it is for Leachat on there and then it starts blowing up and I didn't realize you can only have like 2000 people on so it kind of like abandoned the whole idea because I didn't know how to do it and I couldn't navigate Weibo very well. I said you do have a Weibo? Yeah. I said and you know you probably stop posting it for a while, right? Yeah, because I couldn't interact with anybody.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:28,965",
+    "end_time": "00:03:38,270",
+    "content": "I just wanted to figure out how. Yeah, so you open up a beach air account and that should just blow up. Yeah. Wow. It did. Yeah, because I mean you're supposed to put it on the internet, is that?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:38,270",
+    "end_time": "00:03:44,127",
+    "content": "I didn't know! Everybody just started like, you know? Yeah.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:44,127",
+    "end_time": "00:03:45,483",
+    "content": "I expect that too.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:45,483",
+    "end_time": "00:03:47,645",
+    "content": "But uh, okay, that's the first.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:47,645",
+    "end_time": "00:03:59,889",
+    "content": "trial. Yeah. Over there. It definitely was there wasn't a tent. Yeah yeah okay. I didn't have to get it just kind of stopped right? Yeah yeah I posted a few times on as you know",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:59,889",
+    "end_time": "00:04:03,724",
+    "content": "I see it. You're putting it well? Yeah. We will.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:03,724",
+    "end_time": "00:04:12,836",
+    "content": "Yeah, I just couldn't, I couldn't, the settings are an in English. How many years, how many more years do you still, you know, plan to stay active in the, you know, in the business?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:12,836",
+    "end_time": "00:04:19,692",
+    "content": "I'm not sure, you know I'm kind of just seeing more life takes me. Yeah, that's good. So on...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:19,692",
+    "end_time": "00:04:24,439",
+    "content": "What do you want to tell all your Chinese fans that the reason that you stopped shooting for?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:24,439",
+    "end_time": "00:04:36,081",
+    "content": "Boy girls see and they're all very sad. What do we got to tell them? I'm just waiting for you guys. Oh yeah. Yeah. Guys, cheer me on the top. Cheer me on.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:36,081",
+    "end_time": "00:04:37,345",
+    "content": "It, it, it, it all happened.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:37,345",
+    "end_time": "00:04:38,490",
+    "content": "It will happen, yes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:38,490",
+    "end_time": "00:04:41,374",
+    "content": "You know what, you're the first one. So right now you're...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:41,374",
+    "end_time": "00:04:46,889",
+    "content": "You're not a retired family industry, but you're not an active right? Yeah.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:46,889",
+    "end_time": "00:04:50,843",
+    "content": "Just tell us more about that, if you wish.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:50,843",
+    "end_time": "00:04:55,238",
+    "content": "Why is it? Is that all? Okay, health is really good.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:55,238",
+    "end_time": "00:05:06,142",
+    "content": "Right, that's the main thing. And probably also I think you kind of heard from you that not all experience is great. Yeah, yeah, I have some bad experiences.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:06,142",
+    "end_time": "00:05:16,403",
+    "content": "Shooting Boy Girl before? I see. Yeah. But uh... Not with you guys. It's exactly. No, that. You guys have been amazing. Yeah, that's fine guys.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:16,403",
+    "end_time": "00:05:23,389",
+    "content": "That's why I agreed to shoot again. Yeah, and Lina is only making that exception for you guys. Yeah. So...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:23,389",
+    "end_time": "00:05:24,908",
+    "content": "She's not gonna return.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:24,908",
+    "end_time": "00:05:30,586",
+    "content": "Normally, but she was just under return for you all. So stay tuned.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:30,586",
+    "end_time": "00:05:32,531",
+    "content": "Tell us what drive you to.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:32,531",
+    "end_time": "00:05:34,185",
+    "content": "The first place? Yeah, the first.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:34,185",
+    "end_time": "00:05:35,701",
+    "content": "and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:35,701",
+    "end_time": "00:05:59,665",
+    "content": "Huh? Uh, someone reached out? Huh? Someone reached out? Yeah, I was kind of having a rough time. I had just turned 18 and I had left home like a little while before that. And um, I was kind of just like wondering around in life. And I didn't really know what to do next or like how to, you know, be an adult or like, to add on my own. Uh-huh. And um,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:59,665",
+    "end_time": "00:06:01,254",
+    "content": "So I...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:01,254",
+    "end_time": "00:06:07,649",
+    "content": "Got an email from an agency in Miami. Okay. Yeah. Has it been a little... No.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:07,649",
+    "end_time": "00:06:31,036",
+    "content": "No, it's actually they don't exist anymore because it wasn't a good school agency. It's called Black Rose Talent. And then that was kind of bad so I messaged Kenneth James on Twitter and she said that her agency was great so I moved out to LA and started shooting with Matrix. That's how you start. Okay.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:31,036",
+    "end_time": "00:06:32,377",
+    "content": "Yistareli oysuk yapalım",
+    "confidence": 0,
+    "language": "tr"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:32,377",
+    "end_time": "00:06:44,882",
+    "content": "Yeah. And likely experience at first? At first it was really scary I think. It was huge. A lot to do if I'd never had someone do my makeup and I wasn't really on camera before that. Yeah. That was like an ugly duckling growing up so it was like...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:44,882",
+    "end_time": "00:06:52,023",
+    "content": "It was a lot, but I kind of grew into it and I really enjoyed it for a while there. And yeah. That's good.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:52,023",
+    "end_time": "00:06:53,466",
+    "content": "So um",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:53,466",
+    "end_time": "00:07:04,951",
+    "content": "Your family member probably supported so far already. They have been, yeah, surprisingly my family is pretty supportive. They're kind of just like, you know, do what you kind of do to make yourself happy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:04,951",
+    "end_time": "00:07:06,108",
+    "content": "I'm really lucky that way.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,108",
+    "end_time": "00:07:10,071",
+    "content": "So after haul on, you guys should feel comfortable with your front camera.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:10,071",
+    "end_time": "00:07:12,336",
+    "content": "Um, after starting? Uh-huh.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:12,336",
+    "end_time": "00:07:31,735",
+    "content": "I've probably took me like a year. A year? A year. There's a lot of footage of me looking really nervous on camera. It's just so uncomfortable and I think like you can see like an eye twitch or something. Oh no. I still, I still, wow. Okay. It still comes in ghost sometimes, you know? I sit, I sit. Little excited. Yeah. Okay.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:31,735",
+    "end_time": "00:07:36,773",
+    "content": "So, only this one is going to be fun. What's here a lay cannot be for a giant industry?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:36,773",
+    "end_time": "00:07:59,773",
+    "content": "Um, like six or seven? Oh, that's not that maybe. No, I wasn't really, yeah, I didn't really do that much before. That's good. That's good. Yeah, no. I heard about similar. I heard about four before. For some other girls. For me. Oh, yeah. Do. Do. Do.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:59,773",
+    "end_time": "00:09:34,813",
+    "content": "right? So Nina so maybe at the time you were I you were Blair before. Yeah so I missed that name. So you're you're very first one. Yeah. So you're very first one. Is it was Bane Bus? No no that wasn't my first one. Oh that one was that was one of my first ones. That was a good one. I do. You know that's where all the Chinese people they thought that's your first one. My first one was it was this principal scene where I was called to the principal's office and he was like you're a great student and then like awesome he's like I'm gonna teach you how to survive in college. Here's my dick. Okay yeah so your famous one I think it's the Bane Bus one. Yeah it seemed a lot of like stills from that. Yeah you're a really cute there. Thank you. So that's a real one. Okay but that one you you weren't looking very nervous. No they kind of they were super friendly when the cameras were off I know the whole stick is what they're like jerks to you and you don't know what's going on but like they're actually really friendly with the cameras off and they're really like comforting about everything. Good good. Yeah I mean we feel very at home. Yeah that's the that's a good one. That's where all the Chinese fans are about you I think. Search. I was not in fire while they found out. I thought I found out. I thought they wouldn't find that. Yeah so okay good. Welcome and thank you. Show me what's up.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:34,813",
+    "end_time": "00:09:57,298",
+    "content": "Be sure to have one more than Balina, Lina and her students, and what I love about this time. The next thing I'm going to have to do is, you know, what are you usually do when you play by yourself? Like masturbate, you should. Sometimes I just use my hands. Yeah. And just kind of like think of",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:57,298",
+    "end_time": "00:10:04,034",
+    "content": "I have a bank of things. You want to show the fans? What?",
+    "confidence": 0,
+    "language": "en"
+  }
+]

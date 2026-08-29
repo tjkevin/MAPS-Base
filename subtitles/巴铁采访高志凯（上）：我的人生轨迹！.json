@@ -1,0 +1,962 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:06,790",
+    "content": "Okay, first of all, a professor Gawa, I want to mention that it's a complete honor to have you on our show.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:06,790",
+    "end_time": "00:00:30,841",
+    "content": "Everyone knows you on our channel and from where I come from you are a hero Pakistanis acknowledge your honesty in intellectual honesty and also the bravery that combines with your intellectual honesty sir with great honor and pleasure welcome to our show professor Victor Gal how are you?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:30,841",
+    "end_time": "00:00:41,381",
+    "content": "Thank you very much, I'm fine. Greetings to you and greetings to your audience. I consider myself as an unclad friend and brother of the Pakistan.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:41,381",
+    "end_time": "00:00:42,773",
+    "content": "So it's a great honor to be on your...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:42,773",
+    "end_time": "00:00:47,746",
+    "content": "So because we had a lot of time to research on this if you can get a brief",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:47,746",
+    "end_time": "00:00:51,853",
+    "content": "Note of your early life and your education and how you got here.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:51,853",
+    "end_time": "00:01:00,734",
+    "content": "I was born in 1962 in a city called Sunchao, very close to Shanghai. I went to college in my hometown.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:00,734",
+    "end_time": "00:01:05,102",
+    "content": "Super chat University that I went to Beijing University of foreign study.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:05,102",
+    "end_time": "00:01:08,852",
+    "content": "and both my majors were in English language and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:08,852",
+    "end_time": "00:01:15,334",
+    "content": "Afterwards I joined the Chinese military of foreign affairs and I became a government English interpreter.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:15,334",
+    "end_time": "00:01:24,216",
+    "content": "I had a great honor of working with Deng Xiaoping and other government and party leaders in the 1980s. I also had a...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:24,216",
+    "end_time": "00:01:26,626",
+    "content": "a place of traveling to Islamabad.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:26,626",
+    "end_time": "00:01:30,456",
+    "content": "with a Chinese delegation and talk to the Pakistanis.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:30,456",
+    "end_time": "00:01:34,423",
+    "content": "for the sanny of the protocol which led to the opening of the hong jila",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:34,423",
+    "end_time": "00:01:45,962",
+    "content": "a mountain pass and we were received by its Excellency President Ziaohaak. I also had a great honour of working for the visiting Pakistan in foreign ministers.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:45,962",
+    "end_time": "00:01:47,534",
+    "content": "I think in 1987.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:47,534",
+    "end_time": "00:01:55,043",
+    "content": "the beginning of my goodwill towards the Pakistani people. Later I worked with the United Nations Secretary in New York.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:55,043",
+    "end_time": "00:02:09,955",
+    "content": "before I went on a four-year study at Yale, including the first year when I was enrolled in a PhD program on political science and the subsequent three years when I studied law.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:09,955",
+    "end_time": "00:02:12,158",
+    "content": "emperor at the 18th of",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:12,158",
+    "end_time": "00:02:20,972",
+    "content": "from Yale Law School. Then I worked as a lawyer in New York, practiced the investment banking with Morgan Stanley, worked with...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:20,972",
+    "end_time": "00:02:29,217",
+    "content": "Hong Kong Securities and Futures Commission as a regulator. And then I worked with a bunch of other distinguished companies.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:29,217",
+    "end_time": "00:02:30,844",
+    "content": "Eventually I ended up.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:30,844",
+    "end_time": "00:02:31,951",
+    "content": "as uh",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:31,951",
+    "end_time": "00:02:36,556",
+    "content": "The General Council for a major oil company called the Channel National Offshore Oil Company.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:36,556",
+    "end_time": "00:02:39,986",
+    "content": "which is one of the three largest oil companies in China.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:39,986",
+    "end_time": "00:02:44,586",
+    "content": "And then I also double-dap as the general as the general as the general second.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:44,586",
+    "end_time": "00:02:54,532",
+    "content": "of the China-Havi equity association, which engaged in private equity practice and regulations.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:54,532",
+    "end_time": "00:02:56,926",
+    "content": "and over the more recent.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:56,926",
+    "end_time": "00:03:01,311",
+    "content": "Yes, I've been very actively engaged in a...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:01,311",
+    "end_time": "00:03:08,131",
+    "content": "IZERI jobs for many major companies in China and internationally and I also enjoyed.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:08,131",
+    "end_time": "00:03:14,084",
+    "content": "Give me my opinion. Our major issues in the world, including China's position, China's relation.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:14,084",
+    "end_time": "00:03:17,407",
+    "content": "So that brought me to 2025.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:17,407",
+    "end_time": "00:03:22,778",
+    "content": "when I have the great honor of be with you on your distinguished show.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:22,778",
+    "end_time": "00:03:29,882",
+    "content": "Thank you sir. As you mentioned that you had a chance of working as an interpreter in these elite groups.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:29,882",
+    "end_time": "00:03:34,460",
+    "content": "We want to have an idea, just give us an idea how these meetings work.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:34,460",
+    "end_time": "00:03:40,770",
+    "content": "when two big elites meet with each other. How is the meeting environment?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:40,770",
+    "end_time": "00:03:53,649",
+    "content": "how much depends on that moment on the personalities at that time and how much homework is usually done because being an interpreter is like being very very close in fact being in the middle of it",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:53,649",
+    "end_time": "00:03:59,793",
+    "content": "So just give us a little window into this. How was it interacting with all these leaders while being in between?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:59,793",
+    "end_time": "00:04:01,457",
+    "content": "well being copied into",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:01,457",
+    "end_time": "00:04:15,311",
+    "content": "especially in China for top leaders like the Chaoping, is a rare opportunity. And you really cannot expect to get it when it became yours. It became so historical, so moment.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:15,311",
+    "end_time": "00:04:36,237",
+    "content": "I think several requirements are very obvious, confidentiality, and you need to have the trust of the people you interpret for, and also a very high level of excellence in both English as well as in Chinese and also advanced knowledge base about almost everything which may be covered in the conversation.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:36,237",
+    "end_time": "00:04:39,769",
+    "content": "and always an over-eagerness to learn.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:39,769",
+    "end_time": "00:04:44,249",
+    "content": "to explore new things and never be complacent about anything.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:44,249",
+    "end_time": "00:04:46,240",
+    "content": "that may happen in the course of.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:46,240",
+    "end_time": "00:04:56,113",
+    "content": "I think one of the great, a foundage and privilege of being a top English interpreter is exactly as you mentioned. You are in the middle of something very important.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:56,113",
+    "end_time": "00:05:01,963",
+    "content": "For example, in the 1980s when China and the United States were still very much engaged.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:01,963",
+    "end_time": "00:05:13,665",
+    "content": "for major cooperation in multiple areas, including in military and other wildfires, for example. And most of the discussions were of the record.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:13,665",
+    "end_time": "00:05:15,358",
+    "content": "private and the confidential.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:15,358",
+    "end_time": "00:05:29,363",
+    "content": "And some of these discussions had subsequent repercussions, even up to today. For example, at that time there was the war between Iran and Iraq. The United States, interestingly supported.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:29,363",
+    "end_time": "00:05:34,351",
+    "content": "Salam Hussein, against the Iranian government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:34,351",
+    "end_time": "00:05:48,803",
+    "content": "Whereas China was very much balanced between Iran at the time and Iraq at the time and refused to take sides. The United States urged China to support Iraq against Iran and China always refused to do that.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:48,803",
+    "end_time": "00:06:09,899",
+    "content": "I think China did the right thing, whereas the United States in subsequent years overthrew President Salam of Iraq and they had the first Iraqi War, the second Iraqi War, then they were hostile terms with Iran, for example. So the United States made many changes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:09,899",
+    "end_time": "00:06:14,975",
+    "content": "of the years, whereas China has always been steady and consistent.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:14,975",
+    "end_time": "00:06:17,999",
+    "content": "in this foreign policy about Iraq.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:17,999",
+    "end_time": "00:06:22,826",
+    "content": "Iran ending more subsequent years about some years.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:22,826",
+    "end_time": "00:06:26,252",
+    "content": "So, I think based on my personal experience,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:26,252",
+    "end_time": "00:06:55,569",
+    "content": "and involvement in some of these very high-level, very complicated and high-stake diplomatic encounters, I firmly believe that China is a major force for peace and stability, and the United States has always been kind of a capricious or frivolous, constantly changing, and they seem to be urged on the spur of the moment, whereas China is always casting its eye on the longer.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:55,569",
+    "end_time": "00:06:58,384",
+    "content": "in terms of 100 years if not even long.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:58,384",
+    "end_time": "00:07:02,434",
+    "content": "So I think I learned a lot and I really enriched myself.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:02,434",
+    "end_time": "00:07:07,738",
+    "content": "working with Tenshaw Pian and I worked for more than 20 of his very important meeting.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:07,738",
+    "end_time": "00:07:10,692",
+    "content": "with incoming English speaking global leaders.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:10,692",
+    "end_time": "00:07:24,622",
+    "content": "mostly from the United States of course, but also from many other countries, including, as I mentioned, the leader in Pakistan, the visiting president from Bangladesh, and the prime minister of Australia.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:24,622",
+    "end_time": "00:07:30,685",
+    "content": "New Zealand, and I also accompanied quite a few top Chinese leaders on major overseas.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:30,685",
+    "end_time": "00:07:41,014",
+    "content": "trips to countries in America, Europe, in Oceania, your name is Scyfinka. A lot of what you know about Victor",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:41,014",
+    "end_time": "00:07:48,117",
+    "content": "had its foundation in the 1980s when I was with the Chinese Foreign Service as a top English.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:48,117",
+    "end_time": "00:07:49,958",
+    "content": "So when you look back",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:49,958",
+    "end_time": "00:07:55,240",
+    "content": "On in those days any incident that always pops up to in your head",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:55,240",
+    "end_time": "00:07:56,865",
+    "content": "smile during your interpreting.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:56,865",
+    "end_time": "00:07:59,129",
+    "content": "I think that you would want to share with our audience.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:59,129",
+    "end_time": "00:08:10,408",
+    "content": "Well, there are so many things or anecdotes. Some would make you smile as you mentioned. Some may make you a weeb or cry.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:10,408",
+    "end_time": "00:08:16,372",
+    "content": "very much touching for example, I don't think we have enough time to go over the detail.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:16,372",
+    "end_time": "00:08:22,730",
+    "content": "But I think one thing is very important. I remember the visiting sacred jostles.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:22,730",
+    "end_time": "00:08:26,824",
+    "content": "George Shorts from the United States who worked as Secretary of State for Britain.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:26,824",
+    "end_time": "00:08:30,007",
+    "content": "Rola Riggand and he kept talking about",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:30,007",
+    "end_time": "00:08:40,207",
+    "content": "China should change its policy about Cuba and the United States will be happy to coordinate this position without being fit now.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:40,207",
+    "end_time": "00:08:46,287",
+    "content": "And for Paramountie that is a jumping, he basically brushed him off.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:46,287",
+    "end_time": "00:08:47,320",
+    "content": "China's position.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:47,320",
+    "end_time": "00:08:48,837",
+    "content": "Rehoding Q by as well.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:48,837",
+    "end_time": "00:08:51,388",
+    "content": "please it didn't even bother a second.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:51,388",
+    "end_time": "00:08:52,743",
+    "content": "ahora, guri bathroom regeiro",
+    "confidence": 0,
+    "language": "pt"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:52,743",
+    "end_time": "00:08:54,828",
+    "content": "visiting set Yep stars and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:54,828",
+    "end_time": "00:08:55,880",
+    "content": "about",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:55,880",
+    "end_time": "00:09:01,586",
+    "content": "what China need to do with regard to Cuba. It's always a decision that China needs.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:01,586",
+    "end_time": "00:09:04,038",
+    "content": "rather than a decision by the United States.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:04,038",
+    "end_time": "00:09:06,485",
+    "content": "Need to make an impulse on child.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:06,485",
+    "end_time": "00:09:19,883",
+    "content": "Now, you mentioned some of these historical encounters. I had a great honor to work for former President Richard X. Back in 1985, during one of his visit to China.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:19,883",
+    "end_time": "00:09:29,283",
+    "content": "and the Chinese government, according to its own tradition, provided a special plane for for the President X's we had time.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:29,283",
+    "end_time": "00:09:35,778",
+    "content": "travel to Beijing and Tian and Xiaomeng and also",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:35,778",
+    "end_time": "00:09:38,264",
+    "content": "Guangzhou. So I had a mouth.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:38,264",
+    "end_time": "00:09:47,753",
+    "content": "seven, four days working with former President Nixon, interpreting for him and traveling to quite a few important cities.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:47,753",
+    "end_time": "00:09:49,013",
+    "content": "I think I gained.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:49,013",
+    "end_time": "00:09:50,157",
+    "content": "Keep on wrist happy!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:50,157",
+    "end_time": "00:10:02,024",
+    "content": "Richard Nixon as a person, Richard Nixon as a former president, and I also talked with him, shared comments with him and picked his brain on what drove him.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:02,024",
+    "end_time": "00:10:18,394",
+    "content": "to set up the anarchist in John the top secret visit to China via among other things is like that. So Pakistan played a very important intermediary role in China and the United States together and won really true trophy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:18,394",
+    "end_time": "00:10:29,886",
+    "content": "reaching out to China and establishing official relations between China and the United States. Now, I say this because I've benefited. Huge.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:29,886",
+    "end_time": "00:10:35,504",
+    "content": "from the insights and the personal conversations with these global leaders.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:35,504",
+    "end_time": "00:10:38,761",
+    "content": "and the consequence of such discussion.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:38,761",
+    "end_time": "00:10:42,340",
+    "content": "not only just happened back in 1985.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:42,340",
+    "end_time": "00:10:44,753",
+    "content": "they continue to impress.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:44,753",
+    "end_time": "00:10:54,960",
+    "content": "until today because as a result of my foreign ministry experience as well as my subsequent educational and working.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:54,960",
+    "end_time": "00:11:12,291",
+    "content": "I have known all the US presidents of former presidents since Nixon, with two exceptions. I've never met with former president General Ford, but he graduated from Yale Law School, so we were a little bit with each other. And I corresponded.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:12,291",
+    "end_time": "00:11:19,385",
+    "content": "President fought even though we never met. Now the other one is President Donald Trump, I've never met him.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:19,385",
+    "end_time": "00:11:27,611",
+    "content": "whether I want to meet him or not that's another issue. So I think the fact that I've met with all these presidents.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:27,611",
+    "end_time": "00:11:31,562",
+    "content": "whether they were either incumbent president or former president.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:31,562",
+    "end_time": "00:11:37,192",
+    "content": "the different capacities, of course, since President Nixon really gives me enough.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:37,192",
+    "end_time": "00:11:45,905",
+    "content": "Solid information when I talk about the United States as a country talk about the US government as a political system talk about president",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:45,905",
+    "end_time": "00:12:07,070",
+    "content": "Donald Trump as a president, or of the more recent president Biden, we met it in the 1980s, when he was a Senate Democratic leader. At that time he was nowhere near the very top of the US leadership, but that gave me the first impression of Joe Biden.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:07,070",
+    "end_time": "00:12:13,134",
+    "content": "and it led to subsequently he becoming a vice president for eight years.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:13,134",
+    "end_time": "00:12:15,812",
+    "content": "President of the United States for four years.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:15,812",
+    "end_time": "00:12:38,847",
+    "content": "Now, the advantage for me is that based on all these personal encounters and relations with different leaders in China, in the United States, elsewhere in many other countries, and also based on my very intense reading and studying and very high level of education and Yale, for example, especially Yale Law School.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:38,847",
+    "end_time": "00:12:45,975",
+    "content": "I think I'm a person and I always want to update my knowledge base about what's happening in the world.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:45,975",
+    "end_time": "00:12:50,888",
+    "content": "including for example about the unplanned brotherhood between China.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:50,888",
+    "end_time": "00:12:58,701",
+    "content": "and Pakistan as well as the need to build peace and stability of the Indian subcontinent.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:58,701",
+    "end_time": "00:13:06,879",
+    "content": "and the absolute necessity of stopping any country to weaponize water in the Hindu river, for example.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:06,879",
+    "end_time": "00:13:12,705",
+    "content": "And I think I never make a comment out of the blue or in the vacuum. I always...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:12,705",
+    "end_time": "00:13:16,889",
+    "content": "puts a comment of mine in a historical country.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:16,889",
+    "end_time": "00:13:22,313",
+    "content": "Meaning, I have tremendous amount of responsibility when I make a comment.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:22,313",
+    "end_time": "00:13:25,508",
+    "content": "because the worst I can do is to beslead anyone.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:25,508",
+    "end_time": "00:13:27,037",
+    "content": "is to make a positive impact.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:27,037",
+    "end_time": "00:13:38,197",
+    "content": "either by clarifying a particular issue or explaining a particular issue for my different audiences with the aim of building up peace and opposing.",
+    "confidence": 0,
+    "language": "en"
+  }
+]

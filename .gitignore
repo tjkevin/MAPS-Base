@@ -1,0 +1,11 @@
+# Local dev SQLite (default when DATABASE_URL not set)
+maps_local.db
+maps_local.db-journal
+
+# Python
+venv/
+.venv/
+venv_old*/
+__pycache__/
+*.pyc
+.env

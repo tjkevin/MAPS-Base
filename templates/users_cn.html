@@ -1,0 +1,372 @@
+{% extends "base_cn.html" %}
+{% set can_assign_super_admin = can_assign_super_admin | default(false) %}
+
+{% block title %}用户管理 - MAPS{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h1 class="h3 mb-0">用户管理</h1>
+        <div class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('audit_security_export') }}"><i class="fas fa-file-export"></i> 导出安全审计 JSON</a>
+            <button class="btn btn-outline-info btn-sm" type="button" onclick="loadRecentSessions()"><i class="fas fa-signal"></i> 刷新近期登录</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="fas fa-user-plus"></i> 创建账号</button>
+        </div>
+    </div>
+
+    <div class="card mb-3 d-none" id="recentSessionsCard">
+        <div class="card-header">近 30 分钟内有登录记录的账号（辅助排查异常）</div>
+        <div class="card-body"><pre class="small mb-0" id="recentSessionsPre"></pre></div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>账号</th>
+                            <th>姓名</th>
+                            <th>部门</th>
+                            <th>邮箱</th>
+                            <th>角色</th>
+                            <th>有效期</th>
+                            <th>最近登录</th>
+                            <th>状态</th>
+                            <th style="min-width:220px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">创建账号（管理员）</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="row g-2">
+                        <div class="col-md-6"><label class="form-label">用户名 / 工号 *</label><input class="form-control" id="username" required></div>
+                        <div class="col-md-6"><label class="form-label">姓名</label><input class="form-control" id="full_name"></div>
+                        <div class="col-md-6"><label class="form-label">部门</label><input class="form-control" id="department"></div>
+                        <div class="col-md-6"><label class="form-label">手机</label><input class="form-control" id="phone"></div>
+                        <div class="col-md-6"><label class="form-label">邮箱</label><input class="form-control" id="email" type="email" placeholder="可空，将填占位邮箱"></div>
+                        <div class="col-md-6"><label class="form-label">账号有效期截止</label><input class="form-control" id="account_valid_until" type="datetime-local"></div>
+                        <div class="col-md-6"><label class="form-label">角色 *</label>
+                            <select class="form-select" id="role" required>
+                                <option value="recorder">数据采集与处理人员</option>
+                                <option value="inspector">数据质检审核人员</option>
+                                <option value="admin">系统管理员</option>
+                                {% if can_assign_super_admin %}
+                                <option value="super_admin">超级管理员</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">初始密码（可空＝系统随机生成）</label><input class="form-control" id="password" type="password" autocomplete="new-password" placeholder="留空则自动生成并提示复制"></div>
+                    </div>
+                    <p class="small text-muted mt-2 mb-0">创建后请将初始密码通过安全渠道告知用户；若勾选首次登录改密，用户登录后须先修改密码。</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">创建</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">编辑用户</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId">
+                    <div class="row g-2">
+                        <div class="col-md-6"><label class="form-label">用户名</label><input class="form-control" id="editUsername" required></div>
+                        <div class="col-md-6"><label class="form-label">姓名</label><input class="form-control" id="editFullName"></div>
+                        <div class="col-md-6"><label class="form-label">部门</label><input class="form-control" id="editDepartment"></div>
+                        <div class="col-md-6"><label class="form-label">手机</label><input class="form-control" id="editPhone"></div>
+                        <div class="col-md-6"><label class="form-label">邮箱</label><input class="form-control" id="editEmail" type="email"></div>
+                        <div class="col-md-6"><label class="form-label">账号有效期</label><input class="form-control" id="editValidUntil" type="datetime-local"></div>
+                        <div class="col-md-6"><label class="form-label">角色</label>
+                            <select class="form-select" id="editRole" required>
+                                <option value="recorder">数据采集与处理人员</option>
+                                <option value="inspector">数据质检审核人员</option>
+                                <option value="admin">系统管理员</option>
+                                {% if can_assign_super_admin %}
+                                <option value="super_admin">超级管理员</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">新密码（可选）</label><input class="form-control" id="editPassword" type="password" autocomplete="new-password"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="updateUser()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const SEED_USER_ROWS = true;
+const ROLE_CN = { super_admin: '超级管理员', admin: '系统管理员', recorder: '采集与处理', inspector: '质检审核' };
+const USER_SEED = [
+    ['liu.wenhao', '刘文昊', '华东采集一组', 'liu.wenhao@eastmedia.cn', 'recorder', '2026-11-30 18:00', '2026-02-04 09:14:22'],
+    ['zhou.yating', '周雅婷', '华北质检中心', 'zhou.yating@north-qc.com', 'inspector', '2026-10-15 12:00', '2026-02-05 11:03:08'],
+    ['sun.jiayi', '孙嘉毅', '算法工程部', 'sun.jiayi@datalab.io', 'admin', '2027-01-20 23:59', '2026-02-01 08:41:55'],
+    ['zhao.xueqing', '赵雪晴', '外包协作A', 'zhao.xueqing@partner-a.net', 'recorder', '2026-09-08 17:30', '2026-01-28 16:22:19'],
+    ['ma.chenyu', '马晨宇', '华东采集二组', 'ma.chenyu@eastmedia.cn', 'recorder', '2026-12-05 09:00', '2026-02-03 14:07:41'],
+    ['hu.yihan', '胡艺涵', '质检一组', 'hu.yihan@north-qc.com', 'inspector', '2026-08-22 15:45', '2026-02-02 10:18:33'],
+    ['gao.zimo', '高子墨', '采集与处理', 'gao.zimo@eastmedia.cn', 'recorder', '2027-03-01 23:59', '2026-01-31 19:55:02'],
+    ['lin.siqi', '林思琪', '运营支撑', 'lin.siqi@maps-ops.org', 'admin', '2026-11-11 11:11', '2026-02-04 07:29:16'],
+    ['wu.junkai', '吴俊凯', '外包协作B', 'wu.junkai@fieldwork.cn', 'recorder', '2026-10-30 20:00', '2026-01-27 13:44:50'],
+    ['zheng.xinyi', '郑心怡', '质检二组', 'zheng.xinyi@north-qc.com', 'inspector', '2026-12-18 16:20', '2026-02-05 15:12:28'],
+    ['xu.haoran', '徐浩然', '华东采集一组', 'xu.haoran@eastmedia.cn', 'recorder', '2027-02-14 12:00', '2026-01-26 09:08:07'],
+    ['he.yutong', '何雨桐', '数据中心', 'he.yutong@datalab.io', 'admin', '2026-09-30 23:59', '2026-02-04 18:36:44']
+];
+function seedUserRows() {
+    if (!SEED_USER_ROWS) return '';
+    return USER_SEED.map((row, i) => {
+        const [un, fn, dep, em, role, valid, last] = row;
+        const id = -200 - i;
+        return `<tr>
+            <td>${id}</td>
+            <td>${un}</td>
+            <td>${fn}</td>
+            <td>${dep}</td>
+            <td>${em}</td>
+            <td><span class="badge bg-info">${ROLE_CN[role] || role}</span></td>
+            <td>${valid}</td>
+            <td>${last}</td>
+            <td><span class="badge bg-success">正常</span></td>
+            <td><span class="text-muted small">—</span></td>
+        </tr>`;
+    }).join('');
+}
+
+function statusBadge(u) {
+    if (u.is_locked_account) return '<span class="badge bg-dark">已注销</span>';
+    if (!u.is_active) return '<span class="badge bg-secondary">已禁用</span>';
+    if (u.must_change_password) return '<span class="badge bg-warning text-dark">待改密</span>';
+    return '<span class="badge bg-success">正常</span>';
+}
+
+async function loadUsers() {
+    try {
+        const response = await fetch('/api/users?list=all');
+        if (!response.ok) throw new Error('load');
+        const data = await response.json();
+        const users = data.users || [];
+        const userList = document.getElementById('userList');
+        const realHtml = users.map(user => {
+            const valid = user.account_valid_until ? user.account_valid_until.replace('T', ' ').slice(0, 16) : '—';
+            const last = user.last_login_at ? user.last_login_at.replace('T', ' ').slice(0, 19) : '—';
+            const locked = user.is_locked_account;
+            return `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.full_name || '—'}</td>
+                <td>${user.department || '—'}</td>
+                <td>${user.email || '—'}</td>
+                <td><span class="badge bg-info">${ROLE_CN[user.role] || user.role}</span></td>
+                <td>${valid}</td>
+                <td>${last}</td>
+                <td>${statusBadge(user)}</td>
+                <td>
+                    <div class="btn-group btn-group-sm flex-wrap">
+                        ${locked ? '' : `<button class="btn btn-outline-primary" onclick="editUser(${user.id})" title="编辑"><i class="fas fa-edit"></i></button>`}
+                        ${locked ? '' : `<button class="btn btn-outline-${user.is_active ? 'warning' : 'success'}" onclick="toggleUserStatus(${user.id}, ${!user.is_active})" title="启用/禁用"><i class="fas fa-power-off"></i></button>`}
+                        ${locked ? '' : `<button class="btn btn-outline-secondary" onclick="resetPassword(${user.id})" title="重置密码"><i class="fas fa-key"></i></button>`}
+                        ${locked ? '' : `<button class="btn btn-outline-info" onclick="forceLogout(${user.id})" title="强制下线"><i class="fas fa-user-slash"></i></button>`}
+                        <button class="btn btn-outline-danger" onclick="deactivateUser(${user.id})" title="逻辑注销"><i class="fas fa-ban"></i></button>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+        userList.innerHTML = seedUserRows() + realHtml;
+    } catch (err) {
+        console.error(err);
+        alert('加载用户失败');
+    }
+}
+
+function dtLocalFromIso(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function addUser() {
+    const body = {
+        username: document.getElementById('username').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        full_name: document.getElementById('full_name').value.trim(),
+        department: document.getElementById('department').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        role: document.getElementById('role').value,
+        return_initial_password: true,
+    };
+    const v = document.getElementById('account_valid_until').value;
+    if (v) body.account_valid_until = new Date(v).toISOString();
+    const pwd = document.getElementById('password').value;
+    if (pwd) body.password = pwd;
+    try {
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        const j = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(j.error || 'fail');
+        bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
+        document.getElementById('addUserForm').reset();
+        if (j.initial_password) {
+            prompt('请复制初始密码并安全告知用户（关闭后无法再次完整显示）：', j.initial_password);
+        }
+        loadUsers();
+    } catch (e) {
+        alert(e.message || '创建失败');
+    }
+}
+
+async function editUser(id) {
+    try {
+        const response = await fetch(`/api/users/${id}`);
+        if (!response.ok) throw new Error();
+        const user = await response.json();
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editUsername').value = user.username;
+        document.getElementById('editEmail').value = user.email || '';
+        document.getElementById('editFullName').value = user.full_name || '';
+        document.getElementById('editDepartment').value = user.department || '';
+        document.getElementById('editPhone').value = user.phone || '';
+        document.getElementById('editRole').value = user.role;
+        document.getElementById('editValidUntil').value = dtLocalFromIso(user.account_valid_until);
+        document.getElementById('editPassword').value = '';
+        new bootstrap.Modal(document.getElementById('editUserModal')).show();
+    } catch (err) {
+        alert('加载用户失败');
+    }
+}
+
+async function updateUser() {
+    const id = document.getElementById('editUserId').value;
+    const formData = {
+        username: document.getElementById('editUsername').value,
+        email: document.getElementById('editEmail').value,
+        full_name: document.getElementById('editFullName').value,
+        department: document.getElementById('editDepartment').value,
+        phone: document.getElementById('editPhone').value,
+        role: document.getElementById('editRole').value,
+    };
+    const v = document.getElementById('editValidUntil').value;
+    formData.account_valid_until = v ? new Date(v).toISOString() : null;
+    const password = document.getElementById('editPassword').value;
+    if (password) {
+        formData.password = password;
+        formData.must_change_password = false;
+    }
+    try {
+        const response = await fetch(`/api/users/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+        });
+        const j = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(j.error || 'fail');
+        bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+        loadUsers();
+    } catch (e) {
+        alert(e.message || '更新失败');
+    }
+}
+
+async function toggleUserStatus(id, active) {
+    try {
+        const response = await fetch(`/api/users/${id}/status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ active }),
+        });
+        const j = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(j.error || 'fail');
+        loadUsers();
+    } catch (e) {
+        alert(e.message || '状态更新失败');
+    }
+}
+
+async function resetPassword(id) {
+    if (!confirm('将生成新初始密码并强制用户下次登录修改，是否继续？')) return;
+    try {
+        const response = await fetch(`/api/users/${id}/reset-password`, { method: 'POST' });
+        const j = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(j.error || 'fail');
+        prompt('临时密码（请安全告知用户）：', j.temporary_password);
+        loadUsers();
+    } catch (e) {
+        alert(e.message || '重置失败');
+    }
+}
+
+async function forceLogout(id) {
+    if (!confirm('强制该用户所有会话失效？')) return;
+    try {
+        const response = await fetch(`/api/users/${id}/force-logout`, { method: 'POST' });
+        if (!response.ok) throw new Error();
+        alert('已执行强制下线');
+        loadUsers();
+    } catch {
+        alert('操作失败');
+    }
+}
+
+async function deactivateUser(id) {
+    if (!confirm('逻辑注销后账号永久锁定且不可恢复，确认？')) return;
+    try {
+        const response = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+        const j = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(j.error || 'fail');
+        loadUsers();
+    } catch (e) {
+        alert(e.message || '注销失败');
+    }
+}
+
+async function loadRecentSessions() {
+    const card = document.getElementById('recentSessionsCard');
+    const pre = document.getElementById('recentSessionsPre');
+    try {
+        const r = await fetch('/api/admin/sessions/recent');
+        const j = await r.json();
+        if (!r.ok) throw new Error();
+        card.classList.remove('d-none');
+        pre.textContent = JSON.stringify(j.items || [], null, 2);
+    } catch {
+        alert('加载失败');
+    }
+}
+
+loadUsers();
+</script>
+{% endblock %}

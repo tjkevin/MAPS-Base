@@ -1,0 +1,1562 @@
+[
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:14,054",
+    "end_time": "00:00:15,875",
+    "content": "这是我们现在的画像师神意",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:15,875",
+    "end_time": "00:00:26,681",
+    "content": "必须要把这个角色给全是好最起码大家看到我演出来的这个角色其实是在任何的 相信的我觉得那对我而言就是我没有辜负这个男主角",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:26,681",
+    "end_time": "00:00:39,591",
+    "content": "我好像从小到大都一直在被身边的人期待我可能之前真的会有这样的压力觉得我出的作品一定要怎么样怎么样那我现在可能更多的是觉得自己觉得舒服我觉得我自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:39,591",
+    "end_time": "00:00:41,805",
+    "content": "还蛮成的挺好的就可以了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:41,805",
+    "end_time": "00:00:50,112",
+    "content": "歌手和舞者其实更像我小时候的一种生活方式演员我觉得更更踏实片场和细里面的演员",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:50,112",
+    "end_time": "00:01:01,990",
+    "content": "人和故事让我突然忘记了现实中我中的那些那些种种所事他会治愈很多人他同时也会同样也会治愈我自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:01,990",
+    "end_time": "00:01:11,466",
+    "content": "初心一直都是在的从来没变过我觉得每一个热爱这个行李的人热爱自己的工作的人都很难会改变这个初心你自己有了好的作品你就是很开心",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:11,466",
+    "end_time": "00:01:13,150",
+    "content": "就是享受就是很",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:13,150",
+    "end_time": "00:01:17,004",
+    "content": "很自豪就是慢慢来我不知道会不会比较快但我觉得慢慢来",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:17,004",
+    "end_time": "00:01:18,847",
+    "content": "忙碌,卻叫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:18,847",
+    "end_time": "00:01:19,870",
+    "content": "然后还有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:19,870",
+    "end_time": "00:01:22,251",
+    "content": "几乎今年这一年我们有休息",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:22,251",
+    "end_time": "00:01:27,513",
+    "content": "我记得是从3月份开始到现在我都没回过家",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:27,513",
+    "end_time": "00:01:30,063",
+    "content": "然后想着今天画完年终于可以回到家",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:30,063",
+    "end_time": "00:01:45,536",
+    "content": "就是在这种忙碌中可能让我们无心去想很多别的事情所以有时候真的等到自己安静下来的时候晚上安静下来的时候可能才会给自己留一个空间能够产生出的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:45,536",
+    "end_time": "00:01:47,224",
+    "content": "想法可能會更",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:47,224",
+    "end_time": "00:01:53,444",
+    "content": "跟以前不一樣吧更多是自己人生的一個態度一個相當",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:53,444",
+    "end_time": "00:02:29,330",
+    "content": "我觉得可以大80分因为确实是在一直在忙物一直在不停的创作或者成终联维图见得到大家的认可和喜这个让我非常难忘因为我觉得最一个演员来说首先自己的作品能够播出已经非常幸运的时候然后你播出以后能够得到大家的认可和喜爱那是已经更值得自己去高兴的事然后也有一些音乐上的作品在今天刚刚发出了所以我觉得今天是算是瘦骨雷雷零一年遗憾不是在于工作上我觉得我的遗憾是在于生活上今天可能因为太忙碌了让自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:29,330",
+    "end_time": "00:02:31,812",
+    "content": "缺少了很多点生活的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:31,812",
+    "end_time": "00:02:40,921",
+    "content": "的感受一个学校跟家人朋友对吧一个日我觉得缺少了读处的时间嘛之前我经常读处我经常自己一个人在家待着",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:40,921",
+    "end_time": "00:02:46,431",
+    "content": "然后Ora也会跟朋友出去拘拘我觉得还是要给自己拘",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:46,431",
+    "end_time": "00:02:48,671",
+    "content": "想要發給自己放鬆去體驗一下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:48,671",
+    "end_time": "00:02:51,248",
+    "content": "2021 其实是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:51,248",
+    "end_time": "00:02:53,818",
+    "content": "我觉得我去追着工作跑的一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:53,818",
+    "end_time": "00:03:01,176",
+    "content": "那2022我觉得是工作追着我跑的一年感觉我自己想放慢 脚步但是现实生活中的确被工作推着我往",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:01,176",
+    "end_time": "00:03:05,770",
+    "content": "不便就是对待每一次创作和每一个作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:05,770",
+    "end_time": "00:03:16,048",
+    "content": "精神不管是演员还是歌手还是舞者我要给自己留下来一个作品的时候我必须要认真对待而不是肤颜了事所以希望自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:16,048",
+    "end_time": "00:03:22,318",
+    "content": "在若干念以后,回看自己以前的出来的东西,自己都会觉得,哎,那个时候还",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:22,318",
+    "end_time": "00:03:34,740",
+    "content": "挺既有型的然后能够挺让自己为自己曾经付出的感到自豪的还是挺坦特的因为在内部剧之前我没有演过太多的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:34,740",
+    "end_time": "00:03:36,491",
+    "content": "男主的这样的一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:36,491",
+    "end_time": "00:03:54,557",
+    "content": "这个戏其实它算是零六年我演完那个电影之后再回归到影视行业的第一个跟观众见面的难处决这个事情上会让我有点压力这个戏的播出的好坏可能会直接影响到我对这个戏的心情但那个时候的那个时候对这个戏的结果",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:54,557",
+    "end_time": "00:04:03,014",
+    "content": "吃这样的一个态度然后就是觉得那我必须要把这个角色给全是好不管怎么样最起码大家看到我演出来了这个角色其实",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:03,014",
+    "end_time": "00:04:07,480",
+    "content": "任何的 相信的我觉得那对我来演对我而言就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:07,480",
+    "end_time": "00:04:14,698",
+    "content": "我没有辜负这个男主角所以当时借到这个角色的时候还是压力蛮大其实坦特紧张都是在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:14,698",
+    "end_time": "00:04:25,589",
+    "content": "前期 到后期慢慢的就是觉得自己很相信自己是这个人物的时候基本上没有这种没有压力 也没有紧张感了没有想到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:25,589",
+    "end_time": "00:04:40,404",
+    "content": "确实没有想到因为每年都有那么多的影视作品播出然后我自己演了这么多年的配觉也没见得说是哪个戏真的一下就能跳脱出来了所以对于一个作品能不能得到观众的这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:40,404",
+    "end_time": "00:04:44,355",
+    "content": "大热的这种喜欢和跳脱出来其实",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:44,355",
+    "end_time": "00:04:45,754",
+    "content": "不是說",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:45,754",
+    "end_time": "00:04:48,019",
+    "content": "能夠堵定的很多很多事情",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:48,019",
+    "end_time": "00:04:52,738",
+    "content": "关于网报就是我们像我们的公众人我们接触到的网报可能",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:52,738",
+    "end_time": "00:04:55,425",
+    "content": "已经对这些事情比较的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:55,425",
+    "end_time": "00:04:56,742",
+    "content": "比較的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:56,742",
+    "end_time": "00:05:09,670",
+    "content": "又抗压能力了但是其实对于很多普通的人来说退造成非常大的打击的这又是一个我觉得很难去压制的一种暴力所以当我看到网报的时候接当有场戏是让我对着",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:09,670",
+    "end_time": "00:05:13,709",
+    "content": "自己拿著對著金石節氣就說一段毒擺很長的一段毒",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:13,709",
+    "end_time": "00:05:16,978",
+    "content": "但当时没播出来我基本上也没有什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:16,978",
+    "end_time": "00:05:18,826",
+    "content": "太多的去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:18,826",
+    "end_time": "00:05:21,752",
+    "content": "文喜那场洗的要说的话",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:21,752",
+    "end_time": "00:05:25,574",
+    "content": "基本上很多都是脱口而出的就是想对就是就是想对于",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:25,574",
+    "end_time": "00:05:28,362",
+    "content": "忙不上信实行暴力的那些人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:28,362",
+    "end_time": "00:05:33,355",
+    "content": "我是觉得大家都披着一层皮不用负责人的说话真是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:33,355",
+    "end_time": "00:06:01,346",
+    "content": "也是对于很多人的一种伤害吧我不敢想得这么大包括你看我眼我眼这个你安全的时候其实我们整个表达手法是轻松的虽然他讲的都是让人非常焦虑的一些社会问题但是呢不想带给观众焦虑的我们是想轻松的方式来表达出来然后让观众同时又看到这些问题但是你说我们能够通过一个影视作品或者说通过一个剧能够能够",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:01,346",
+    "end_time": "00:06:12,088",
+    "content": "改变什么呢其实我觉得可能力量微乎其为但是如果说大家从中能够起到一点点哪怕一点点作用嘛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:12,088",
+    "end_time": "00:06:19,375",
+    "content": "我觉得对我们来说都是非常非常值得值得高兴的一件事情那你这个作品就变得更为意义了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:19,375",
+    "end_time": "00:06:25,824",
+    "content": "所以你要說真的通過一個作品能改變我覺得這個真的是不是可以做到的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:25,824",
+    "end_time": "00:06:29,908",
+    "content": "其实我觉得影视作品更多的还是要给大家传递更温暖的力",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:29,908",
+    "end_time": "00:06:41,776",
+    "content": "让大家在现实生活中能够更美好的看待所有的一切不然有时候我们说过中很多的不如意也等等可能会造成很多的力气",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:41,776",
+    "end_time": "00:06:43,363",
+    "content": "那我觉得进食作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:43,363",
+    "end_time": "00:06:46,098",
+    "content": "就类似于精神射了大家可以去用",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:46,098",
+    "end_time": "00:06:48,197",
+    "content": "看很多 吸收到很多温暖",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:48,197",
+    "end_time": "00:06:51,014",
+    "content": "我只是觉得这个期待第一次被扮到台边",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:51,014",
+    "end_time": "00:06:52,228",
+    "content": "我好像從小到大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:52,228",
+    "end_time": "00:06:56,942",
+    "content": "都一直在被身面的人期待着所以会趁我压力一直都有好像一个小平眼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:56,942",
+    "end_time": "00:07:00,579",
+    "content": "他每次上台演的一个小品然后他抖出来一个包袱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:00,579",
+    "end_time": "00:07:13,149",
+    "content": "这个包服当时大家都笑都不行了觉得特别好笑可是他可能在演这个小平在抖类似的包服的时候可能大家就不会觉得那么好笑了我可能之前真的会有这样的压力就是觉得我主",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:13,149",
+    "end_time": "00:07:15,447",
+    "content": "我出的作品一定要怎麼樣怎麼樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:15,447",
+    "end_time": "00:07:21,334",
+    "content": "那我現在可能更多的是覺得在這個過程中我自己覺得舒服",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:21,334",
+    "end_time": "00:07:24,649",
+    "content": "或者觉得哎我觉得我自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:24,649",
+    "end_time": "00:07:32,262",
+    "content": "还蛮人呈得挺好的就可以了因为真的重口难挑你不可能满足那么多人那么我觉得就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:32,262",
+    "end_time": "00:07:38,786",
+    "content": "坐仔细吧现在还没有因为我准备就今天结束以后就开始回去桌手去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:38,786",
+    "end_time": "00:07:42,504",
+    "content": "做功课啊能不能等一切然后去进入这个角色的一个状态",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:42,504",
+    "end_time": "00:07:48,615",
+    "content": "去进入新的一个工作状态了所以现在我还不能给到给出什么很有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:48,615",
+    "end_time": "00:07:51,959",
+    "content": "关于这个电影的更多的消息",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:51,959",
+    "end_time": "00:07:53,776",
+    "content": "因为我一直都很喜欢弹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:53,776",
+    "end_time": "00:07:57,137",
+    "content": "所以如果拍电影的话我可能就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:57,137",
+    "end_time": "00:08:05,380",
+    "content": "会有一种不一样的感觉但是都具体哪不一样我其实也说不上来会很开心 会很期待很期待自己在电影中的表现很期待自己在电影院里面看到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:05,380",
+    "end_time": "00:08:07,132",
+    "content": "노래뜨 너무 좋은了吧 오~! 오~! 나오고ати 이동 수고ifie",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:09,588",
+    "end_time": "00:08:10,822",
+    "content": "歌手和",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:10,822",
+    "end_time": "00:08:19,569",
+    "content": "舞者其实更像我小时候的一种生活方式演员我觉得更更踏实更像我的一种生活方式就像我刚刚说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:19,569",
+    "end_time": "00:08:34,469",
+    "content": "他会治愈很多人他同时也会同样也会治愈我自己我就举个最简单的例子我在拍列罪的时候就是那时候我的生活中可能就是有一些变懂变故那么回到现身生活中面对一些变故的时候我其实是挺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:34,469",
+    "end_time": "00:08:37,115",
+    "content": "反造的但是我等到我再回到片场",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:37,115",
+    "end_time": "00:08:44,114",
+    "content": "我以为我会影响到我的工作但是没想到其实反到来变成了片场和细里面的影子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:44,114",
+    "end_time": "00:09:05,270",
+    "content": "人和故事让我突然忘记了现在中午中的那些中中所事所以我觉得某种层面我做演员之后很多时候是可以自我之余了这个主题曲还挺然的嘛去守护万家灯火去捍卫时间的频繁频繁也要捍卫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:05,270",
+    "end_time": "00:09:13,701",
+    "content": "其实听你也听你大动人不求自己有多么工程明久其实就是想追求一个让自己能够平凡的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:13,701",
+    "end_time": "00:09:15,942",
+    "content": "他跟我們以前",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:15,942",
+    "end_time": "00:09:17,134",
+    "content": "看到過的洋姊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:17,134",
+    "end_time": "00:09:34,988",
+    "content": "是不一样来表达手法包括整个电影它的一个世界观也是很奇特的还有很多的争气喷课然后它对天庭的描写也是跟我们以前想象的不一样的我觉得还是充满想象里的这么一个电影然后对阳检这个人物的重新的一个全式也是比较新银的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:34,988",
+    "end_time": "00:09:38,783",
+    "content": "都不敢不敢不敢那你们会觉得电视影绝对是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:38,783",
+    "end_time": "00:09:42,638",
+    "content": "就是看似白蓝石泽赤城",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:42,638",
+    "end_time": "00:09:44,407",
+    "content": "當時其實就是出身牛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:44,407",
+    "end_time": "00:09:54,740",
+    "content": "因为那时候也是怎么需要刚毕业就被拉去拍电影了那个时候网络事件没有这么发达没有接触多太多的外界的东西还是很单纯不知道电影是什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:54,740",
+    "end_time": "00:09:56,851",
+    "content": "就直接去了一切都是新鲜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:56,851",
+    "end_time": "00:10:08,306",
+    "content": "就是这种心先让你感知不到竞争莫尾老师还说过一句说这小孩跟我们演戏一点都不紧张挺有意思的但确实当时",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:08,306",
+    "end_time": "00:10:11,856",
+    "content": "没有太多的紧张但是我就印象中遇导演",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:11,856",
+    "end_time": "00:10:15,330",
+    "content": "和剧组给到我特别大的压力可是那种压力是我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:15,330",
+    "end_time": "00:10:21,590",
+    "content": "就是完全意识不到的因为一个是年纪小第二个是真没接触所以都是被导演啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:21,590",
+    "end_time": "00:10:42,642",
+    "content": "周围周围的前辈 牵着我一根点往前走那个时候还是交片的用交片来派订真的每一场戏都非常珍贵所以大家在前期做准备到进入人物到前期的训练到进入人物到你去体验生活到整个电影开机开始拍每一场戏",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:42,642",
+    "end_time": "00:11:00,230",
+    "content": "非常非常非常眼睛真的是特别像在创作艺术的一种氛围里面其实每次都挺有挑战因为接着每角色都不一样那是你要说然后我印象比较深刻的可能就是我在回来演戏的第一部戏叫《军事联盟》我在里面演",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:00,230",
+    "end_time": "00:11:01,576",
+    "content": "當時對我來講",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:01,576",
+    "end_time": "00:11:20,174",
+    "content": "是非常非常难的一个角色叫司马昭的每一个角色他是一个历史人物然后你要把这个历史人物全是好并且这个历史人物也有很多前辈实验过对于当时再回复到一些演习跟我当初再去在这一面的那种不怕乎那种感觉已经没有了就那种就满满的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:20,174",
+    "end_time": "00:11:21,642",
+    "content": "就是真的就是每天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:21,642",
+    "end_time": "00:11:25,472",
+    "content": "就生怕自己眼望那个是一次让我一向买深刻的意思",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:25,472",
+    "end_time": "00:11:30,054",
+    "content": "对 觉得他要挑战难得意思真的那时候跟前面演员",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:30,054",
+    "end_time": "00:11:45,504",
+    "content": "老师搭戏我都多索的嘴都抖现在真的确实是遇到一个创作品进我自己有点也有点觉得自己需要进去了工作太多了有时候演员是需要去放空的我觉得是需要去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:45,504",
+    "end_time": "00:12:01,613",
+    "content": "去把自己清空了清空你再去就投到另一个角色可是现在经常会没有时间让我去做到这件事情永远都是被填满填满然后马上进入下一个马上进入下一个这样的话我会有一个品创作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:01,613",
+    "end_time": "00:12:08,219",
+    "content": "所以我這次也希望接下來可以慢慢地去讓自己多放空",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:08,219",
+    "end_time": "00:12:14,772",
+    "content": "每角色的角色之間的那個空隙20年的時候把20年的時候會有一些新的感悟",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:14,772",
+    "end_time": "00:12:17,160",
+    "content": "對於表演,到底自己在演?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:17,160",
+    "end_time": "00:12:18,187",
+    "content": "到底自己想",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:18,187",
+    "end_time": "00:12:22,327",
+    "content": "在20年之前很张很吉利的想要去表达自己是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:22,327",
+    "end_time": "00:12:32,456",
+    "content": "然后然后后面呢可能更多的是想要真实的去感受一个人一个人这种感受其实是更多事情",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:32,456",
+    "end_time": "00:12:33,580",
+    "content": "帶給自己的一封",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:33,580",
+    "end_time": "00:12:35,855",
+    "content": "讓自己讓自己獲得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:35,855",
+    "end_time": "00:12:38,797",
+    "content": "與自己生活中感受到的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:38,797",
+    "end_time": "00:12:40,263",
+    "content": "不同的一种状态",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:40,263",
+    "end_time": "00:13:04,844",
+    "content": "給自己一些起伐我沒有說特別傾向女的我覺得很多我沒有挑戰過的我當就是像當玩兒一樣去去想去嘗試沒玩過這也沒玩過那個想去感受一下但是你要說我要去我有多大的眼心去挑戰什麼多高難度的角色其實我也沒想過這個問題自己能夠在這個行業裡面能夠",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:04,844",
+    "end_time": "00:13:14,311",
+    "content": "演到一些觉得不错自己演的自己很过意就挺好的我不知道自己未来是想要怎么突破自己的一个舒适圈我现在就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:14,311",
+    "end_time": "00:13:15,905",
+    "content": "很平淡 很平靜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:15,905",
+    "end_time": "00:13:17,316",
+    "content": "很平静地想去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:17,316",
+    "end_time": "00:13:18,903",
+    "content": "我自己存在做的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:18,903",
+    "end_time": "00:13:23,187",
+    "content": "Bye.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:26,042",
+    "end_time": "00:13:30,299",
+    "content": "慢慢来比较快我觉得慢慢来可能情绪上离",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:30,299",
+    "end_time": "00:13:32,615",
+    "content": "起 text 怎样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:32,615",
+    "end_time": "00:13:35,322",
+    "content": "應該慢慢啦但到底會不會比較快",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:35,322",
+    "end_time": "00:13:45,192",
+    "content": "这个我不知道我觉得这个比较快是我就看每个人的对快的追求是什么你真的需要一瞬间达到一个结果还是说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:45,192",
+    "end_time": "00:13:54,735",
+    "content": "本来这个结果你就放得很远很长远每个人追求的这个筷可能不一样所以对我而言我觉得我挺慢的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:54,735",
+    "end_time": "00:14:03,157",
+    "content": "我從來不是在自己個人的成績上不是一個特別追求一個結果的人因為我入行也這麼多年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:03,157",
+    "end_time": "00:14:06,961",
+    "content": "就可能早也模屏了这样一个冷角和心态",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:06,961",
+    "end_time": "00:14:08,668",
+    "content": "接下来我觉得就是努力做好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:08,668",
+    "end_time": "00:14:11,828",
+    "content": "都不能说努力,我像已经在做这件事情就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:11,828",
+    "end_time": "00:14:14,966",
+    "content": "就是做好一個讓自己情緒穩定的人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:14,966",
+    "end_time": "00:14:18,501",
+    "content": "然后让自己比较平静地去面对各种各样的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:18,501",
+    "end_time": "00:14:20,129",
+    "content": "就是慢慢来我不知道会不会比",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:20,129",
+    "end_time": "00:14:27,349",
+    "content": "世界杯我都沒時間看那個時候正在劇組拍戲每天都在錦隆密古的在拍戲",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:27,349",
+    "end_time": "00:14:35,086",
+    "content": "但确实我们组有的演员真的会收工有熬夜去看的我就不行我就收工以后我就还得摸第二天的细",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:35,086",
+    "end_time": "00:14:39,620",
+    "content": "因為我的氣氧比別人大就是說別人可能掉天沒氣所以別人可以",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:39,620",
+    "end_time": "00:14:42,647",
+    "content": "晚上去看后来是要被我就没有这个机会给我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:42,647",
+    "end_time": "00:14:43,736",
+    "content": "就是撒花包",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:43,736",
+    "end_time": "00:14:45,005",
+    "content": "那我们就是自己读处",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:45,005",
+    "end_time": "00:14:46,821",
+    "content": "空下来什么都不想",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:46,821",
+    "end_time": "00:14:49,980",
+    "content": "要么就是原上三五好友就是撒开的话",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:49,980",
+    "end_time": "00:14:57,802",
+    "content": "就别管了 什么也不管了 就摆了就那种感觉有啊 每天都跟着我开工出工太挺至于的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:57,802",
+    "end_time": "00:15:02,980",
+    "content": "每天潘恩西回來有兩隻小狗在等著你以前我回到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:02,980",
+    "end_time": "00:15:04,427",
+    "content": "回到休息室什么的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:04,427",
+    "end_time": "00:15:12,658",
+    "content": "都是一种哎好累啊现在回到西日哎呀这还是斗狗多了个陪伴啊还挺好的当时超喜欢那个小",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:12,658",
+    "end_time": "00:15:20,173",
+    "content": "因为其实我一直都想扬寵物想扬一个属于自己的寵物但就是总感觉没时间照顾怕复不及这个责任就一直没扬",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:20,173",
+    "end_time": "00:15:22,331",
+    "content": "所以当时看到那小貓的时候我还特别想抱作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:22,331",
+    "end_time": "00:15:34,578",
+    "content": "因为我其实更喜欢小狗但是那小毛池太可爱了电影里面所有的动物都是经过专业的训练的所以他们是非常聪明的专业的国外的训练是在现场每天对他们进行训练然后我就记得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:34,578",
+    "end_time": "00:15:39,350",
+    "content": "哇那支貓特厲害,還有提升呢就是貓的提升眼圓是不可以過多的根",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:39,350",
+    "end_time": "00:15:41,802",
+    "content": "跟这个猫油太多的清米接触",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:41,802",
+    "end_time": "00:15:48,822",
+    "content": "他们要保证这个冒失去听话在演习中听话跟我们演员太经济呢可能会影响到他在表演表演",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:48,822",
+    "end_time": "00:15:54,998",
+    "content": "所以啊 你像这数也有专攻 你不懂我觉得自己是一个全世界的还是一个贸易",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:54,998",
+    "end_time": "00:15:57,047",
+    "content": "我本人應該是個群",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:57,047",
+    "end_time": "00:15:58,389",
+    "content": "但大家都觉得我是猫心",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:58,389",
+    "end_time": "00:16:07,428",
+    "content": "我也不知道我详细在说实话真不知道什么属于什么戏我是好多种时候有时候就特别活潑特别开了然后有的时候就是不怎么爱说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:07,428",
+    "end_time": "00:16:12,330",
+    "content": "就是特别极端当下的状态我觉得还可以大家都说我是挺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:12,330",
+    "end_time": "00:16:17,642",
+    "content": "老一人那么多年过来了然后就是身体素质已经",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:17,642",
+    "end_time": "00:16:19,255",
+    "content": "已经对于就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:19,255",
+    "end_time": "00:16:23,114",
+    "content": "工作的抗亚能力都达标了所以大家都觉得我是挺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:23,114",
+    "end_time": "00:16:26,030",
+    "content": "其實初心一直都是在的從來沒變魔物",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:26,030",
+    "end_time": "00:16:27,746",
+    "content": "我觉得每一个日爱这个行业的人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:27,746",
+    "end_time": "00:16:29,951",
+    "content": "热爱自己的工作这个工作的人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:29,951",
+    "end_time": "00:16:31,260",
+    "content": "都很难会改变这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:31,260",
+    "end_time": "00:16:33,768",
+    "content": "你自己有了好的作品你就是開心",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:33,768",
+    "end_time": "00:16:35,328",
+    "content": "就是享受就是很",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:35,328",
+    "end_time": "00:16:38,280",
+    "content": "讓自己滿足這樣的一個獄王",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:38,280",
+    "end_time": "00:16:44,674",
+    "content": "有时候你满足这样的欲望然后观众朋友又很喜欢这其实是很幸福的一件事情满足了自己满足了他人就能给",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:44,674",
+    "end_time": "00:16:48,941",
+    "content": "好演员好歌手我觉得这是一个门砍非常高的一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:48,941",
+    "end_time": "00:16:55,186",
+    "content": "所以我一直还没有说真的说自己能够真的做到但是我觉得我在网里花样努力",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:55,186",
+    "end_time": "00:16:57,798",
+    "content": "但是我确实我觉得我是个人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:57,798",
+    "end_time": "00:17:02,261",
+    "content": "各個領域都監被了不管自己在哪個領域的職業然後最得惜的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:02,261",
+    "end_time": "00:17:05,638",
+    "content": "我其实没有什么信条",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:05,638",
+    "end_time": "00:17:07,886",
+    "content": "隨心的一個人有就有沒有就沒有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:07,886",
+    "end_time": "00:17:11,247",
+    "content": "没有不强求恨父从来没有说我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:11,247",
+    "end_time": "00:17:16,673",
+    "content": "我因为努力争取了什么然后最后这个东西没有得到的时候我可能会",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:16,673",
+    "end_time": "00:17:17,695",
+    "content": "痛苦很成长",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:17,695",
+    "end_time": "00:17:19,537",
+    "content": "那我就爭取另外一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:19,537",
+    "end_time": "00:17:20,978",
+    "content": "我觉得可能",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:20,978",
+    "end_time": "00:17:22,040",
+    "content": "我相對容易滿足",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:22,040",
+    "end_time": "00:17:24,013",
+    "content": "我會覺得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:24,013",
+    "end_time": "00:17:27,961",
+    "content": "那是别人的损失我会将鼓励自己就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:27,961",
+    "end_time": "00:17:31,116",
+    "content": "你沒有發現到我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:31,116",
+    "end_time": "00:17:36,123",
+    "content": "没有发现到我觉得是别人的损失我经常会觉得自己给自己降息",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:36,123",
+    "end_time": "00:17:37,355",
+    "content": "所以不要讓自己覺得自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:37,355",
+    "end_time": "00:17:39,291",
+    "content": "就不要讓自己覺得自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:39,291",
+    "end_time": "00:17:40,385",
+    "content": "因為自己而",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:40,385",
+    "end_time": "00:17:42,950",
+    "content": "失敗而没有得到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:42,950",
+    "end_time": "00:17:44,006",
+    "content": "就是我觉得是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:44,006",
+    "end_time": "00:17:48,243",
+    "content": "這是天使地理的問題所以不強求但是你只要對得起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:48,243",
+    "end_time": "00:17:51,433",
+    "content": "太多了,感谢所有帮助过我的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:51,433",
+    "end_time": "00:17:52,798",
+    "content": "感谢所有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:52,798",
+    "end_time": "00:17:53,970",
+    "content": "啊 祈祝我機會的人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:53,970",
+    "end_time": "00:17:57,382",
+    "content": "更要感謝所有支持我喜愛我的觀眾",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:57,382",
+    "end_time": "00:17:59,650",
+    "content": "还有我的工作伙伴还有我的家人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:59,650",
+    "end_time": "00:18:05,415",
+    "content": "我觉得2023年希望大家都能够平平安安坚坚抗抗我觉得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:05,415",
+    "end_time": "00:18:09,657",
+    "content": "對於2023年對於大家對我們每個人最大的一個期",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

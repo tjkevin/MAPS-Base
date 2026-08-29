@@ -1,0 +1,1602 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,887",
+    "content": "我是貴族非夜人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,887",
+    "end_time": "00:00:03,547",
+    "content": "恩。我似 。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:03,547",
+    "end_time": "00:00:05,043",
+    "content": "要一點吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:05,043",
+    "end_time": "00:00:09,063",
+    "content": "刚做了两面,很坚持的两面一起结束时候开始",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:09,063",
+    "end_time": "00:00:11,994",
+    "content": "不是本期工作是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:11,994",
+    "end_time": "00:00:18,006",
+    "content": "那倒藏 那倒藏藏藏那我上西門 小心閒躍的奇怪 您了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:18,006",
+    "end_time": "00:00:20,638",
+    "content": "之前是在工厂里工厂的上班吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:20,638",
+    "end_time": "00:00:24,812",
+    "content": "然后然后支付我就干了这个行业嘛等让人干的中文然后现在干",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:24,812",
+    "end_time": "00:00:30,689",
+    "content": "好 请言了 我具体决写忘记了反正大概这三年左右反应",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:30,689",
+    "end_time": "00:00:33,877",
+    "content": "对对对一起结束的时候然后就干的这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:33,877",
+    "end_time": "00:00:38,277",
+    "content": "刚开始娘的朋友婆婆然后然后就我带着她一起婆婆女儿让熟悉熟悉吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:38,277",
+    "end_time": "00:00:39,475",
+    "content": "当时里面又衣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:39,475",
+    "end_time": "00:00:41,490",
+    "content": "但是就是在戴琴弩的切",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:41,490",
+    "end_time": "00:00:44,279",
+    "content": "不需要錢,我老公是全職的我是建子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:44,279",
+    "end_time": "00:00:45,703",
+    "content": "弄成了没压力大蒙",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:45,703",
+    "end_time": "00:00:47,588",
+    "content": "加点点嘛,这个时候我吃5点而已",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:47,588",
+    "end_time": "00:01:04,561",
+    "content": "然后像拿来说像工程的话你六七点七八点以上上上班的话你这样这个的话你自己这个班次的话随便自己调整的嘛那边你可以试点是不是你可以选四个班四个选五个班次那么你想多多少钱的话那选五个班次不仰得多多少钱的话那选四个班次我上班次也行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:04,561",
+    "end_time": "00:01:06,724",
+    "content": "我现在是五个盘子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:06,724",
+    "end_time": "00:01:11,393",
+    "content": "五个班子,一个班子是两个小时半两个小时有一个有班的小时去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:11,393",
+    "end_time": "00:01:19,334",
+    "content": "那這個位置就是一份跟林氏工業嘛是不是 你幹一單 算一單嘛是不是 你多幹點幹嘛 你多幹點幹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:19,334",
+    "end_time": "00:01:20,947",
+    "content": "I wouldn't dare come back.",
+    "confidence": 0,
+    "language": "vi"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:20,947",
+    "end_time": "00:01:23,174",
+    "content": "例如� bands, 橄欖的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:23,174",
+    "end_time": "00:01:24,540",
+    "content": "我还想拿花十点左右",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:24,540",
+    "end_time": "00:01:27,448",
+    "content": "10点之后,然后就跑到那里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:27,448",
+    "end_time": "00:01:29,311",
+    "content": "走上了往后大概就是10点半",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,311",
+    "end_time": "00:01:33,498",
+    "content": "分數是沒天的話大概在蘇貝開始 dépend超人快到有1個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:33,498",
+    "end_time": "00:01:37,075",
+    "content": "靠点的话一个就在一万四五一万四",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:37,075",
+    "end_time": "00:01:39,740",
+    "content": "6000多,七千块钱,花两个就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:39,740",
+    "end_time": "00:01:40,846",
+    "content": "75006這樣子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:40,846",
+    "end_time": "00:01:43,632",
+    "content": "之前那時候我那場裡面沒活幹嘛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:43,632",
+    "end_time": "00:01:48,263",
+    "content": "我一個月公司就四千多塊錢然後我跑完賣還能跑不定行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:48,263",
+    "end_time": "00:01:49,981",
+    "content": "有过万年5月份的时候不忙这次",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:49,981",
+    "end_time": "00:01:52,691",
+    "content": "我今天就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:52,691",
+    "end_time": "00:01:55,379",
+    "content": "我昨天跑得太累了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:55,379",
+    "end_time": "00:01:59,236",
+    "content": "除了我爬到八點就不想做飯了以後我爬到八點",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:59,236",
+    "end_time": "00:02:02,554",
+    "content": "他跑到12點我今天的話是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:02,554",
+    "end_time": "00:02:04,736",
+    "content": "9点的世界没有怎么应该",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:04,736",
+    "end_time": "00:02:07,655",
+    "content": "好等流去支表会看那可就看你aland芒over",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:07,655",
+    "end_time": "00:02:11,627",
+    "content": "就是一旦拉到4块5块就算滑下的嘛,你干50档的话,那就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:11,627",
+    "end_time": "00:02:13,555",
+    "content": "Mary-Soo Liu书文",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:13,555",
+    "end_time": "00:02:18,919",
+    "content": "就这样的,它有个单架,它单架相对于说有5块9 6块9的,或者有10几块钱的,那也不等的吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:18,919",
+    "end_time": "00:02:22,899",
+    "content": "片合有了,像我老婆他們的話就有講,一旦講,你幾塊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:22,899",
+    "end_time": "00:02:29,209",
+    "content": "但是我這個沒有因為我最近沒怎麼跑嗎就是之前跑的餐廳了我身體",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:29,209",
+    "end_time": "00:02:32,145",
+    "content": "現在放假剛開始跑摩所以我真的沒有講明",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:32,145",
+    "end_time": "00:02:34,036",
+    "content": "就一单讲到多讲的一块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:34,036",
+    "end_time": "00:02:38,962",
+    "content": "今天早上有下雨,他以后就不贴局无暖",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:38,962",
+    "end_time": "00:02:44,319",
+    "content": "就每单击五万点多五万钱然后就是到下午三点三点半之后的话每单一块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:44,319",
+    "end_time": "00:02:49,294",
+    "content": "然后到今天5点5点半存活的话它会有个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:49,294",
+    "end_time": "00:02:50,621",
+    "content": "这奸斯哥Gar5剪片",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:50,621",
+    "end_time": "00:02:51,699",
+    "content": "差不多還可以了今天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:51,699",
+    "end_time": "00:02:54,356",
+    "content": "就像今年的话比往前的话,像那一个活动",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:54,356",
+    "end_time": "00:02:57,188",
+    "content": "七年晚你八年了今天都拿到一万一万准备",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:57,188",
+    "end_time": "00:02:59,647",
+    "content": "那就是不回家牛鼠的那种",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:59,647",
+    "end_time": "00:03:02,137",
+    "content": "回家吧,那你拿部分,那么不回家的话,可以是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:02,137",
+    "end_time": "00:03:05,522",
+    "content": "估计中拿到大满关嘛应该是年万足",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:05,522",
+    "end_time": "00:03:06,836",
+    "content": "หนิ seeing current",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:06,836",
+    "end_time": "00:03:08,721",
+    "content": "汤萌中用5, mitt两列",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:08,721",
+    "end_time": "00:03:20,947",
+    "content": "就是那有弹吗都跑跑没弹吗那咱就回去吧那肯定不要呢单架高的话那你一再想到也好几天啊可以可以那样那不然你拿个单子一个三个五单子给你一个十几个那肯定差几十不一样呢是不是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:20,947",
+    "end_time": "00:03:22,509",
+    "content": "我身體就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:22,509",
+    "end_time": "00:03:26,133",
+    "content": "小就是家庭贫困的原因我心里不会这样扛掉",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:26,133",
+    "end_time": "00:03:31,282",
+    "content": "就是不然太矛益,他來了就會心臟搜尋",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:31,282",
+    "end_time": "00:03:35,134",
+    "content": "檢查的話還好,體質不太好,就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:35,134",
+    "end_time": "00:03:37,305",
+    "content": "現在趕快去腳靠右腳靠邊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:37,305",
+    "end_time": "00:03:39,703",
+    "content": "这个字人控制吃料不好吃不好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:39,703",
+    "end_time": "00:03:41,925",
+    "content": "我之前在哪家吃的怎麼樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:41,925",
+    "end_time": "00:03:46,956",
+    "content": "吃了吃不完,我現在就是控制飲食就好了不然吃心腊的,太鹹了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:46,956",
+    "end_time": "00:03:51,746",
+    "content": "但是我们老家的主要还是因为这个便主要还是因为太疗虑的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:51,746",
+    "end_time": "00:03:54,641",
+    "content": "就是心裡不開心,快到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:54,641",
+    "end_time": "00:03:59,727",
+    "content": "新市就是炸零条件不好嘛奉我一直到月早公然后跟他来接受",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:59,727",
+    "end_time": "00:04:01,102",
+    "content": "아우 한번",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:01,102",
+    "end_time": "00:04:03,526",
+    "content": "我妈的话呢回家给我低待小孩",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:03,526",
+    "end_time": "00:04:04,852",
+    "content": "我爸在这边倒过",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:04,852",
+    "end_time": "00:04:08,078",
+    "content": "嗯,比較少,有時候有的但是比較少",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:08,078",
+    "end_time": "00:04:11,592",
+    "content": "之前刚开始捧的时候很少的,现在比较多一点",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:11,592",
+    "end_time": "00:04:14,164",
+    "content": "25年开始多起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:14,164",
+    "end_time": "00:04:19,168",
+    "content": "我們有個他們倒過交代我聽聽除了上班就是校班然後就是跑外妹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:19,168",
+    "end_time": "00:04:20,838",
+    "content": "請他我不幹什麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:20,838",
+    "end_time": "00:04:23,880",
+    "content": "就是自己的日常都是快點多想那些",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:23,880",
+    "end_time": "00:04:28,843",
+    "content": "所以像水的話,他們男孩子的話可能是比較有俊人女孩子的話就比較",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:28,843",
+    "end_time": "00:04:40,427",
+    "content": "真的走很到头那种块钱水嘛,那么高,然后他一个带子不是有四四头嘛,然后我提了两个带子提了两个带子呢,还有从那个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:40,427",
+    "end_time": "00:04:43,834",
+    "content": "新鮮這邊這個壹米麗不是那個要走路嗎",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:43,834",
+    "end_time": "00:04:49,189",
+    "content": "然后我提着那一贷款好像有多达的几样一贷40斤两贷80斤了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:49,189",
+    "end_time": "00:04:50,636",
+    "content": "然后我就一点体不同",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:50,636",
+    "end_time": "00:04:52,244",
+    "content": "平 shown",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:52,244",
+    "end_time": "00:04:55,146",
+    "content": "like to then新 undう",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:55,146",
+    "end_time": "00:04:58,495",
+    "content": "而且最主要的原因是因為我趕時間",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:58,495",
+    "end_time": "00:05:02,855",
+    "content": "就是不快點的話我們下一單可能也超時的我怕不喝",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:02,855",
+    "end_time": "00:05:04,387",
+    "content": "肚确",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:04,387",
+    "end_time": "00:05:09,925",
+    "content": "所以專項的話,他們平下人的話,因為肯定康諾也很重要的外中",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:09,925",
+    "end_time": "00:05:12,196",
+    "content": "全是靠天氣要靠運氣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:12,196",
+    "end_time": "00:05:15,713",
+    "content": "但是你好好爬的话平均一个小时也能跑二十多块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:15,713",
+    "end_time": "00:05:18,711",
+    "content": "中報跑的就是專順它會不願意送的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:18,711",
+    "end_time": "00:05:22,091",
+    "content": "刷中的约束就是比较远一点的,然后就比较约束",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:22,091",
+    "end_time": "00:05:26,817",
+    "content": "要先批演,我们就给一首,然后就加强了,加强好中导",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:26,817",
+    "end_time": "00:05:34,776",
+    "content": "他們其實有自己探別,他們探別,然後中貓的其實是屬於書,但是有時候他找不出一句的話,他就支出。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:34,776",
+    "end_time": "00:05:38,278",
+    "content": "色绑没有的,好像尖东其中有尖东没有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:38,278",
+    "end_time": "00:05:39,298",
+    "content": "Не-не не об�ції.",
+    "confidence": 0,
+    "language": "ru"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:39,298",
+    "end_time": "00:05:42,242",
+    "content": "这个行业是他自己的事他没有事保随他全是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:42,242",
+    "end_time": "00:05:44,108",
+    "content": "其根以我的想法的话还要做点色某比例",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:44,108",
+    "end_time": "00:05:45,761",
+    "content": "就自己拿到扣了八个而已",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:45,761",
+    "end_time": "00:05:47,283",
+    "content": "我先自己不用交给你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:47,283",
+    "end_time": "00:05:52,649",
+    "content": "我老婆有就可以了兩個人有一個先就這樣促腐是不是那如果說平安那麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:52,649",
+    "end_time": "00:05:56,737",
+    "content": "寿命に落ちる行方も何言え不過 oder",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:56,737",
+    "end_time": "00:05:58,790",
+    "content": "吃不过好像还没吃前饭",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:58,790",
+    "end_time": "00:06:01,560",
+    "content": "可能主要是一位之前的化妝那个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:01,560",
+    "end_time": "00:06:08,894",
+    "content": "他有补天,因為我剛開始跑,所以他進來給我活動了現在活動賞了,也不是說,給之前高度",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:08,894",
+    "end_time": "00:06:10,144",
+    "content": "蹭着",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:10,144",
+    "end_time": "00:06:20,875",
+    "content": "他们打嘛越打越好嘛因为我这个打越好嘛那么他把这个评他把这个他把这个他把这个福利那么给到顾客那么顾客的话反过来他他多点点的话那我们的subscribe",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:20,875",
+    "end_time": "00:06:31,612",
+    "content": "拉伯的那一匹先店买长一样小米饰你点十分的话那我一趟跑时当的话是不是我现在来输入比较高点我的那个就是新资还是还是往上提的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:31,612",
+    "end_time": "00:06:37,490",
+    "content": "刚开始的时候确实是不太怎么办然后慢慢去习惯了不熟的话就打电话会员",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:37,490",
+    "end_time": "00:06:39,858",
+    "content": "耽誤素那幫做然後要放入殼面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:39,858",
+    "end_time": "00:06:41,654",
+    "content": "待会认真端",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:41,654",
+    "end_time": "00:06:52,430",
+    "content": "现在好像跟去年比起来我今天收的好几个人他今天好几个六岔就是你的订单的话他现在就说还不扣你钱了之前就是直接就是付钱了他现在不扣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:52,430",
+    "end_time": "00:06:54,884",
+    "content": "就是你超十分钟收回来不哭你兵器",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:54,884",
+    "end_time": "00:06:57,932",
+    "content": "大概就这个档子端上实验,大概需心里有个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:57,932",
+    "end_time": "00:07:06,778",
+    "content": "闯文的的话,把外卖卫不从什么程度都未从什么程度不是闯文的之前的话我也喜欢去认一下就是是不是安全的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,778",
+    "end_time": "00:07:20,226",
+    "content": "但是就说比较危险嘛那危险的话就说你能快的时候快一点然后该慢的时候慢一点就是就说你的那个沙车一定要好车子要好沙车不好的话就要即时去把它更坏一下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:20,226",
+    "end_time": "00:07:28,178",
+    "content": "这样子才对你的安全别也有保障跑完卖他说那个只能跑到25马以上那种早就要抓的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:28,178",
+    "end_time": "00:07:29,959",
+    "content": "那很直我感覺雷皮要",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:29,959",
+    "end_time": "00:07:38,576",
+    "content": "我敢以那樣做的那邊就是要要它的那個車子的那個吃點比較好的然後啥車的那種也比較好就可以了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:38,576",
+    "end_time": "00:07:42,747",
+    "content": "那你說15碼的話你怎麼跑單這麼賺錢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:42,747",
+    "end_time": "00:07:45,853",
+    "content": "我对这个速度这么压的,你四周马的话",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:45,853",
+    "end_time": "00:07:47,987",
+    "content": "你这肯定就给你干不了工作的就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:47,987",
+    "end_time": "00:07:50,845",
+    "content": "就拉不然你跑蛋给你跑不了蛋你似乎马克里面跑蛋",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:50,845",
+    "end_time": "00:07:53,358",
+    "content": "有35碼 现在的35碼是不是2.35碼35碼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:53,358",
+    "end_time": "00:07:59,178",
+    "content": "也是新国标电动声吗大的除于将那种的话就属于家用就是说你每个三个人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:59,178",
+    "end_time": "00:08:00,399",
+    "content": "其实这个速度没关系",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:00,399",
+    "end_time": "00:08:03,812",
+    "content": "比如说你刷车性能和尾眼盘的话去那速度是没啥来没啥去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:03,812",
+    "end_time": "00:08:08,285",
+    "content": "毕竟那時候那你前多年前那你得多跑工作嘛毕竟那時候不是說是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:08,285",
+    "end_time": "00:08:17,220",
+    "content": "就是你有一个过后就是我送箱换给他脑子四公里就四外一抱钱又给他送过去之后脑子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:17,220",
+    "end_time": "00:08:33,586",
+    "content": "他两个学校是挨在一起了,一个中学一个小学然后我打电话他没接,然后我就直到中间我一回到怎么办,然后我直接往前面走了然后我就看到了一个学校,然后我就没注意然后就给他放到那个学校保安室了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:33,586",
+    "end_time": "00:08:36,465",
+    "content": "共產黨的原來他們各小學生的後面的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:36,465",
+    "end_time": "00:08:47,581",
+    "content": "后来他被打地方问我我就把那个给他收一下他放在那个板子里然后他都看没收到我说你旁边吃不着还有一个学校是不是我放在另外一个学校了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:47,581",
+    "end_time": "00:08:52,429",
+    "content": "后来他就把那个花给拿走了,然后来他还投诉我了结果我被扣了200多块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:52,429",
+    "end_time": "00:08:57,427",
+    "content": "但是我打电话给平台说了一下然后我一找到刮到那个刮根拿走了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:57,427",
+    "end_time": "00:09:04,178",
+    "content": "花也沒找到,千億酷狼,我就打電話給平台貓然後平台客戶就把我弄保證,錢墜不來",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:04,178",
+    "end_time": "00:09:07,566",
+    "content": "我感觉那个淘宝散购的客户还是挺好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:07,566",
+    "end_time": "00:09:22,489",
+    "content": "就是說有的人就是怎麼說呢就一個當哪邊的三十分鐘的那麼多數是那麼說到這數年5分鐘那麼那麼那天就是生氣的就是說送到他3-5分鐘讓他過養餐廉了我餐廊你別找我腳上下去因為他給我佩服時間本人去30分鐘那麼我到電視裏面才好5分鐘",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:22,489",
+    "end_time": "00:09:32,494",
+    "content": "是吧,那我罚五分钟之后,那你这个单子我二十分送过来,应该是没毛病的那你如果想吃,想吃热的包乱就去店里点是不是你说凉的包,那你就给我,完了就我罚我上家没关系",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:32,494",
+    "end_time": "00:09:33,811",
+    "content": "이제 샌드폰 소프shirts",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:33,811",
+    "end_time": "00:09:36,322",
+    "content": "你这个根本没关系的比你来上一样的三样的问题",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:36,322",
+    "end_time": "00:09:38,083",
+    "content": "我感覺開心的都挺多耶",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:38,083",
+    "end_time": "00:09:42,508",
+    "content": "最有的是他们加钱嘛,然后转单,然后又挺开心的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:42,508",
+    "end_time": "00:09:44,485",
+    "content": "没有的时候孤个个打上人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:44,485",
+    "end_time": "00:09:48,860",
+    "content": "我说刷上有有两块的五块的十块的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:48,860",
+    "end_time": "00:09:49,947",
+    "content": "väldigt 많죠?كان 이런 경우에 문",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:49,947",
+    "end_time": "00:09:53,219",
+    "content": "Trung Street News",
+    "confidence": 0,
+    "language": "vi"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:53,219",
+    "end_time": "00:09:55,182",
+    "content": "5块,5块两块不等了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:55,182",
+    "end_time": "00:09:59,278",
+    "content": "杀刺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:59,278",
+    "end_time": "00:10:04,424",
+    "content": "然后再来包烟再包烟之后然后给我打上了他那个烟是13块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:04,424",
+    "end_time": "00:10:07,490",
+    "content": "他给我付了二百钱能让那个等于我都加了七块钱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:07,490",
+    "end_time": "00:10:09,183",
+    "content": "来たら一面orde",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:09,183",
+    "end_time": "00:10:10,374",
+    "content": "不過他是想墜錢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:10,374",
+    "end_time": "00:10:11,672",
+    "content": "айтесь за",
+    "confidence": 0,
+    "language": "ru"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:11,672",
+    "end_time": "00:10:14,028",
+    "content": "他不要回家过年就成了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:14,028",
+    "end_time": "00:10:19,357",
+    "content": "ab2.螃蚓特幅是б1é请细程度给我们发了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:19,357",
+    "end_time": "00:10:20,547",
+    "content": "那还不像女浩猛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:20,547",
+    "end_time": "00:10:24,451",
+    "content": "就温馨王了,就是当时看到他还行,然后就加上了他",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:24,451",
+    "end_time": "00:10:32,666",
+    "content": "他的想法跟别人想法不一样他的想法就是说不想结婚当然想在一起那我肯定不同意的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:32,666",
+    "end_time": "00:10:35,514",
+    "content": "对不起,双方都小孩忘了说什么,那直接跟家庭的话怎么讲",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:35,514",
+    "end_time": "00:10:37,636",
+    "content": "我挺最新的嘛 是不是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:37,636",
+    "end_time": "00:10:42,154",
+    "content": "我完了之后他担心不过我然后做了把这零的然后对了今年才停的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:42,154",
+    "end_time": "00:10:47,980",
+    "content": "不容易,要戴起34年了反正人肯定回去的,回去的話反正半婚礼的話就是說",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:47,980",
+    "end_time": "00:10:50,647",
+    "content": "如果想的话,就是说自己的亲情朋友们",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:50,647",
+    "end_time": "00:10:54,865",
+    "content": "现在每个都在做反正两个人前往不同的路路放在一起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:54,865",
+    "end_time": "00:10:58,466",
+    "content": "某有事什么大事吗 商量 对不对小事吗 她自己吹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:58,466",
+    "end_time": "00:10:59,753",
+    "content": "我们要工人送给他",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:59,753",
+    "end_time": "00:11:03,701",
+    "content": "那不是一万两万暖然后我就给他接着托我回边托托公司",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:03,701",
+    "end_time": "00:11:06,917",
+    "content": "我用的话他就能够留留个事与够用一些行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:06,917",
+    "end_time": "00:11:08,654",
+    "content": "大事情的话就直接过",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:08,654",
+    "end_time": "00:11:11,298",
+    "content": "就是我有時間就會進入去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:11,298",
+    "end_time": "00:11:13,562",
+    "content": "這個也是需要浪漫的工作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:13,562",
+    "end_time": "00:11:16,019",
+    "content": "嗯,現在基本上就是在長期的...",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:16,019",
+    "end_time": "00:11:19,764",
+    "content": "现在没有可谓换起来公共到时候看法法人人们走一步看一公共",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:19,764",
+    "end_time": "00:11:23,505",
+    "content": "这个玩意舒服准都可以那么小玩意会强了吗是不是拿个包成点",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:23,505",
+    "end_time": "00:11:28,186",
+    "content": "沒有這份這樣子我也可以用我的公司也可以生活",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:28,186",
+    "end_time": "00:11:31,926",
+    "content": "但是,因为我的工资我可能也被吃卖不起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:31,926",
+    "end_time": "00:11:35,664",
+    "content": "就是我今天吃跑完卖的话我这辈子很困难来的起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:35,664",
+    "end_time": "00:11:37,684",
+    "content": "不可能小孩在這邊是買不起的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:37,684",
+    "end_time": "00:11:40,839",
+    "content": "就是在老家那老家买房貨的房貨在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:40,839",
+    "end_time": "00:11:41,884",
+    "content": "有可能事先",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:41,884",
+    "end_time": "00:11:48,047",
+    "content": "你不是很嫌疑吧,對我們來說這樣說太長那邊的話,靠近上海的話也要一兩百萬了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:48,047",
+    "end_time": "00:11:51,195",
+    "content": "所以說,近兩百萬的話是有可能會實現的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:51,195",
+    "end_time": "00:11:53,336",
+    "content": "但是上海的旺風可能實驗不定",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:53,336",
+    "end_time": "00:11:54,909",
+    "content": "未來的打算就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:54,909",
+    "end_time": "00:11:56,890",
+    "content": "就是多的事情每一點都行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:56,890",
+    "end_time": "00:11:58,269",
+    "content": "拉移后步一点",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:58,269",
+    "end_time": "00:12:03,014",
+    "content": "以后的落殼能以后怎么走呢是以后想就是越来越好对吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:03,014",
+    "end_time": "00:12:07,062",
+    "content": "但是以后的路长都不太怎么走,最主要的就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:07,062",
+    "end_time": "00:12:09,455",
+    "content": "要不然就是前面會小",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:09,455",
+    "end_time": "00:12:11,077",
+    "content": "97.20",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:11,077",
+    "end_time": "00:12:13,846",
+    "content": "反正这个事情的话都是我的破垃圾的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:13,846",
+    "end_time": "00:12:16,881",
+    "content": "或者 Tamam最重要的話可以跟認接我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:16,881",
+    "end_time": "00:12:18,770",
+    "content": "结果裙家了以后再考虑自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:18,770",
+    "end_time": "00:12:22,610",
+    "content": "我的你要像我好像一些都是微小矮卡里的前面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:22,610",
+    "end_time": "00:12:29,621",
+    "content": "就是我們倆沒小孩但是我們各自都有小孩因為我們在婚家裡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:29,621",
+    "end_time": "00:12:32,928",
+    "content": "然後就是說今天要不要給小孩一天要負擔",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:32,928",
+    "end_time": "00:12:35,224",
+    "content": "而且在乎那家庭的话可能就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:35,224",
+    "end_time": "00:12:37,359",
+    "content": "小孩子也可能會留下意義",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:37,359",
+    "end_time": "00:12:41,817",
+    "content": "然後一共的極其人就是會貼在我們工作",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+
+{% block title %}数据管理 - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">数据管理</h1>
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">导出数据集</h5>
+                </div>
+                <div class="card-body">
+                    <form id="exportForm" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="dataType" class="form-label">数据类型</label>
+                            <select class="form-select" id="dataType" required>
+                                <option value="">选择...</option>
+                                <option value="all">所有数据</option>
+                                <option value="video">仅视频</option>
+                                <option value="audio">仅音频</option>
+                                <option value="text">仅文本</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="format" class="form-label">导出格式</label>
+                            <select class="form-select" id="format" required>
+                                <option value="">选择...</option>
+                                <option value="csv">CSV</option>
+                                <option value="json">JSON</option>
+                                <option value="zip">ZIP（包含媒体文件）</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-primary d-block">
+                                <i class="fas fa-download"></i> 导出数据集
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">数据概览</h5>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary" onclick="filterData('all')">全部</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="filterData('completed')">已完成</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="filterData('pending')">待处理</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>文件名</th>
+                                    <th>类型</th>
+                                    <th>时长</th>
+                                    <th>大小</th>
+                                    <th>状态</th>
+                                    <th>字幕</th>
+                                    <th>创建者</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataList">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <nav aria-label="页面导航" class="mt-4">
+                        <ul class="pagination justify-content-center" id="pagination">
+                            <!-- Pagination will be populated here -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">数据预览</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="previewContent">
+                    <!-- Preview content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentFilter = 'all';
+let currentPage = 1;
+
+function formatDuration(duration) {
+    if (!duration) return '00:00:00';
+    if (typeof duration === 'string') return duration;
+    if (typeof duration === 'number') {
+        const hours = Math.floor(duration / 3600);
+        const minutes = Math.floor((duration % 3600) / 60);
+        const seconds = duration % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    return '00:00:00';
+}
+
+async function loadData(filter = 'all', page = 1) {
+    // 更新当前状态
+    currentFilter = filter;
+    currentPage = page;
+    
+    try {
+        console.log(`Loading data: filter=${filter}, page=${page}`);
+        const response = await fetch(`/api/manage/data?filter=${filter}&page=${page}`, {
+            method: 'GET',
+            credentials: 'same-origin', // 包含cookies
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('请先登录系统');
+            }
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Received data:', data);
+        
+        // 检查返回的数据结构
+        if (!data) {
+            throw new Error('No data received');
+        }
+        
+        // 确保items存在，如果不存在则使用空数组
+        const items = data.items || [];
+        console.log(`Found ${items.length} items`);
+        
+        const dataList = document.getElementById('dataList');
+        if (!dataList) {
+            console.error('Data list element not found');
+            return;
+        }
+        
+        if (items.length === 0) {
+            dataList.innerHTML = `
+                <tr>
+                    <td colspan="10" class="text-center text-muted">
+                        <i class="fas fa-info-circle"></i>
+                        暂无数据
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
+        dataList.innerHTML = items.map(item => `
+            <tr>
+                <td>${item.id || ''}</td>
+                <td>${item.filename || ''}</td>
+                <td>${item.type || ''}</td>
+                <td>${formatDuration(item.duration)}</td>
+                <td>${item.file_size || 'Unknown'}</td>
+                <td>
+                    <span class="badge bg-${item.status === 'completed' ? 'success' : 'warning'}">
+                        ${item.status === 'completed' ? '已完成' : '待处理'}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge bg-${item.has_subtitle ? 'info' : 'secondary'}">
+                        ${item.has_subtitle ? '有字幕' : '无字幕'}
+                    </span>
+                </td>
+                <td>${item.created_by || 'Unknown'}</td>
+                <td>${item.created_at ? new Date(item.created_at).toLocaleString() : ''}</td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-primary" onclick="previewData(${item.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-outline-success" onclick="downloadData(${item.id})">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="btn btn-outline-danger" onclick="deleteData(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        
+        // Update pagination
+        const pagination = document.getElementById('pagination');
+        if (pagination && data.total && data.per_page) {
+            const totalPages = Math.ceil(data.total / data.per_page);
+            
+            pagination.innerHTML = `
+                <li class="page-item ${page === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="loadData('${filter}', ${page - 1})">上一页</a>
+                </li>
+                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => `
+                    <li class="page-item ${p === page ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="loadData('${filter}', ${p})">${p}</a>
+                    </li>
+                `).join('')}
+                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="loadData('${filter}', ${page + 1})">下一页</a>
+                </li>
+            `;
+        }
+    } catch (err) {
+        console.error('Error loading data:', err);
+        // 显示友好的错误信息
+        const dataList = document.getElementById('dataList');
+        if (dataList) {
+            dataList.innerHTML = `
+                <tr>
+                    <td colspan="10" class="text-center text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        数据加载失败: ${err.message}
+                    </td>
+                </tr>
+            `;
+        }
+    }
+}
+
+function filterData(filter) {
+    currentFilter = filter;
+    currentPage = 1;
+    loadData(filter, 1);
+}
+
+async function previewData(id) {
+    try {
+        const response = await fetch(`/api/manage/preview/${id}`, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) throw new Error('Failed to load preview');
+        
+        const data = await response.json();
+        const previewContent = document.getElementById('previewContent');
+        
+        if (data.type === 'video') {
+            previewContent.innerHTML = `
+                <video class="w-100" controls>
+                    <source src="${data.url}" type="video/webm">
+                    您的浏览器不支持视频标签。
+                </video>
+            `;
+        } else if (data.type === 'audio') {
+            previewContent.innerHTML = `
+                <audio class="w-100" controls>
+                    <source src="${data.url}" type="audio/wav">
+                    您的浏览器不支持音频标签。
+                </audio>
+            `;
+        } else {
+            previewContent.innerHTML = `
+                <pre class="bg-light p-3">${data.content}</pre>
+            `;
+        }
+        
+        const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+        modal.show();
+    } catch (err) {
+        console.error('Error loading preview:', err);
+        // 只在控制台显示错误，不弹出alert
+        console.log('预览加载失败');
+    }
+}
+
+async function downloadData(id) {
+    try {
+        const response = await fetch(`/api/manage/download/${id}`, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) throw new Error('Failed to download');
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `data_${id}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    } catch (err) {
+        console.error('Error downloading:', err);
+        // 只在控制台显示错误，不弹出alert
+        console.log('下载失败');
+    }
+}
+
+async function deleteData(id) {
+    if (!confirm('您确定要删除这些数据吗？')) return;
+    
+    try {
+        const response = await fetch(`/api/manage/recording/${id}`, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) throw new Error('Failed to delete');
+        
+        loadData(currentFilter, currentPage);
+    } catch (err) {
+        console.error('Error deleting:', err);
+        // 只在控制台显示错误，不弹出alert
+        console.log('删除失败');
+    }
+}
+
+// 设置导出表单事件监听器
+const exportForm = document.getElementById('exportForm');
+if (exportForm) {
+    exportForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            dataType: document.getElementById('dataType').value,
+            format: document.getElementById('format').value
+        };
+        
+        try {
+            const response = await fetch('/api/manage/export', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            if (!response.ok) throw new Error('Export failed');
+            
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `dataset_${formData.dataType}_${new Date().toISOString().split('T')[0]}.${formData.format}`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        } catch (err) {
+            console.error('Export error:', err);
+            // 只在控制台显示错误，不弹出alert
+            console.log('导出失败');
+        }
+    });
+}
+
+// Initialize data loading
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing data loading...');
+    
+    // 确保所有元素都已加载
+    setTimeout(() => {
+        console.log('Starting data load...');
+        loadData();
+    }, 100);
+});
+
+function showErrorMessage(message) {
+    const dataList = document.getElementById('dataList');
+    if (dataList) {
+        dataList.innerHTML = `
+            <tr>
+                <td colspan="10" class="text-center text-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    ${message}
+                </td>
+            </tr>
+        `;
+    }
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,314 @@
+{% extends "base_cn.html" %}
+
+{% block title %}数据审核 - MAPS{% endblock %}
+{% block page_title %}数据审核{% endblock %}
+{% block page_subtitle %}待审核任务接收、多模态预览、合规与准确性校验、通过 / 打回修正 / 审核员自行修正、全链路留痕{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <button type="button" class="btn btn-outline-primary" id="btnLoadNext"><i class="fas fa-forward"></i> 拉取下一条待审核</button>
+            <button type="button" class="btn btn-outline-secondary" id="btnRefreshList"><i class="fas fa-list"></i> 刷新队列</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 mb-3">
+            <div class="card">
+                <div class="card-header">待审核队列</div>
+                <div class="card-body p-0" style="max-height: 520px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush" id="pendingList"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>多模态预览与合规标记</span>
+                    <span class="badge bg-secondary" id="currentRecordingId">—</span>
+                </div>
+                <div class="card-body">
+                    <div id="mediaWrap" class="mb-3"></div>
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-6">
+                            <strong>任务编号 / MD5</strong>
+                            <div class="small text-muted" id="metaTaskMd5">—</div>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>来源 / 上传账号 / 处理账号</strong>
+                            <div class="small text-muted" id="metaPeople">—</div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <span class="badge me-1" id="badgeFile">文件可读</span>
+                        <span class="badge me-1" id="badgeMeta">元数据完整</span>
+                        <span class="badge bg-info" id="badgeModality">—</span>
+                    </div>
+                    <label class="form-label">转写 / 描述文本</label>
+                    <textarea class="form-control mb-2" id="auditText" rows="6" readonly></textarea>
+                    <label class="form-label">时间轴（与关键内容对应，可核对起止时间）</label>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered" id="timelineTable">
+                            <thead><tr><th>开始(s)</th><th>结束(s)</th><th>文本</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">审核操作</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">审核意见（打回时必填；通过 / 自行修正可选）</label>
+                        <textarea class="form-control" id="auditComments" rows="3" placeholder="打回时请写明可执行意见，如某时间段转写错误、某场景描述不符等"></textarea>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button type="button" class="btn btn-success" id="btnPass"><i class="fas fa-check"></i> 审核通过</button>
+                        <button type="button" class="btn btn-warning" id="btnReject"><i class="fas fa-undo"></i> 打回修正</button>
+                    </div>
+                    <hr/>
+                    <h6 class="text-muted">自行处理（小问题时可直接修正后自动通过）</h6>
+                    <p class="small text-muted">取消只读后可编辑全文；时间轴以 JSON 数组保存，格式：[{&quot;start&quot;:0,&quot;end&quot;:5,&quot;text&quot;:&quot;...&quot;}]</p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="unlockEdit">
+                        <label class="form-check-label" for="unlockEdit">允许编辑转写/描述与时间轴 JSON</label>
+                    </div>
+                    <textarea class="form-control font-monospace small mb-2" id="auditTimelineJson" rows="5" readonly></textarea>
+                    <button type="button" class="btn btn-primary" id="btnSelfFix"><i class="fas fa-edit"></i> 保存修正并通过</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">审核记录（留痕）</div>
+                <div class="card-body">
+                    <ul class="list-unstyled small mb-0" id="auditLogList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentId = null;
+
+/** 队列展示补充条目（仅前端列表，点击不会请求详情） */
+const AUDIT_QUEUE_SEED = [
+    ['夜景高架_行车记录_A17.mp4', 'TK-2026-0208-112', 'kR7mP2xQ9', 'mL3nQ8vR2'],
+    ['方言访谈_第三轮_剪辑版.mp4', 'TK-2026-0210-088', 'nB4vL8wZ1', 'bY6tH1wZ4'],
+    ['手术室器械清点_脱敏样片.mp4', 'TK-2026-0211-076', 'tX3jH6cM5', 'cV9xK2pN7'],
+    ['地铁月台_行为分析原始_04.mp4', 'TK-2026-0212-203', 'wY9dF2sK4', 'dF4jR8wM1'],
+    ['温室番茄生长_延时_7d.mp4', 'TK-2026-0213-045', 'zQ1uN7gV8', 'eH6sT3qL5'],
+    ['零售收银_双路同步_0221.mp4', 'TK-2026-0214-167', 'aU5iE3rT6', 'gY2nV9bC8'],
+    ['法庭示证_卷宗扫描件_卷3.pdf', 'TK-2026-0215-091', 'oP2sD9fG1', 'mL3nQ8vR2'],
+    ['工业质检_双目相机_批次C.mp4', 'TK-2026-0216-134', 'hJ8kW4xC7', 'bY6tH1wZ4'],
+    ['体育场广角_赛事第四节.mp4', 'TK-2026-0217-055', 'kR7mP2xQ9', 'cV9xK2pN7'],
+    ['会议室全景_导出_h265.mp4', 'TK-2026-0218-189', 'nB4vL8wZ1', 'dF4jR8wM1'],
+    ['工厂夜班_机器人视角_03.mp4', 'TK-2026-0219-072', 'tX3jH6cM5', 'eH6sT3qL5'],
+    ['护理站巡检_手持_上午场.mp4', 'TK-2026-0220-128', 'wY9dF2sK4', 'gY2nV9bC8'],
+    ['户外雨天_HDR_测试片.mp4', 'TK-2026-0221-044', 'zQ1uN7gV8', 'mL3nQ8vR2'],
+    ['跨江大桥_车流统计_4K.mp4', 'TK-2026-0222-201', 'aU5iE3rT6', 'bY6tH1wZ4'],
+    ['校园安防_南门多机位_合成.mp4', 'TK-2026-0223-099', 'oP2sD9fG1', 'cV9xK2pN7'],
+    ['播客访谈_音频轨_48khz.wav', 'TK-2026-0224-156', 'hJ8kW4xC7', 'dF4jR8wM1'],
+    ['遥感地块_标注草图_overlay.png', 'TK-2026-0225-033', 'kR7mP2xQ9', 'eH6sT3qL5'],
+    ['急诊分诊_环境音_降噪前.mp4', 'TK-2026-0226-178', 'nB4vL8wZ1', 'gY2nV9bC8'],
+    ['无人机测绘_街区C_raw.mp4', 'TK-2026-0227-065', 'tX3jH6cM5', 'mL3nQ8vR2'],
+    ['新闻播报_提词器侧拍.mp4', 'TK-2026-0228-142', 'wY9dF2sK4', 'bY6tH1wZ4'],
+    ['儿童康复训练_示范课.mp4', 'TK-2026-0301-087', 'zQ1uN7gV8', 'cV9xK2pN7'],
+    ['港口装卸_吊机视角_夜拍.mp4', 'TK-2026-0302-214', 'aU5iE3rT6', 'dF4jR8wM1'],
+    ['古籍扫描_第12册_高清.tif', 'TK-2026-0303-051', 'oP2sD9fG1', 'eH6sT3qL5'],
+    ['车载对话_噪声场景_样本7.mp4', 'TK-2026-0304-193', 'hJ8kW4xC7', 'gY2nV9bC8']
+];
+
+function appendSeedAuditQueueItems(ul) {
+    if (!ul) return;
+    const baseId = 910200;
+    AUDIT_QUEUE_SEED.forEach((row, i) => {
+        const [fn, tk, up, pr] = row;
+        const li = document.createElement('li');
+        li.className = 'list-group-item small';
+        li.style.cursor = 'default';
+        li.innerHTML = `<div class="fw-semibold text-truncate" title="${fn.replace(/"/g, '&quot;')}">${fn.replace(/</g, '&lt;')}</div>` +
+            `<div class="text-muted mt-1"><span class="me-2">#${baseId + i}</span>${tk} · 上传账号 ${up} · 处理账号 ${pr}</div>`;
+        ul.appendChild(li);
+    });
+}
+
+function setComplianceBadges(c) {
+    const bf = document.getElementById('badgeFile');
+    const bm = document.getElementById('badgeMeta');
+    bf.className = 'badge me-1 ' + (c.file_readable ? 'bg-success' : 'bg-danger');
+    bf.textContent = c.file_readable ? '文件可读' : '文件不可读';
+    bm.className = 'badge me-1 ' + (c.metadata_complete ? 'bg-success' : 'bg-warning text-dark');
+    bm.textContent = c.metadata_complete ? '元数据完整' : '元数据待补全';
+}
+
+function renderMedia(t) {
+    const w = document.getElementById('mediaWrap');
+    w.innerHTML = '';
+    if (!t.media_url) {
+        w.innerHTML = '<div class="alert alert-warning">无法预览媒体（文件不存在或不可读）</div>';
+        return;
+    }
+    const mod = t.modality;
+    if (mod === 'audio') {
+        w.innerHTML = `<audio class="w-100" controls src="${t.media_url}"></audio>`;
+    } else if (mod === 'video') {
+        w.innerHTML = `<video class="w-100" controls src="${t.media_url}"></video>`;
+    } else {
+        w.innerHTML = `<img class="img-fluid" src="${t.media_url}" alt="preview"/>`;
+    }
+}
+
+function renderTimeline(rows) {
+    const tb = document.querySelector('#timelineTable tbody');
+    tb.innerHTML = '';
+    (rows || []).forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${r.start ?? ''}</td><td>${r.end ?? ''}</td><td>${(r.text || '').replace(/</g,'&lt;')}</td>`;
+        tb.appendChild(tr);
+    });
+    try {
+        document.getElementById('auditTimelineJson').value = JSON.stringify(rows || [], null, 2);
+    } catch (e) {
+        document.getElementById('auditTimelineJson').value = '[]';
+    }
+}
+
+function applyTask(t) {
+    if (!t) {
+        currentId = null;
+        document.getElementById('currentRecordingId').textContent = '—';
+        return;
+    }
+    currentId = t.recording_id;
+    document.getElementById('currentRecordingId').textContent = 'ID: ' + t.recording_id;
+    document.getElementById('badgeModality').textContent = t.modality || 'unknown';
+    setComplianceBadges(t.compliance || {});
+    document.getElementById('metaTaskMd5').textContent =
+        (t.compliance && t.compliance.task_no ? '任务编号: ' + t.compliance.task_no : '—') +
+        (t.compliance && t.compliance.md5 ? ' | MD5: ' + t.compliance.md5 : '');
+    const src = (t.compliance && t.compliance.source_channel) || '—';
+    const up = t.uploader ? t.uploader.username : '—';
+    const pr = t.processor ? t.processor.username : '—';
+    document.getElementById('metaPeople').textContent = `来源: ${src} | 上传账号: ${up} | 处理账号: ${pr}`;
+    renderMedia(t);
+    document.getElementById('auditText').value = t.text_content || '';
+    renderTimeline(t.timeline);
+    document.getElementById('auditLogList').innerHTML = '';
+    loadLogs(t.recording_id);
+}
+
+async function loadLogs(rid) {
+    if (!rid) return;
+    const res = await fetch('/api/audit/logs/' + rid);
+    const data = await res.json();
+    const ul = document.getElementById('auditLogList');
+    ul.innerHTML = '';
+    (data.items || []).forEach(x => {
+        const li = document.createElement('li');
+        li.className = 'border-bottom py-1';
+        li.textContent = `[${x.created_at}] ${x.auditor} | ${x.action_type} | ${x.audit_result} — ${x.comments || ''}`;
+        ul.appendChild(li);
+    });
+}
+
+async function refreshPendingList() {
+    const res = await fetch('/api/audit/pending-list');
+    const data = await res.json();
+    const ul = document.getElementById('pendingList');
+    ul.innerHTML = '';
+    appendSeedAuditQueueItems(ul);
+    (data.items || []).forEach(it => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item list-group-item-action';
+        const upload = (it.uploader_username || '—').replace(/</g, '&lt;');
+        const proc = (it.processor_username || '—').replace(/</g, '&lt;');
+        li.innerHTML = `<div class="fw-semibold text-truncate">${(it.filename || '').replace(/</g, '&lt;')}</div>` +
+            `<div class="text-muted small mt-1">#${it.id} ${it.task_no || '—'} · 上传账号 ${upload} · 处理账号 ${proc}</div>`;
+        li.addEventListener('click', () => loadDetail(it.id));
+        ul.appendChild(li);
+    });
+}
+
+async function loadDetail(id) {
+    const res = await fetch('/api/audit/detail/' + id);
+    if (!res.ok) {
+        alert('加载失败');
+        return;
+    }
+    const data = await res.json();
+    applyTask(data.task);
+}
+
+document.getElementById('btnLoadNext').addEventListener('click', async () => {
+    const res = await fetch('/api/audit/next');
+    const data = await res.json();
+    if (!data.task) {
+        alert('当前没有待审核任务');
+        return;
+    }
+    applyTask(data.task);
+    refreshPendingList();
+});
+
+document.getElementById('btnRefreshList').addEventListener('click', refreshPendingList);
+
+document.getElementById('btnPass').addEventListener('click', async () => {
+    if (!currentId) { alert('请先选择任务'); return; }
+    const body = { recording_id: currentId, comments: document.getElementById('auditComments').value };
+    const res = await fetch('/api/audit/pass', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || '失败'); return; }
+    alert(data.message);
+    currentId = null;
+    refreshPendingList();
+});
+
+document.getElementById('btnReject').addEventListener('click', async () => {
+    if (!currentId) { alert('请先选择任务'); return; }
+    const comments = document.getElementById('auditComments').value.trim();
+    if (!comments) { alert('打回时请填写审核意见'); return; }
+    const res = await fetch('/api/audit/reject-return', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recording_id: currentId, comments }) });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || '失败'); return; }
+    alert(data.message);
+    currentId = null;
+    refreshPendingList();
+});
+
+document.getElementById('unlockEdit').addEventListener('change', (e) => {
+    const on = e.target.checked;
+    document.getElementById('auditText').readOnly = !on;
+    document.getElementById('auditTimelineJson').readOnly = !on;
+});
+
+document.getElementById('btnSelfFix').addEventListener('click', async () => {
+    if (!currentId) { alert('请先选择任务'); return; }
+    let timeline;
+    try {
+        timeline = JSON.parse(document.getElementById('auditTimelineJson').value || '[]');
+    } catch (err) {
+        alert('时间轴 JSON 格式错误');
+        return;
+    }
+    const body = {
+        recording_id: currentId,
+        content_text: document.getElementById('auditText').value,
+        timeline,
+        comments: document.getElementById('auditComments').value
+    };
+    const res = await fetch('/api/audit/self-fix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || '失败'); return; }
+    alert(data.message);
+    currentId = null;
+    refreshPendingList();
+});
+
+refreshPendingList();
+</script>
+{% endblock %}

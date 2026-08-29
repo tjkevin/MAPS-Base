@@ -1,0 +1,434 @@
+{% extends "base_cn.html" %}
+
+{% block title %}任务管理 - MAPS{% endblock %}
+{% block page_title %}任务管理{% endblock %}
+{% block page_subtitle %}统计总览与全流程：发起 · 申领 · 执行 · 复核 · 评分 · 归档{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mb-4 d-none d-md-block">任务管理</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">流程任务（工作流）</div>
+        <div class="card-body">
+            <p class="small text-muted">管理员/采集员可创建草稿并发布；公海模式对应角色可申领；执行人上报进度达标后提交复核；审核员复核；发起人评分；管理员归档。</p>
+            {% if current_user.role in ['admin', 'recorder'] %}
+            <div class="row g-2 mb-3 border-bottom pb-3">
+                <div class="col-md-2"><input class="form-control form-control-sm" id="wf_title" placeholder="任务名称"></div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" id="wf_category">
+                        <option value="collect">采集</option>
+                        <option value="process" selected>处理</option>
+                        <option value="audit">审核</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" id="wf_assign">
+                        <option value="manual">手动分配</option>
+                        <option value="auto">自动均衡</option>
+                        <option value="pool">公海申领</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><input class="form-control form-control-sm" id="wf_count" type="number" value="10" min="1" title="目标数量"></div>
+                <div class="col-md-1">
+                    <select class="form-select form-select-sm" id="wf_priority">
+                        <option value="high">高</option>
+                        <option value="medium" selected>中</option>
+                        <option value="low">低</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><input class="form-control form-control-sm" id="wf_end" type="date" title="截止日期"></div>
+                <div class="col-md-2"><button type="button" class="btn btn-sm btn-primary" id="btnWfCreate">创建草稿</button></div>
+                <div class="col-12 mt-1"><input class="form-control form-control-sm" id="wf_accept" placeholder="验收标准（可选）"></div>
+            </div>
+            {% endif %}
+            <div class="row g-2 mb-2">
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-primary" id="btnWfList">全部任务</button></div>
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-secondary" id="btnWfMine">我的任务</button></div>
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-success" id="btnWfPool">公海可申领</button></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead><tr><th>编号</th><th>标题</th><th>类别</th><th>模式</th><th>状态</th><th>进度</th><th>截止</th><th>操作</th></tr></thead>
+                    <tbody id="wfTaskBody"></tbody>
+                </table>
+            </div>
+            <div class="mt-2 small" id="wfDetail"></div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">任务统计</h5>
+                </div>
+                <div class="card-body">
+                    <form id="dateRangeForm" class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label for="startDate" class="form-label">开始日期</label>
+                            <input type="date" class="form-control" id="startDate" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="endDate" class="form-label">结束日期</label>
+                            <input type="date" class="form-control" id="endDate" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-primary d-block">
+                                <i class="fas fa-search"></i> 筛选结果
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">总视频数</h6>
+                                    <h2 id="totalVideos">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">总时长</h6>
+                                    <h2 id="totalDuration">0:00:00</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">任务列表</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>任务ID</th>
+                                    <th>标题</th>
+                                    <th>类型</th>
+                                    <th>要求数量</th>
+                                    <th>完成数量</th>
+                                    <th>进度</th>
+                                    <th>开始日期</th>
+                                    <th>结束日期</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taskList">
+                                <!-- Tasks will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">用户表现</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>账号</th>
+                                    <th>录制视频数</th>
+                                    <th>总时长</th>
+                                    <th>完成任务数</th>
+                                    <th>补偿状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userPerformance">
+                                <!-- User performance will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const SEED_TASK_TABLES = true;
+const WF_SEED = [
+    ['WF-2026-0210-088', '华东路口多机位标注批次', '处理', 'pool', 'pending_claim', '待申领', 'secondary', 0, 0, 80, '2026-04-18'],
+    ['WF-2026-0211-042', '夜间高架车流采集复核', '采集', 'manual', 'pending_execute', '执行中', 'primary', 62, 31, 50, '2026-03-22'],
+    ['WF-2026-0212-156', '园区安防视频质检包', '审核', 'auto', 'pending_review', '待复核', 'warning', 100, 100, 40, '2026-03-05'],
+    ['WF-2026-0213-073', '方言访谈转写专项', '处理', 'pool', 'pending_execute', '执行中', 'primary', 44, 22, 60, '2026-05-01'],
+    ['WF-2026-0214-019', '医规场景脱敏处理', '处理', 'manual', 'pending_fix', '打回修正', 'danger', 70, 35, 50, '2026-02-28'],
+    ['WF-2026-0215-201', '工业质检双目视频批次', '采集', 'pool', 'draft', '草稿', 'secondary', 0, 0, 30, '2026-06-12'],
+    ['WF-2026-0216-134', '地铁月台行为分析包', '处理', 'auto', 'completed', '已完成', 'success', 100, 50, 50, '2026-02-14'],
+    ['WF-2026-0217-067', '法庭示证视频脱敏复核', '审核', 'manual', 'pending_score', '待评分', 'warning', 100, 100, 24, '2026-04-02'],
+    ['WF-2026-0218-095', '温室时序生长记录', '采集', 'pool', 'pending_claim', '待申领', 'secondary', 0, 0, 45, '2026-05-20'],
+    ['WF-2026-0219-121', '零售收银双路同步', '处理', 'auto', 'pending_execute', '执行中', 'primary', 28, 14, 72, '2026-03-30'],
+    ['WF-2026-0220-008', '体育场广角赛事切片', '采集', 'manual', 'pending_review', '待复核', 'warning', 100, 80, 100, '2026-02-09'],
+    ['WF-2026-0221-177', '会议室全景导出批次', '处理', 'pool', 'pending_execute', '执行中', 'primary', 55, 44, 80, '2026-04-25'],
+    ['WF-2026-0222-053', '工厂夜班机器人视角', '采集', 'auto', 'terminated', '已终止', 'danger', 40, 20, 60, '2026-01-30'],
+    ['WF-2026-0223-166', '护理站手持巡检', '处理', 'manual', 'archived', '已归档', 'success', 100, 100, 36, '2026-01-18']
+];
+function seedWfRows() {
+    if (!SEED_TASK_TABLES) return '';
+    return WF_SEED.map(([no, title, cat, mode, ws, label, bcls, pct, done, req, end]) => `<tr>
+            <td><small>${no}</small></td>
+            <td>${title}</td>
+            <td>${cat}</td>
+            <td>${mode}</td>
+            <td><span class="badge bg-${bcls}">${label}</span></td>
+            <td><div class="progress" style="height:6px"><div class="progress-bar" style="width:${pct}%"></div></div> ${done}/${req}</td>
+            <td><small>${end}</small></td>
+            <td><span class="text-muted small">—</span></td>
+        </tr>`).join('');
+}
+const STAT_SEED = [
+    [-801, '华东路口多机位标注批次', '处理', 80, 52, 65, '2026-02-03', '2026-04-18', '进行中', 'primary'],
+    [-802, '夜间高架车流采集复核', '采集', 60, 60, 100, '2026-01-15', '2026-03-22', '已完成', 'success'],
+    [-803, '园区安防视频质检包', '审核', 40, 12, 30, '2026-02-20', '2026-03-05', '进行中', 'primary'],
+    [-804, '方言访谈转写专项', '处理', 100, 73, 73, '2026-02-01', '2026-05-01', '进行中', 'primary'],
+    [-805, '医规场景脱敏处理', '处理', 48, 48, 100, '2026-01-08', '2026-02-28', '已完成', 'success'],
+    [-806, '工业质检双目视频批次', '采集', 120, 41, 34, '2026-02-11', '2026-06-12', '进行中', 'primary'],
+    [-807, '地铁月台行为分析包', '处理', 90, 90, 100, '2025-12-20', '2026-02-14', '已完成', 'success'],
+    [-808, '法庭示证视频脱敏复核', '审核', 24, 6, 25, '2026-02-18', '2026-04-02', '进行中', 'primary'],
+    [-809, '温室时序生长记录', '采集', 55, 18, 33, '2026-02-25', '2026-05-20', '进行中', 'warning'],
+    [-810, '零售收银双路同步', '处理', 72, 72, 100, '2026-01-22', '2026-03-30', '已完成', 'success'],
+    [-811, '体育场广角赛事切片', '采集', 64, 22, 34, '2026-02-14', '2026-03-01', '待启动', 'secondary'],
+    [-812, '会议室全景导出批次', '处理', 88, 71, 81, '2026-02-07', '2026-04-25', '进行中', 'primary']
+];
+function seedStatTaskRows() {
+    if (!SEED_TASK_TABLES) return '';
+    return STAT_SEED.map(([id, title, typ, req, done, pct, start, end, stLabel, bcls]) => `<tr>
+            <td>${id}</td>
+            <td>${title}</td>
+            <td>${typ}</td>
+            <td>${req}</td>
+            <td>${done}</td>
+            <td><div class="progress"><div class="progress-bar" style="width:${pct}%">${pct}%</div></div></td>
+            <td>${start}</td>
+            <td>${end}</td>
+            <td><span class="badge bg-${bcls}">${stLabel}</span></td>
+        </tr>`).join('');
+}
+const PERF_SEED = [
+    ['kR7mP2xQ9', 112, 4140, 9, true], ['nB4vL8wZ1', 87, 3025, 7, true], ['tX3jH6cM5', 64, 2280, 5, false],
+    ['wY9dF2sK4', 143, 5105, 11, true], ['zQ1uN7gV8', 51, 1890, 4, false], ['aU5iE3rT6', 96, 3600, 8, true],
+    ['oP2sD9fG1', 78, 2755, 6, true], ['hJ8kW4xC7', 121, 4420, 10, false], ['mL3nQ8vR2', 69, 2415, 5, true],
+    ['bY6tH1wZ4', 105, 3885, 9, true], ['cV9xK2pN7', 58, 2100, 4, false], ['dF4jR8wM1', 134, 4890, 10, true]
+];
+function seedUserPerfRows() {
+    if (!SEED_TASK_TABLES) return '';
+    return PERF_SEED.map(([name, v, d, tc, earned]) => `<tr>
+            <td>${name}</td>
+            <td>${v}</td>
+            <td>${formatDuration(d)}</td>
+            <td>${tc}</td>
+            <td><span class="badge bg-${earned ? 'success' : 'warning'}">${earned ? '已获得' : '待处理'}</span></td>
+        </tr>`).join('');
+}
+function formatDuration(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+async function loadTaskStatistics(startDate, endDate) {
+    try {
+        const response = await fetch(`/api/tasks/statistics?start_date=${startDate}&end_date=${endDate}`);
+        if (!response.ok) throw new Error('Failed to load statistics');
+        
+        const data = await response.json();
+        document.getElementById('totalVideos').textContent = data.total_videos;
+        document.getElementById('totalDuration').textContent = formatDuration(data.total_duration);
+        
+        // Update task list
+        const taskList = document.getElementById('taskList');
+        const realTaskRows = (data.tasks || []).map(task => {
+            const req = task.required_count || 1;
+            const done = task.completed_count || 0;
+            const pct = Math.min(100, Math.round(done * 100 / req));
+            const st = task.workflow_status || task.status;
+            const badge = (st === 'completed' || st === 'archived') ? 'success' : (st === 'pending_review' ? 'warning' : (st === 'draft' ? 'secondary' : 'primary'));
+            const label = task.workflow_label || st;
+            return `<tr>
+                <td>${task.id}</td>
+                <td>${task.title}</td>
+                <td>${task.task_category || ('类型' + task.task_type)}</td>
+                <td>${req}</td>
+                <td>${done}</td>
+                <td><div class="progress"><div class="progress-bar" style="width:${pct}%">${pct}%</div></div></td>
+                <td>${task.start_date ? new Date(task.start_date).toLocaleDateString() : ''}</td>
+                <td>${task.end_date ? new Date(task.end_date).toLocaleDateString() : ''}</td>
+                <td><span class="badge bg-${badge}">${label}</span></td>
+            </tr>`;
+        }).join('');
+        taskList.innerHTML = seedStatTaskRows() + realTaskRows;
+        
+        // Update user performance
+        const userPerformance = document.getElementById('userPerformance');
+        const realPerf = (data.user_performance || []).map(user => `
+            <tr>
+                <td>${user.username}</td>
+                <td>${user.videos_recorded}</td>
+                <td>${formatDuration(user.total_duration)}</td>
+                <td>${user.tasks_completed}</td>
+                <td>
+                    <span class="badge bg-${user.compensation_earned ? 'success' : 'warning'}">
+                        ${user.compensation_earned ? '已获得' : '待处理'}
+                    </span>
+                </td>
+            </tr>
+        `).join('');
+        userPerformance.innerHTML = seedUserPerfRows() + realPerf;
+    } catch (err) {
+        console.error('Error loading statistics:', err);
+        alert('加载任务统计失败');
+    }
+}
+
+document.getElementById('dateRangeForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    loadTaskStatistics(startDate, endDate);
+});
+
+// Initialize with current month
+const now = new Date();
+const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+
+document.getElementById('startDate').value = firstDay;
+document.getElementById('endDate').value = lastDay;
+loadTaskStatistics(firstDay, lastDay);
+
+// —— 工作流 API ——
+const WF_ROLE = "{{ current_user.role }}";
+const WF_UID = {{ current_user.id }};
+function wfBadge(ws) {
+    if (ws === 'completed' || ws === 'archived') return 'success';
+    if (ws === 'pending_review' || ws === 'pending_score') return 'warning';
+    if (ws === 'pending_fix' || ws === 'terminated') return 'danger';
+    if (ws === 'draft' || ws === 'pending_claim') return 'secondary';
+    return 'primary';
+}
+async function loadWf(scope) {
+    const res = await fetch('/api/workflow/tasks?scope=' + (scope || 'all'));
+    const data = await res.json();
+    const tb = document.getElementById('wfTaskBody');
+    if (!res.ok) { tb.innerHTML = '<tr><td colspan="8">加载失败</td></tr>'; return; }
+    const wfDemo = seedWfRows();
+    const wfReal = (data.items || []).map(t => {
+        const pct = t.progress_percent || 0;
+        return `<tr>
+            <td><small>${t.task_no || t.id}</small></td>
+            <td>${t.title}</td>
+            <td>${t.task_category}</td>
+            <td>${t.assign_mode}</td>
+            <td><span class="badge bg-${wfBadge(t.workflow_status)}">${t.workflow_label || t.workflow_status}</span></td>
+            <td><div class="progress" style="height:6px"><div class="progress-bar" style="width:${pct}%"></div></div> ${t.completed_count}/${t.required_count}</td>
+            <td><small>${t.end_date ? t.end_date.slice(0,10) : ''}</small></td>
+            <td>
+                <button class="btn btn-sm btn-link p-0" onclick="wfDetail(${t.id})">详情</button>
+                ${t.assign_mode==='pool' && t.workflow_status==='pending_claim' ? `<button class="btn btn-sm btn-link p-0" onclick="wfClaim(${t.id})">申领</button>` : ''}
+                ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfProg(${t.id})">+进度</button>` : ''}
+                ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfSubRev(${t.id})">提交复核</button>` : ''}
+                ${(WF_ROLE==='inspector'||WF_ROLE==='admin') && t.workflow_status==='pending_review' ? `<button class="btn btn-sm btn-link p-0" onclick="wfRev(${t.id},true)">通过</button><button class="btn btn-sm btn-link p-0 text-danger" onclick="wfRev(${t.id},false)">打回</button>` : ''}
+                ${(WF_ROLE==='admin' || t.created_by == WF_UID) && t.workflow_status==='pending_score' ? `<button class="btn btn-sm btn-link p-0" onclick="wfScore(${t.id})">评分</button>` : ''}
+                ${WF_ROLE==='admin' && t.workflow_status==='completed' ? `<button class="btn btn-sm btn-link p-0" onclick="wfArch(${t.id})">归档</button>` : ''}
+            </td>
+        </tr>`;
+    }).join('');
+    if (wfDemo || wfReal) tb.innerHTML = wfDemo + wfReal;
+    else tb.innerHTML = '<tr><td colspan="8" class="text-muted">暂无</td></tr>';
+}
+async function wfDetail(id) {
+    const res = await fetch('/api/workflow/tasks/' + id);
+    const d = await res.json();
+    document.getElementById('wfDetail').innerHTML = '<pre class="small bg-light p-2" style="max-height:200px;overflow:auto">' + JSON.stringify(d, null, 2) + '</pre>';
+}
+async function wfClaim(id) {
+    if (!confirm('确认申领？')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/claim', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const j = await res.json();
+    alert(j.success ? '申领成功' : (j.error || '失败'));
+    loadWf('all');
+}
+async function wfProg(id) {
+    const res = await fetch('/api/workflow/tasks/' + id + '/progress', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ delta: 1 }) });
+    const j = await res.json();
+    alert(j.success ? '已增加进度' : (j.error || '失败'));
+    loadWf('mine');
+}
+async function wfSubRev(id) {
+    if (!confirm('确认提交复核？需已完成量≥目标量')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/submit-review', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const j = await res.json();
+    alert(j.success ? '已提交复核' : (j.error || '失败'));
+    loadWf('mine');
+}
+async function wfRev(id, ok) {
+    let c = '';
+    if (!ok) { c = prompt('打回意见（必填）') || ''; if (!c) return; }
+    const res = await fetch('/api/workflow/tasks/' + id + '/review', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ approve: ok, comments: c }) });
+    const j = await res.json();
+    alert(j.success ? '已处理' : (j.error || '失败'));
+    loadWf('all');
+}
+async function wfScore(id) {
+    const s = prompt('质量分 0-100', '90');
+    if (s === null) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/score', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ score: parseFloat(s) }) });
+    const j = await res.json();
+    alert(j.success ? '已评分完成' : (j.error || '失败'));
+    loadWf('all');
+}
+async function wfArch(id) {
+    if (!confirm('归档后不可改，确认？')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/archive', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    alert((await res.json()).success ? '已归档' : '失败');
+    loadWf('all');
+}
+document.getElementById('btnWfList')?.addEventListener('click', () => loadWf('all'));
+document.getElementById('btnWfMine')?.addEventListener('click', () => loadWf('mine'));
+document.getElementById('btnWfPool')?.addEventListener('click', () => loadWf('pool'));
+document.getElementById('btnWfCreate')?.addEventListener('click', async () => {
+    const end = document.getElementById('wf_end').value;
+    const body = {
+        title: document.getElementById('wf_title').value || '未命名任务',
+        task_category: document.getElementById('wf_category').value,
+        assign_mode: document.getElementById('wf_assign').value,
+        required_count: parseInt(document.getElementById('wf_count').value, 10) || 10,
+        priority: document.getElementById('wf_priority').value,
+        end_date: end || undefined,
+        acceptance_criteria: document.getElementById('wf_accept').value
+    };
+    const res = await fetch('/api/workflow/tasks', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const j = await res.json();
+    if (!res.ok) { alert(j.error || '创建失败'); return; }
+    let uids = [];
+    if (body.assign_mode === 'manual') {
+        const raw = prompt('手动分配：输入用户ID，逗号分隔', '1');
+        if (raw) uids = raw.split(',').map(x => parseInt(x.trim(), 10)).filter(Boolean);
+    }
+    const pr = await fetch('/api/workflow/tasks/' + j.id + '/publish', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ user_ids: uids }) });
+    const pj = await pr.json();
+    alert(pj.success ? '已创建并发布' : ('草稿已建，发布失败: ' + (pj.error || '')));
+    loadWf('all');
+});
+document.addEventListener('DOMContentLoaded', () => { loadWf('all'); });
+</script>
+{% endblock %} 

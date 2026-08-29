@@ -1,0 +1,174 @@
+{% extends "base_en.html" %}
+
+{% block title %}Dashboard - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Multimodal Dataset Acquisition and Processing System</h1>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="icon-card bg-light">
+                <i class="fas fa-database text-primary"></i>
+                <h3>Data acquisition</h3>
+                <p>Local upload & recording, plus batch collection from the web (URL lists, embedded media)</p>
+                <a href="{{ url_for('upload') }}" class="btn btn-primary">Go to acquisition</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="icon-card bg-light">
+                <i class="fas fa-cogs text-success"></i>
+                <h3>Data Processing</h3>
+                <p>Process and validate uploaded multimodal data</p>
+                <a href="{{ url_for('process') }}" class="btn btn-success">Go to Processing</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="icon-card bg-light">
+                <i class="fas fa-database text-info"></i>
+                <h3>Data Management</h3>
+                <p>Export and manage processed datasets</p>
+                <a href="{{ url_for('manage') }}" class="btn btn-info text-white">Go to Management</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="icon-card bg-light">
+                <i class="fas fa-tasks text-warning"></i>
+                <h3>Task Management</h3>
+                <p>Track and manage recording tasks and progress</p>
+                <a href="{{ url_for('tasks') }}" class="btn btn-warning">Go to Tasks</a>
+            </div>
+        </div>
+        
+        {% if current_user.role == 'admin' %}
+        <div class="col-md-4">
+            <div class="icon-card bg-light">
+                <i class="fas fa-users text-secondary"></i>
+                <h3>User Management</h3>
+                <p>Manage system users and their roles</p>
+                <a href="{{ url_for('users') }}" class="btn btn-secondary">Go to Users</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h4 class="mb-0"><i class="fas fa-chart-bar text-primary"></i> Data assets & quality</h4>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="btnDashRefresh"><i class="fas fa-sync"></i> Refresh</button>
+                        <span class="text-muted small ms-2" id="dashUpdated">—</span>
+                    </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3"><div class="p-3 bg-light rounded dash-card" data-href="{{ url_for('manage') }}" style="cursor:pointer"><h6 class="text-muted">Total (excl. invalid)</h6><h3 class="text-primary mb-0" id="st_total">—</h3><small class="text-muted">Video <span id="st_v">—</span> / Audio <span id="st_a">—</span> / Image <span id="st_i">—</span></small><div class="small text-muted mt-1">All rows <span id="st_all">—</span></div></div></div>
+                    <div class="col-md-3"><div class="p-3 bg-light rounded dash-card" data-href="{{ url_for('manage') }}?statuses=pending_review" style="cursor:pointer"><h6 class="text-muted">Pending review</h6><h3 class="text-warning mb-0" id="st_pr">—</h3></div></div>
+                    <div class="col-md-3"><div class="p-3 bg-light rounded dash-card" data-href="{{ url_for('manage') }}?statuses=pending" style="cursor:pointer"><h6 class="text-muted">Pending process</h6><h3 class="mb-0" id="st_pend">—</h3></div></div>
+                    <div class="col-md-3"><div class="p-3 bg-light rounded dash-card" data-href="{{ url_for('manage') }}?statuses=approved" style="cursor:pointer"><h6 class="text-muted">Approved / pass rate</h6><h3 class="text-success mb-0"><span id="st_appr">—</span> <small class="fs-6 text-muted" id="st_rate">—</small></h3></div></div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-6 col-md-3"><div class="p-3 bg-light rounded"><h6 class="text-muted small">With subtitle</h6><h4 class="text-info mb-0" id="st_sub">—</h4></div></div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3 border rounded p-3"><h6>Catalog & size</h6><p class="mb-1">Datasets <strong id="ast_ds">—</strong></p><p class="mb-1">Dataset items <strong id="ast_di">—</strong></p><p class="mb-1">Effective data assets <strong id="ast_st">—</strong></p><p class="small text-muted mb-0">Startup accounts <span id="ast_au">—</span></p></div>
+                    <div class="col-md-3 border rounded p-3"><h6>Acquisition source</h6><ul class="list-unstyled small mb-0" id="ast_ch"></ul></div>
+                    <div class="col-md-3 border rounded p-3"><h6>Metadata QC</h6><p class="mb-1">Pending <strong id="meta_p">—</strong></p><p class="mb-1">Pass <strong id="meta_ok">—</strong></p><p class="mb-0">Pending fix <strong id="meta_pf">—</strong></p></div>
+                    <div class="col-md-3 border rounded p-3"><h6>Audit actions</h6><p class="mb-1">Last 7 days <strong id="aud_7">—</strong></p><p class="mb-0">Last 30 days <strong id="aud_30">—</strong></p></div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4 border rounded p-3"><h6>Processing results</h6><p class="mb-1">Today <strong id="proc_today">—</strong></p><p class="mb-1">Week <strong id="proc_week">—</strong></p><p class="mb-0">Month <strong id="proc_month">—</strong></p><p class="small text-muted mt-2 mb-0">Avg duration (est.) <span id="proc_avg">—</span> s</p></div>
+                    <div class="col-md-4 border rounded p-3"><h6>Top processor accounts (week)</h6><ol class="small mb-0" id="proc_rank"></ol></div>
+                    <div class="col-md-4 border rounded p-3"><h6>Tasks</h6><p class="mb-0">Active <strong id="tsk_act">—</strong> / Done <strong id="tsk_done">—</strong></p></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-lg-8"><h6>Audit pass trend (7 days)</h6><canvas id="chartPassTrend" height="100"></canvas></div>
+                    <div class="col-lg-4"><h6>Auditor accounts & pass rate</h6><ul class="list-unstyled small" id="auditor_list"></ul></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+let dashChart = null;
+const CH_LABEL = { upload: 'Upload', record: 'Record', crawl: 'Web crawl', unknown: 'Unknown' };
+function fmtBytes(b) {
+    b = Number(b) || 0;
+    if (b === 0) return '0 B';
+    const u = ['B', 'KB', 'MB', 'GB', 'TB'];
+    let i = 0, v = b;
+    while (v >= 1024 && i < u.length - 1) { v /= 1024; i++; }
+    return (i === 0 ? Math.round(v) : v.toFixed(v >= 10 ? 0 : 1)) + ' ' + u[i];
+}
+function escapeHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+async function loadDashboardStats() {
+    try {
+        const res = await fetch('/api/dashboard/stats');
+        const d = await res.json();
+        if (!res.ok) return;
+        const t = d.totals || {};
+        document.getElementById('st_total').textContent = t.recordings ?? '0';
+        document.getElementById('st_all').textContent = t.recordings_including_invalid ?? '0';
+        document.getElementById('st_v').textContent = t.video ?? '0';
+        document.getElementById('st_a').textContent = t.audio ?? '0';
+        document.getElementById('st_i').textContent = t.image ?? '0';
+        const sc = d.status_counts || {};
+        document.getElementById('st_pr').textContent = sc.pending_review ?? '0';
+        document.getElementById('st_pend').textContent = sc.pending ?? '0';
+        document.getElementById('st_appr').textContent = sc.approved ?? '0';
+        const ast = d.assets || {};
+        document.getElementById('st_sub').textContent = ast.recordings_with_subtitle ?? '0';
+        document.getElementById('ast_ds').textContent = ast.datasets ?? '0';
+        document.getElementById('ast_di').textContent = ast.dataset_items ?? '0';
+        document.getElementById('ast_st').textContent = fmtBytes(ast.storage_bytes);
+        document.getElementById('ast_au').textContent = ast.active_users ?? '0';
+        const ch = ast.acquisition_channels || {};
+        const keys = Object.keys(ch).sort((a,b) => (ch[b]||0) - (ch[a]||0));
+        document.getElementById('ast_ch').innerHTML = keys.length
+            ? keys.map(k => `<li><span class="text-muted">${CH_LABEL[k] || k}</span> <strong>${ch[k]}</strong></li>`).join('')
+            : '<li class="text-muted">No channel metadata</li>';
+        const ma = d.metadata_audit || {};
+        document.getElementById('meta_p').textContent = ma.pending ?? '0';
+        document.getElementById('meta_ok').textContent = ma.pass ?? '0';
+        document.getElementById('meta_pf').textContent = ma.pending_fix ?? '0';
+        const av = d.audit_volume || {};
+        document.getElementById('aud_7').textContent = av.actions_7d ?? '0';
+        document.getElementById('aud_30').textContent = av.actions_30d ?? '0';
+        const q = d.quality || {};
+        document.getElementById('st_rate').textContent = (q.audit_pass_rate != null ? q.audit_pass_rate + '%' : '—');
+        const p = d.processing || {};
+        document.getElementById('proc_today').textContent = p.today ?? '0';
+        document.getElementById('proc_week').textContent = p.week ?? '0';
+        document.getElementById('proc_month').textContent = p.month ?? '0';
+        document.getElementById('proc_avg').textContent = p.avg_process_seconds ?? '0';
+        const pr = (p.processor_ranking_week || []).slice(0, 8);
+        document.getElementById('proc_rank').innerHTML = pr.length
+            ? pr.map(x => `<li>${escapeHtml(x.username)}: ${x.count}</li>`).join('')
+            : '<li class="text-muted">No processing results this week</li>';
+        const tk = d.tasks || {};
+        document.getElementById('tsk_act').textContent = tk.active ?? '0';
+        document.getElementById('tsk_done').textContent = tk.completed ?? '0';
+        document.getElementById('dashUpdated').textContent = 'Updated: ' + (d.generated_at || '').replace('T',' ').slice(0,19);
+        const trend = q.pass_trend_7d || [];
+        const ctx = document.getElementById('chartPassTrend');
+        if (dashChart) dashChart.destroy();
+        dashChart = new Chart(ctx, { type: 'line', data: { labels: trend.map(x=>x.date), datasets: [{ label: 'Pass actions', data: trend.map(x=>x.pass_count), borderColor: '#0d6efd', tension: 0.2 }] }, options: { responsive: true, scales: { y: { beginAtZero: true } } } });
+        const br = (q.auditor_breakdown || []).slice(0, 10);
+        document.getElementById('auditor_list').innerHTML = br.length
+            ? br.map(x => `<li>${escapeHtml(x.username)}: ${(x.pass_rate != null ? x.pass_rate.toFixed(1) : '0.0')}% (${x.pass_actions}/${x.total_actions})</li>`).join('')
+            : '<li class="text-muted">No audit log sample yet</li>';
+    } catch (e) { console.error(e); }
+}
+document.getElementById('btnDashRefresh')?.addEventListener('click', loadDashboardStats);
+document.querySelectorAll('.dash-card').forEach(el => el.addEventListener('click', () => { const h = el.getAttribute('data-href'); if (h) window.location.href = h; }));
+document.addEventListener('DOMContentLoaded', () => { loadDashboardStats(); setInterval(loadDashboardStats, 300000); });
+</script>
+{% endblock %} 

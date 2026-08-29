@@ -1,0 +1,187 @@
+{% extends "base_cn.html" %}
+{% block title %}消息中心 - MAPS{% endblock %}
+{% block page_title %}消息中心{% endblock %}
+{% block page_subtitle %}任务协同、审核结果与系统通知；支持筛选、已读与置顶{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row g-3 mb-3">
+        <div class="col-md-8 d-flex flex-wrap gap-2 align-items-end">
+            <div>
+                <label class="form-label small mb-0">阅读状态</label>
+                <select class="form-select form-select-sm" id="fRead">
+                    <option value="all">全部</option>
+                    <option value="unread">未读</option>
+                    <option value="read">已读</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label small mb-0">类型</label>
+                <select class="form-select form-select-sm" id="fCat">
+                    <option value="">全部</option>
+                    <option value="task">任务</option>
+                    <option value="audit">审核</option>
+                    <option value="account">账号</option>
+                    <option value="system">系统</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label small mb-0">排序</label>
+                <select class="form-select form-select-sm" id="fSort">
+                    <option value="time">时间（置顶/未读优先）</option>
+                    <option value="priority">优先级</option>
+                </select>
+            </div>
+            <div class="flex-grow-1" style="min-width:180px">
+                <label class="form-label small mb-0">关键词</label>
+                <input class="form-control form-control-sm" id="fQ" placeholder="标题或正文">
+            </div>
+            <div style="min-width:140px">
+                <label class="form-label small mb-0">业务ID</label>
+                <input class="form-control form-control-sm" id="fBiz" placeholder="任务ID等">
+            </div>
+            <button class="btn btn-sm btn-primary" onclick="loadInbox()">查询</button>
+            <button class="btn btn-sm btn-outline-secondary" onclick="markAllRead()">全部已读</button>
+        </div>
+        {% if current_user.role in ['admin', 'super_admin'] %}
+        <div class="col-md-4 border rounded p-2 bg-light">
+            <div class="small fw-bold mb-1">管理员工具</div>
+            <button class="btn btn-sm btn-outline-primary" onclick="scanDeadlines()">扫描任务截止预警</button>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('admin_message_delivery_log_export') }}">导出投递日志</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="list-group" id="msgList"></div>
+    <p class="text-muted small mt-2" id="msgEmpty" style="display:none;">暂无消息</p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const PRIO_CLASS = { urgent: 'danger', high: 'warning', medium: 'info', low: 'secondary' };
+const CAT_ICON = { task: 'fa-tasks', audit: 'fa-clipboard-check', account: 'fa-user-shield', system: 'fa-bullhorn' };
+
+function seedInboxMessages() {
+    return [
+        { source: 'seed', id: 1, category: 'task', msg_type: 'deadline_warn', priority: 'high', title: '任务「华东路口批次」将在 48 小时内截止', summary: '当前完成度约 72%，请及时提交复核以免超期。', body: '', read_at: null, pinned_at: null, created_at: '2026-02-05T09:18:00', sender_type: 'system', action_url: '/tasks' },
+        { source: 'seed', id: 2, category: 'audit', msg_type: 'audit_result', priority: 'medium', title: '审核已通过：夜间高架车流_批次 12', summary: '质检员已确认时间轴与画面一致，无合规风险项。', body: '', read_at: '2026-02-04T16:00:00', pinned_at: null, created_at: '2026-02-04T15:42:00', sender_type: 'inspector', action_url: '/audit' },
+        { source: 'seed', id: 3, category: 'system', msg_type: 'maintenance', priority: 'low', title: '存储集群例行维护通知', summary: '2 月 8 日 02:00–04:00 可能影响大文件上传，请提前保存工作。', body: '', read_at: null, pinned_at: '2026-02-03T10:00:00', created_at: '2026-02-03T10:05:00', sender_type: 'system', action_url: null },
+        { source: 'seed', id: 4, category: 'task', msg_type: 'assign', priority: 'medium', title: '您已被加入任务「方言访谈转写专项」', summary: '请在任务管理中查看目标条数与截止日期。', body: '', read_at: '2026-02-02T11:30:00', pinned_at: null, created_at: '2026-02-02T09:15:00', sender_type: 'admin', action_url: '/tasks' },
+        { source: 'seed', id: 5, category: 'account', msg_type: 'password_policy', priority: 'low', title: '账号安全：建议开启复杂密码策略', summary: '管理员已启用密码复杂度校验，下次改密时请按要求设置。', body: '', read_at: null, pinned_at: null, created_at: '2026-02-01T14:22:00', sender_type: 'system', action_url: '/profile' },
+        { source: 'seed', id: 6, category: 'audit', msg_type: 'reject', priority: 'urgent', title: '打回修正：医规场景脱敏_样片 B', summary: '00:12–00:45 段转写与口型不符，请按意见重传后再次送审。', body: '', read_at: null, pinned_at: null, created_at: '2026-01-31T17:55:00', sender_type: 'inspector', action_url: '/audit' },
+        { source: 'seed', id: 7, category: 'task', msg_type: 'complete', priority: 'medium', title: '任务「零售收银双路同步」已归档', summary: '发起人已完成评分，相关素材已锁定为只读。', body: '', read_at: '2026-01-30T08:00:00', pinned_at: null, created_at: '2026-01-29T18:40:00', sender_type: 'system', action_url: '/tasks' },
+        { source: 'seed', id: 8, category: 'system', msg_type: 'announce', priority: 'medium', title: '新版本：数据管理支持按 MD5 去重检索', summary: '可在数据管理筛选区输入 MD5 快速定位重复上传文件。', body: '', read_at: null, pinned_at: null, created_at: '2026-01-28T12:00:00', sender_type: 'system', action_url: '/manage' },
+        { source: 'seed', id: 9, category: 'task', msg_type: 'pool', priority: 'high', title: '公海任务「地铁月台行为包」仍可申领', summary: '剩余名额 6，截止前完成可计入当月绩效。', body: '', read_at: '2026-01-27T09:10:00', pinned_at: null, created_at: '2026-01-26T20:33:00', sender_type: 'system', action_url: '/tasks' },
+        { source: 'seed', id: 10, category: 'audit', msg_type: 'queue', priority: 'low', title: '待审核队列已更新', summary: '当前队列 24 条，请按优先级处理加急项。', body: '', read_at: null, pinned_at: null, created_at: '2026-01-25T08:50:00', sender_type: 'system', action_url: '/audit' }
+    ];
+}
+
+function mergeInboxItems(apiItems, readFilter, category, q, biz) {
+    let seeds = seedInboxMessages();
+    if (category) seeds = seeds.filter(s => s.category === category);
+    if (readFilter === 'read') seeds = seeds.filter(s => s.read_at);
+    else if (readFilter === 'unread') seeds = seeds.filter(s => !s.read_at);
+    if (q) {
+        const ql = q.toLowerCase();
+        seeds = seeds.filter(s => ((s.title || '') + (s.summary || '') + (s.body || '')).toLowerCase().includes(ql));
+    }
+    if (biz) seeds = seeds.filter(s => String(s.business_id || '') === biz);
+    const all = seeds.concat(apiItems || []);
+    all.sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
+    return all;
+}
+
+async function loadInbox() {
+    const readFilter = document.getElementById('fRead').value;
+    const category = document.getElementById('fCat').value;
+    const p = new URLSearchParams();
+    p.set('read', readFilter);
+    const c = category;
+    if (c) p.set('category', c);
+    p.set('sort', document.getElementById('fSort').value);
+    const q = document.getElementById('fQ').value.trim();
+    if (q) p.set('q', q);
+    const b = document.getElementById('fBiz').value.trim();
+    if (b) p.set('business_id', b);
+    p.set('include_legacy', '1');
+    const r = await fetch('/api/messages/inbox?' + p.toString());
+    const j = await r.json();
+    const list = document.getElementById('msgList');
+    const items = mergeInboxItems(j.items || [], readFilter, category, q, b);
+    document.getElementById('msgEmpty').style.display = items.length ? 'none' : 'block';
+    list.innerHTML = items.map(it => {
+        const pc = PRIO_CLASS[it.priority] || 'secondary';
+        const ic = CAT_ICON[it.category] || 'fa-envelope';
+        const unread = !it.read_at;
+        const seed = it.source === 'seed';
+        const rowCls = seed ? 'list-group-item' : 'list-group-item list-group-item-action';
+        return `
+        <div class="${rowCls} ${unread ? 'fw-semibold' : ''}">
+            <div class="d-flex w-100 justify-content-between align-items-start gap-2">
+                <div class="flex-grow-1">
+                    <span class="badge bg-${pc} me-1">${it.priority || 'medium'}</span>
+                    <i class="fas ${ic} text-muted me-1"></i>
+                    ${it.pinned_at ? '<i class="fas fa-thumbtack text-warning me-1" title="置顶"></i>' : ''}
+                    ${unread ? '<span class="badge bg-danger me-1">未读</span>' : '<span class="badge bg-light text-dark border me-1">已读</span>'}
+                    <span>${escapeHtml(it.title || '')}</span>
+                    <p class="mb-1 small text-muted">${escapeHtml((it.summary || it.body || '').slice(0, 280))}</p>
+                    <small class="text-muted">${it.created_at || ''} · ${it.msg_type || ''} · ${it.sender_type || ''}</small>
+                </div>
+                <div class="btn-group-vertical btn-group-sm">
+                    ${it.action_url ? `<a class="btn btn-outline-primary btn-sm" href="${it.action_url}">处理</a>` : ''}
+                    ${seed ? '' : (it.source === 'inbox' ? `
+                        <button class="btn btn-outline-secondary btn-sm" onclick="markReadInbox(${it.id})">已读</button>
+                        <button class="btn btn-outline-warning btn-sm" onclick="pinInbox(${it.id}, ${it.pinned_at ? 'false' : 'true'})">${it.pinned_at ? '取消置顶' : '置顶'}</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="delInbox(${it.id})">删除</button>
+                    ` : `
+                        <button class="btn btn-outline-secondary btn-sm" onclick="markLegacy('${it.source}', ${it.id})">已读</button>
+                    `)}
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+async function markReadInbox(id) {
+    await fetch(`/api/messages/inbox/${id}/read`, { method: 'POST' });
+    loadInbox();
+}
+async function markLegacy(source, id) {
+    await fetch('/api/messages/legacy/read', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source, id }),
+    });
+    loadInbox();
+}
+async function markAllRead() {
+    await fetch('/api/messages/inbox/read-all', { method: 'POST' });
+    loadInbox();
+}
+async function pinInbox(id, pinned) {
+    await fetch(`/api/messages/inbox/${id}/pin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pinned: pinned === true || pinned === 'true' }),
+    });
+    loadInbox();
+}
+async function delInbox(id) {
+    if (!confirm('从列表中移除该消息？后台仍保留审计。')) return;
+    await fetch(`/api/messages/inbox/${id}`, { method: 'DELETE' });
+    loadInbox();
+}
+async function scanDeadlines() {
+    const r = await fetch('/api/admin/messages/scan-deadlines', { method: 'POST' });
+    const j = await r.json();
+    alert(j.success ? `已扫描：24h 预警 ${j.warn_24h || 0} 条，12h 加急 ${j.warn_12h || 0} 条` : '失败');
+    loadInbox();
+}
+loadInbox();
+</script>
+{% endblock %}

@@ -1,0 +1,2682 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,227",
+    "content": "Well, my first...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,227",
+    "end_time": "00:00:03,531",
+    "content": "Yeah, so, you know, we should maybe back up and...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:03,531",
+    "end_time": "00:00:04,729",
+    "content": "We were the first company.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:04,729",
+    "end_time": "00:00:05,964",
+    "content": "So put our models on the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:05,964",
+    "end_time": "00:00:07,152",
+    "content": "custom model.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:07,152",
+    "end_time": "00:00:09,384",
+    "content": "intelligence community and military frapples.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:09,384",
+    "end_time": "00:00:10,973",
+    "content": "cyber.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:10,973",
+    "end_time": "00:00:12,769",
+    "content": "support operations, various...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:12,769",
+    "end_time": "00:00:18,434",
+    "content": "like this and you know the reason we've done this is you know I believe that we have to defend our country I believe we have to",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:18,434",
+    "end_time": "00:00:29,134",
+    "content": "Autocratic adversaries like China and like Russia. And so we've been very, you know, we've been very lean forward. We have a substantial, you know, public-sector team.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:29,134",
+    "end_time": "00:00:35,659",
+    "content": "But, you know, I have always believed that, you know, as we defend ourselves against",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:35,659",
+    "end_time": "00:00:37,637",
+    "content": "adversaries we have to do so in what",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:37,637",
+    "end_time": "00:00:38,765",
+    "content": "And so we have said...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:38,765",
+    "end_time": "00:00:41,103",
+    "content": "that we're okay with all you",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:41,103",
+    "end_time": "00:00:42,402",
+    "content": "Basically 98 or",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:42,402",
+    "end_time": "00:00:43,726",
+    "content": "One is domestic.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:43,726",
+    "end_time": "00:00:46,060",
+    "content": "They're worried that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:46,060",
+    "end_time": "00:00:47,448",
+    "content": "AI that weren't possible.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:47,448",
+    "end_time": "00:00:54,298",
+    "content": "data collected by private firms, having it bought by the government and analyzing it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:54,298",
+    "end_time": "00:00:55,369",
+    "content": "It was just never...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:55,369",
+    "end_time": "00:00:58,484",
+    "content": "the error of AI. So there's this way in which domestic master",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:58,484",
+    "end_time": "00:00:59,810",
+    "content": "is getting ahead of the wild.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:59,810",
+    "end_time": "00:01:01,828",
+    "content": "Case number two is fully gotten.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:01,828",
+    "end_time": "00:01:03,963",
+    "content": "This is not the partially autonomous weapon.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:03,963",
+    "end_time": "00:01:06,365",
+    "content": "Ukraine or you know could potentially",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:06,365",
+    "end_time": "00:01:09,813",
+    "content": "This is the idea of making weapons that fire without...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:09,813",
+    "end_time": "00:01:11,140",
+    "content": "Now even though...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:11,140",
+    "end_time": "00:01:12,301",
+    "content": "I think that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:12,301",
+    "end_time": "00:01:13,974",
+    "content": "They, you know, are adversaries.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:13,974",
+    "end_time": "00:01:15,414",
+    "content": "first the ice.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:15,414",
+    "end_time": "00:01:16,656",
+    "content": "nowhere near a while.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:16,656",
+    "end_time": "00:01:18,118",
+    "content": "to make fully a time.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:18,118",
+    "end_time": "00:01:21,337",
+    "content": "You know, anyone who's worked with AI models under",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:21,337",
+    "end_time": "00:01:23,974",
+    "content": "ability to them that in a purely technical way we",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:23,974",
+    "end_time": "00:01:25,236",
+    "content": "and there's an oversight.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:25,236",
+    "end_time": "00:01:36,716",
+    "content": "Do you have a large army of drones or robots that can operate without any human oversight? Whether there aren't human soldiers to make the decisions about who to target, who to shoot?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:36,716",
+    "end_time": "00:01:42,984",
+    "content": "that that presents concerns and we need to have a conversation about about how that's overseen and we haven't had that",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:42,984",
+    "end_time": "00:01:44,698",
+    "content": "We feel strongly that you know...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:44,698",
+    "end_time": "00:01:45,763",
+    "content": "sure that I should not be.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:45,763",
+    "end_time": "00:01:47,028",
+    "content": "and they wanted to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:47,028",
+    "end_time": "00:01:48,867",
+    "content": "Why couldn't an agreement?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:48,867",
+    "end_time": "00:02:00,435",
+    "content": "So there were, you know, there, there were kind of several stages of this all done quickly and kind of all, you know, determined by the kind of three day, you know, the, the, the kind of very limited three day wins.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:00,435",
+    "end_time": "00:02:01,603",
+    "content": "agree to their terms.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:01,603",
+    "end_time": "00:02:10,806",
+    "content": "three days or be designated a supply chain risk or defense production act. I guess we'll get to that later. But during that time...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:10,806",
+    "end_time": "00:02:12,294",
+    "content": "Um, they were, they're few back in.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:12,294",
+    "end_time": "00:02:14,115",
+    "content": "You know, at one point they sent a...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:14,115",
+    "end_time": "00:02:17,425",
+    "content": "language that appeared on the surface.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:17,425",
+    "end_time": "00:02:19,423",
+    "content": "to meet our turn.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:19,423",
+    "end_time": "00:02:28,901",
+    "content": "But it had all kinds of language like if the Pentagon deems it appropriate or to do anything in line with law.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:28,901",
+    "end_time": "00:02:33,485",
+    "content": "So it didn't actually concede in any, it didn't actually concede in any of me.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:33,485",
+    "end_time": "00:02:37,743",
+    "content": "And there were further steps of it that also did not concede in any",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:37,743",
+    "end_time": "00:02:39,181",
+    "content": "We have wanted to strike a deal.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:39,181",
+    "end_time": "00:02:44,748",
+    "content": "If you want to get a sense of the Pentagon's position of it, the Pentagon spokesman Sean Pernel the day before.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:44,748",
+    "end_time": "00:02:49,015",
+    "content": "He reiterated their position, we only allow all lawful",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:49,015",
+    "end_time": "00:02:51,051",
+    "content": "And this was the same as when they sent with they sent...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:51,051",
+    "end_time": "00:02:57,705",
+    "content": "They have not exceeded and they have not in any way agreed agree to it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:57,705",
+    "end_time": "00:03:00,540",
+    "content": "The president posted today in response.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:00,540",
+    "end_time": "00:03:04,489",
+    "content": "their selfishness referring to anthropic is putting American lives.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:04,489",
+    "end_time": "00:03:07,599",
+    "content": "our troops in danger and our national security.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:07,599",
+    "end_time": "00:03:13,097",
+    "content": "What do you think? What's your response? So, you know, in the statement we issued yesterday, and also in the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:13,097",
+    "end_time": "00:03:14,628",
+    "content": "We said that we were willing.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:14,628",
+    "end_time": "00:03:18,550",
+    "content": "Even if the Department of War or even if the Trump Administration...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:18,550",
+    "end_time": "00:03:20,539",
+    "content": "takes these unprecedented measures.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:20,539",
+    "end_time": "00:03:23,084",
+    "content": "We have said that even if they take these extreme actions...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:23,084",
+    "end_time": "00:03:24,516",
+    "content": "We'll do everything we can.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:24,516",
+    "end_time": "00:03:28,177",
+    "content": "Department of War to provide its technology for as long as it",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:28,177",
+    "end_time": "00:03:31,865",
+    "content": "off for us and an on board, you know, a competitor who's willing to",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:31,865",
+    "end_time": "00:03:33,907",
+    "content": "that we are not, that we are not.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:33,907",
+    "end_time": "00:03:37,140",
+    "content": "Prepare to exit. Yeah, so so we have offered.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:37,140",
+    "end_time": "00:03:39,133",
+    "content": "Continuity. We're actually deep",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:39,133",
+    "end_time": "00:03:44,201",
+    "content": "the kind of interruption of service, which is exactly what's happening when we're designated a supply.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:44,201",
+    "end_time": "00:03:49,073",
+    "content": "Right? When we're definitely at a supply chain risk, they say like, you know, you have to be off all of our",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:49,073",
+    "end_time": "00:03:50,231",
+    "content": "and I've talked",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:50,231",
+    "end_time": "00:03:51,754",
+    "content": "people on the ground, uniform military.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:51,754",
+    "end_time": "00:03:54,187",
+    "content": "Not having this will set us back.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:54,187",
+    "end_time": "00:04:09,610",
+    "content": "six months, 12 months, maybe longer. And so that's why we've tried so hard to try to get it, to try to get a deal. But again, the three-day ultimatum, the risk to designate us as supply chain, the whole timeline has been driven by the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:09,610",
+    "end_time": "00:04:16,464",
+    "content": "of war, not by us. We are trying to provide continuity. We are trying to provide the services. We are trying to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:16,464",
+    "end_time": "00:04:17,487",
+    "content": "So then what is this?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:17,487",
+    "end_time": "00:04:22,088",
+    "content": "Yeah, you know, I would I would say a couple things, you know, in the short run.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:22,088",
+    "end_time": "00:04:23,884",
+    "content": "It means and you know it",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:23,884",
+    "end_time": "00:04:26,394",
+    "content": "It's up to the Department of War. You know, we're still trying to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:26,394",
+    "end_time": "00:04:28,990",
+    "content": "We're still trying to reach a deal with them. You are. Still trying to talk to them.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:28,990",
+    "end_time": "00:04:39,492",
+    "content": "Are they talking with you? We've received various communications. We haven't seen anything that satisfies our... We haven't seen anything that satisfies our...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:39,492",
+    "end_time": "00:04:47,288",
+    "content": "But, you know, I mean that just in the broad sense that we are still, you know, we are still interested in working with them as long as it isn't...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:47,288",
+    "end_time": "00:04:50,843",
+    "content": "are red lines. Um, uh- It sounds like-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:50,843",
+    "end_time": "00:04:56,134",
+    "content": "still really far apart. And now Secretary Hegseth has determined you all a supply chain.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:56,134",
+    "end_time": "00:04:57,278",
+    "content": "said what he said.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:57,278",
+    "end_time": "00:04:59,315",
+    "content": "So do you think it's possible at this?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:59,315",
+    "end_time": "00:05:01,704",
+    "content": "You know, I look and agreement requires bulls.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:01,704",
+    "end_time": "00:05:05,232",
+    "content": "We, for our side, are willing to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:05,232",
+    "end_time": "00:05:06,293",
+    "content": "the national security.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:06,293",
+    "end_time": "00:05:07,821",
+    "content": "We are willing to provide our money.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:07,821",
+    "end_time": "00:05:08,915",
+    "content": "all branches of the government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:08,915",
+    "end_time": "00:05:11,915",
+    "content": "Department of War, the intelligence community.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:11,915",
+    "end_time": "00:05:13,317",
+    "content": "the more civilian branches.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:13,317",
+    "end_time": "00:05:15,757",
+    "content": "under the terms that we've provided under our...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:15,757",
+    "end_time": "00:05:19,456",
+    "content": "Right, you know, we don't take offence.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:19,456",
+    "end_time": "00:05:21,759",
+    "content": "The reason we're providing our technology.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:21,759",
+    "end_time": "00:05:25,916",
+    "content": "way is that we want to support the, you know, national security United States.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:25,916",
+    "end_time": "00:05:29,889",
+    "content": "We're not doing it for the sake of Pentagon officials. We're not doing it for-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:29,889",
+    "end_time": "00:05:31,728",
+    "content": "We're doing it because it's good for the national",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:31,728",
+    "end_time": "00:05:32,872",
+    "content": "Why do you think?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:32,872",
+    "end_time": "00:05:35,757",
+    "content": "that it is better for anthropic a private...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:35,757",
+    "end_time": "00:05:43,156",
+    "content": "to have more say in how AI is using the military than the Pentagon itself. So first I would say, and I think this...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:43,156",
+    "end_time": "00:05:45,184",
+    "content": "has actually to our knowledge.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:45,184",
+    "end_time": "00:05:48,314",
+    "content": "run into the limit of any of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:48,314",
+    "end_time": "00:05:50,310",
+    "content": "of any of these exceptions.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:50,310",
+    "end_time": "00:05:51,670",
+    "content": "Excuse me, these are one person.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:51,670",
+    "end_time": "00:06:03,093",
+    "content": "And ones that we have seen no evidence on the ground have been done. Now again, I can't say what their plans are. We don't know. But we have no evidence.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:03,093",
+    "end_time": "00:06:10,353",
+    "content": "have actually run into trouble. We've spread across the Department of War and other parts of the government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:10,353",
+    "end_time": "00:06:17,548",
+    "content": "without running into any of these problems. Now, in terms of these one or two narrow exceptions.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:17,548",
+    "end_time": "00:06:21,574",
+    "content": "I actually agree that in the long run, we need to have a democracy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:21,574",
+    "end_time": "00:06:23,276",
+    "content": "In the long run, I actually...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:23,276",
+    "end_time": "00:06:24,310",
+    "content": "that it is Congress.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:24,310",
+    "end_time": "00:06:28,660",
+    "content": "If, for example, there are possibilities with domestic master.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:28,660",
+    "end_time": "00:06:32,471",
+    "content": "government buying of bulk data.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:34,036",
+    "end_time": "00:06:41,314",
+    "content": "political affiliation to build profiles and it's now possible to analyze that with AI. The fact that that's we-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:41,314",
+    "end_time": "00:06:49,326",
+    "content": "That seems like, you know, the judicial interpretation of the Fourth Amendment has not caught up, or the laws passed by Congress have not caught up.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:49,326",
+    "end_time": "00:06:51,271",
+    "content": "So in the long run, we",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:51,271",
+    "end_time": "00:07:01,565",
+    "content": "catch up with where the technology is going, but Congress is not the fastest moving body in the world. And for right now, we are the ones who see this technology.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:01,565",
+    "end_time": "00:07:03,725",
+    "content": "that the Department of War, I would...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:03,725",
+    "end_time": "00:07:04,855",
+    "content": "thoughtful about these issues.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:04,855",
+    "end_time": "00:07:06,355",
+    "content": "to, you know, to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,355",
+    "end_time": "00:07:27,283",
+    "content": "proactively think about these issues. And so I would have expected them not to have any concern and for us to have a conversation. But I think in the absence of that, we need to look at the technology. We need to look at what it's capable of in terms of reliability. And we need to look at the ways in which it's getting ahead of.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:27,283",
+    "end_time": "00:07:28,512",
+    "content": "and in which...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:28,512",
+    "end_time": "00:07:31,512",
+    "content": "Those are some very narrow areas, but I think that there are...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:31,512",
+    "end_time": "00:07:34,101",
+    "content": "things that are fundamental to Americans. Right? The...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:34,101",
+    "end_time": "00:07:37,952",
+    "content": "the right not to be spied on by the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:37,952",
+    "end_time": "00:07:41,165",
+    "content": "Right? The right for our military office...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:41,165",
+    "end_time": "00:07:44,932",
+    "content": "to make decisions about war themselves and not turn it over.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:44,932",
+    "end_time": "00:07:46,711",
+    "content": "These are fundamental.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:46,711",
+    "end_time": "00:07:48,415",
+    "content": "but in the name of fundamental.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:48,415",
+    "end_time": "00:07:49,704",
+    "content": "Why should Americans...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:49,704",
+    "end_time": "00:07:53,913",
+    "content": "trust you, the CEO of a private company, to make these",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:53,913",
+    "end_time": "00:08:05,696",
+    "content": "the federal government. Well, I would give two answers to that. One, we are a private company, right? We can choose to sell or not sell whatever we want. There are other providers.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:05,696",
+    "end_time": "00:08:12,353",
+    "content": "The DOW, the government, you know, doesn't like the services we provide or the way that we make...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:12,353",
+    "end_time": "00:08:14,012",
+    "content": "This would have been the normal weight.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:14,012",
+    "end_time": "00:08:25,499",
+    "content": "Right? Just to say, I would have disagreed, but I would have respected them if they said, DOW, we don't want to work with Anthropic, our principles are not aligned with yours, we're going to go with one of the other.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:25,499",
+    "end_time": "00:08:29,233",
+    "content": "But they both extended that to parts of the government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:29,233",
+    "end_time": "00:08:32,336",
+    "content": "Beyond the DW and try to punitively revoke our car.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:32,336",
+    "end_time": "00:08:33,803",
+    "content": "and they've done this supply chain.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:33,803",
+    "end_time": "00:08:40,751",
+    "content": "which basically says that if you're part of a, if you're another private...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:40,751",
+    "end_time": "00:08:42,341",
+    "content": "who has military contracts.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:42,341",
+    "end_time": "00:08:47,221",
+    "content": "You can't use anthropic in a way that touches those nodes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:47,221",
+    "end_time": "00:08:51,639",
+    "content": "So they're reaching in to the behavior of private enterprise. And it's very hard to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:51,639",
+    "end_time": "00:08:53,090",
+    "content": "in any way other than punitive.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:53,090",
+    "end_time": "00:08:55,938",
+    "content": "The supply chain designation has never been applied.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:55,938",
+    "end_time": "00:08:57,398",
+    "content": "It has only been applied",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:57,398",
+    "end_time": "00:09:01,677",
+    "content": "And you know, like, you know, Kaspersky Labs, which is a Russian cyber...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:01,677",
+    "end_time": "00:09:06,542",
+    "content": "You know, that is suspected of ties to the Russian government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:06,542",
+    "end_time": "00:09:13,586",
+    "content": "You know being lumped in with them it feels very punitive and inappropriate given the amount that we've done",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:13,586",
+    "end_time": "00:09:19,725",
+    "content": "So you say you've done so much for U.S. national security. You're adhering to these two restrictions that you want to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:19,725",
+    "end_time": "00:09:21,178",
+    "content": "Do you think that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:21,178",
+    "end_time": "00:09:23,885",
+    "content": "The topic knows better than the Pentagon here.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:23,885",
+    "end_time": "00:09:25,975",
+    "content": "We don't look, you know, I want to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:25,975",
+    "end_time": "00:09:27,403",
+    "content": "free market and free enterprise.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:27,403",
+    "end_time": "00:09:28,452",
+    "content": "is different.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:28,452",
+    "end_time": "00:09:31,865",
+    "content": "under different principles. Remember, this isn't just about",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:31,865",
+    "end_time": "00:09:37,240",
+    "content": "This isn't just about, you know, this is what our model is legally allowed to do. Our model has a personality.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:37,240",
+    "end_time": "00:09:38,259",
+    "content": "capable of certain",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:38,259",
+    "end_time": "00:09:41,533",
+    "content": "It's able to do certain things reliably. It's able to not do",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:41,533",
+    "end_time": "00:09:45,067",
+    "content": "reliably and I think we are a good judge of what our models can do.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:45,067",
+    "end_time": "00:09:46,610",
+    "content": "and what they cannot.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:46,610",
+    "end_time": "00:09:52,421",
+    "content": "And I think we do have a good view into how the technology again is getting...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:52,421",
+    "end_time": "00:10:03,219",
+    "content": "Or I would say again, I actually agree with you that this is not tenable in the long term. I don't think the right long term solution is for a private...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:03,219",
+    "end_time": "00:10:04,268",
+    "content": "I think Congress...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:04,268",
+    "end_time": "00:10:09,556",
+    "content": "And we are thinking about that. We are thinking about what Congress could do to impose some of the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:09,556",
+    "end_time": "00:10:11,535",
+    "content": "that don't interarribulate.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:11,535",
+    "end_time": "00:10:12,681",
+    "content": "to defeat our ad-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:12,681",
+    "end_time": "00:10:17,759",
+    "content": "But that, you know, allow us to defeat our adversaries in a way that's in line with the value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:17,759",
+    "end_time": "00:10:18,779",
+    "content": "in line with the value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:18,779",
+    "end_time": "00:10:24,206",
+    "content": "But as you know, Congress doesn't move fast. So, you know, I think, I think in the mean-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:24,206",
+    "end_time": "00:10:31,452",
+    "content": "So until Congress acts, you're saying you are going to hold firm here. But there are so many other companies out there that do business with the U.S. government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:31,452",
+    "end_time": "00:10:38,557",
+    "content": "Boeing builds aircraft for the US military. Boeing doesn't tell the US military what to do.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:38,557",
+    "end_time": "00:10:40,942",
+    "content": "How was the need for it again? I would say",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:40,942",
+    "end_time": "00:10:43,495",
+    "content": "One, I would point again to the newness",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:43,495",
+    "end_time": "00:10:45,839",
+    "content": "Right, when it technology is well established.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:45,839",
+    "end_time": "00:10:48,337",
+    "content": "then, you know, the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:48,337",
+    "end_time": "00:10:51,187",
+    "content": "You know, I mean there are lots of technical things about air",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:51,187",
+    "end_time": "00:11:01,849",
+    "content": "but I think a general has a pretty good understanding of how an aircraft's been around for a long time. But there's plenty of innovation inside the aerospace industry? Sure, but not at...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:01,849",
+    "end_time": "00:11:04,269",
+    "content": "I've talked often about how AI is",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:04,269",
+    "end_time": "00:11:05,578",
+    "content": "every the model",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:05,578",
+    "end_time": "00:11:08,510",
+    "content": "the amount of computation.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:08,510",
+    "end_time": "00:11:09,735",
+    "content": "have never seen.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:09,735",
+    "end_time": "00:11:12,855",
+    "content": "But if that pace continues a pace, then...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:12,855",
+    "end_time": "00:11:24,173",
+    "content": "The U.S. government will never be caught up. So how does that logic apply if you have long argued that you want to work with the U.S. government to provide the appropriate national security?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:24,173",
+    "end_time": "00:11:28,785",
+    "content": "If it's going to be such a fast development for the foreseeable future, Congress can't catch up.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:28,785",
+    "end_time": "00:11:32,119",
+    "content": "Then why turn your back on me? I think there's only...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:32,119",
+    "end_time": "00:11:33,269",
+    "content": "Right? So...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:33,269",
+    "end_time": "00:11:34,323",
+    "content": "pace of the technology.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:34,323",
+    "end_time": "00:11:36,116",
+    "content": "with Congress to help them under-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:36,116",
+    "end_time": "00:11:37,219",
+    "content": "some of the riff.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:37,219",
+    "end_time": "00:11:39,211",
+    "content": "Again, this is the most American thing in the-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:39,211",
+    "end_time": "00:11:41,238",
+    "content": "No one wants to be spied on.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:41,238",
+    "end_time": "00:11:44,269",
+    "content": "At the exact same time, some of our greatest advers-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:44,269",
+    "end_time": "00:11:46,235",
+    "content": "have technology that is either",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:46,235",
+    "end_time": "00:11:48,553",
+    "content": "Quickly catching up to us or will event.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:48,553",
+    "end_time": "00:11:51,902",
+    "content": "If our military is critical to defending the American...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:51,902",
+    "end_time": "00:11:55,528",
+    "content": "critical to our democracy, freedom, the republic.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:55,528",
+    "end_time": "00:11:58,092",
+    "content": "stay in this position and say",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:58,092",
+    "end_time": "00:12:03,434",
+    "content": "Again, that's an abstract argument, but let's look at the action.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:03,434",
+    "end_time": "00:12:04,477",
+    "content": "Domestic mesh-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:04,477",
+    "end_time": "00:12:05,660",
+    "content": "Domestic Master...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:05,660",
+    "end_time": "00:12:08,845",
+    "content": "is an abuse of the government's authority.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:08,845",
+    "end_time": "00:12:10,688",
+    "content": "Umm, Foliataanum",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:10,688",
+    "end_time": "00:12:13,176",
+    "content": "There, I actually am concerned that we meet.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:13,176",
+    "end_time": "00:12:20,523",
+    "content": "It's not, you know, the technology is not ready. And so we are not, as I said, we are not categorically, again,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:20,523",
+    "end_time": "00:12:21,711",
+    "content": "Falle autonomous weapon.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:21,711",
+    "end_time": "00:12:26,606",
+    "content": "We simply believe that the reliability is not there yet and that we need to have a conversation.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:26,606",
+    "end_time": "00:12:29,206",
+    "content": "about oversight and we have author.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:29,206",
+    "end_time": "00:12:33,162",
+    "content": "to help develop these technologies to prototype.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:33,162",
+    "end_time": "00:12:34,865",
+    "content": "But they weren't interested.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:34,865",
+    "end_time": "00:12:39,080",
+    "content": "And so, again, we need to balance.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:39,080",
+    "end_time": "00:12:42,833",
+    "content": "The existential need, no one has emphasized it more than",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:42,833",
+    "end_time": "00:12:43,873",
+    "content": "to defeat our address.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:43,873",
+    "end_time": "00:12:45,908",
+    "content": "but we need to fight, we need to fight enough.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:45,908",
+    "end_time": "00:12:54,152",
+    "content": "You know, this is like saying, there are plenty of countries that have adversaries commit war crimes, shouldn't we commit war crimes as well? I'm not saying this amounts to war.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:54,152",
+    "end_time": "00:12:55,759",
+    "content": "What I'm saying is that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:55,759",
+    "end_time": "00:12:58,312",
+    "content": "the essence of our value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:58,312",
+    "end_time": "00:12:59,692",
+    "content": "that we have to find a way to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:59,692",
+    "end_time": "00:13:01,493",
+    "content": "in a way that preserves those",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:01,493",
+    "end_time": "00:13:06,448",
+    "content": "We can't just be a total race to the bottom. We have to have some...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:06,448",
+    "end_time": "00:13:09,129",
+    "content": "And these are very few, this technology.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:09,129",
+    "end_time": "00:13:17,250",
+    "content": "radically accelerate what our military can do. I've talked to admirals. I've talked to generals. I've talked to combatant commander.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:17,250",
+    "end_time": "00:13:19,192",
+    "content": "say this has revolution on.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:19,192",
+    "end_time": "00:13:21,559",
+    "content": "And these are just the very limited",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:21,559",
+    "end_time": "00:13:22,619",
+    "content": "Weave the points off.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:22,619",
+    "end_time": "00:13:23,679",
+    "content": "and so",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:23,679",
+    "end_time": "00:13:26,155",
+    "content": "Why harp on the 1% of use?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:26,155",
+    "end_time": "00:13:27,765",
+    "content": "that are against our value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:27,765",
+    "end_time": "00:13:31,971",
+    "content": "that are in favor of art that advance our democratic value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:31,971",
+    "end_time": "00:13:34,101",
+    "content": "And, and we can...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:34,101",
+    "end_time": "00:13:35,559",
+    "content": "try to study that last",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:35,559",
+    "end_time": "00:13:36,592",
+    "content": "understand if there is a",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:36,592",
+    "end_time": "00:13:37,857",
+    "content": "Give me one or two.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:37,857",
+    "end_time": "00:13:39,010",
+    "content": "examples of what",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:39,010",
+    "end_time": "00:13:40,542",
+    "content": "There are two classes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:40,542",
+    "end_time": "00:13:43,033",
+    "content": "One again is around this idea of",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:43,033",
+    "end_time": "00:13:45,994",
+    "content": "which is just it targets the wrong person, it...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:45,994",
+    "end_time": "00:13:50,759",
+    "content": "civilian, it doesn't show the judgment that a human, that a human,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:50,759",
+    "end_time": "00:14:02,975",
+    "content": "friendly fire or shooting a civilian or just the wrong kind of things. We don't want to sell something that we don't think is reliable and we don't want to sell something that could get our own people killed or that could get",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:02,975",
+    "end_time": "00:14:04,254",
+    "content": "Second is this question of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:04,254",
+    "end_time": "00:14:06,173",
+    "content": "If you think about it, you know, you",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:06,173",
+    "end_time": "00:14:12,643",
+    "content": "human soldiers. There's a whole chain of accountability that assumes a human uses their common",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:12,643",
+    "end_time": "00:14:16,817",
+    "content": "to pose I have an army of 10 million drones.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:16,817",
+    "end_time": "00:14:19,519",
+    "content": "All coordinated by one person or a small...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:19,519",
+    "end_time": "00:14:20,866",
+    "content": "can't you know i think it's",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:20,866",
+    "end_time": "00:14:22,029",
+    "content": "that there are account of",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:22,029",
+    "end_time": "00:14:30,977",
+    "content": "that, you know, concentrating power that much doesn't work. It doesn't mean we shouldn't have this fleet. Again, I don't know. Maybe we need it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:30,977",
+    "end_time": "00:14:38,586",
+    "content": "At some point, because our adversaries will have it, but we need to have a conversation about accountability, about who is holding the button, and who can... BAM!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:38,586",
+    "end_time": "00:14:41,096",
+    "content": "President Trump has called anthropic a left...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:41,096",
+    "end_time": "00:14:43,892",
+    "content": "for what I can't speak for what other parties.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:43,892",
+    "end_time": "00:14:45,845",
+    "content": "Yeah, look, we, we, but we",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:45,845",
+    "end_time": "00:14:47,788",
+    "content": "We, I think, have tried to be very...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:47,788",
+    "end_time": "00:14:50,583",
+    "content": "Speak up on issues of AI policy where we have...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:50,583",
+    "end_time": "00:14:54,402",
+    "content": "We don't have views. We don't think about general political...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:54,402",
+    "end_time": "00:14:59,833",
+    "content": "and we try to work together whenever there's common ground. For example, I went to an event.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:59,833",
+    "end_time": "00:15:03,876",
+    "content": "about provisioning energy, provisioning enough energy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:03,876",
+    "end_time": "00:15:06,095",
+    "content": "to power our AI model.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:06,095",
+    "end_time": "00:15:07,847",
+    "content": "Provision our AI models in the US.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:07,847",
+    "end_time": "00:15:11,629",
+    "content": "spoke to the president, I express that I...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:11,629",
+    "end_time": "00:15:12,801",
+    "content": "agreed with many aspects.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:12,801",
+    "end_time": "00:15:22,913",
+    "content": "you're doing, we also did a pledge around using AI for health. And we've done a number of other things. When the AI Action, the Administration's AI Action Plan,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:22,913",
+    "end_time": "00:15:36,812",
+    "content": "when the administration's A.I. action plan came out, we said that there were, you know, many, perhaps most aspects of it that we agreed with. So this idea that we've somehow been partisan or that we haven't been even handed...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:36,812",
+    "end_time": "00:15:44,653",
+    "content": "And again, we can't control if someone, even the president, has an opinion about us. That's not under our...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:44,653",
+    "end_time": "00:15:47,421",
+    "content": "What's under our control is that we can be reasonable.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:47,421",
+    "end_time": "00:15:48,852",
+    "content": "One to ten. Will there be?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:48,852",
+    "end_time": "00:15:53,254",
+    "content": "Look, I have no crystal ball for our part, our position is...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:53,254",
+    "end_time": "00:15:55,201",
+    "content": "Red lines, we've had them from day one.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:55,201",
+    "end_time": "00:15:57,427",
+    "content": "you know we are still advocates.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:57,427",
+    "end_time": "00:15:58,966",
+    "content": "red lines, we're not going to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:58,966",
+    "end_time": "00:16:00,006",
+    "content": "on those red lines.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:00,006",
+    "end_time": "00:16:02,539",
+    "content": "can get to the point with the department where you know where",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:02,539",
+    "end_time": "00:16:06,980",
+    "content": "you know, we can see things the same way, then perhaps there could be an agreement for our part.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:06,980",
+    "end_time": "00:16:08,577",
+    "content": "We continue to want to make...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:08,577",
+    "end_time": "00:16:11,705",
+    "content": "But, you know, again, it takes two parties.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:11,705",
+    "end_time": "00:16:13,364",
+    "content": "at a moment with the president right now.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:13,364",
+    "end_time": "00:16:16,166",
+    "content": "You know, again, I would say we are patriotic.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:16,166",
+    "end_time": "00:16:17,856",
+    "content": "We have done everything we have done.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:17,856",
+    "end_time": "00:16:19,518",
+    "content": "has been for the sake.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:19,518",
+    "end_time": "00:16:20,832",
+    "content": "sake of supporting us.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:20,832",
+    "end_time": "00:16:24,559",
+    "content": "are leaning forward in deploying our models with the militant",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:24,559",
+    "end_time": "00:16:29,635",
+    "content": "in defeating our autocratic adversaries. We believe in defending them.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:29,635",
+    "end_time": "00:16:30,729",
+    "content": "the red lines we have drawn.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:30,729",
+    "end_time": "00:16:32,206",
+    "content": "we believe that crossing those",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:32,206",
+    "end_time": "00:16:34,403",
+    "content": "and we wanted to stand up for American value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:34,403",
+    "end_time": "00:16:35,715",
+    "content": "and when we were three.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:35,715",
+    "end_time": "00:16:37,219",
+    "content": "with supply chain deserts.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:37,219",
+    "end_time": "00:16:38,379",
+    "content": "Unpressive",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:38,379",
+    "end_time": "00:16:41,253",
+    "content": "the provisions into the private economy by the government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:41,253",
+    "end_time": "00:16:44,434",
+    "content": "we exercised our classes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:44,434",
+    "end_time": "00:16:45,942",
+    "content": "speak up and disagree.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:45,942",
+    "end_time": "00:16:47,298",
+    "content": "Disagrene with the government.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:47,298",
+    "end_time": "00:16:48,384",
+    "content": "we have stood up.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:48,384",
+    "end_time": "00:16:49,481",
+    "content": "and then drop it, it can survive.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:49,481",
+    "end_time": "00:16:53,876",
+    "content": "You know, when the President, when Secretary Hegs...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:53,876",
+    "end_time": "00:16:55,546",
+    "content": "tweeted out the supply chain.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:55,546",
+    "end_time": "00:16:56,585",
+    "content": "their law.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:56,585",
+    "end_time": "00:16:58,456",
+    "content": "He said that any...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:58,456",
+    "end_time": "00:17:00,836",
+    "content": "Company that has a military contract can't do",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:00,836",
+    "end_time": "00:17:03,206",
+    "content": "that are pointed to the wall.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:03,206",
+    "end_time": "00:17:05,002",
+    "content": "All the losses is that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:05,002",
+    "end_time": "00:17:07,135",
+    "content": "Any company cannot use enthroping.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:07,135",
+    "end_time": "00:17:09,273",
+    "content": "as part of those military.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:09,273",
+    "end_time": "00:17:11,990",
+    "content": "That is a much more limited.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:11,990",
+    "end_time": "00:17:14,628",
+    "content": "impact. So you're confident then and drop it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:14,628",
+    "end_time": "00:17:17,647",
+    "content": "of this designation is fairly small. Now!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:17,647",
+    "end_time": "00:17:19,836",
+    "content": "the nature of the tweet that the secretary",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:19,836",
+    "end_time": "00:17:21,806",
+    "content": "was designed to create uncertain...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:21,806",
+    "end_time": "00:17:24,023",
+    "content": "create a situation where people believe",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:24,023",
+    "end_time": "00:17:25,265",
+    "content": "The impact would be much...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:25,265",
+    "end_time": "00:17:26,709",
+    "content": "was designed to create...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:26,709",
+    "end_time": "00:17:29,034",
+    "content": "certainty and doubt but we won't let that",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:29,034",
+    "end_time": "00:17:30,396",
+    "content": "You believe this is an abusive power?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:30,396",
+    "end_time": "00:17:32,998",
+    "content": "You know, again, I would return to the idea that",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:32,998",
+    "end_time": "00:17:34,940",
+    "content": "you know this has never happened.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:34,940",
+    "end_time": "00:17:37,144",
+    "content": "And I think it was made very clear in some of the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:37,144",
+    "end_time": "00:17:40,307",
+    "content": "I don't know what else to call it. Retaliate.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:40,307",
+    "end_time": "00:17:41,371",
+    "content": "So will you take legal action?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:41,371",
+    "end_time": "00:17:44,480",
+    "content": "I've stated in our state.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:44,480",
+    "end_time": "00:17:45,998",
+    "content": "Again, all we've received...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:45,998",
+    "end_time": "00:17:48,990",
+    "content": "I change as you know, there's been no actual action but...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:48,990",
+    "end_time": "00:17:56,498",
+    "content": "saying what they're going, saying what they claim they're going to do. You haven't received any formal information. We haven't received any formal information.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:56,498",
+    "end_time": "00:17:58,968",
+    "content": "All we've seen are tweets from the president and tweets",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:58,968",
+    "end_time": "00:18:02,233",
+    "content": "When we receive some kind of formal",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:02,233",
+    "end_time": "00:18:03,307",
+    "content": "What do you think that says about their...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:03,307",
+    "end_time": "00:18:05,105",
+    "content": "the way that you say they're communicating.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:05,105",
+    "end_time": "00:18:07,296",
+    "content": "Again, you know, I don't want to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:07,296",
+    "end_time": "00:18:09,010",
+    "content": "We are trying to do whatever we can.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:09,010",
+    "end_time": "00:18:15,266",
+    "content": "offboarding in a smooth way that allows our warfighters to continue to be so...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:15,266",
+    "end_time": "00:18:17,195",
+    "content": "as they go into con.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:17,195",
+    "end_time": "00:18:19,029",
+    "content": "to actions that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:19,029",
+    "end_time": "00:18:20,320",
+    "content": "are not in line with the value.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:20,320",
+    "end_time": "00:18:21,691",
+    "content": "It's not about any...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:21,691",
+    "end_time": "00:18:22,711",
+    "content": "Thank you so much for having me.",
+    "confidence": 0,
+    "language": "en"
+  }
+]

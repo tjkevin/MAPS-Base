@@ -1,0 +1,1826 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,084",
+    "content": "這樣一個高速",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:01,084",
+    "end_time": "00:00:04,184",
+    "content": "比如说活着能够卖50多万侧 许三官卖血",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:04,184",
+    "end_time": "00:00:07,915",
+    "content": "那么最原文艺出版社给你出了一套这样的鱼华作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:07,915",
+    "end_time": "00:00:09,276",
+    "content": "依然是非常受欢迎",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:09,276",
+    "end_time": "00:00:14,048",
+    "content": "你觉得为什么自己的文学作品还是能够受到这么多",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:14,048",
+    "end_time": "00:00:15,188",
+    "content": "我觉得是一种运气",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:15,188",
+    "end_time": "00:00:17,352",
+    "content": "缺所私作預言 因為",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:17,352",
+    "end_time": "00:00:23,068",
+    "content": "那些主要是活着开始的活着是一个开头因为作家都是这样有一本买的不错",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:23,068",
+    "end_time": "00:00:26,169",
+    "content": "所有的速度都给带起来了就是属于这样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:26,169",
+    "end_time": "00:00:27,862",
+    "content": "我们或者当然是那个首先卖的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:27,862",
+    "end_time": "00:00:31,640",
+    "content": "那我读你的小说的这个自理行剑都有一种非常残酷的的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:31,640",
+    "end_time": "00:00:36,280",
+    "content": "也有其是您的成名的作品",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:36,280",
+    "end_time": "00:00:44,204",
+    "content": "就瞄起这样一个18岁的少年当他独自出门的时候面对的是这样一个兔满的欺骗恐惧虚伪而遇我大的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:44,204",
+    "end_time": "00:00:45,593",
+    "content": "我不知道为什么把这件",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:45,593",
+    "end_time": "00:00:54,228",
+    "content": "我也不知道可能我对这个世界就是有某一部分这样的感受有评论家说说鱼华之所以会把这个小说写",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:54,228",
+    "end_time": "00:01:00,188",
+    "content": "是跟他当牙衣这段经历是有关的我干了五年的那个牙衣我非常不",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:00,188",
+    "end_time": "00:01:04,307",
+    "content": "有一句話我覺得很有意思說口腔是世界這麼有負",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:04,307",
+    "end_time": "00:01:05,757",
+    "content": "我当时就觉得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:05,757",
+    "end_time": "00:01:10,698",
+    "content": "你那个嘴巴更丰富的东西什么世界是那么的丰富多产",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:10,698",
+    "end_time": "00:01:11,760",
+    "content": "后来就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:11,760",
+    "end_time": "00:01:14,727",
+    "content": "那年還記得第一次給病人把牙的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:14,727",
+    "end_time": "00:01:17,911",
+    "content": "記得因為我當時去那個醫院的時候",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:17,911",
+    "end_time": "00:01:22,676",
+    "content": "我的師傅是上海已經退休的一個老牙醫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:22,676",
+    "end_time": "00:01:36,186",
+    "content": "就我跟着他的第一天来进来一个病人椅子上一座下就让我说跟着他看一你就看着把那个让嘴巴张开然后问一下你是哪个牙子有问题那个时候哪个牙子他一不细",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:36,186",
+    "end_time": "00:01:42,376",
+    "content": "有一個小的一個反光鏡可以放進去一照這邊還有燈可以照進",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:42,376",
+    "end_time": "00:01:43,463",
+    "content": "果然是这样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:43,463",
+    "end_time": "00:01:48,177",
+    "content": "他就吵算上就花了一个10日嘛上面是地级颗左右上下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:48,177",
+    "end_time": "00:01:49,266",
+    "content": "第幾顆下一個緊張",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:49,266",
+    "end_time": "00:01:53,584",
+    "content": "我们那时候我记得用的是那种鹤鹿卡银鹤鹿卡银最初级的那种麻醉药",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:53,584",
+    "end_time": "00:02:01,353",
+    "content": "然後就往那個牙的口向上額牙營裡面那個大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:01,353",
+    "end_time": "00:02:07,787",
+    "content": "打完以後基本上是當時很深的時候我的師傅打完以後就坐下來抽煙了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:07,787",
+    "end_time": "00:02:16,860",
+    "content": "抽一个音 然后过以后就闻石头大了没有就是麻了 那么要是麻进还没上来 石头还没大石头一大以后就是麻了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:16,860",
+    "end_time": "00:02:20,584",
+    "content": "然後他說他大了,他就上去拔下來以後,我當然整個過程",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:20,584",
+    "end_time": "00:02:25,280",
+    "content": "第二个病人一来以后他马上就让我上看了一次就是让我上他的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:25,280",
+    "end_time": "00:02:26,981",
+    "content": "用什么别的病拿怕是得矮着什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:26,981",
+    "end_time": "00:02:34,445",
+    "content": "就是那个牙疼他要来看为什么那个疼他每天受不了呢这牙疼不是疼起来要是命的然后龙明他也比较",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:34,445",
+    "end_time": "00:02:37,903",
+    "content": "不像成立人那么挑剔其实像我这种人也上去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:37,903",
+    "end_time": "00:02:46,951",
+    "content": "说话动作一看就是一个身手好像是一个没干过的但人家农民也还是挺厚导的而是按照我的那个指令形式",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:46,951",
+    "end_time": "00:02:50,064",
+    "content": "這個時候就問題出來的就是我一上去以後",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:50,064",
+    "end_time": "00:03:05,736",
+    "content": "我一看那个牙以后我又会流流的下来我超小的问我说又没把简直啊因为那个把牙不从的牙发有不同的简直上面有上面的简直下面有下面的简直你知道吗这很多简直一堆呀你想了我真不知道该有用哪一把简直",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:05,736",
+    "end_time": "00:03:08,838",
+    "content": "宜华擅长了解残酷和残力",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:08,838",
+    "end_time": "00:03:15,026",
+    "content": "無不跟他從小隨父親生活在季小又很簡陋的現醫院環境中息息",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:15,026",
+    "end_time": "00:03:24,187",
+    "content": "余华父亲为了实现当一个外科医生的愿望不惜在余华一岁的时候举家天旗到这将海盐的一个小现场",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:24,187",
+    "end_time": "00:03:26,402",
+    "content": "那您的這個父親是一個外科代夫人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:26,402",
+    "end_time": "00:03:30,104",
+    "content": "所以應該說醫院給你的帶來的影響是最大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:30,104",
+    "end_time": "00:03:38,969",
+    "content": "我就是在医院里边长大的而且我长的是一个现医医院我就可以这么说就是他的那个手术史他是一个评",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:38,969",
+    "end_time": "00:03:41,895",
+    "content": "就是我们随时都可以从它那个手指的大门口",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:41,895",
+    "end_time": "00:03:44,927",
+    "content": "然后再为那个时候的腐进有一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:44,927",
+    "end_time": "00:03:55,171",
+    "content": "就是那个病房里面淘汰下来的一些物品还有就是那个人体身上割下来的那些东西那时候也不错处理全人在那个池上",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:55,171",
+    "end_time": "00:03:56,895",
+    "content": "到了夏天那個昌鷹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:56,895",
+    "end_time": "00:04:12,919",
+    "content": "就你感觉到是主持人像沙灘一样的就是命迷麻化能把池汤给那么遮开不见水就能够这样的你看看那个山发车那种气味是什么样的我看过一篇文章说你跟哥哥小的时候在院里做了很多坏事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:12,919",
+    "end_time": "00:04:14,210",
+    "content": "那做了哪些壞事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:14,210",
+    "end_time": "00:04:16,879",
+    "content": "O, Kirerielüh��� on?",
+    "confidence": 0,
+    "language": "fi"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:16,879",
+    "end_time": "00:04:33,767",
+    "content": "最大的壞事就是把医院的房子给烧了把医院的房子给烧了当时不是经历了文化大哥命吗那么大那个草盆很大的一个草盆专门开批都会那专门是开批都会的里边也没有椅子就是大家都站在那的就是搭了个大草",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:33,767",
+    "end_time": "00:04:55,199",
+    "content": "然後我跟我哥哥就是玩一個什麼遊戲呢就是一個化火才把那個炒燒到那個拿上去把它給滅了為何有時候那個尿殺完以後在第二次尿接不上的呢化衝天大火當時裡面還正在開會正在開會啊正在開批都會挺危險的事挺危險",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:55,199",
+    "end_time": "00:04:58,112",
+    "content": "轉眼間整個草",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:58,112",
+    "end_time": "00:05:03,591",
+    "content": "余华他们家曾经在杭州西厨湖盘短暂生活",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:03,591",
+    "end_time": "00:05:11,122",
+    "content": "母亲对住过的房子和周围景色的回忆一直是余华同年和少年时期想象中最为美好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:11,122",
+    "end_time": "00:05:18,865",
+    "content": "以后他们全家住在浙江海盐县医院的宿舍父母总是忙忙路路外公外婆又远在少下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:18,865",
+    "end_time": "00:05:26,045",
+    "content": "沒有大人管了漁華歌兩只能由當於小鎮的每一個角落過著野狗灣的童年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:26,045",
+    "end_time": "00:05:30,413",
+    "content": "那當時你們在這個海岩的時候就是住在院子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:30,413",
+    "end_time": "00:05:37,062",
+    "content": "在那個十年的這個院宿舍的這個過程當中又是一個很恐怖的故事你帶了一個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:37,062",
+    "end_time": "00:05:41,154",
+    "content": "最特別的印象是什麼因為我們家的對面就是太平坦",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:41,154",
+    "end_time": "00:05:44,266",
+    "content": "太平坚,你看那是什么概念,就是整天都有人的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:44,266",
+    "end_time": "00:05:46,769",
+    "content": "而且它当时太运间的边上就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:46,769",
+    "end_time": "00:05:48,255",
+    "content": "當時的要我們...",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:48,255",
+    "end_time": "00:05:51,271",
+    "content": "70年代、70年代、水家里的油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:51,271",
+    "end_time": "00:05:52,401",
+    "content": "在线程里边根本就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:52,401",
+    "end_time": "00:05:54,661",
+    "content": "就是他要上廁所都是上那個公用",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:54,661",
+    "end_time": "00:05:58,846",
+    "content": "所以每次要去上廁所的都得经过",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:58,846",
+    "end_time": "00:06:01,512",
+    "content": "所以我记得一下很深就是一丝就是哭声",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:01,512",
+    "end_time": "00:06:04,528",
+    "content": "就是当时我就感觉到就基本上是后半",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:04,528",
+    "end_time": "00:06:08,730",
+    "content": "所以我当时在我的同年的经历里面,我有一个比较深",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:08,730",
+    "end_time": "00:06:09,892",
+    "content": "人总是在后边",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:09,892",
+    "end_time": "00:06:12,906",
+    "content": "留他们,他们很容易离开,就总是有质",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:12,906",
+    "end_time": "00:06:14,322",
+    "content": "因为基本上都是后半夜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:14,322",
+    "end_time": "00:06:23,910",
+    "content": "我忘了是否有恐懼感反正很快就習慣了基本上是朝鮮以後翻一個生意又睡著了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:23,910",
+    "end_time": "00:06:32,375",
+    "content": "那太平坚你们哥来去玩过吗我们经常经过的太平坚就是我曾经在太平坚里面睡过五教因为太平坚非常地感",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:32,375",
+    "end_time": "00:06:36,963",
+    "content": "就是當時在縣醫院裡面來自病的人並不是很可不相信",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:36,963",
+    "end_time": "00:06:39,574",
+    "content": "所以菜邊間也不是每天晚上都有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:39,574",
+    "end_time": "00:06:54,096",
+    "content": "就是淨灑闲着的就是你感觉的很干净现在你去睡个午觉然后当时你现在我们的夏天非常颜色就是你睡觉醒来以后你身上的汗水你能够看到你的汗水在草西上的一个人体的影",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:54,096",
+    "end_time": "00:06:55,531",
+    "content": "做這個黑學的形式",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:55,531",
+    "end_time": "00:06:58,432",
+    "content": "就是一種水智在那個上面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:58,432",
+    "end_time": "00:07:01,310",
+    "content": "所以太熱了,就根本就沒法睡我們",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:01,310",
+    "end_time": "00:07:02,541",
+    "content": "曾經在太平間裡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:02,541",
+    "end_time": "00:07:07,100",
+    "content": "他那個神移床在叫周圍那個樹壺一邊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:07,100",
+    "end_time": "00:07:08,564",
+    "content": "中土在那经过一下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:08,564",
+    "end_time": "00:07:16,769",
+    "content": "那邊又有肥料隔壁又有肥料所以周邊的樹木長的特別冒身那帶了一個什麼情況這地方就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:16,769",
+    "end_time": "00:07:18,908",
+    "content": "很多年很多年我都不知道是哪一年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:18,908",
+    "end_time": "00:07:22,759",
+    "content": "那是当然我已经长大的了,甚至我已经写,我觉得我已经写作了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:22,759",
+    "end_time": "00:07:24,670",
+    "content": "我獨到了雪藍的一首",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:24,670",
+    "end_time": "00:07:31,452",
+    "content": "这时候时他写的这一句诗就是我当年同年的时候在太平间睡五觉的感受他说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:31,452",
+    "end_time": "00:07:33,274",
+    "content": "死亡是良爽的夜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:33,274",
+    "end_time": "00:07:43,872",
+    "content": "那就是我在太平坚的感受我后来读了他们诗以后 我就发现那就是他写的就是我同年的那个感受当他上面还有一句他说生活是痛苦的白天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:43,872",
+    "end_time": "00:07:46,002",
+    "content": "那個太平均確實",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:46,002",
+    "end_time": "00:07:50,233",
+    "content": "所以我相信死亡也会很良知",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:50,233",
+    "end_time": "00:07:51,583",
+    "content": "20世紀80年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:51,583",
+    "end_time": "00:07:56,774",
+    "content": "余华非常羡慕海岩羡蒙化管的工作向往那份自由自在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:56,774",
+    "end_time": "00:07:59,377",
+    "content": "為了如願以長,他開始寫作訓練",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:59,377",
+    "end_time": "00:08:04,237",
+    "content": "來自海岩的生活與靈感,讓他的初始創作十分順利",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:04,237",
+    "end_time": "00:08:10,394",
+    "content": "至今1983年一個來自北京邊緹部的長途電話還讓他記",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:10,394",
+    "end_time": "00:08:12,572",
+    "content": "这位一样很甚至就是83年年底",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:12,572",
+    "end_time": "00:08:13,687",
+    "content": "這是我們命運改變",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:13,687",
+    "end_time": "00:08:16,461",
+    "content": "突然有一個電話嚇唬了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:16,461",
+    "end_time": "00:08:18,338",
+    "content": "我以为就是我们正上的某一个人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:18,338",
+    "end_time": "00:08:23,281",
+    "content": "我就下去當時我們整個衛生院就只有一部電話機還是手搖的每一種最老",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:23,281",
+    "end_time": "00:08:40,046",
+    "content": "然後事先通知你有一個北京的艙頭來的你不要走開你等好然後我等著這中間有兩三個我們正常人打電話進來來找我們單位的醫院裡面別人的我都爆掉了路雷我後來跟他們說我們不要再來打到我了什麼我說我在等中央的電話哈哈哈哈最後",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:40,046",
+    "end_time": "00:08:41,970",
+    "content": "終於來的是當時北京",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:41,970",
+    "end_time": "00:08:44,024",
+    "content": "他告诉他早上上班就打",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:44,024",
+    "end_time": "00:08:45,563",
+    "content": "就把这个长头叠画挂出",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:45,563",
+    "end_time": "00:08:51,576",
+    "content": "到了下午快下班的時候終於通了差不多打了一天了差不多打一天當時打一個長路電話適合",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:51,576",
+    "end_time": "00:08:53,294",
+    "content": "結果回來以後我就發現這個事情在我們",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:53,294",
+    "end_time": "00:08:54,467",
+    "content": "我们当时的线红线",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:54,467",
+    "end_time": "00:08:55,471",
+    "content": "in den Grenzen sind.",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:55,471",
+    "end_time": "00:08:58,874",
+    "content": "他很关心我那个他就觉得",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:58,874",
+    "end_time": "00:08:59,988",
+    "content": "我是一個人才",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:59,988",
+    "end_time": "00:09:12,244",
+    "content": "當地成為一個名人了是很…我是中華人民共和國的成立以來海岩線第一個去北京改搞的你不容易啊文化是有化石代以所以他就是我是一個人責",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:12,244",
+    "end_time": "00:09:15,464",
+    "content": "余华曾经是中国大陆先封派小说的代表",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:15,464",
+    "end_time": "00:09:16,866",
+    "content": "但音樂影響",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:16,866",
+    "end_time": "00:09:20,768",
+    "content": "特別是巴赫的馬太獸難曲教會他重視細數",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:20,768",
+    "end_time": "00:09:23,725",
+    "content": "一短偏小说的方式理解长偏小",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:23,725",
+    "end_time": "00:09:26,017",
+    "content": "活着体现了这种比方的变化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:26,017",
+    "end_time": "00:09:28,145",
+    "content": "他說這不是文學技巧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:28,145",
+    "end_time": "00:09:29,571",
+    "content": "而是人生叛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:29,571",
+    "end_time": "00:09:39,351",
+    "content": "像到了活着的时候其实你的创作完全进入了境外形状态就是过去小时候当中那种单纯的残忍少了单纯的显临临的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:39,351",
+    "end_time": "00:09:43,211",
+    "content": "我觉得小时候那种开始明白有一种比较温情默默的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:43,211",
+    "end_time": "00:09:47,798",
+    "content": "自乎到了这个时候 鱼华是怀着一种谱色心肠",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:47,798",
+    "end_time": "00:09:55,508",
+    "content": "是被違緩 是不是安靜自己的話來說就是憤怒消失了我一直不太明白就是說這個當中的變化的機油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:55,508",
+    "end_time": "00:09:58,269",
+    "content": "就是有一天醒来以后突然老子里面笨处的活着这里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:58,269",
+    "end_time": "00:10:02,929",
+    "content": "你就早上醒过来 偷了这个书们就笨头来了然后我就想要写这样的一部",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:02,929",
+    "end_time": "00:10:04,572",
+    "content": "然后再威老着他去编故",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:04,572",
+    "end_time": "00:10:08,388",
+    "content": "變得變得就是出來的這個福貴那個人物剛才是一個很模糊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:08,388",
+    "end_time": "00:10:09,418",
+    "content": "颜色的夏天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:09,418",
+    "end_time": "00:10:12,340",
+    "content": "我們海岩的地方在江澤那一塊燈",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:12,340",
+    "end_time": "00:10:15,115",
+    "content": "中午人家都在睡午觉他还在那个跟铁",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:15,115",
+    "end_time": "00:10:22,019",
+    "content": "然後他滿臉的作文作文裡面都是泥土就是那是最早來來到我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:22,019",
+    "end_time": "00:10:23,087",
+    "content": "慢慢慢慢慢慢的把他玩",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:23,087",
+    "end_time": "00:10:26,096",
+    "content": "那服归我觉得他在很大程度上是他",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:26,096",
+    "end_time": "00:10:27,341",
+    "content": "他是人受生活",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:27,341",
+    "end_time": "00:10:28,410",
+    "content": "就是我在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:28,410",
+    "end_time": "00:10:29,673",
+    "content": "我就会说是那个活着",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:29,673",
+    "end_time": "00:10:32,198",
+    "content": "作為一個詞會,它是在我們的漢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:32,198",
+    "end_time": "00:10:34,313",
+    "content": "他的力量他不是来自于一种",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:34,313",
+    "end_time": "00:10:35,707",
+    "content": "做生命和陷入",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:35,707",
+    "end_time": "00:10:37,809",
+    "content": "外部的給你的一切你都得見",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:37,809",
+    "end_time": "00:10:39,740",
+    "content": "印很長的該不再太溜 darkness",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:39,740",
+    "end_time": "00:10:42,095",
+    "content": "我面向福祖会他的家里人物什么最后一个人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:43,183",
+    "end_time": "00:10:44,744",
+    "content": "我說我這並不是我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:44,744",
+    "end_time": "00:10:47,222",
+    "content": "我剛開始寫的時候沒有這樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:47,222",
+    "end_time": "00:10:48,503",
+    "content": "就显着显着就变成",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:48,503",
+    "end_time": "00:10:50,398",
+    "content": "就是人有受",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:50,398",
+    "end_time": "00:10:55,841",
+    "content": "每一個人物其實他雖然是在你的虛構中的人物,但他也有他",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:55,841",
+    "end_time": "00:10:58,524",
+    "content": "他不是你作家能夠控制的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:58,524",
+    "end_time": "00:11:01,740",
+    "content": "那麽其實跟這個活著相比我覺得洗三關賣血",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:01,740",
+    "end_time": "00:11:14,034",
+    "content": "也更加深刻我覺得有一些你想在活著裡邊沒有說完的話又繼續想在許三官這個人物受不了要把它說完是這樣嗎許三官到時候我當時確實是有一個願望就寫完活著也有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:14,034",
+    "end_time": "00:11:16,494",
+    "content": "因为其实活着这个小时候虽然题目是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:16,494",
+    "end_time": "00:11:19,113",
+    "content": "就跟我们所说的那个词会里边的那种",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:19,113",
+    "end_time": "00:11:20,533",
+    "content": "写一个更像活着的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:20,533",
+    "end_time": "00:11:29,333",
+    "content": "在那個小時候其實從某種就是更接近與中國人的那種活著的方式的話可能那個許專官比福貴更具有普遍性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:29,333",
+    "end_time": "00:11:32,102",
+    "content": "那也是一样也是一上来就是一个人物",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:32,102",
+    "end_time": "00:11:34,331",
+    "content": "是吧去喝去卖血,然后喝水",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:34,331",
+    "end_time": "00:11:39,224",
+    "content": "然后那个冬天穿那个棉囊的柳扣度已经掉光了,是记忆更是草水",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:39,224",
+    "end_time": "00:11:41,355",
+    "content": "那身是因为我小时候经常见到的你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:41,355",
+    "end_time": "00:11:44,206",
+    "content": "然后另一个口袋里边装一个碗然后另一个口袋里边装一小包衣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:44,206",
+    "end_time": "00:11:45,817",
+    "content": "和那個放電眼影",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:45,817",
+    "end_time": "00:11:48,349",
+    "content": "也是这样一个形象慢慢慢慢慢慢最后到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:48,349",
+    "end_time": "00:11:51,525",
+    "content": "當你覺得這個人物女對她已經了解的已經夠多了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:51,525",
+    "end_time": "00:11:53,159",
+    "content": "以及沒法再繼續了解的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:53,159",
+    "end_time": "00:11:56,221",
+    "content": "你的很多小说现在都已经被翻译成不同的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:56,221",
+    "end_time": "00:11:57,365",
+    "content": "เออย่อย Again",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:57,365",
+    "end_time": "00:12:00,679",
+    "content": "那你的那些小说完全是反一个中国的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:00,679",
+    "end_time": "00:12:07,072",
+    "content": "一個現成裏面的一個最底層農民的這種生活狀況當這些小說被介紹到國外區",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:07,072",
+    "end_time": "00:12:09,018",
+    "content": "外國的讀者被他是一個上面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:09,018",
+    "end_time": "00:12:11,518",
+    "content": "外國的讀者韓國好像反應",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:11,518",
+    "end_time": "00:12:13,259",
+    "content": "那已经是非常非常了不起。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:13,259",
+    "end_time": "00:12:14,750",
+    "content": "韩国是这样的硬的两万成",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:14,750",
+    "end_time": "00:12:20,936",
+    "content": "然後也跟他們交流過他們對喜歡歡喜的技術特別的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:20,936",
+    "end_time": "00:12:22,124",
+    "content": "我不知道什么原因就是对",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:22,124",
+    "end_time": "00:12:23,162",
+    "content": "一大例也沒有什麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:23,162",
+    "end_time": "00:12:27,499",
+    "content": "因为意大利你看他是欧洲国家他在家庭观念跟中国人是意义",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:27,499",
+    "end_time": "00:12:29,755",
+    "content": "对孩子的对后代的那种照",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:29,755",
+    "end_time": "00:12:31,053",
+    "content": "因為家庭觀念是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:31,053",
+    "end_time": "00:12:34,133",
+    "content": "我覺得我外國同時了解最多的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:34,133",
+    "end_time": "00:12:43,340",
+    "content": "跟他們在交流的時候他們歐美的讀者看了這些小說以後是個什麼樣的感覺歐洲的讀者好一點美國的讀者相對處",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:43,340",
+    "end_time": "00:12:46,096",
+    "content": "我记得那个美国其中有一个独自他是美国一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:46,096",
+    "end_time": "00:12:47,609",
+    "content": "那個書店已經是牛到了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:48,628",
+    "end_time": "00:12:50,539",
+    "content": "我曾經遇到他們一個...",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:50,539",
+    "end_time": "00:12:53,095",
+    "content": "他抖的雪川外球技以后一个最大的感觉就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:53,095",
+    "end_time": "00:13:12,741",
+    "content": "你剛才說過一句話就是多虧不是你的生活他說記憶去什麼話多虧不是我們美國生活是你們做過的太恐怖了他覺得洗髮官賣血劑都覺得恐怖其實洗髮官賣血劑比活著好多了活著其實真是恐怖就是我重度一半的時候看到結束的時候我還覺得手腳發臉了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:12,741",
+    "end_time": "00:13:19,775",
+    "content": "20世紀末一小說想玉文談的作家旅華進入了隨意彼創作",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:19,775",
+    "end_time": "00:13:29,111",
+    "content": "将近二十年来月独西方文学的花线和感受非他融入了语言辞续单纯表达人性和生活非常丰富的敘恶",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:29,111",
+    "end_time": "00:13:30,279",
+    "content": "這些隨筆發表",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:30,279",
+    "end_time": "00:13:32,682",
+    "content": "写了事物圆以后就发现一范的错误了因为什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:32,682",
+    "end_time": "00:13:34,250",
+    "content": "這也是就是我到了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:34,250",
+    "end_time": "00:13:37,181",
+    "content": "40歲以後我快速發現文童我突然發現那個睡眠",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:37,181",
+    "end_time": "00:13:44,772",
+    "content": "过去我路睡也很困难但是我只要睡着了我保证能睡8小时9小时没有问题只要我愿意睡我就能够聚聚",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:44,772",
+    "end_time": "00:13:47,027",
+    "content": "現在不行了,現在是一個什麼情況的就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:47,027",
+    "end_time": "00:13:48,414",
+    "content": "睡下去以后三小",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:48,414",
+    "end_time": "00:13:50,437",
+    "content": "不过你就很痛苦,睡眠一步好了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:50,437",
+    "end_time": "00:13:53,554",
+    "content": "身体状况也下降了以后我马上就感觉到时间了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:53,554",
+    "end_time": "00:13:54,815",
+    "content": "Vous passez à ta...)",
+    "confidence": 0,
+    "language": "fr"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:54,815",
+    "end_time": "00:13:56,131",
+    "content": "寫水比它有2根",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:56,131",
+    "end_time": "00:13:58,774",
+    "content": "要求是不高低他得寄一例",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:58,774",
+    "end_time": "00:14:00,846",
+    "content": "他對那個身體狀況要求",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:00,846",
+    "end_time": "00:14:04,279",
+    "content": "所以那也是一份晚年的工作其實應該是晚年去做這樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:04,279",
+    "end_time": "00:14:06,303",
+    "content": "而常便寫小字尤其是寫字",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:06,303",
+    "end_time": "00:14:07,772",
+    "content": "他首先对你的体制要求",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:07,772",
+    "end_time": "00:14:14,018",
+    "content": "當年那個情緒趴起來的時候,起立要給你稱",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:14,018",
+    "end_time": "00:14:16,424",
+    "content": "起立是把那些情绪拖起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:16,424",
+    "end_time": "00:14:29,326",
+    "content": "然后又能在高处稍微多待一段时间多待半小时你就能够写下很归黄的几件字起码能写个归黄的一两件字那个战里平时你就写不出来了就是它有这样的一种状态",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:29,326",
+    "end_time": "00:14:30,660",
+    "content": "還有記憶力要求也非",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:30,660",
+    "end_time": "00:14:33,422",
+    "content": "因为当你进入到最望我的时候",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:33,422",
+    "end_time": "00:14:35,517",
+    "content": "信息就有点像是内容。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:35,517",
+    "end_time": "00:14:36,660",
+    "content": "이거",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:36,660",
+    "end_time": "00:14:42,903",
+    "content": "當一個人要收畫的時候同時出過七八句話你要用最快的速度選定某一句話是適合的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:42,903",
+    "end_time": "00:14:52,586",
+    "content": "寫完以後,你要是這邊一猶豫的話後面他說的廟宇全沒了他是寄理要求非常非常的高就是他確實是誰這樣的一份",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:52,586",
+    "end_time": "00:14:54,634",
+    "content": "所以我覺得為什麼我就回來",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:54,634",
+    "end_time": "00:14:55,697",
+    "content": "他不可能笑",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:55,697",
+    "end_time": "00:14:56,844",
+    "content": "你只要找到這個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:56,844",
+    "end_time": "00:14:58,144",
+    "content": "他就能夠遠遠不讓他離",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:58,144",
+    "end_time": "00:14:59,514",
+    "content": "但是寻找的过程",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:59,514",
+    "end_time": "00:15:00,937",
+    "content": "剛開始肯定是非常好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:00,937",
+    "end_time": "00:15:09,907",
+    "content": "當你找的時間越多,找到的水源越多的話你已經有經驗子魯河去尋找他們而且你跟祂祂祂幾乎達成了某種莫菁",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:09,907",
+    "end_time": "00:15:15,748",
+    "content": "一種心有靈犀的他也會暗示你在什麼地方等著你我覺得是誰這樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:15,748",
+    "end_time": "00:15:19,265",
+    "content": "所以零段只要寫,他就會來寫就是一首學",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:19,265",
+    "end_time": "00:15:34,250",
+    "content": "2006年初 余华的最新常天小說兄弟上下跟讀者見面上部精神狂熱本能壓抑命運慘烈下部輪理天赋浮躁縱預重生萬象",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:34,250",
+    "end_time": "00:15:36,653",
+    "content": "十年摩一见的鱼华依然走",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:36,653",
+    "end_time": "00:15:40,349",
+    "content": "再一次创造了奇迹",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

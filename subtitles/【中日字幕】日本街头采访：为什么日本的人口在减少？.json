@@ -1,0 +1,1242 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,360",
+    "content": "問題だった。僕はもう。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:01,360",
+    "end_time": "00:00:12,401",
+    "content": "今日は単純大でみました。これから、日本語指標、",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:12,401",
+    "end_time": "00:00:18,487",
+    "content": "日本の日本人の出賞率とか人工が下がってきてるじゃないですかまずそれにちいでどん",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:18,487",
+    "end_time": "00:00:19,754",
+    "content": "おおーですねー",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:19,754",
+    "end_time": "00:00:21,140",
+    "content": "失礼ですけど、ちょっと5年連絡が",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:21,140",
+    "end_time": "00:00:22,149",
+    "content": "自分の人生には",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:22,149",
+    "end_time": "00:00:25,288",
+    "content": "周りのと待ち もう同じぐれの年代の形で",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:25,288",
+    "end_time": "00:00:28,216",
+    "content": "子供欲しいっていう方が多いですが それともいらないって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:28,216",
+    "end_time": "00:00:29,538",
+    "content": "ほしいけど",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:29,538",
+    "end_time": "00:00:31,077",
+    "content": "っていうのは、やっぱり周りでは行っちゃう",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:31,077",
+    "end_time": "00:00:32,581",
+    "content": "どうして日本人は",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:32,581",
+    "end_time": "00:00:34,670",
+    "content": "ハ声apt also one more",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:34,670",
+    "end_time": "00:00:36,328",
+    "content": "오신적 흔적입니다.",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:36,328",
+    "end_time": "00:00:38,627",
+    "content": "家族って言うしてより自分にしてがむ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:38,627",
+    "end_time": "00:00:40,064",
+    "content": "C'est pour toi que mon tursday mais Jackie-Y gluten superior c'est le",
+    "confidence": 0,
+    "language": "fr"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:40,064",
+    "end_time": "00:00:42,329",
+    "content": "人語減ってきてるその解決策の",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:42,329",
+    "end_time": "00:00:43,765",
+    "content": "として先行動",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:43,765",
+    "end_time": "00:00:45,496",
+    "content": "今、国としても",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:45,496",
+    "end_time": "00:00:48,384",
+    "content": "と、雇用する外国人の数が年々めちゃめちゃくちゃ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:48,384",
+    "end_time": "00:00:49,426",
+    "content": "それについては",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:49,426",
+    "end_time": "00:00:51,393",
+    "content": "ことだなっていうふうに僕は",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:51,393",
+    "end_time": "00:00:53,005",
+    "content": "僕はちょうど機能まで カンボジ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:53,005",
+    "end_time": "00:00:54,131",
+    "content": "日本のコードを継いします",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:54,131",
+    "end_time": "00:00:56,162",
+    "content": "カレーのエネルギーみたいなものをどんどん",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:56,162",
+    "end_time": "00:00:57,860",
+    "content": "なんかあまり日本日本って子をくぎらない",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:57,860",
+    "end_time": "00:01:01,695",
+    "content": "増えてくることに対して反対している人とか参戦している人とか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:01,695",
+    "end_time": "00:01:03,240",
+    "content": "わぁ日本人の全体のおい",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:03,240",
+    "end_time": "00:01:06,793",
+    "content": "どうですかね?でもやっぱりねその出席率の反…",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:06,793",
+    "end_time": "00:01:08,754",
+    "content": "でも、やっぱり、これの方が",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:08,754",
+    "end_time": "00:01:09,981",
+    "content": "カタカラすると",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:09,981",
+    "end_time": "00:01:12,108",
+    "content": "今とかって将来 今じゃなくても将来して",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:12,108",
+    "end_time": "00:01:14,001",
+    "content": "おろもおしいんですけど結構別に",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:14,001",
+    "end_time": "00:01:15,189",
+    "content": "このもは",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:15,189",
+    "end_time": "00:01:16,459",
+    "content": "¿Qué acudis? ¿Qué cus?",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:16,459",
+    "end_time": "00:01:17,762",
+    "content": "自分の素体ことをして",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:17,762",
+    "end_time": "00:01:22,051",
+    "content": "日本って今 人口が減ってきててこのももたないってことは子供もたない人が多い",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:22,051",
+    "end_time": "00:01:26,489",
+    "content": "じゃあ日本人は結構子供を埋むの前に仕事がさる",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:27,695",
+    "end_time": "00:01:30,513",
+    "content": "今っていろんなご覧とかあったりとか結婚したくてもいい",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:30,513",
+    "end_time": "00:01:31,856",
+    "content": "選択肢が結構なんか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:31,856",
+    "end_time": "00:01:34,316",
+    "content": "向かしちゃったら子供で買ってよも",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:34,316",
+    "end_time": "00:01:38,322",
+    "content": "カッコンしなくていいみたいな感じのドラマとかあるじゃんあるあるあるちょっとちょっとちょっと",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:38,322",
+    "end_time": "00:01:39,465",
+    "content": "おー結構しなくてもいいや",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:39,465",
+    "end_time": "00:01:41,483",
+    "content": "それって東京の人",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:41,483",
+    "end_time": "00:01:43,137",
+    "content": "東京の人の考え方と",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:43,137",
+    "end_time": "00:01:47,412",
+    "content": "自保はすることないからそれからとりあえず出会った",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:47,412",
+    "end_time": "00:01:50,688",
+    "content": "日本で出勝率が低くなってきているじゃないですか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:50,688",
+    "end_time": "00:01:52,281",
+    "content": "この問題についてどうも",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:52,281",
+    "end_time": "00:01:54,132",
+    "content": "これはね、あの日本の",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:54,132",
+    "end_time": "00:01:55,492",
+    "content": "問題だった。僕はもう。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:55,492",
+    "end_time": "00:01:56,671",
+    "content": "女性の負担がね",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:56,671",
+    "end_time": "00:01:57,742",
+    "content": "アメリカに15分",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:57,742",
+    "end_time": "00:02:00,757",
+    "content": "女性たちが外に出て働くのが当たります",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:00,757",
+    "end_time": "00:02:02,531",
+    "content": "社会が続いているわけです。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:02,531",
+    "end_time": "00:02:06,900",
+    "content": "それで日本の場合にはそういう状況になったのはおそらく10年",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:06,900",
+    "end_time": "00:02:09,076",
+    "content": "女性もあの独立",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:09,076",
+    "end_time": "00:02:10,841",
+    "content": "だけどもやっぱりそう言っても",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:10,841",
+    "end_time": "00:02:12,444",
+    "content": "Os voy a no poner una creave er Automata",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:12,444",
+    "end_time": "00:02:13,712",
+    "content": "女性が働く社会になって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:13,712",
+    "end_time": "00:02:15,359",
+    "content": "どういうことかというと女性がです",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:15,359",
+    "end_time": "00:02:16,698",
+    "content": "家を持つと思ったら",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:16,698",
+    "end_time": "00:02:17,873",
+    "content": "友達のね、面倒み",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:17,873",
+    "end_time": "00:02:19,878",
+    "content": "他の国に比べたらもう後でにおいて",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:19,878",
+    "end_time": "00:02:20,901",
+    "content": "そうするとです",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:20,901",
+    "end_time": "00:02:23,838",
+    "content": "こうしたくないねえということに 当然なって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:23,838",
+    "end_time": "00:02:26,223",
+    "content": "人たちが座っていた環境もある",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:26,223",
+    "end_time": "00:02:27,437",
+    "content": "海外の子供達",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:27,437",
+    "end_time": "00:02:30,957",
+    "content": "家の仕事をするというのは当たり前で座って",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:30,957",
+    "end_time": "00:02:34,218",
+    "content": "例えば男の子たち、日本の男の子たちは多分",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:34,218",
+    "end_time": "00:02:36,158",
+    "content": "お母さんのお手伝えをすることも",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:36,158",
+    "end_time": "00:02:38,520",
+    "content": "カジオどうやってやっていくかって言うのは知らない",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:38,520",
+    "end_time": "00:02:42,174",
+    "content": "そうですね、僕自身も視聴屋が掲示していることは",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:42,174",
+    "end_time": "00:02:43,762",
+    "content": "どこについてインドがねどんどん",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:43,762",
+    "end_time": "00:02:45,332",
+    "content": "クッションしていく形だよ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:45,332",
+    "end_time": "00:02:47,247",
+    "content": "それが不幸なのかって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:47,247",
+    "end_time": "00:02:49,872",
+    "content": "一つの解決策として外国人を友人",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:49,872",
+    "end_time": "00:02:52,575",
+    "content": "食べましてて、年々日本に進むか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:52,575",
+    "end_time": "00:02:54,389",
+    "content": "ここじゃなくて 住む外国人が増えてき",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:54,389",
+    "end_time": "00:02:55,716",
+    "content": "必然的にそうならざるよね",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:55,716",
+    "end_time": "00:02:58,479",
+    "content": "やっぱり強制できる社会の仕組みをつく",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:58,479",
+    "end_time": "00:03:00,504",
+    "content": "アメリカのワポーイエーセルトコースのが",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:00,504",
+    "end_time": "00:03:01,911",
+    "content": "外人がくるとそこの",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:01,911",
+    "end_time": "00:03:05,007",
+    "content": "英語はあまり喋れないよって言う子どもたちをそこで",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:05,007",
+    "end_time": "00:03:07,471",
+    "content": "英語を並せるという仕組みがあるんです。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:07,471",
+    "end_time": "00:03:10,188",
+    "content": "日本の学校にそういうのがあるのか?日本の喋るね",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:10,188",
+    "end_time": "00:03:12,745",
+    "content": "しゃべらない国にほとんどの国がそうだけど",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:12,745",
+    "end_time": "00:03:13,861",
+    "content": "誰に日本だって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:13,861",
+    "end_time": "00:03:15,000",
+    "content": "What do you think is the most...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:15,000",
+    "end_time": "00:03:16,442",
+    "content": "The way it comes to Japanese people and the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:16,442",
+    "end_time": "00:03:19,947",
+    "content": "US people try to make friend to expand.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:19,947",
+    "end_time": "00:03:21,542",
+    "content": "It means they like party.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:21,542",
+    "end_time": "00:03:24,250",
+    "content": "Japanese people try to make the group.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:24,250",
+    "end_time": "00:03:25,622",
+    "content": "to make always group.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:25,622",
+    "end_time": "00:03:27,179",
+    "content": "That's a good point.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:27,179",
+    "end_time": "00:03:28,229",
+    "content": "年で先に来てもらって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:28,229",
+    "end_time": "00:03:29,781",
+    "content": "将来子供は",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:29,781",
+    "end_time": "00:03:33,106",
+    "content": "どうして日本は今 少しかが問題",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:33,106",
+    "end_time": "00:03:34,318",
+    "content": "どうして人語が入ってき",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:34,318",
+    "end_time": "00:03:37,014",
+    "content": "女性が手に食って",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:37,014",
+    "end_time": "00:03:40,646",
+    "content": "独立って自立して生活できる社会が",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:40,646",
+    "end_time": "00:03:51,498",
+    "content": "ねずいてるのとあとは何だろう 人口が減ってきているのに対してまぁそれで経済も落ちているじゃないですかそれの解決策として外国人を友知していっぱい",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:51,498",
+    "end_time": "00:03:54,993",
+    "content": "っていうのがあると思うんですけど、メリットでメリットで呼ばれると思うんですけど、それについてはどう",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:56,155",
+    "end_time": "00:04:00,425",
+    "content": "そうですね、やっぱり若い働き手が日本少ないので、海外の",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:00,425",
+    "end_time": "00:04:03,663",
+    "content": "働くことで、経済もあるようになるんじゃないかなって。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:03,663",
+    "end_time": "00:04:08,698",
+    "content": "外国人? スムーこれから 多分 五年十年二十年とかとめちゃめちゃ増えてくる",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:08,698",
+    "end_time": "00:04:10,022",
+    "content": "その人たちに気をつけ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:10,022",
+    "end_time": "00:04:11,909",
+    "content": "とかその人たち",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:11,909",
+    "end_time": "00:04:18,088",
+    "content": "そうですね、日本人ってすごいマナーがある人種だなって思います例えば電車割り込まないとか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:18,088",
+    "end_time": "00:04:21,514",
+    "content": "そういうマナーとかは日本人に合わせてもらいたいな",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:21,514",
+    "end_time": "00:04:24,377",
+    "content": "電車とか乗っててもなんか任務さんにか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:24,377",
+    "end_time": "00:04:25,766",
+    "content": "変わってあげる海外の",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:25,766",
+    "end_time": "00:04:27,399",
+    "content": "見てなんかすごい優しいなと思って",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:27,399",
+    "end_time": "00:04:30,382",
+    "content": "日本人あんまりそういうのしないですよね自分からは積極的に",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:30,382",
+    "end_time": "00:04:31,839",
+    "content": "行動するのはあまりない",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:31,839",
+    "end_time": "00:04:32,954",
+    "content": "それについてどう思いますか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:32,954",
+    "end_time": "00:04:38,805",
+    "content": "なんでセクションから?セクションがあんなか日本だ正に本部のことを恥ずかしいと思われる傾向がある",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:38,805",
+    "end_time": "00:04:41,656",
+    "content": "子供を持つのは経済的なフタンがかかるから、なんか持ち着くな",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:41,656",
+    "end_time": "00:04:42,983",
+    "content": "日本人のフーフとかも",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:42,983",
+    "end_time": "00:04:45,689",
+    "content": "3輸場はキスイオンみたいな人は結構リアルに",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:45,689",
+    "end_time": "00:04:46,843",
+    "content": "大上に比べて",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:46,843",
+    "end_time": "00:04:48,610",
+    "content": "振りはめっちゃよく悪くにあるんで",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:48,610",
+    "end_time": "00:04:50,274",
+    "content": "こずに、一人貝焼きはいえる",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:50,274",
+    "end_time": "00:04:52,627",
+    "content": "押してください。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:52,627",
+    "end_time": "00:04:54,821",
+    "content": "おこしだけありますけど",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:54,821",
+    "end_time": "00:04:59,415",
+    "content": "LXは好きだけど、経済的な流が多いので、人工現象は止まらないんじゃん",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:59,415",
+    "end_time": "00:05:01,420",
+    "content": "みんな子供をやしながら",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:01,420",
+    "end_time": "00:05:02,423",
+    "content": "絵材的余裕が",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:02,423",
+    "end_time": "00:05:05,619",
+    "content": "あんまり水にめちゃくちゃもしたくはない笑いかなぁ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:05,619",
+    "end_time": "00:05:07,353",
+    "content": "仕事と家庭のバランス",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:07,353",
+    "end_time": "00:05:11,254",
+    "content": "そうだなっていうのとでも、42になる前に",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:11,254",
+    "end_time": "00:05:15,136",
+    "content": "40ってことは結構他の機にに比べたらおそーいいじゃないですか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:15,136",
+    "end_time": "00:05:16,156",
+    "content": "日本人って",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:16,156",
+    "end_time": "00:05:17,595",
+    "content": "なんかあんまりキャンブルしないから",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:17,595",
+    "end_time": "00:05:19,723",
+    "content": "早く結婚してリコンとかというのはもうまず",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:19,723",
+    "end_time": "00:05:25,901",
+    "content": "まるのよすうかかって経済的を言うもってとか会社でも立場とか そのたくわえてからとか",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:25,901",
+    "end_time": "00:05:27,370",
+    "content": "セーフティを作ってから動く",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:27,370",
+    "end_time": "00:05:31,312",
+    "content": "普通に30個えてから結婚とか当たり前30あら4になって",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:31,312",
+    "end_time": "00:05:33,019",
+    "content": "そんなにっていう国だからあんまり",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:33,019",
+    "end_time": "00:05:34,384",
+    "content": "これの解決策は",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:34,384",
+    "end_time": "00:05:35,706",
+    "content": "責めません。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:35,706",
+    "end_time": "00:05:37,076",
+    "content": "子供のんだら",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:39,475",
+    "end_time": "00:05:40,747",
+    "content": "いくらいくらい見たのしてるけど",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:40,747",
+    "end_time": "00:05:44,915",
+    "content": "ってかのはいやいやこれこんなぐらいのお金じゃどうにもこうにも変わんないよっていうのは",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:44,915",
+    "end_time": "00:05:49,475",
+    "content": "なんか、毎日がいくつも増えてきたから、トータルのニンズを買おうね、かもしれない。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:49,475",
+    "end_time": "00:05:52,019",
+    "content": "日本人のワリアイっていうのは少しず",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:52,019",
+    "end_time": "00:05:53,937",
+    "content": "笑 してくんじゃないかな",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:53,937",
+    "end_time": "00:05:55,033",
+    "content": "もうその海外によ",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:55,033",
+    "end_time": "00:05:56,281",
+    "content": "日本からちょっと絶対出して",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:56,281",
+    "end_time": "00:05:58,927",
+    "content": "Okay, thank you for watching so far. How was it? That was it?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:58,927",
+    "end_time": "00:06:06,742",
+    "content": "As a Japanese person who is also worried about Japan's future, this is actually a huge program. I think Japanese government will accept more 49.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:06,742",
+    "end_time": "00:06:10,952",
+    "content": "From now on like in five years ten years twenty years. There's no way to save this",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:10,952",
+    "end_time": "00:06:14,146",
+    "content": "It's kinda a little bit weird, the country you wanna go to you wanna...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:14,146",
+    "end_time": "00:06:18,959",
+    "content": "is shrinking. I'm so sorry but like this is the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:18,959",
+    "end_time": "00:06:26,033",
+    "content": "日本語を読んでください。日本語を読んでください。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:26,033",
+    "end_time": "00:06:28,533",
+    "content": "Okay, anyway, thank you for watching if you liked this video, click like button.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:28,533",
+    "end_time": "00:06:32,113",
+    "content": "If there's anything you want me to ask people in Japan, please leave it a comment.",
+    "confidence": 0,
+    "language": "en"
+  }
+]

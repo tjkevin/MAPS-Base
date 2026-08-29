@@ -1,0 +1,101 @@
+{% extends "base_en.html" %}
+{% block title %}Profile - MAPS{% endblock %}
+{% block page_title %}My profile{% endblock %}
+{% block page_subtitle %}Profile, password and personal sign-in history{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <ul class="nav nav-tabs mb-3" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-profile" type="button">Profile</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-pwd" type="button">Password</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-logs" type="button">Logs</button></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-profile">
+            <div class="card"><div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4"><label class="form-label">Username</label><input class="form-control" id="pf_username" disabled></div>
+                    <div class="col-md-4"><label class="form-label">Full name</label><input class="form-control" id="pf_full_name"></div>
+                    <div class="col-md-4"><label class="form-label">Department</label><input class="form-control" id="pf_department" disabled></div>
+                    <div class="col-md-4"><label class="form-label">Email</label><input class="form-control" id="pf_email" type="email"></div>
+                    <div class="col-md-4"><label class="form-label">Phone</label><input class="form-control" id="pf_phone"></div>
+                    <div class="col-md-4"><label class="form-label">Role</label><input class="form-control" id="pf_role" disabled></div>
+                    <div class="col-md-4"><label class="form-label">Valid until</label><input class="form-control" id="pf_valid" disabled></div>
+                </div>
+                <button type="button" class="btn btn-primary mt-3" onclick="saveProfile()">Save</button>
+            </div></div>
+        </div>
+        <div class="tab-pane fade" id="tab-pwd">
+            <div class="card"><div class="card-body" style="max-width: 420px;">
+                <div class="mb-3"><label class="form-label">Current password</label><input type="password" class="form-control" id="pwd_old" autocomplete="current-password"></div>
+                <div class="mb-3"><label class="form-label">New password</label><input type="password" class="form-control" id="pwd_new" autocomplete="new-password"></div>
+                <button type="button" class="btn btn-warning" onclick="changePwd()">Update</button>
+            </div></div>
+        </div>
+        <div class="tab-pane fade" id="tab-logs">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <h6>Sign-in / sign-out</h6>
+                    <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>Time</th><th>Event</th><th>IP</th><th>Note</th></tr></thead><tbody id="logLoginBody"></tbody></table></div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <h6>Account-related actions</h6>
+                    <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>Time</th><th>Action</th></tr></thead><tbody id="logAuditBody"></tbody></table></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const ROLE_EN = { super_admin: 'Super admin', admin: 'System admin', recorder: 'Recorder', inspector: 'Inspector' };
+async function loadProfile() {
+    const r = await fetch('/api/profile/me');
+    if (!r.ok) return;
+    const u = await r.json();
+    document.getElementById('pf_username').value = u.username || '';
+    document.getElementById('pf_full_name').value = u.full_name || '';
+    document.getElementById('pf_department').value = u.department || '';
+    document.getElementById('pf_email').value = u.email || '';
+    document.getElementById('pf_phone').value = u.phone || '';
+    document.getElementById('pf_role').value = ROLE_EN[u.role] || u.role || '';
+    document.getElementById('pf_valid').value = u.account_valid_until ? u.account_valid_until.replace('T', ' ').slice(0, 19) : '—';
+}
+async function saveProfile() {
+    const body = {
+        email: document.getElementById('pf_email').value,
+        phone: document.getElementById('pf_phone').value,
+        full_name: document.getElementById('pf_full_name').value,
+    };
+    const r = await fetch('/api/profile/me', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    alert(r.ok ? 'Saved' : (j.error || 'Failed'));
+}
+async function changePwd() {
+    const body = {
+        old_password: document.getElementById('pwd_old').value,
+        new_password: document.getElementById('pwd_new').value,
+    };
+    const r = await fetch('/api/profile/change-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { alert('Password updated. Please sign in again.'); window.location.href = '/logout'; }
+    else alert(j.error || 'Failed');
+}
+async function loadLogs() {
+    const [a, b] = await Promise.all([
+        fetch('/api/profile/my-login-logs'),
+        fetch('/api/profile/my-audit-trail'),
+    ]);
+    const lj = a.ok ? await a.json() : { items: [] };
+    const aj = b.ok ? await b.json() : { items: [] };
+    document.getElementById('logLoginBody').innerHTML = (lj.items || []).map(x =>
+        `<tr><td>${(x.at || '').replace('T', ' ').slice(0, 19)}</td><td>${x.event_type}</td><td>${x.ip || ''}</td><td>${x.message || ''}</td></tr>`
+    ).join('') || '<tr><td colspan="4" class="text-muted">None</td></tr>';
+    document.getElementById('logAuditBody').innerHTML = (aj.items || []).map(x =>
+        `<tr><td>${(x.at || '').replace('T', ' ').slice(0, 19)}</td><td>${x.action}</td></tr>`
+    ).join('') || '<tr><td colspan="2" class="text-muted">None</td></tr>';
+}
+document.querySelector('[data-bs-target="#tab-logs"]')?.addEventListener('shown.bs.tab', () => loadLogs());
+loadProfile();
+</script>
+{% endblock %}

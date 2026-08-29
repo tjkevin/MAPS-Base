@@ -1,0 +1,102 @@
+{% extends "base_cn.html" %}
+{% block title %}个人中心 - MAPS{% endblock %}
+{% block page_title %}个人中心{% endblock %}
+{% block page_subtitle %}资料维护、密码与本人登录记录{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <ul class="nav nav-tabs mb-3" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-profile" type="button">基本资料</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-pwd" type="button">修改密码</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-logs" type="button">登录与操作记录</button></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-profile">
+            <div class="card"><div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4"><label class="form-label">用户名</label><input class="form-control" id="pf_username" disabled></div>
+                    <div class="col-md-4"><label class="form-label">姓名</label><input class="form-control" id="pf_full_name"></div>
+                    <div class="col-md-4"><label class="form-label">部门</label><input class="form-control" id="pf_department" disabled></div>
+                    <div class="col-md-4"><label class="form-label">邮箱</label><input class="form-control" id="pf_email" type="email"></div>
+                    <div class="col-md-4"><label class="form-label">手机</label><input class="form-control" id="pf_phone"></div>
+                    <div class="col-md-4"><label class="form-label">角色</label><input class="form-control" id="pf_role" disabled></div>
+                    <div class="col-md-4"><label class="form-label">账号有效期</label><input class="form-control" id="pf_valid" disabled></div>
+                </div>
+                <button type="button" class="btn btn-primary mt-3" onclick="saveProfile()">保存资料</button>
+            </div></div>
+        </div>
+        <div class="tab-pane fade" id="tab-pwd">
+            <div class="card"><div class="card-body" style="max-width: 420px;">
+                <div class="mb-3"><label class="form-label">当前密码</label><input type="password" class="form-control" id="pwd_old" autocomplete="current-password"></div>
+                <div class="mb-3"><label class="form-label">新密码</label><input type="password" class="form-control" id="pwd_new" autocomplete="new-password"></div>
+                <button type="button" class="btn btn-warning" onclick="changePwd()">更新密码</button>
+                <p class="small text-muted mt-2">修改成功后需使用新密码登录；复杂度要求与系统策略一致。</p>
+            </div></div>
+        </div>
+        <div class="tab-pane fade" id="tab-logs">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <h6>登录 / 登出</h6>
+                    <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>时间</th><th>事件</th><th>IP</th><th>说明</th></tr></thead><tbody id="logLoginBody"></tbody></table></div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <h6>账号相关操作</h6>
+                    <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>时间</th><th>动作</th></tr></thead><tbody id="logAuditBody"></tbody></table></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const ROLE_CN = { super_admin: '超级管理员', admin: '系统管理员', recorder: '采集与处理', inspector: '质检审核' };
+async function loadProfile() {
+    const r = await fetch('/api/profile/me');
+    if (!r.ok) return;
+    const u = await r.json();
+    document.getElementById('pf_username').value = u.username || '';
+    document.getElementById('pf_full_name').value = u.full_name || '';
+    document.getElementById('pf_department').value = u.department || '';
+    document.getElementById('pf_email').value = u.email || '';
+    document.getElementById('pf_phone').value = u.phone || '';
+    document.getElementById('pf_role').value = ROLE_CN[u.role] || u.role || '';
+    document.getElementById('pf_valid').value = u.account_valid_until ? u.account_valid_until.replace('T', ' ').slice(0, 19) : '未设置';
+}
+async function saveProfile() {
+    const body = {
+        email: document.getElementById('pf_email').value,
+        phone: document.getElementById('pf_phone').value,
+        full_name: document.getElementById('pf_full_name').value,
+    };
+    const r = await fetch('/api/profile/me', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    alert(r.ok ? '已保存' : (j.error || '保存失败'));
+}
+async function changePwd() {
+    const body = {
+        old_password: document.getElementById('pwd_old').value,
+        new_password: document.getElementById('pwd_new').value,
+    };
+    const r = await fetch('/api/profile/change-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { alert('密码已更新，请重新登录'); window.location.href = '/logout'; }
+    else alert(j.error || '失败');
+}
+async function loadLogs() {
+    const [a, b] = await Promise.all([
+        fetch('/api/profile/my-login-logs'),
+        fetch('/api/profile/my-audit-trail'),
+    ]);
+    const lj = a.ok ? await a.json() : { items: [] };
+    const aj = b.ok ? await b.json() : { items: [] };
+    document.getElementById('logLoginBody').innerHTML = (lj.items || []).map(x =>
+        `<tr><td>${(x.at || '').replace('T', ' ').slice(0, 19)}</td><td>${x.event_type}</td><td>${x.ip || ''}</td><td>${x.message || ''}</td></tr>`
+    ).join('') || '<tr><td colspan="4" class="text-muted">暂无</td></tr>';
+    document.getElementById('logAuditBody').innerHTML = (aj.items || []).map(x =>
+        `<tr><td>${(x.at || '').replace('T', ' ').slice(0, 19)}</td><td>${x.action}</td></tr>`
+    ).join('') || '<tr><td colspan="2" class="text-muted">暂无</td></tr>';
+}
+document.querySelector('[data-bs-target="#tab-logs"]')?.addEventListener('shown.bs.tab', () => loadLogs());
+loadProfile();
+</script>
+{% endblock %}

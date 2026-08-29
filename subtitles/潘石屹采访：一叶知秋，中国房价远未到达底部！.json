@@ -1,0 +1,1290 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,439",
+    "content": "中國過去十年時",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,439",
+    "end_time": "00:00:02,742",
+    "content": "平腹兩一分化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:02,742",
+    "end_time": "00:00:05,517",
+    "content": "兩個原因一個顯性的原因",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:05,517",
+    "end_time": "00:00:06,940",
+    "content": "引力的原因就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:06,940",
+    "end_time": "00:00:19,503",
+    "content": "顯性的原因就是房地產你們造成的不是這個還不是我們造成我們只是裡面的一部分所以你想這樣大的一個變化的過程中大家有一些不滿",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:19,503",
+    "end_time": "00:00:40,332",
+    "content": "所以我们成为行业的代言人编培编培我们我现在都想得通想得通吗说是电影上面编培编培我们说是个快晦有的电影上面直接用我的名字说 你没看过吗我没看过你别说了说了大家都去看对 别跟他说广告了是吗直接用名字直接用名字",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:40,332",
+    "end_time": "00:00:41,686",
+    "content": "在這對它看得星島怎樣呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:41,686",
+    "end_time": "00:00:43,628",
+    "content": "看他一下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:43,628",
+    "end_time": "00:00:47,712",
+    "content": "那不过那个十年的房价的波动",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:47,712",
+    "end_time": "00:00:50,351",
+    "content": "跟你十年前那时候接受财经那么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:50,351",
+    "end_time": "00:00:51,651",
+    "content": "你觉得出乎你意料吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:51,651",
+    "end_time": "00:01:00,756",
+    "content": "08年的时候实际上是房价长得很厉害的后半年后 前提别你跟长得最大的幅度的是临零七年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:00,756",
+    "end_time": "00:01:10,477",
+    "content": "所以長著到了08年曾經採訪我們這個人的時候大家都有點急有一點慌政府有一點急老百姓有一點",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:10,477",
+    "end_time": "00:01:22,152",
+    "content": "就是房价都爱着零六零七零八年这么长人少去的话 哪是个头了对 所以接着接触背景下的话就奉问的话 实际上我当时的判断是这样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:22,152",
+    "end_time": "00:01:25,477",
+    "content": "中國的城市化的進程阻擋不了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:25,477",
+    "end_time": "00:01:28,090",
+    "content": "而且速度要比别的国家都要快的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:28,090",
+    "end_time": "00:01:29,492",
+    "content": "土地的工医量上不来",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,492",
+    "end_time": "00:01:38,058",
+    "content": "要上来的话得修改法律一回半回修改不了就是龙聪的地和城里面的地是合不到一起的小坦圈房都改不了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:38,058",
+    "end_time": "00:01:45,808",
+    "content": "农村的地宅的房子就是没有产业的起来个名字叫小产业房都是非法的所以这两个东西合不到一起去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:45,808",
+    "end_time": "00:01:49,739",
+    "content": "另外一个就是整个需求量还是非常大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:49,739",
+    "end_time": "00:01:52,855",
+    "content": "這次說的話你又不能夠說算房價還要漲",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:52,855",
+    "end_time": "00:02:08,310",
+    "content": "所以他就是听上来就说不能说而说他非得追着问你对对对那他很煩是吧我就是认识咱不设这些喝点水吧休息休息吧结果他把这一段给拨出去了我就认识就来觉得帮我梦住了就觉得没打",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:08,310",
+    "end_time": "00:02:09,768",
+    "content": "要再往上去往下不會有怪的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:09,768",
+    "end_time": "00:02:14,626",
+    "content": "我觉得他可能是08年的时候比较悲观",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:14,626",
+    "end_time": "00:02:27,987",
+    "content": "哦 那哦 对对对对对我说是那几次啊这个上面对对对对往十块的时候是吧十块钱吧往十块钱就是那个时候互联嘛还不像现在是吧对对对就是刚开始的几个人我那时候他也够也是够比",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:27,987",
+    "end_time": "00:02:29,187",
+    "content": "destroyed itse Solidikaelliselle",
+    "confidence": 0,
+    "language": "fi"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:29,187",
+    "end_time": "00:02:30,852",
+    "content": "另外一個就是每一個人都看著的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:30,852",
+    "end_time": "00:02:33,082",
+    "content": "基本上当时的就是我们三个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:33,082",
+    "end_time": "00:02:47,608",
+    "content": "王世馬比較悲觀悲觀快點亂認知前門反正就說還會賞所以被人被人寫對被人寫你們滑透一點去喝水對三個人的性格這十年前的話",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:47,608",
+    "end_time": "00:02:49,661",
+    "content": "就求求同學再來看的話",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:49,661",
+    "end_time": "00:02:51,265",
+    "content": "深圳是4.7倍",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:51,265",
+    "end_time": "00:02:53,287",
+    "content": "北京的上海大約5.2",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:53,287",
+    "end_time": "00:02:54,524",
+    "content": "那我们的 provider ,  Layjun",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:54,524",
+    "end_time": "00:02:56,637",
+    "content": "眼下了我覺得跟十年前的情況",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:56,637",
+    "end_time": "00:03:01,418",
+    "content": "就是我是看朱建布的副部长在博尔里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:01,418",
+    "end_time": "00:03:03,002",
+    "content": "就中国的人生住房",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:03,002",
+    "end_time": "00:03:05,757",
+    "content": "三十五星王民是什麼呢是發大國際",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:05,757",
+    "end_time": "00:03:07,609",
+    "content": "就在中国人用GDP这样的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:07,609",
+    "end_time": "00:03:09,301",
+    "content": "人家住房面积30",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:09,301",
+    "end_time": "00:03:14,657",
+    "content": "我们改革开放出机的时候才5点几年5点几影响一下到了30分",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:14,657",
+    "end_time": "00:03:17,385",
+    "content": "五点节目就三口支架只有不到20",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:17,385",
+    "end_time": "00:03:19,929",
+    "content": "现在三口支架三就就有一百瓶一百多",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:19,929",
+    "end_time": "00:03:21,301",
+    "content": "天宜宜伯多天宜伯多",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:21,301",
+    "end_time": "00:03:24,144",
+    "content": "所以这件事的话就是说房子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:24,144",
+    "end_time": "00:03:25,155",
+    "content": "没有十年级",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:25,155",
+    "end_time": "00:03:27,364",
+    "content": "所以这个时候就是房价涨还是不涨",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:27,364",
+    "end_time": "00:03:28,667",
+    "content": "我觉得第一个睡收",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:28,667",
+    "end_time": "00:03:29,968",
+    "content": "投地正策不会有效",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:29,968",
+    "end_time": "00:03:31,356",
+    "content": "唯一能夠看到變化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:31,356",
+    "end_time": "00:03:33,719",
+    "content": "營根是警卡式酥,會不會等它",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:33,719",
+    "end_time": "00:03:38,062",
+    "content": "只要市场上面前多 房价一定得赵前面地方去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:38,062",
+    "end_time": "00:03:41,403",
+    "content": "如果是市場上有營更要進",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:41,403",
+    "end_time": "00:03:42,957",
+    "content": "判断的依据的话只有这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:42,957",
+    "end_time": "00:03:46,491",
+    "content": "會不會出現一個情況我最近我在看中國的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:46,491",
+    "end_time": "00:03:48,403",
+    "content": "中國的城縱化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:48,403",
+    "end_time": "00:03:49,593",
+    "content": "但超级城市可能",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:49,593",
+    "end_time": "00:03:50,882",
+    "content": "跟他们在上海现在是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:50,882",
+    "end_time": "00:03:55,139",
+    "content": "2780萬人口吧那就是10年後他可能就變成",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:55,139",
+    "end_time": "00:03:59,992",
+    "content": "就是北京上海深圳或者武汉我到政策血施西安就人口",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:59,992",
+    "end_time": "00:04:01,539",
+    "content": "大量靠在操作存心",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:01,539",
+    "end_time": "00:04:15,838",
+    "content": "像農村 像你看到的風景這些地方就人口越來越少荒地越來越多那麼就造成大量的不均衡就會人口像大層是聚集大層是房價還得漲會出現這情況嗎人口問題是個比較富",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:15,838",
+    "end_time": "00:04:31,838",
+    "content": "兩件事做了個數學模型這個數學模型的結果給我說下回一跳說實在這他這個人口的數學模型出來北京是五千萬人上回是五千萬人就是這現在的基礎這樣翻一翻還得翻一翻",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:31,838",
+    "end_time": "00:04:48,057",
+    "content": "就是你剛才說這個趨勢就通過兩件上次的數學模型就看他這個模型就是人口總量會下降但是大層是人口會不會舉及那你這個不很可怕嗎就沒有什麼中經 巴黎是一樣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:48,057",
+    "end_time": "00:04:50,562",
+    "content": "如果是人的过来的话就许",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:50,562",
+    "end_time": "00:04:52,187",
+    "content": "所以这些大城市的房子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:52,187",
+    "end_time": "00:04:53,862",
+    "content": "啊再来看十年期",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:53,862",
+    "end_time": "00:04:59,221",
+    "content": "早樓站了田以後再去買更貴的地蓋更貴的樓這樣更多的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:59,221",
+    "end_time": "00:05:01,540",
+    "content": "其实再来回过的看其实你走一条",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:01,540",
+    "end_time": "00:05:04,081",
+    "content": "過去幾年有拋售的很多的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:04,081",
+    "end_time": "00:05:19,762",
+    "content": "消失我不是放了不用跑吧对 不用跑对消受的一些400多亿的给五夜但是你看另外有一些朋友们他变成了每年要卖多少要卖三千亿五千亿这样的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:19,762",
+    "end_time": "00:05:27,033",
+    "content": "全世界你說5千億的房地代公司也就在中國會有而且要不只一架今年上百年的個2千億的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:27,033",
+    "end_time": "00:05:29,125",
+    "content": "那麼為什麼會跟他們走",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:29,125",
+    "end_time": "00:05:30,952",
+    "content": "我觉得对市场和未来风险的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:30,952",
+    "end_time": "00:05:32,149",
+    "content": "他沒什麼回那麼急劑",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:32,149",
+    "end_time": "00:05:33,601",
+    "content": "你跟他一起玩了一个面你跟他一起玩",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:33,601",
+    "end_time": "00:05:37,273",
+    "content": "因為在每一個的判斷都是根生地固的慣性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:37,273",
+    "end_time": "00:05:40,273",
+    "content": "就是過去十年十五年時間在不斷的照",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:40,273",
+    "end_time": "00:05:43,348",
+    "content": "人們這個貫性思維下去覺得還可以找",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:43,348",
+    "end_time": "00:05:48,834",
+    "content": "他可以找 可是我呢我记得十年前的话就是08年 说过一",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:48,834",
+    "end_time": "00:05:49,877",
+    "content": "就是房地菜的房",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:49,877",
+    "end_time": "00:05:51,163",
+    "content": "只有不偷睡路上",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:51,163",
+    "end_time": "00:06:02,786",
+    "content": "不了違法外界 不行徽受惠就沒風險因為房內殘的發著空間很大上場的幅度很大可是到了今天一八年的時候 風險就不一樣了在哪裡呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:02,786",
+    "end_time": "00:06:09,932",
+    "content": "因為這大房間公司貼的線了是外匯的線它的收入是人民幣的收入這兩個會律度",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:09,932",
+    "end_time": "00:06:11,223",
+    "content": "另外就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:11,223",
+    "end_time": "00:06:12,805",
+    "content": "持续长了10年15",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:12,805",
+    "end_time": "00:06:15,762",
+    "content": "資產價格你的土地這件工程房",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:15,762",
+    "end_time": "00:06:20,511",
+    "content": "第一百分之三十能不能使用也大家看不住是吧就有这样就可能性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:20,511",
+    "end_time": "00:06:22,240",
+    "content": "所以到了这个18年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:22,240",
+    "end_time": "00:06:23,471",
+    "content": "从这的风险就会",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:23,471",
+    "end_time": "00:06:27,482",
+    "content": "其实你开始停止买第一经事有几年三年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:27,482",
+    "end_time": "00:06:28,524",
+    "content": "3년",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:28,524",
+    "end_time": "00:06:33,192",
+    "content": "那為什麼在一六年左右一六年就會做這麽",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:33,192",
+    "end_time": "00:06:34,259",
+    "content": "아...",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:34,259",
+    "end_time": "00:06:37,971",
+    "content": "就是实际上我觉得就是做任何声音",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:37,971",
+    "end_time": "00:06:39,918",
+    "content": "都要看基本的程式",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:39,918",
+    "end_time": "00:06:41,389",
+    "content": "尝试我觉得有两个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:41,389",
+    "end_time": "00:06:43,199",
+    "content": "第一個基本的常識就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:43,199",
+    "end_time": "00:06:44,387",
+    "content": "共營兩核需主亮",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:44,387",
+    "end_time": "00:06:55,940",
+    "content": "能不能平衡當然這個看的話有的時候不好看共英量還好算需求那在哪呢通常一下幾萬人出對 你知道出來了出來了 出來了是吧可是我們可以通過另外一天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:55,940",
+    "end_time": "00:06:57,562",
+    "content": "例如像那個住間的回報率",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:57,562",
+    "end_time": "00:06:59,742",
+    "content": "每一個城市購買了房子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:59,742",
+    "end_time": "00:07:01,130",
+    "content": "按照當前的價格",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:01,130",
+    "end_time": "00:07:02,665",
+    "content": "最近回報率高海",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:02,665",
+    "end_time": "00:07:03,680",
+    "content": "现在一般的成绩",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:03,680",
+    "end_time": "00:07:05,997",
+    "content": "苏金回暴率没有透过三等",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:05,997",
+    "end_time": "00:07:08,675",
+    "content": "好得了就是二连起不好的就是一样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:08,675",
+    "end_time": "00:07:17,139",
+    "content": "可是你才基本上的一左右一锅写字楼12.712.7的3.7可是银行对款的基础力60多4.9",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:17,139",
+    "end_time": "00:07:26,829",
+    "content": "就是你把银行的钱按照4.9%带过来买了地建了房子 先用建了房子你真正输者出去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:26,829",
+    "end_time": "00:07:28,089",
+    "content": "他的回报率就完了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:28,089",
+    "end_time": "00:07:29,259",
+    "content": "在这里就是一个布克松",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:29,259",
+    "end_time": "00:07:32,596",
+    "content": "那这个就好多年了 好吧这一定是15多年都是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:32,596",
+    "end_time": "00:07:49,002",
+    "content": "你説的這個觀點我給好多人說了說中國的情況就是這樣的對十多年左右我說不對我說說你買房子就是1.2點幾但買了五六年以後你在回顧看那個房價你覺得好像對去回報率高了我給你舉個例子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:49,002",
+    "end_time": "00:07:50,889",
+    "content": "就是我在1999",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:50,889",
+    "end_time": "00:07:52,127",
+    "content": "收穫线的现在收穫线",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:52,127",
+    "end_time": "00:07:55,242",
+    "content": "这个项目购买我房子的逐游回锅率是20%",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:55,242",
+    "end_time": "00:07:57,404",
+    "content": "當年嗎?當年是20%",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:57,404",
+    "end_time": "00:08:00,845",
+    "content": "是从21%降降降降到现在的1%",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:00,845",
+    "end_time": "00:08:08,141",
+    "content": "降到1%因為我是輕生地經濟了這個過創就有點像房價會越來越多就有點像北京房價就3000",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:08,141",
+    "end_time": "00:08:09,947",
+    "content": "我一个房子消失的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:09,947",
+    "end_time": "00:08:12,706",
+    "content": "那你金装修的 带了家具的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:12,706",
+    "end_time": "00:08:13,985",
+    "content": "在房子買了房子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:13,985",
+    "end_time": "00:08:15,108",
+    "content": "搜索出去回过来就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:15,108",
+    "end_time": "00:08:16,744",
+    "content": "百分之二十没多少世界大个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:16,744",
+    "end_time": "00:08:22,307",
+    "content": "警戒者以上的15%15%12%13%一直叫下來",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:22,307",
+    "end_time": "00:08:24,166",
+    "content": "所以这就是你判断市场的一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:24,166",
+    "end_time": "00:08:25,781",
+    "content": "就是你的蘇天回報率",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:25,781",
+    "end_time": "00:08:33,183",
+    "content": "比你的銀行貸款的利率要低得多那麼如果現在有一個年輕人二到四如果到上海背",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:33,183",
+    "end_time": "00:08:35,815",
+    "content": "從這個經濟漲上來算 蘇紡子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:35,815",
+    "end_time": "00:08:39,424",
+    "content": "還出口說 出房子何算就是出租金 不管怎麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:39,424",
+    "end_time": "00:08:42,320",
+    "content": "相對於你的售價就是買房子價",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:42,320",
+    "end_time": "00:08:55,902",
+    "content": "可是你要是有钱 有大量的钱你放下万一那通货膨胀了说是我这个手里面有钱和房子总觉得房子还是比较高更靠不一点 更靠不一点房子还可以抵御通货",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:55,902",
+    "end_time": "00:09:00,893",
+    "content": "如果是央行放的前的量 水上大是啊 偷火盆上来 水水上高的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:00,893",
+    "end_time": "00:09:05,445",
+    "content": "得说了没说没要就是我们说清楚",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:05,445",
+    "end_time": "00:09:07,614",
+    "content": "现在你碰到老任他们得还怎么认",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:07,614",
+    "end_time": "00:09:08,994",
+    "content": "뭔가 신뢰 начала",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:08,994",
+    "end_time": "00:09:10,918",
+    "content": "對了房價",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:10,918",
+    "end_time": "00:09:11,927",
+    "content": "还有好多的手",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:11,927",
+    "end_time": "00:09:22,020",
+    "content": "說是政府限制土地的供應供應量不足了然後兩個數據開工量不足了投資不足了釋放的需求卡在它有它的一套羅羅",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:22,020",
+    "end_time": "00:09:36,734",
+    "content": "他就是算到這個邏輯裡面怎麼算都多了長他不是胡說八道的不是為了迎合誰去說的可是我算的是另外一個邏輯就是這個蘇星回博率跟英華代館的利率不能夠批評",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:36,734",
+    "end_time": "00:09:44,664",
+    "content": "做生意永远都是敬的价格低出的价格高就可以赚的钱现在这是敬的价格 自应的价格高",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:44,664",
+    "end_time": "00:09:45,846",
+    "content": "出的價格低",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:45,846",
+    "end_time": "00:09:47,418",
+    "content": "这声音有没法说了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:47,418",
+    "end_time": "00:09:51,094",
+    "content": "你在你觉得你做了那么多年生意啊你在个性上",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:51,094",
+    "end_time": "00:09:52,336",
+    "content": "Nodeblood",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:52,336",
+    "end_time": "00:09:54,712",
+    "content": "可是我就是整个对风险",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:54,712",
+    "end_time": "00:09:56,073",
+    "content": "我觉得跟小德书的经",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:56,073",
+    "end_time": "00:09:57,927",
+    "content": "因为小的时候在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:57,927",
+    "end_time": "00:10:00,345",
+    "content": "形象掛堂",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:00,345",
+    "end_time": "00:10:02,107",
+    "content": "十年后自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:02,107",
+    "end_time": "00:10:03,256",
+    "content": "让大家多安静",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:03,256",
+    "end_time": "00:10:04,528",
+    "content": "就为了中国十年的发展",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:04,528",
+    "end_time": "00:10:05,548",
+    "content": "我觉得这个是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:05,548",
+    "end_time": "00:10:09,456",
+    "content": "對我自己了 我覺得還是隨著這個社會",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:09,456",
+    "end_time": "00:10:11,325",
+    "content": "我觉得未来十年世界这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:11,325",
+    "end_time": "00:10:13,836",
+    "content": "在这就变化绝不是出台一个政策",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:13,836",
+    "end_time": "00:10:14,928",
+    "content": "我觉得可能这个更贵",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:14,928",
+    "end_time": "00:10:16,336",
+    "content": "其实我们看到过去是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:16,336",
+    "end_time": "00:10:24,855",
+    "content": "我們的購物支付包括今年這個新年表演包括七個字印車都在表演今年之前的資訊手機都沒有嗎你想你還知道是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:24,855",
+    "end_time": "00:10:29,179",
+    "content": "是啊 我觉得未来十年的变化一定比过去十年的变化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:29,179",
+    "end_time": "00:10:31,855",
+    "content": "是一個加速度的表",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:31,855",
+    "end_time": "00:10:33,131",
+    "content": "我觉得变化会随手",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

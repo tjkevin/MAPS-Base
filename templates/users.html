@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}用户管理 - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">用户管理</h1>
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">用户</h5>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <i class="fas fa-user-plus"></i> 添加用户
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>邮箱</th>
+                                    <th>角色</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userList">
+                                <!-- Users will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加新用户</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">邮箱</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">角色</label>
+                        <select class="form-select" id="role" required>
+                            <option value="recorder">录制员</option>
+                            <option value="inspector">检查员</option>
+                            <option value="admin">管理员</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">添加用户</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">编辑用户</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId">
+                    <div class="mb-3">
+                        <label for="editUsername" class="form-label">用户名</label>
+                        <input type="text" class="form-control" id="editUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label">邮箱</label>
+                        <input type="email" class="form-control" id="editEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editRole" class="form-label">角色</label>
+                        <select class="form-select" id="editRole" required>
+                            <option value="recorder">录制员</option>
+                            <option value="inspector">检查员</option>
+                            <option value="admin">管理员</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPassword" class="form-label">新密码（留空保持当前密码）</label>
+                        <input type="password" class="form-control" id="editPassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="updateUser()">更新用户</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function loadUsers() {
+    try {
+        const response = await fetch('/api/users');
+        if (!response.ok) throw new Error('Failed to load users');
+        
+        const users = await response.json();
+        const userList = document.getElementById('userList');
+        
+        userList.innerHTML = users.map(user => `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td><span class="badge bg-info">${user.role === 'recorder' ? '录制员' : user.role === 'inspector' ? '检查员' : '管理员'}</span></td>
+                <td>${new Date(user.created_at).toLocaleString()}</td>
+                <td>
+                    <span class="badge bg-${user.active ? 'success' : 'danger'}">
+                        ${user.active ? '活跃' : '非活跃'}
+                    </span>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-primary" onclick="editUser(${user.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-${user.active ? 'warning' : 'success'}" 
+                                onclick="toggleUserStatus(${user.id}, ${!user.active})">
+                            <i class="fas fa-${user.active ? 'ban' : 'check'}"></i>
+                        </button>
+                        <button class="btn btn-outline-danger" onclick="deleteUser(${user.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    } catch (err) {
+        console.error('Error loading users:', err);
+        alert('加载用户失败');
+    }
+}
+
+async function addUser() {
+    const formData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        role: document.getElementById('role').value
+    };
+    
+    try {
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Failed to add user');
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
+        modal.hide();
+        document.getElementById('addUserForm').reset();
+        loadUsers();
+    } catch (err) {
+        console.error('Error adding user:', err);
+        alert('添加用户失败');
+    }
+}
+
+async function editUser(id) {
+    try {
+        const response = await fetch(`/api/users/${id}`);
+        if (!response.ok) throw new Error('Failed to load user');
+        
+        const user = await response.json();
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editUsername').value = user.username;
+        document.getElementById('editEmail').value = user.email;
+        document.getElementById('editRole').value = user.role;
+        document.getElementById('editPassword').value = '';
+        
+        const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        modal.show();
+    } catch (err) {
+        console.error('Error loading user:', err);
+        alert('加载用户失败');
+    }
+}
+
+async function updateUser() {
+    const id = document.getElementById('editUserId').value;
+    const formData = {
+        username: document.getElementById('editUsername').value,
+        email: document.getElementById('editEmail').value,
+        role: document.getElementById('editRole').value
+    };
+    
+    const password = document.getElementById('editPassword').value;
+    if (password) formData.password = password;
+    
+    try {
+        const response = await fetch(`/api/users/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Failed to update user');
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+        modal.hide();
+        loadUsers();
+    } catch (err) {
+        console.error('Error updating user:', err);
+        alert('更新用户失败');
+    }
+}
+
+async function toggleUserStatus(id, active) {
+    try {
+        const response = await fetch(`/api/users/${id}/status`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ active })
+        });
+        
+        if (!response.ok) throw new Error('Failed to update user status');
+        
+        loadUsers();
+    } catch (err) {
+        console.error('Error updating user status:', err);
+        alert('更新用户状态失败');
+    }
+}
+
+async function deleteUser(id) {
+    if (!confirm('您确定要删除这个用户吗？')) return;
+    
+    try {
+        const response = await fetch(`/api/users/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (!response.ok) throw new Error('Failed to delete user');
+        
+        loadUsers();
+    } catch (err) {
+        console.error('Error deleting user:', err);
+        alert('删除用户失败');
+    }
+}
+
+// Initialize user list
+loadUsers();
+</script>
+{% endblock %} 

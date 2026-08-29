@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传功能测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .progress { width: 100%; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .progress-bar { height: 100%; background: #007bff; width: 0%; transition: width 0.3s; }
+        .d-none { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>上传功能测试</h1>
+        
+        <div>
+            <button type="button" class="btn" onclick="triggerFileUpload()">
+                上传文件
+            </button>
+            <input type="file" id="fileInput" accept="video/*,audio/*" style="display: none;" onchange="handleFileSelect(event)">
+        </div>
+        
+        <div class="progress d-none">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function triggerFileUpload() {
+            console.log('触发文件上传...');
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                console.log('文件已选择:', file.name, file.size);
+                document.getElementById('status').innerHTML = `已选择文件: ${file.name} (${file.size} bytes)`;
+                
+                // 模拟上传过程
+                simulateUpload(file);
+            }
+        }
+
+        function simulateUpload(file) {
+            const progress = document.querySelector('.progress');
+            const progressBar = progress.querySelector('.progress-bar');
+            progress.classList.remove('d-none');
+            
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += 10;
+                progressBar.style.width = percent + '%';
+                
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    document.getElementById('status').innerHTML = `上传完成: ${file.name}`;
+                    progress.classList.add('d-none');
+                    document.getElementById('fileInput').value = '';
+                }
+            }, 200);
+        }
+    </script>
+</body>
+</html>
+
+

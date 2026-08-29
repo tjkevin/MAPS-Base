@@ -1,0 +1,577 @@
+{% extends "base_cn.html" %}
+
+{% block title %}数据管理 - MAPS{% endblock %}
+{% block page_title %}数据管理{% endblock %}
+{% block page_subtitle %}全维度检索、预览、导出、自定义数据集与逻辑删除{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- 筛选区 -->
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span>组合筛选</span>
+            <div class="d-flex flex-wrap gap-2">
+                <select class="form-select form-select-sm" style="width:auto" id="tplSelect">
+                    <option value="">加载常用模板…</option>
+                </select>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSaveTpl">保存为模板</button>
+            </div>
+        </div>
+        <div class="card-body row g-2 small">
+            <div class="col-md-2">
+                <label class="form-label">状态（多选逗号分隔）</label>
+                <input type="text" class="form-control" id="f_statuses" placeholder="如 pending_review,approved">
+                </div>
+            <div class="col-md-2">
+                <label class="form-label">文件类型</label>
+                <select class="form-select" id="f_file_type">
+                    <option value="">全部</option>
+                    <option value="video">视频</option>
+                    <option value="audio">音频</option>
+                    <option value="image">图片</option>
+                            </select>
+                        </div>
+            <div class="col-md-2">
+                <label class="form-label">上传时间起</label>
+                <input type="date" class="form-control" id="f_upload_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">上传时间止</label>
+                <input type="date" class="form-control" id="f_upload_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理时间起</label>
+                <input type="date" class="form-control" id="f_process_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理时间止</label>
+                <input type="date" class="form-control" id="f_process_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核时间起</label>
+                <input type="date" class="form-control" id="f_audit_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核时间止</label>
+                <input type="date" class="form-control" id="f_audit_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">上传账号</label>
+                <select class="form-select" id="f_uploader_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理账号</label>
+                <select class="form-select" id="f_processor_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核账号</label>
+                <select class="form-select" id="f_auditor_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">任务编号</label>
+                <input type="text" class="form-control" id="f_task_no" placeholder="精准">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">MD5</label>
+                <input type="text" class="form-control" id="f_md5" placeholder="32位">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="f_include_invalid">
+                    <label class="form-check-label" for="f_include_invalid">含无效数据</label>
+                        </div>
+                        </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="f_invalid_only">
+                    <label class="form-check-label" for="f_invalid_only">仅无效</label>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <button type="button" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> 查询</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnReset">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3 g-2">
+        <div class="col-auto">
+            <label class="form-label small mb-0">每页</label>
+            <select class="form-select form-select-sm" id="perPage" style="width:5rem">
+                <option>10</option>
+                <option selected>20</option>
+                <option>50</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="form-label small mb-0">排序字段</label>
+            <select class="form-select form-select-sm" id="sortBy" style="width:8rem">
+                <option value="created_at">创建时间</option>
+                <option value="filename">文件名</option>
+                <option value="status">状态</option>
+                <option value="task_no">任务编号</option>
+                <option value="uploaded_at">上传时间</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="form-label small mb-0">顺序</label>
+            <select class="form-select form-select-sm" id="sortOrder" style="width:5rem">
+                <option value="desc">降序</option>
+                <option value="asc">升序</option>
+            </select>
+        </div>
+        <div class="col-auto ms-auto d-flex gap-2 flex-wrap">
+            <button class="btn btn-success btn-sm" id="btnBatchDl" disabled><i class="fas fa-file-archive"></i> 批量下载 ZIP</button>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddDataset" disabled>加入数据集</button>
+            <button class="btn btn-outline-dark btn-sm" id="btnExportV2">导出当前筛选(JSON/CSV)</button>
+            </div>
+        </div>
+        
+    <!-- 自定义数据集 -->
+    <div class="card mb-3">
+        <div class="card-header">自定义数据集</div>
+        <div class="card-body row g-2">
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="ds_name" placeholder="数据集名称">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="ds_ver" placeholder="版本 V1.0" value="V1.0">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="ds_desc" placeholder="业务描述">
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" id="btnCreateDs">新建数据集</button>
+                <select class="form-select mt-2" id="dsSelect"><option value="">选择已有数据集…</option></select>
+                    </div>
+                </div>
+    </div>
+
+                    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm align-middle">
+                            <thead>
+                                <tr>
+                    <th><input type="checkbox" id="chkAll"></th>
+                                    <th>ID</th>
+                                    <th>文件名</th>
+                                    <th>类型</th>
+                                    <th>状态</th>
+                    <th>任务编号</th>
+                    <th>上传账号</th>
+                    <th>处理账号</th>
+                    <th>上传时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+            <tbody id="dataList"></tbody>
+                        </table>
+    </div>
+    <nav class="mt-3">
+        <ul class="pagination justify-content-center flex-wrap" id="pagination"></ul>
+        <p class="text-center text-muted small" id="pageInfo"></p>
+    </nav>
+</div>
+
+<!-- 预览 -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">内容预览</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2" id="previewMedia"></div>
+                <div class="mb-2">
+                    <label class="form-label">播放倍速</label>
+                    <select id="playbackRate" class="form-select form-select-sm" style="max-width:10rem">
+                        <option value="0.5">0.5x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+                <h6>转写 / 描述</h6>
+                <pre class="bg-light p-2 small" id="previewText" style="white-space:pre-wrap;max-height:200px;overflow:auto"></pre>
+                <h6>时间轴</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered"><thead><tr><th>开始</th><th>结束</th><th>文本</th></tr></thead><tbody id="previewTimeline"></tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导出字段 -->
+<div class="modal fade" id="exportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">导出字段</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body" id="exportFields"></div>
+            <div class="modal-footer">
+                <select class="form-select w-auto d-inline-block" id="exportFmt"><option value="json">JSON</option><option value="csv">CSV</option></select>
+                <button class="btn btn-primary" id="btnDoExport">下载</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="batchProgress" class="position-fixed bottom-0 end-0 p-3" style="display:none;z-index:1080">
+    <div class="card shadow"><div class="card-body"><span id="batchProgressText">打包中…</span></div></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const ROLE = "{{ current_user.role }}";
+const SEED_TABLE_ROWS = true;
+const SEED_MANAGE = [
+    ['高架车流夜间_4k_0211.mp4', 'video', 'pending_review', 'TK-2026-0211-045', '刘景涛', '马文博', '2026-02-01 09:12'],
+    ['访谈室收音_双轨_48k.wav', 'audio', 'approved', 'TK-2026-0212-112', '陈若瑜', '周若彤', '2026-02-02 14:33'],
+    ['园区南门_三机位_合成.mp4', 'video', 'processing', 'TK-2026-0213-078', '赵启明', '韩东旭', '2026-02-03 10:05'],
+    ['手术示教_脱敏版_v2.mp4', 'video', 'pending_review', 'TK-2026-0214-156', '孙雅楠', '高雨桐', '2026-02-04 16:40'],
+    ['古籍扫描_卷九_600dpi.tif', 'image', 'approved', 'TK-2026-0215-033', '周文渊', '谢琳', '2026-02-05 11:18'],
+    ['车载对话_噪声场景_12.mp4', 'video', 'processing', 'TK-2026-0216-201', '吴思齐', '郑浩然', '2026-02-06 08:52'],
+    ['法庭卷宗_电子附件_07.pdf', 'image', 'pending_review', 'TK-2026-0217-089', '林婉清', '马文博', '2026-02-07 13:27'],
+    ['温室延时_番茄_第2周.mp4', 'video', 'approved', 'TK-2026-0218-064', '徐景行', '周若彤', '2026-02-08 15:09'],
+    ['地铁换乘_客流统计.mp4', 'video', 'processing', 'TK-2026-0219-177', '黄嘉怡', '韩东旭', '2026-02-09 09:44'],
+    ['急诊环境音_降噪前.wav', 'audio', 'pending_review', 'TK-2026-0220-092', '何语桐', '高雨桐', '2026-02-10 12:01'],
+    ['无人机测绘_C区_raw.mp4', 'video', 'approved', 'TK-2026-0221-128', '邓子墨', '谢琳', '2026-02-11 17:33'],
+    ['新闻播报_提词器侧拍.mp4', 'video', 'processing', 'TK-2026-0222-055', '冯梓涵', '郑浩然', '2026-02-12 10:16'],
+    ['港口吊机_夜视_01.mp4', 'video', 'pending_review', 'TK-2026-0223-188', '董文博', '马文博', '2026-02-13 14:58'],
+    ['儿童康复_示范课_全景.mp4', 'video', 'approved', 'TK-2026-0224-041', '蒋心怡', '周若彤', '2026-02-14 09:21'],
+    ['跨江大桥_车流_长镜头.mp4', 'video', 'processing', 'TK-2026-0225-163', '许承泽', '韩东旭', '2026-02-15 16:07'],
+    ['遥感地块_勾画_overlay.png', 'image', 'pending_review', 'TK-2026-0226-074', '沈佳宁', '高雨桐', '2026-02-16 11:42'],
+    ['护理查房_手持_下午.mp4', 'video', 'approved', 'TK-2026-0227-119', '曾宇航', '谢琳', '2026-02-17 08:35'],
+    ['体育场广角_决赛加时.mp4', 'video', 'processing', 'TK-2026-0228-096', '叶舒扬', '郑浩然', '2026-02-18 13:19']
+];
+const SEED_STATUS_LABEL = {
+    pending_review: ['待审核', 'warning'],
+    approved: ['已通过', 'success'],
+    processing: ['处理中', 'primary']
+};
+function seedManageRows() {
+    if (!SEED_TABLE_ROWS) return '';
+    let html = '';
+    SEED_MANAGE.forEach((row, i) => {
+        const [fn, ftype, st, tno, up, proc, dt] = row;
+        const [lab, bcls] = SEED_STATUS_LABEL[st] || [st, 'secondary'];
+        const id = -(i + 1);
+        html += `<tr>
+            <td></td>
+            <td>${id}</td>
+            <td>${escapeHtml(fn)}</td>
+            <td>${ftype}</td>
+            <td><span class="badge bg-${bcls}">${lab}</span></td>
+            <td><small>${escapeHtml(tno)}</small></td>
+            <td>${escapeHtml(up)}</td>
+            <td>${escapeHtml(proc)}</td>
+            <td><small>${dt}</small></td>
+            <td><span class="text-muted small">—</span></td>
+        </tr>`;
+    });
+    return html;
+}
+let currentPage = 1;
+let sortBy = 'created_at';
+let sortOrder = 'desc';
+
+const FIELD_OPTS = [
+    ['filename','文件名'],['status','状态'],['text_content','文本'],['created_at','创建时间'],
+    ['uploader_username','上传账号'],['processor_username','处理账号'],['auditor_username','审核账号'],
+    ['file_md5','MD5'],['task_no','任务编号'],['file_size','文件大小'],['file_path','存储路径'],['file_type','类型'],['id','ID']
+];
+
+function buildQueryParams(page) {
+    const p = new URLSearchParams();
+    p.set('page', page || 1);
+    p.set('per_page', document.getElementById('perPage').value);
+    p.set('sort_by', document.getElementById('sortBy').value);
+    p.set('sort_order', document.getElementById('sortOrder').value);
+    const st = document.getElementById('f_statuses').value.trim();
+    if (st) p.set('statuses', st);
+    const ft = document.getElementById('f_file_type').value;
+    if (ft) p.set('file_type', ft);
+    ['upload_from','upload_to','process_from','process_to','audit_from','audit_to'].forEach(k => {
+        const el = document.getElementById('f_' + k);
+        if (el && el.value) p.set(k, el.value);
+    });
+    ['uploader_id','processor_id','auditor_id'].forEach(k => {
+        const v = document.getElementById('f_' + k).value;
+        if (v) p.set(k, v);
+    });
+    const tn = document.getElementById('f_task_no').value.trim();
+    if (tn) p.set('task_no', tn);
+    const md5 = document.getElementById('f_md5').value.trim();
+    if (md5) p.set('md5', md5);
+    if (document.getElementById('f_include_invalid').checked) p.set('include_invalid', 'true');
+    if (document.getElementById('f_invalid_only').checked) p.set('invalid_only', 'true');
+    return p;
+}
+
+function filtersObject() {
+    const o = {};
+    const p = buildQueryParams(1);
+    for (const [k, v] of p.entries()) {
+        if (!['page', 'per_page', 'sort_by', 'sort_order'].includes(k)) o[k] = v;
+    }
+    return o;
+}
+
+async function loadUsers() {
+    const res = await fetch('/api/manage/users-options');
+    const data = await res.json();
+    const sel = ['f_uploader_id','f_processor_id','f_auditor_id'];
+    sel.forEach(id => {
+        const s = document.getElementById(id);
+        data.items.forEach(u => {
+            const o = document.createElement('option');
+            o.value = u.id; o.textContent = u.username + ' (' + u.role + ')';
+            s.appendChild(o);
+        });
+    });
+}
+
+async function loadTemplates() {
+    const res = await fetch('/api/manage/filter-templates');
+    const data = await res.json();
+    const sel = document.getElementById('tplSelect');
+    sel.innerHTML = '<option value="">加载常用模板…</option>';
+    (data.items || []).forEach(t => {
+        const o = document.createElement('option');
+        o.value = t.id;
+        o.textContent = t.name;
+        o.dataset.criteria = JSON.stringify(t.criteria);
+        sel.appendChild(o);
+    });
+}
+
+document.getElementById('tplSelect').addEventListener('change', function() {
+    const opt = this.selectedOptions[0];
+    if (!opt || !opt.dataset.criteria) return;
+    const c = JSON.parse(opt.dataset.criteria);
+    Object.keys(c).forEach(k => {
+        const node = document.getElementById('f_' + k);
+        if (!node) return;
+        if (node.type === 'checkbox') node.checked = (c[k] === 'true' || c[k] === true);
+        else node.value = c[k];
+    });
+});
+
+document.getElementById('btnSaveTpl').addEventListener('click', async () => {
+    const name = prompt('模板名称');
+    if (!name) return;
+    const criteria = filtersObject();
+    const res = await fetch('/api/manage/filter-templates', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, criteria }) });
+    if (res.ok) { alert('已保存'); loadTemplates(); }
+    else alert('保存失败');
+});
+
+async function loadDatasets() {
+    const res = await fetch('/api/manage/datasets');
+    const data = await res.json();
+    const sel = document.getElementById('dsSelect');
+    sel.innerHTML = '<option value="">选择已有数据集…</option>';
+    (data.items || []).forEach(d => {
+        const o = document.createElement('option');
+        o.value = d.id;
+        o.textContent = d.name + ' ' + d.version_label + ' (' + d.item_count + ')';
+        sel.appendChild(o);
+    });
+}
+
+document.getElementById('btnCreateDs').addEventListener('click', async () => {
+    const name = document.getElementById('ds_name').value.trim();
+    if (!name) { alert('填写名称'); return; }
+    const res = await fetch('/api/manage/datasets', { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ name, version: document.getElementById('ds_ver').value, description: document.getElementById('ds_desc').value }) });
+    const j = await res.json();
+    if (res.ok) { alert('创建成功 id=' + j.id); loadDatasets(); }
+    else alert(j.error || '失败');
+});
+
+async function loadData(page) {
+    currentPage = page || 1;
+    const p = buildQueryParams(currentPage);
+    const res = await fetch('/api/manage/data?' + p.toString());
+    const data = await res.json();
+    if (!res.ok) { document.getElementById('dataList').innerHTML = '<tr><td colspan="10" class="text-danger">加载失败</td></tr>'; return; }
+    const tbody = document.getElementById('dataList');
+    const demoRows = seedManageRows();
+    const realRows = (data.items || []).map(item => `
+            <tr>
+                <td><input type="checkbox" class="row-chk" value="${item.id}"></td>
+                <td>${item.id}</td>
+                <td>${escapeHtml(item.filename)}</td>
+                <td>${item.file_type}</td>
+                <td><span class="badge bg-secondary">${item.status_label || item.status}</span></td>
+                <td><small>${escapeHtml(item.task_no || '')}</small></td>
+                <td>${escapeHtml(item.uploader_username)}</td>
+                <td>${escapeHtml(item.processor_username || '')}</td>
+                <td><small>${item.uploaded_at || item.created_at || ''}</small></td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})"><i class="fas fa-eye"></i></button>
+                        <a class="btn btn-outline-success" href="/api/manage/download/${item.id}"><i class="fas fa-download"></i></a>
+                        ${(ROLE === 'admin' || ROLE === 'inspector') ? `<button class="btn btn-outline-danger" onclick="invalidateRec(${item.id})"><i class="fas fa-ban"></i></button>` : ''}
+                    </div>
+                </td>
+            </tr>`).join('');
+    if (demoRows || realRows) tbody.innerHTML = demoRows + realRows;
+    else tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted">暂无数据</td></tr>';
+    const totalPages = data.total_pages || 1;
+    const pg = document.getElementById('pagination');
+    pg.innerHTML = `
+        <li class="page-item ${currentPage<=1?'disabled':''}"><a class="page-link" href="#" data-p="${currentPage-1}">上一页</a></li>
+        <li class="page-item disabled"><span class="page-link">${currentPage} / ${totalPages}</span></li>
+        <li class="page-item ${currentPage>=totalPages?'disabled':''}"><a class="page-link" href="#" data-p="${currentPage+1}">下一页</a></li>`;
+    pg.querySelectorAll('a.page-link').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const np = +a.dataset.p; if (np>=1 && np<=totalPages) loadData(np); }));
+    document.getElementById('pageInfo').textContent = `共 ${data.total} 条，每页 ${data.per_page} 条`;
+    updateBatchButtons();
+}
+
+function escapeHtml(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+}
+
+function selectedIds() {
+    return Array.from(document.querySelectorAll('.row-chk:checked')).map(c => +c.value);
+}
+
+function updateBatchButtons() {
+    const n = selectedIds().length;
+    document.getElementById('btnBatchDl').disabled = n === 0;
+    document.getElementById('btnAddDataset').disabled = n === 0;
+}
+
+document.getElementById('chkAll').addEventListener('change', function() {
+    document.querySelectorAll('.row-chk').forEach(c => { c.checked = this.checked; });
+    updateBatchButtons();
+});
+document.getElementById('dataList').addEventListener('change', e => { if (e.target.classList.contains('row-chk')) updateBatchButtons(); });
+
+document.getElementById('btnSearch').addEventListener('click', () => loadData(1));
+document.getElementById('btnReset').addEventListener('click', () => {
+    document.querySelectorAll('[id^="f_"]').forEach(el => { if (el.type==='checkbox') el.checked=false; else el.value=''; });
+    loadData(1);
+});
+
+document.getElementById('perPage').addEventListener('change', () => loadData(1));
+document.getElementById('sortBy').addEventListener('change', () => loadData(1));
+document.getElementById('sortOrder').addEventListener('change', () => loadData(1));
+
+async function previewDetail(id) {
+    const res = await fetch('/api/manage/preview-detail/' + id);
+    const d = await res.json();
+    const wrap = document.getElementById('previewMedia');
+    wrap.innerHTML = '';
+    if (d.media_url && d.modality === 'video') {
+        wrap.innerHTML = `<video id="pvVideo" class="w-100" controls src="${d.media_url}"></video>`;
+    } else if (d.media_url && d.modality === 'audio') {
+        wrap.innerHTML = `<audio id="pvAudio" class="w-100" controls src="${d.media_url}"></audio>`;
+    } else if (d.media_url && d.modality === 'image') {
+        wrap.innerHTML = `<img src="${d.media_url}" class="img-fluid" style="max-height:70vh;cursor:zoom-in" onclick="window.open(this.src)"/>`;
+        } else {
+        wrap.innerHTML = '<div class="text-muted">无媒体或文件缺失</div>';
+    }
+    document.getElementById('previewText').textContent = d.text_full || '';
+    const tb = document.getElementById('previewTimeline');
+    tb.innerHTML = '';
+    (d.timeline || []).forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${t.start}</td><td>${t.end}</td><td>${escapeHtml(t.text||'')}</td>`;
+        tb.appendChild(tr);
+    });
+    const rateSel = document.getElementById('playbackRate');
+    rateSel.onchange = () => {
+        const r = parseFloat(rateSel.value);
+        const v = document.getElementById('pvVideo');
+        const a = document.getElementById('pvAudio');
+        if (v) v.playbackRate = r;
+        if (a) a.playbackRate = r;
+    };
+    new bootstrap.Modal(document.getElementById('previewModal')).show();
+}
+
+async function invalidateRec(id) {
+    if (!confirm('确定将本条标记为「无效」？（逻辑删除，文件保留）')) return;
+    if (!confirm('请再次确认：此操作仅管理员/审核员可执行。')) return;
+    const res = await fetch('/api/manage/invalidate/' + id, { method:'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已标记'); loadData(currentPage); }
+    else alert(j.error || '失败');
+}
+
+document.getElementById('btnBatchDl').addEventListener('click', async () => {
+    const ids = selectedIds();
+    if (!ids.length) return;
+    document.getElementById('batchProgress').style.display = 'block';
+    document.getElementById('batchProgressText').textContent = '正在打包，请稍候…';
+    try {
+        const res = await fetch('/api/manage/batch-download', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ ids })
+        });
+        if (!res.ok) throw new Error('batch failed');
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'batch_export.zip';
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (e) { alert('批量下载失败'); }
+    document.getElementById('batchProgress').style.display = 'none';
+});
+
+document.getElementById('btnAddDataset').addEventListener('click', async () => {
+    const dsid = document.getElementById('dsSelect').value;
+    if (!dsid) { alert('请选择数据集'); return; }
+    const ids = selectedIds();
+    const res = await fetch('/api/manage/datasets/' + dsid + '/items', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ recording_ids: ids })
+    });
+    if (res.ok) { alert('已加入'); loadDatasets(); }
+    else alert('失败');
+});
+
+document.getElementById('btnExportV2').addEventListener('click', () => {
+    const box = document.getElementById('exportFields');
+    box.innerHTML = FIELD_OPTS.map(([k,v]) => `<div class="form-check"><input class="form-check-input ex-field" type="checkbox" value="${k}" id="ex_${k}" ${['filename','status','text_content','created_at'].includes(k)?'checked':''}><label class="form-check-label" for="ex_${k}">${v}</label></div>`).join('');
+    new bootstrap.Modal(document.getElementById('exportModal')).show();
+});
+
+document.getElementById('btnDoExport').addEventListener('click', async () => {
+    const fields = Array.from(document.querySelectorAll('.ex-field:checked')).map(c => c.value);
+    if (!fields.length) { alert('至少选一列'); return; }
+    const fmt = document.getElementById('exportFmt').value;
+    const body = { format: fmt, scope: 'filter', filters: filtersObject(), fields };
+    const res = await fetch('/api/manage/export-v2', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if (!res.ok) { alert('导出失败'); return; }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+    a.download = 'export.' + (fmt === 'csv' ? 'csv' : 'json');
+        a.click();
+    URL.revokeObjectURL(url);
+    bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+});
+
+function applyUrlParams() {
+    const u = new URLSearchParams(window.location.search);
+    if (u.get('statuses')) document.getElementById('f_statuses').value = u.get('statuses');
+    if (u.get('file_type')) document.getElementById('f_file_type').value = u.get('file_type');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyUrlParams();
+    loadUsers();
+    loadTemplates();
+    loadDatasets();
+    loadData(1);
+});
+</script>
+{% endblock %} 

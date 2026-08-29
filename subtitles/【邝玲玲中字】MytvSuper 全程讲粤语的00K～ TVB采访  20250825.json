@@ -1,0 +1,1586 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:06,166",
+    "content": "到曼哥住了來到三台現場目的就要訪問兩位Only you的女主角亦都被以為",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:06,166",
+    "end_time": "00:00:07,320",
+    "content": "轻发版的两位",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:07,320",
+    "end_time": "00:00:29,596",
+    "content": "我們掌聲歡迎 狂靈靈我又是狂靈靈好厲害看著我的歡呼聲都來到這裡了好 請你跟粉絲打個照顧歡迎大家 走滑走啊 走啊 走火仔作為粉絲就是靠這個方法就是相認",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:29,596",
+    "end_time": "00:00:31,099",
+    "content": "This is the way that we know that.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:31,099",
+    "end_time": "00:00:34,030",
+    "content": "the fans that's connecting with you too, right? Yeah, it's a very...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:34,030",
+    "end_time": "00:00:36,049",
+    "content": "當然除了太文性也要講",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:36,049",
+    "end_time": "00:00:38,066",
+    "content": "登汰 可靈",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:38,066",
+    "end_time": "00:00:43,805",
+    "content": "大家好 我是狂靈靈大家好 我是阿嬤我是GonaPathBissar",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:43,805",
+    "end_time": "00:00:48,131",
+    "content": "It's my mother.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:48,131",
+    "end_time": "00:00:51,152",
+    "content": "這次我們亦很開心",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:51,152",
+    "end_time": "00:01:07,509",
+    "content": "我們這次當然希望大家認識更新的日本就是Only You了買TD Super了現在可以看到Only You了無論是香港和澳門的觀眾都可以欣賞到你的作品同時也可以看到The Secret of UsSo Only You and Secret of Us是Also available on Microsoft",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:07,509",
+    "end_time": "00:01:12,801",
+    "content": "How excited are two of you that Hong Kong and Macau fans and audience can see?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:12,801",
+    "end_time": "00:01:14,251",
+    "content": "Neuteast TVZ.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:14,251",
+    "end_time": "00:01:17,406",
+    "content": "You know, Arm, you want to share with us? So, it's always...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:17,406",
+    "end_time": "00:01:25,567",
+    "content": "It's always me, something that I always excited. When I heard that, my theory is going to be on air in another country.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:25,567",
+    "end_time": "00:01:36,414",
+    "content": "people will see us a lot more. That's how it makes me feel like, wow, it's happening. It's happening, right? It's happening. It's going viral. Yeah, and I'm...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:36,414",
+    "end_time": "00:01:37,420",
+    "content": "happy that I have like",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:37,420",
+    "end_time": "00:02:02,078",
+    "content": "我們會說的嗯我們要說的非常高興非常感謝我好因為其實中間都會去粉絲見面會香港在澳門知道很多人都好期待要的所以現在播出了希望大家會喜歡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:02,078",
+    "end_time": "00:02:11,526",
+    "content": "我可以想可以聽到你講廣東話",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:11,526",
+    "end_time": "00:02:15,174",
+    "content": "I'm Canadian. I was born in Canada. I moved to Hong Kong on this.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:15,174",
+    "end_time": "00:02:16,590",
+    "content": "所以感覺是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:16,590",
+    "end_time": "00:02:22,810",
+    "content": "It's not easy because I moved to Hong Kong as an expat when I was 24. So this is very unique.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:22,810",
+    "end_time": "00:02:27,155",
+    "content": "我覺得你很厲害可以搬到另一個地方",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:27,155",
+    "end_time": "00:02:30,157",
+    "content": "所以 einem很有趣的感覺過去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:30,157",
+    "end_time": "00:02:37,756",
+    "content": "非常之開心因為其實平時在太過沒有什麼機會可以用到廣東話所以",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:37,756",
+    "end_time": "00:02:40,441",
+    "content": "用廣東話的時候就會覺得特別親切",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:40,441",
+    "end_time": "00:02:42,436",
+    "content": "他才好累一人開雪",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:42,436",
+    "end_time": "00:02:43,448",
+    "content": "speaking Chinese.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:43,448",
+    "end_time": "00:03:01,500",
+    "content": "I don't want to know. Don't want to go. Oh, it's so quiet. Don't. Actually, I don't really know how to speak like both sentences. It's like me speaking Thai. It's like Ma. It's like Ma. It's like Ma. Yeah, yeah, yeah. It's kinda like that. No, I'm not. So actually I'm currently learning Chinese.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:01,500",
+    "end_time": "00:03:08,288",
+    "content": "But I think I have to work every day so I try to discontinue the lesson right now.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:08,288",
+    "end_time": "00:03:14,840",
+    "content": "but I have planned to go back to study it again. So yeah. You have 24, 7, 2, 3.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:14,840",
+    "end_time": "00:03:19,837",
+    "content": "是威力的先不oya,我被聞到 babyuxe 介紹",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:19,837",
+    "end_time": "00:03:22,021",
+    "content": "Thank you. You know what I asked you a lot.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:22,021",
+    "end_time": "00:03:47,150",
+    "content": "引用....這次係旅程度問任何人加上已經超便宜旅程度很大旅程度不好旅程度最大",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:47,150",
+    "end_time": "00:03:51,836",
+    "content": "當然我們要去看這個女寶寶這個女寶寶有多特別呢?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:51,836",
+    "end_time": "00:04:30,103",
+    "content": "其實在劇情中說到女朋友覺得是因為她因素了想保護人然後因為自身的經歷令自己都很保護自己所以不斷不斷地學不同的技能去保護自己最後學了很多技能然後非常辛苦的知識輸出她的感受要搭乘老闆才會成功跑的一 appetite",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:30,103",
+    "end_time": "00:04:40,406",
+    "content": "看來 kilometres are not giving off另一塊,兩塊也未來但不夠盤,不夠盤R gesunt stand kor snack因為你們醍醍好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:40,406",
+    "end_time": "00:04:47,379",
+    "content": "others are not qualified so she needs to protect you right yeah so as a super idol how much fun it is to play",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:47,379",
+    "end_time": "00:04:49,050",
+    "content": "I think hmmm.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:49,050",
+    "end_time": "00:04:52,939",
+    "content": "I think the fun part is I have to study the character of IRA.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:52,939",
+    "end_time": "00:04:58,345",
+    "content": "to make a different from the last one, Nung E and from this particular past.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:58,345",
+    "end_time": "00:05:03,307",
+    "content": "and we have a lot of action scene that we have to get into it and like",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:03,307",
+    "end_time": "00:05:14,841",
+    "content": "You know, it's kind of hard for us because we have limited time, right? And then we have to practice in front of the scene before we get into the scene. And I think it's kind of fun to do something like...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:14,841",
+    "end_time": "00:05:34,723",
+    "content": "It's a tatae. What is tatae in English? It's kind of challenging. Challenging. What is good training, too? Because you learn everything, you improvise, you adapt. I don't have any much action seen, but her. She's crazy. She's, eh, don't punch like crazy. She's not punch.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:34,723",
+    "end_time": "00:05:46,382",
+    "content": "Whip-plashชิ้งวิฟลาเกรงเกรงเกรงเกรงมากเกรงมากวิฟลาดนี้ มันต้องลอม",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:46,382",
+    "end_time": "00:05:48,738",
+    "content": "I- we saw here.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:48,738",
+    "end_time": "00:05:55,403",
+    "content": "上面出名心軾",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:55,403",
+    "end_time": "00:06:05,040",
+    "content": "不想說深呼的話對其他工作人員的話不太深呼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:05,040",
+    "end_time": "00:06:15,331",
+    "content": "而且我工作資源很享受因為跟以往你拍的劇真的很不同我真的看到一個很硬",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:15,331",
+    "end_time": "00:06:18,463",
+    "content": "有顧最矫是美食",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:18,463",
+    "end_time": "00:06:19,607",
+    "content": "ล่างมีด้องขับมีอัมมึ่ง",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:19,607",
+    "end_time": "00:06:23,855",
+    "content": "我不知道但你演到冷面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:23,855",
+    "end_time": "00:06:41,083",
+    "content": "我覺得是感受的文化感受的文化就是頭的角色你真的很想盡種即首保護你所以自然有這種氣場沒錯,所以是…有不可以說你餓但你也有種霸氣有種氣場像是feeling with boss",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:41,083",
+    "end_time": "00:06:42,136",
+    "content": "Do you feel that too?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:42,136",
+    "end_time": "00:06:43,446",
+    "content": "Yes, I feel like...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:43,446",
+    "end_time": "00:06:47,661",
+    "content": "is like the poor protector. The protector? Protecting your life. Yeah, you say for us.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:47,661",
+    "end_time": "00:06:55,444",
+    "content": "ต้องมันก็ไม่คอยไม่คอยวีแบบนี้ เหมือนไม่เหมือนบอสน่ะ ไม่มี นำหลังชิคกตัด แกล้งเหมือนชิคกตัด แกล้งเหมือน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:55,444",
+    "end_time": "00:07:15,146",
+    "content": "不太懂不是太懂我不是太懂她的姿勢但在不同的位置可以在她的姿勢我對她的姿勢對她的姿勢也需要去做她的姿勢我來說她很少見到這種戲場應該要去去做一場去做一場去做一場可以發揮出來了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:15,146",
+    "end_time": "00:07:16,281",
+    "content": "ที่ต้daleี่พริติเตอร์ๆ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:16,281",
+    "end_time": "00:07:22,418",
+    "content": "其實都是誤生照顧是什麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:22,418",
+    "end_time": "00:07:24,766",
+    "content": "each other. We could feel it too on camera enough.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:24,766",
+    "end_time": "00:07:36,149",
+    "content": "And we see the super, I know you sing a lot, you dance a lot, but you also cry a lot. I think that's why they cry. I mean, that's why I'm singing is.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:36,149",
+    "end_time": "00:07:47,062",
+    "content": "Currently now, small part, because crying part is so big right now. And it's not your fault, but Peter Wands fault. Peter Wands fault. Yes, yes. I think there is a kind of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:47,062",
+    "end_time": "00:07:52,269",
+    "content": "Why don't what it does feel like I always don't want to tell her to",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:52,269",
+    "end_time": "00:07:53,723",
+    "content": "like what I'm really feel.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:53,723",
+    "end_time": "00:07:54,841",
+    "content": "you never hit a one.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:54,841",
+    "end_time": "00:08:03,415",
+    "content": "That's why they always fight. Long time. Yeah. How are the crying scenes?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:03,415",
+    "end_time": "00:08:16,444",
+    "content": "What's going through your mind? Your heart? I don't know, because I just feel like feel, feel, I just go with the scene, you know? So, I feel what it has.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:16,444",
+    "end_time": "00:08:21,978",
+    "content": "她的眼睛很看,因為她的眼睛很看因為她的眼睛很看,她的眼睛很看",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:21,978",
+    "end_time": "00:08:23,000",
+    "content": "要打动到冠状",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:23,000",
+    "end_time": "00:08:25,908",
+    "content": "call you Queen of Tears. Really? Really?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:25,908",
+    "end_time": "00:08:28,057",
+    "content": "Your crying scenes are very natural.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:28,057",
+    "end_time": "00:08:38,965",
+    "content": "So must be from May. May is a very good actor. Well, thank you so much. So it's a very good connection that you have with the audience. But...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:38,965",
+    "end_time": "00:08:40,765",
+    "content": "How do you recover after all the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:40,765",
+    "end_time": "00:08:59,756",
+    "content": "I... When the scene is ended, I just stop it. I don't know how to stop it, but it just stops. Oh, not there. Yeah, not there. That's good technique. Yeah, yeah, yeah. It just takes a little break. Maybe when we cry, when I cried in the scene, I just think...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:59,756",
+    "end_time": "00:09:06,660",
+    "content": "That's only our imagination, that's only the scene. And then after cut.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:06,660",
+    "end_time": "00:09:08,902",
+    "content": "That's why it's a stab, yeah.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:08,902",
+    "end_time": "00:09:14,741",
+    "content": "But the teacher did the acting coach always teach us that.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:14,741",
+    "end_time": "00:09:21,433",
+    "content": "we should not do that often because we have to slowly go down in the feeling and snap.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:21,433",
+    "end_time": "00:09:22,672",
+    "content": "No...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:22,672",
+    "end_time": "00:09:24,547",
+    "content": "Google funny 和training",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:24,547",
+    "end_time": "00:09:26,820",
+    "content": "他的對手,你看著他能不能哭",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:26,820",
+    "end_time": "00:09:28,567",
+    "content": "但你又保持你保佈那個冷靜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:28,567",
+    "end_time": "00:09:29,768",
+    "content": "如果你们脆弱地样,这刺激 stance,因为死径,从刺激来, turn againstsey耳、",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:29,768",
+    "end_time": "00:09:33,985",
+    "content": "可以",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:33,985",
+    "end_time": "00:09:40,835",
+    "content": "我有一條題目給自己你不會走你走就輸",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:40,835",
+    "end_time": "00:09:54,053",
+    "content": "所以角色不可以走因為她的堅強她想保護別人的感覺完全所有東西都會發生不會發生這個會不會很遲自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:54,053",
+    "end_time": "00:10:01,860",
+    "content": "都會有一些事我都不會我不會在一起對,很開心Pillings doesn't cry as much",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:01,860",
+    "end_time": "00:10:03,130",
+    "content": "She wants to hold it in.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:03,130",
+    "end_time": "00:10:13,472",
+    "content": "I mean, the crybaby is okay. Yeah, I mean, I cried a lot in real life. So, you know, she always knows it. That's why you guys are good-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:13,472",
+    "end_time": "00:10:15,421",
+    "content": "I'm gonna go that after two series.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:15,421",
+    "end_time": "00:10:17,085",
+    "content": "How's the feeling? How is the connection?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:17,085",
+    "end_time": "00:10:57,615",
+    "content": "I think it's a different person. I got a sense of job. I got a bean job. That's right. I think in the secret of us, we, I own and Pimo, used to be a lover. So they know each other very well. It doesn't hurt to act that way. I used to love you, that's easy. But when this series coming up, the only you, I feel like we have to be someone that just met. Ah, okay. But we, Ling and Om, always know each other for years, you know? So we have to act like, I don't know you. I never know you.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:57,615",
+    "end_time": "00:11:01,052",
+    "content": "That's harder, right? That's a hard thing and I think that's a bit...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:01,052",
+    "end_time": "00:11:07,840",
+    "content": "嗯我們開始我們開始我們開始有跟你的認識不要緊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:07,840",
+    "end_time": "00:11:10,504",
+    "content": "我想問她會閉起來地兒很厲害令大家都知道",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:10,504",
+    "end_time": "00:11:11,947",
+    "content": "看它的头頭",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:11,947",
+    "end_time": "00:11:14,482",
+    "content": "Go get bathroom scene. I feel bad for-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:14,482",
+    "end_time": "00:11:15,860",
+    "content": "참...",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:15,860",
+    "end_time": "00:11:21,562",
+    "content": "满了____Tube",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:21,562",
+    "end_time": "00:11:24,625",
+    "content": "아.. 귀osi ver계속",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:24,625",
+    "end_time": "00:11:35,806",
+    "content": "其實我最不想發生的事情就是不想拘受傷我不想打到人家或者不想人家痛不想… 對",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:35,806",
+    "end_time": "00:12:04,140",
+    "content": "我不贊成暴力他不贊成暴力他不贊成暴力他不想要他身上他不想要他身上他不想要他身上他不想要他身上他不想要他身上你不想要他身上但我很想要他身上他身上但我聽到你你這個Platist training你的workout很大的幫助沒錯所以現在是否都覺得幸好有這個準備公富帥",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:04,140",
+    "end_time": "00:12:16,192",
+    "content": "更有順利沒有上武術因為平時有練習所以做某些動作的時候可能看下去特別特別強靈 中文是甚麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:17,500",
+    "end_time": "00:12:26,350",
+    "content": "她可以剪輯他的本能很超級",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:26,350",
+    "end_time": "00:12:34,336",
+    "content": "見識我又有太個人在這裡見識很美現在我覺得你覺得很大力",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:34,336",
+    "end_time": "00:12:40,910",
+    "content": "是否這個錯覺都小大的?是啊,他們你要在搞自己拿到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:40,910",
+    "end_time": "00:12:43,836",
+    "content": "百姓唱片 Nu",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:43,836",
+    "end_time": "00:12:49,207",
+    "content": "好像很厲害 現在是嗎我有嗎有 沒的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:49,207",
+    "end_time": "00:12:52,470",
+    "content": "這個是氣需逃動",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:52,470",
+    "end_time": "00:12:58,692",
+    "content": "今年黃木,我的體能好好的îon人數可以性的大家都需要交幫你不會因為是因為正正的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:58,692",
+    "end_time": "00:12:59,903",
+    "content": "There's a lot of iconic-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:59,903",
+    "end_time": "00:13:01,355",
+    "content": "Cám kei cho c黨 rào–",
+    "confidence": 0,
+    "language": "vi"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:01,355",
+    "end_time": "00:13:02,705",
+    "content": "I think it's very special.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:02,705",
+    "end_time": "00:13:07,181",
+    "content": "hah...<|sl|> To Love!",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:07,181",
+    "end_time": "00:13:08,280",
+    "content": "박상무야",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:08,280",
+    "end_time": "00:13:10,618",
+    "content": "是他戴眼鏡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:13,163",
+    "end_time": "00:13:14,701",
+    "content": "覺得覺得不行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:14,701",
+    "end_time": "00:13:20,359",
+    "content": "其實我想說演Fleshback演自己中學生是一個很大的心理",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:20,359",
+    "end_time": "00:13:23,178",
+    "content": "沒有了我要做一筍",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:23,178",
+    "end_time": "00:13:24,248",
+    "content": "been",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:24,248",
+    "end_time": "00:13:27,799",
+    "content": "Malinco. Cosme. Good bye, y'all. That's the same way. Very.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:28,975",
+    "end_time": "00:13:30,370",
+    "content": "加油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:30,370",
+    "end_time": "00:13:35,509",
+    "content": "很噁心、很漂亮、很適合因為我對這段影片有…",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:35,509",
+    "end_time": "00:13:36,769",
+    "content": "嘉歌要幹了自己的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:36,769",
+    "end_time": "00:13:39,365",
+    "content": "青春和年那樣是有了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:39,365",
+    "end_time": "00:13:42,726",
+    "content": "我們仍然是心理關頭我演過我自己18歲",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:42,726",
+    "end_time": "00:13:45,466",
+    "content": "I've done similar scenes as well.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:45,466",
+    "end_time": "00:13:50,721",
+    "content": "Very difficult. Don't you laugh. You are always beautiful.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:50,721",
+    "end_time": "00:13:57,932",
+    "content": "謝謝,有心理關頭但你拍的時候演演學生會…",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:57,932",
+    "end_time": "00:14:19,583",
+    "content": "Honey,因為甚麼時間ик裡 تع加不到甚麼時間意外我以為不是意外是不是idiet中擔任你真的不是你你知道甚麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:19,583",
+    "end_time": "00:14:21,821",
+    "content": "Okay, inside this high school scene.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:21,821",
+    "end_time": "00:14:23,245",
+    "content": "simple yet varied.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:23,245",
+    "end_time": "00:14:27,345",
+    "content": "Hmm. How has it done? 2 persenjap atpung. It's slowly, slowly, tenos.",
+    "confidence": 0,
+    "language": "ms"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:27,345",
+    "end_time": "00:14:31,369",
+    "content": "So with the pinky? Oh yes, start with the pinky.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:31,369",
+    "end_time": "00:14:35,711",
+    "content": "It's a forever sign. Infinity sign. Infinity. It's a...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:35,711",
+    "end_time": "00:14:36,852",
+    "content": "You come up with...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:36,852",
+    "end_time": "00:14:39,865",
+    "content": "I would need to find the set somebody is the Friday night",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:39,865",
+    "end_time": "00:14:43,246",
+    "content": "全職作移植致效",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:43,246",
+    "end_time": "00:14:46,083",
+    "content": "Was it very special to you as...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:46,083",
+    "end_time": "00:14:49,447",
+    "content": "เข้าความถูกุระตรัสівคน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:49,447",
+    "end_time": "00:14:54,118",
+    "content": "Look like a baby pinky promise but it's mean a lot.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:54,118",
+    "end_time": "00:14:55,157",
+    "content": "ต้องวันไงแล้ว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:55,157",
+    "end_time": "00:14:56,400",
+    "content": "So if this were...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:56,400",
+    "end_time": "00:14:57,509",
+    "content": "the first stage of data.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:57,509",
+    "end_time": "00:15:02,688",
+    "content": "Rating,下一個進階板會怎樣呢?這可能是剛剛相識",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:05,256",
+    "end_time": "00:15:06,908",
+    "content": "or officially dating with what the hands.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:06,908",
+    "end_time": "00:15:09,125",
+    "content": "Maybe like this.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:09,125",
+    "end_time": "00:15:12,562",
+    "content": "Try yourself. With you? With this one. This is one year.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:12,562",
+    "end_time": "00:15:34,041",
+    "content": "disappointment 1.1.1.2 official DO.1.1.1.1 11.2.2You don't know that's naturalY อริทน้ำcksерьตรงอิในการ auch&อยู่กันทาง wishes",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:34,041",
+    "end_time": "00:15:55,970",
+    "content": "โอ้โห!I agree!โอ้โห!I agree!I agree!I agree!I agree!I agree!I agree!I agree!你覺得你為何他到Mage上到如果10次緊張你幾乱Ani!Ani!Ani!Ani!Ani!",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:55,970",
+    "end_time": "00:16:05,928",
+    "content": "明天就不是打人這個啦 好非常好Chanry restaurant  personalunnko요仔第一次約會請女的關係沒說話",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:05,928",
+    "end_time": "00:16:13,528",
+    "content": "第一天可以這樣嗎?可以這樣嗎?可以我要很懂得聽聽熟識只要多久熟識只要…有時間",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:13,528",
+    "end_time": "00:16:15,672",
+    "content": "沒有,但感覺是要…",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:15,672",
+    "end_time": "00:16:22,313",
+    "content": "沒經過了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:22,313",
+    "end_time": "00:16:53,009",
+    "content": "有一點感的感受雖然我不認識不知道是不是 rejection身体是十分舒服這直螢結 beginners正是很接近根據使兩者所án控議的16年代下的同僑",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:53,009",
+    "end_time": "00:17:00,548",
+    "content": "我沒有我沒有不會那麼快就可能不是他的問題",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:00,548",
+    "end_time": "00:17:06,416",
+    "content": "她想這樣 對所以不會說很頑張但我就會嚇一跳",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:06,416",
+    "end_time": "00:17:07,580",
+    "content": "大家也要繼續脫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:07,580",
+    "end_time": "00:17:10,241",
+    "content": "Understand他的补",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:10,241",
+    "end_time": "00:17:14,578",
+    "content": "It's okay, I persuade her. First they find. Very okay.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:14,578",
+    "end_time": "00:17:28,730",
+    "content": "It's about the feeling. The feeling. The feeling needs to be right. Ok, ok. You are day one. You are the right feeling. This is step one. Next step. Maybe dating to see each other's parents. How are the hands?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:28,730",
+    "end_time": "00:17:31,127",
+    "content": "哎呀也是中正的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:31,127",
+    "end_time": "00:17:35,291",
+    "content": "導演 arriv value 阿鵪ifornia",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:35,291",
+    "end_time": "00:17:48,226",
+    "content": "有哪一類我見到非常興趣標準父母不同你在sy cany可是真的很 strum",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:48,226",
+    "end_time": "00:17:55,178",
+    "content": "own.3mm.对这个,德年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:55,178",
+    "end_time": "00:18:06,176",
+    "content": "I mean mentally, mentally, into each other. The head, the mind, the heart, more connected. Although this is the same. Come on, okay.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:06,176",
+    "end_time": "00:18:09,739",
+    "content": "最後了結婚了Marriage",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:09,739",
+    "end_time": "00:18:30,125",
+    "content": "Ui! Maa, paham mana-mana. Ui! Ui! Ya, bukan. Ui! Ui! Ui! Ui! Okey, okey. Okey, okey. Okay, okey. Okay, okey. Okay, okey. Boleh tengah, hampir. Boleh tengah, hampir. Boleh tengah, hampir. Boleh tengah, hampir. Boleh tengah, hampir. Baiklah, kita masih sama. Saya rasa kita takutkan satu.",
+    "confidence": 0,
+    "language": "ms"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:30,125",
+    "end_time": "00:18:32,686",
+    "content": "We understand someone. Hey.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:32,686",
+    "end_time": "00:18:35,490",
+    "content": "Like, almost to be the same person, I think. Cover your ears.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:35,490",
+    "end_time": "00:18:38,076",
+    "content": "If Mary, I still need a final answer.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:38,076",
+    "end_time": "00:18:40,249",
+    "content": "分會怎樣兩隻手",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:40,249",
+    "end_time": "00:19:05,737",
+    "content": "好長接下來我們就要面對好長我們就要面對好長我們就要面對好長You are the moon in my heartTurtle the moonTurtle the moonTurtle the moon是嗎?MikwanMikwanMikwanMikwanTurtle the moon好恭喜恭喜恭喜恭喜怎麼唱啊?Gang",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:05,737",
+    "end_time": "00:19:10,760",
+    "content": "You are the moon in my heart Meet her song I can sing yours too Okay",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:10,760",
+    "end_time": "00:19:12,190",
+    "content": "Đーい, Đ sergeant, lại để sống đổ ann.",
+    "confidence": 0,
+    "language": "vi"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:12,190",
+    "end_time": "00:19:14,811",
+    "content": "No, no, very well. In the middle.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:14,811",
+    "end_time": "00:19:23,816",
+    "content": "When I'll get you my long night away, da! Well, no, no, no, no, I'll be nice. She practiced a lot, guys! Serious MC!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:23,816",
+    "end_time": "00:19:33,486",
+    "content": "See you guys! I learned Thai because of you guys, do you believe in me? Thank you! Really? Because it's all a Hong Kong fans watching.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:33,486",
+    "end_time": "00:19:39,196",
+    "content": "secret of us and only you. They want to understand your culture, a language and connect.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:39,196",
+    "end_time": "00:19:42,496",
+    "content": "with the relationship. So they want to focus on your dialogue instead of",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:42,496",
+    "end_time": "00:19:43,952",
+    "content": "unintentionally.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:43,952",
+    "end_time": "00:19:45,707",
+    "content": "be learning Thai and hearing.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:45,707",
+    "end_time": "00:19:52,457",
+    "content": "來一場油焦舞棒割爛好往后",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:52,457",
+    "end_time": "00:19:55,109",
+    "content": "得嘗巴仰的垃圾",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:55,109",
+    "end_time": "00:19:59,553",
+    "content": "I think I've heard of the song. To renda la soud.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:59,553",
+    "end_time": "00:20:03,182",
+    "content": "too. I'm too long.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:03,182",
+    "end_time": "00:20:08,022",
+    "content": "rais Abgeordchuckles & see itแก Response",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:08,022",
+    "end_time": "00:20:11,996",
+    "content": "The chorus, huh? You are the moon in my heart",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:11,996",
+    "end_time": "00:20:14,692",
+    "content": "점하일 Niye..xt",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:14,692",
+    "end_time": "00:20:28,863",
+    "content": "Come on back my hand to one I forgot I forgot my phone is this TV show It's going to be serious But this is a very good karaoke song, you know When I'm drunk I'm broke up",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:28,863",
+    "end_time": "00:20:31,990",
+    "content": "You are the moon, you only drinking alcohol, you know?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:31,990",
+    "end_time": "00:20:36,835",
+    "content": "我係其中一首可以呀但你手歌真係好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:36,835",
+    "end_time": "00:20:43,166",
+    "content": "The quantity of the song playing in the series is very strong. So the fans are...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:43,166",
+    "end_time": "00:20:45,563",
+    "content": "可以洗腦洗腦可以",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:45,563",
+    "end_time": "00:20:49,142",
+    "content": "不過不用怕,我的朋友也會有一首越來越愛的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:49,142",
+    "end_time": "00:20:59,587",
+    "content": "搞订中的人,永遠不能不作曲在 scoop show RetowaneHuman Situation也有對吧?試試試試試看",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:59,587",
+    "end_time": "00:21:15,548",
+    "content": "有一個瘦某平的地方但是他沒有問過你問我嗎然後現在是最好的朋友喔Legs are my friendsLegs are my friends我又如何給你Legs are my friends",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

@@ -1,0 +1,362 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,018",
+    "content": "I would imagine will be",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,018",
+    "end_time": "00:00:02,152",
+    "content": "the bright red.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:02,152",
+    "end_time": "00:00:03,581",
+    "content": "a ray of study jack.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:03,581",
+    "end_time": "00:00:05,309",
+    "content": "one of which is quite uh...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:05,309",
+    "end_time": "00:00:06,479",
+    "content": "So...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:06,479",
+    "end_time": "00:00:08,105",
+    "content": "and they all have...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:08,105",
+    "end_time": "00:00:10,507",
+    "content": "Some of them you can move quite freely in like...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:10,507",
+    "end_time": "00:00:11,987",
+    "content": "Some of them you can't be.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:11,987",
+    "end_time": "00:00:13,003",
+    "content": "as you're strolling along.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:13,003",
+    "end_time": "00:00:14,699",
+    "content": "Notice how is it look?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:14,699",
+    "end_time": "00:00:22,285",
+    "content": "However, when you take it off at the end of the day, it's always a pleasure to do so, because normally when I'm in chain mail...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:22,285",
+    "end_time": "00:00:23,896",
+    "content": "Losing hot sun that's been the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:23,896",
+    "end_time": "00:00:25,295",
+    "content": "If everyone wants to know what the weather's going to be.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:25,295",
+    "end_time": "00:00:26,390",
+    "content": "you've taken off the end of the day.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:26,390",
+    "end_time": "00:00:30,091",
+    "content": "having won it all day, but I'm told it looks very good on.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:30,091",
+    "end_time": "00:00:31,190",
+    "content": "It makes me...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:31,190",
+    "end_time": "00:00:32,234",
+    "content": "This was that writers I finally noticed.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:32,234",
+    "end_time": "00:00:33,304",
+    "content": "Charlotte's uh...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:33,304",
+    "end_time": "00:00:34,591",
+    "content": "word. Democ",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:34,591",
+    "end_time": "00:00:37,006",
+    "content": "She makes herself accessible.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:37,006",
+    "end_time": "00:00:38,731",
+    "content": "talk over the question I did.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:38,731",
+    "end_time": "00:00:39,996",
+    "content": "some very...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:39,996",
+    "end_time": "00:00:43,115",
+    "content": "He's done a great job with kind of the identity, the show and the identity of all the...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:43,115",
+    "end_time": "00:00:44,289",
+    "content": "Who have, you know, what everyone's a-",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:44,289",
+    "end_time": "00:00:45,631",
+    "content": "Yeah, they uh...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:45,631",
+    "end_time": "00:00:46,698",
+    "content": "og må gerne tage...",
+    "confidence": 0,
+    "language": "da"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:46,698",
+    "end_time": "00:00:47,722",
+    "content": "your",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:47,722",
+    "end_time": "00:00:49,119",
+    "content": "Too, you know, too excited.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:49,119",
+    "end_time": "00:00:50,274",
+    "content": "아.. they'll be..",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:50,274",
+    "end_time": "00:00:51,411",
+    "content": "I'm sure.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:51,411",
+    "end_time": "00:00:54,213",
+    "content": "The weapons, this is my trusty sword, it's not a scallop.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:54,213",
+    "end_time": "00:00:55,485",
+    "content": "I, uh, finished.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:55,485",
+    "end_time": "00:00:56,613",
+    "content": "Almost in pale red",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:56,613",
+    "end_time": "00:00:59,212",
+    "content": "on the end of my sword he took it quite well I.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:59,212",
+    "end_time": "00:01:02,319",
+    "content": "but it is quite dangerous though, you sort of pick up the odd",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:02,319",
+    "end_time": "00:01:03,530",
+    "content": "with the way I saw.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:03,530",
+    "end_time": "00:01:04,753",
+    "content": "and then just pull.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:04,753",
+    "end_time": "00:01:06,793",
+    "content": "ac a symusio ei laseus sy—",
+    "confidence": 0,
+    "language": "cy"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:06,793",
+    "end_time": "00:01:10,230",
+    "content": "I think it's a sort of lightweight aluminium. I couldn't be...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:10,230",
+    "end_time": "00:01:12,036",
+    "content": "Yeah, smoking mirrors out.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:12,036",
+    "end_time": "00:01:13,447",
+    "content": "So I just made myself.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:13,447",
+    "end_time": "00:01:15,771",
+    "content": "and therefore counteracts the light.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:15,771",
+    "end_time": "00:01:17,816",
+    "content": "doedd Gobindyr sa anwbeth roheu, Wedi'r反wbeth bobfa backyard labent hyn.",
+    "confidence": 0,
+    "language": "cy"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:17,816",
+    "end_time": "00:01:18,933",
+    "content": "I do that in many of.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:18,933",
+    "end_time": "00:01:21,057",
+    "content": "Yes, making things looked...",
+    "confidence": 0,
+    "language": "en"
+  }
+]

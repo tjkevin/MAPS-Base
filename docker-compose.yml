@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: maps-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: maps_root_dev
+      MYSQL_DATABASE: maps
+      MYSQL_USER: maps
+      MYSQL_PASSWORD: maps_dev
+      TZ: Asia/Shanghai
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - maps_mysql_data:/var/lib/mysql
+      - ./scripts/mysql_create_maps_user.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pmaps_root_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - maps-network
+
+  # Redis缓存/队列
+  redis:
+    image: redis:7-alpine
+    container_name: maps-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - maps_redis_data:/data
+    command: redis-server --appendonly yes --requirepass maps_redis_dev
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "maps_redis_dev", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - maps-network
+
+  # MAPS主应用
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maps-web
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=change-this-to-a-random-secret-key-in-production
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=maps
+      - MYSQL_PASSWORD=maps_dev
+      - MYSQL_DATABASE=maps
+      - REDIS_URL=redis://:maps_redis_dev@redis:6379/0
+      - SESSION_IDLE_TIMEOUT=1800
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./uploads:/app/uploads
+      - ./subtitles:/app/subtitles
+      - ./logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - maps-network
+
+  # BAGEL异步任务Worker（可选，如需要异步处理）
+  bagel-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maps-bagel-worker
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=change-this-to-a-random-secret-key-in-production
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=maps
+      - MYSQL_PASSWORD=maps_dev
+      - MYSQL_DATABASE=maps
+      - REDIS_URL=redis://:maps_redis_dev@redis:6379/0
+      - TZ=Asia/Shanghai
+    command: ["python", "scripts/bagel_worker.py"]
+    volumes:
+      - ./uploads:/app/uploads
+      - ./subtitles:/app/subtitles
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - maps-network
+    profiles:
+      - worker
+
+volumes:
+  maps_mysql_data:
+    driver: local
+  maps_redis_data:
+    driver: local
+
+networks:
+  maps-network:
+    driver: bridge

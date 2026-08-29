@@ -1,0 +1,570 @@
+[
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:01,171",
+    "end_time": "00:00:12,861",
+    "content": "First of all, welcome to Vegas and everything. So I guess, you know, not it's not every day we get matched up with a former champion like Cody Garber and not just a former champion, but he might be one of the more popular.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:12,861",
+    "end_time": "00:00:19,326",
+    "content": "fighters in this division, regardless of ranking. So when a name like Cody came across your desk, I guess what was your first thought?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:19,326",
+    "end_time": "00:00:32,720",
+    "content": "就是非常欢迎你来到拉斯维加斯然后对于你接到这个比赛对于要对上前冠军科迪他也是这个量子里面其中一个很有名的选手你对其实你有什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:35,145",
+    "end_time": "00:00:37,649",
+    "content": "接到这个比赛之后我很兼奋",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:37,649",
+    "end_time": "00:00:39,924",
+    "content": "立马出现冲测了几个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:39,924",
+    "end_time": "00:00:48,326",
+    "content": "After I received the fight and then I feel so exciting and then I just go out to spring for a couple rounds.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:48,326",
+    "end_time": "00:01:00,737",
+    "content": "Were you surprised when it was his name? Because I think a lot of people like to match make Cody with maybe other former champions, but I don't think a lot of people thought of your name. So were you surprised when you got...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:00,737",
+    "end_time": "00:01:03,283",
+    "content": "was he was he surprised that they offered him?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:03,283",
+    "end_time": "00:01:13,894",
+    "content": "就是因为给你的对手克迪以前打的都是一些前贯军或是准贯军的选手可能你在你的名字没有那么的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:13,894",
+    "end_time": "00:01:20,382",
+    "content": "就是有名在這邊那你對於你有什麼感覺就是他們配上的你跟他的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:20,382",
+    "end_time": "00:01:29,430",
+    "content": "我觉得这是UFC对我的认可然后能配上前冠军我感到",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,430",
+    "end_time": "00:01:35,855",
+    "content": "也很感谢然后这么好的配对然后我会全力业服",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:35,855",
+    "end_time": "00:01:46,483",
+    "content": "I think it will be a really good match up for me with my opponent. And I think that UFC gave me a big trust.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:46,483",
+    "end_time": "00:01:54,378",
+    "content": "Does this feel bigger because like I said Cody has a lot of fans? So does this fight feel bigger than anything else you've experienced?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:54,378",
+    "end_time": "00:02:04,944",
+    "content": "因為你的對手有很多粉絲然後他的流量也很大你會感覺這場比賽會比以前的比賽那會更濃縱會更加大嗎",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:04,944",
+    "end_time": "00:02:13,002",
+    "content": "对对对对 对于我来说这场比赛因为对手是前冠军吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:13,002",
+    "end_time": "00:02:14,141",
+    "content": "我就说拍",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:14,141",
+    "end_time": "00:02:22,251",
+    "content": "在这个量级在千数五的人都好像有很多人都没打过千数但是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:22,251",
+    "end_time": "00:02:23,711",
+    "content": "也要不可以安排我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:23,711",
+    "end_time": "00:02:30,229",
+    "content": "打上了也是UFC对我的认可我也很兴奋我不会错过自己的机会",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:30,229",
+    "end_time": "00:02:41,968",
+    "content": "I won't meet this chance and I know of course I know he is really popular and really famous in this division but I won't miss this chance and then I will let everybody know me.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:41,968",
+    "end_time": "00:02:46,919",
+    "content": "How have the American fans treated you fighting here in America against American fighter?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:46,919",
+    "end_time": "00:02:51,522",
+    "content": "How have the fans treated him considering he's fighting in America against an American?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:51,522",
+    "end_time": "00:02:59,971",
+    "content": "就是你的粉絲對於你去美國然後對像一個美國的選手他們有沒有什麼特別的看法",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:59,971",
+    "end_time": "00:03:05,007",
+    "content": "其实也没有特别的看法粉丝都叫我干就完了因为",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:05,007",
+    "end_time": "00:03:08,968",
+    "content": "我这也是我的风格嘛所以才能配上这么好的对手",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:08,968",
+    "end_time": "00:03:21,235",
+    "content": "My fans didn't say much because they know my style just fucking go inside the auto-gone So I will I will just follow what they say just when I get into the auto-gone just fucking",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:21,235",
+    "end_time": "00:03:34,944",
+    "content": "Last question for me, Cody likes to come out very aggressive, especially earlier in the fight. So I guess what are you expecting from him? Because, like I said, he has a lot of power, but he has also been known to get hit quite often in his fights.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:34,944",
+    "end_time": "00:03:48,498",
+    "content": "就是你的对手他在前期比赛的前期特别是第一回合是非常的压迫性 进攻性非常强的而且也非常的强势你会怎么去应对你感觉你会就是对",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:48,498",
+    "end_time": "00:03:52,443",
+    "content": "我觉得做好我自己就行",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:52,443",
+    "end_time": "00:03:54,472",
+    "content": "其他的比赛场上",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:54,472",
+    "end_time": "00:03:56,826",
+    "content": "也不一定能发生什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:56,826",
+    "end_time": "00:03:58,663",
+    "content": "还在我就做好我自己",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:58,663",
+    "end_time": "00:04:05,985",
+    "content": "I just do my things and do my best inside the auto-gone. Because no one knows what happens inside the auto-gone.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:05,985",
+    "end_time": "00:04:19,057",
+    "content": "Shou, you came to the UFC through road to UFC the tournament Comment from Asia. Can you talk about how important is that tournament and that opportunity in terms of growing the talent back in Asia?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:19,057",
+    "end_time": "00:04:31,221",
+    "content": "就是因为你是从金字路里面在进入到UFC的你可以讲一下你对于这个UFC金字路这个经验对于",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:31,221",
+    "end_time": "00:04:33,488",
+    "content": "你怎麽樣進入到UF-CD",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:33,488",
+    "end_time": "00:04:35,903",
+    "content": "給你的經驗或是給你的一些幫助",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:35,903",
+    "end_time": "00:04:46,992",
+    "content": "我觉得YoutubeFC对我的经验也铺垫吧是一个铺垫因为前期三场打的都是摔柔系的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:46,992",
+    "end_time": "00:04:49,435",
+    "content": "然后我但是摔着微信的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:49,435",
+    "end_time": "00:04:55,490",
+    "content": "然后我就专门加强了自己的方式然后这些各方面的技能",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:55,490",
+    "end_time": "00:04:56,944",
+    "content": "对我来说是一个铺垫",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:56,944",
+    "end_time": "00:05:00,511",
+    "content": "Rotel UFC Tournament for me is a big set up",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:00,511",
+    "end_time": "00:05:15,619",
+    "content": "It's a really good seller for me to get into UFC because they put me all the opponents grapplers and that made me improve my grappling. So when I get into UFC I think it would be good.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:15,619",
+    "end_time": "00:05:49,485",
+    "content": "Hey Hello, with 37 fight at only 27 years old, you actually the most experienced guy inside the cage if you compare to Kori Gaborne. What's your thought about that? Do you feel that your experience will be like big points and a big turning point in this fight? Do you feel that this is a good thing?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:49,485",
+    "end_time": "00:05:52,620",
+    "content": "对于有什么看法就是你的比赛经验",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:52,620",
+    "end_time": "00:05:57,577",
+    "content": "其实这个来说因为其实我很多战机他的给我算错了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:57,577",
+    "end_time": "00:06:08,860",
+    "content": "有些比赛我没打但是我都不知道我跟谁打的然后我是输的还有很多比赛都不是算因为按理来说不应该算到直接赛去的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:08,860",
+    "end_time": "00:06:18,654",
+    "content": "就是都是那种打三分钟啊或者是地面都没有的那种就是不是正常的MMA的很多有最少有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:18,654",
+    "end_time": "00:06:20,468",
+    "content": "差不多的有七八层",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:20,468",
+    "end_time": "00:06:34,387",
+    "content": "但是我觉得其他的比赛对我来说的经验也是也是包括最近这两年打的比赛的经验会更丰富吧因为说了LTWF賽是我的铺垫嘛",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:34,387",
+    "end_time": "00:06:40,250",
+    "content": "小龙你好 我是这称秘国的特派记者我想问你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:40,250",
+    "end_time": "00:06:58,331",
+    "content": "I think there is some mistake inside of my fight record. And then there's some fight, they still, they did not, not the big professional fight, but they still kind of end. But they still are...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:58,331",
+    "end_time": "00:06:59,803",
+    "content": "a profession over...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:59,803",
+    "end_time": "00:07:06,483",
+    "content": "experience for me. And of course, last two years when I get to the road to UFC and I",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,483",
+    "end_time": "00:07:14,557",
+    "content": "fight to the... fight with the... grappler and also really good experience for me. So I think... I think...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:14,557",
+    "end_time": "00:07:17,283",
+    "content": "Terima kasih kepada Hsrн.",
+    "confidence": 0,
+    "language": "ms"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:17,283",
+    "end_time": "00:07:20,988",
+    "content": "professional record but still it's good for me.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:20,988",
+    "end_time": "00:07:36,233",
+    "content": "小老你好 我是这次迷过特拍记者那口首先我想恭喜你能顺利的在这里参加比赛因为我之前听说你的签证办不太顺利所以我想问一下这件事情对你心态会有什么影响吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:36,233",
+    "end_time": "00:07:42,391",
+    "content": "我觉得确实签认的问题有点困扰但是我觉得人生没有一发疯顺",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:42,391",
+    "end_time": "00:07:43,658",
+    "content": "Down.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:43,658",
+    "end_time": "00:07:44,961",
+    "content": "他会是我跟他有灯里",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:44,961",
+    "end_time": "00:07:46,970",
+    "content": "還有就是因為",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:46,970",
+    "end_time": "00:07:50,115",
+    "content": "因为我们中国是新年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:50,115",
+    "end_time": "00:07:53,802",
+    "content": "我大年初一还在上情能拉杀",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:53,802",
+    "end_time": "00:07:56,716",
+    "content": "然后拉上杀游产科晚上就吃了几个饺子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:56,716",
+    "end_time": "00:08:00,834",
+    "content": "可能就是这些东西我觉得也不用刻意地说是吗好的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:00,834",
+    "end_time": "00:08:05,230",
+    "content": "因為我是這個職業有可能要去客服",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:05,230",
+    "end_time": "00:08:06,399",
+    "content": "然后",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:08,360",
+    "end_time": "00:08:13,045",
+    "content": "谢谢你的回答,也在这里祝贺你新年快乐然后加油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:13,045",
+    "end_time": "00:08:14,904",
+    "content": "謝謝謝謝",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

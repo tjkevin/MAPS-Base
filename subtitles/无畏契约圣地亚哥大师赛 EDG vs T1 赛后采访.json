@@ -1,0 +1,930 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:01,088",
+    "content": "el obrigual natuur...?",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:01,088",
+    "end_time": "00:00:02,205",
+    "content": "QEDG for being...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:02,205",
+    "end_time": "00:00:06,924",
+    "content": "We are going to start with some questions on the call and can you go first?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:06,924",
+    "end_time": "00:00:11,971",
+    "content": "我想问一下奥特牧教练,今天图一防守底细被破得很明显问题出在哪。",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:11,971",
+    "end_time": "00:00:14,782",
+    "content": "然后你觉得对付失败最关键的原因是什么",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:14,782",
+    "end_time": "00:00:28,196",
+    "content": "This question is for Autumn that for today's map 1, I think for your defend this really lost a lot. So what do you think is the issue for today's matchup especially for your defend today?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:28,196",
+    "end_time": "00:00:39,335",
+    "content": "Yeah, our depends plan was not worked. So maybe the preparation for depends system was wrong. That's why I was...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:39,335",
+    "end_time": "00:00:46,180",
+    "content": "我觉得今天我们所有做的关于上手的一些计划可能没有做一下所以说可能我们的一些准备工作一些准备",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:46,180",
+    "end_time": "00:00:48,366",
+    "content": "做得没有那么好这是我们今天失败的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:48,366",
+    "end_time": "00:00:49,531",
+    "content": "Newman ด biliค Weilอplaying funny",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:49,531",
+    "end_time": "00:00:51,664",
+    "content": "等等等等深夜快乐就有看",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:51,664",
+    "end_time": "00:00:53,253",
+    "content": "Happy birthday, Conco! Thanks!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:53,253",
+    "end_time": "00:00:55,438",
+    "content": "Now we are going to take some questions here in the room.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:55,438",
+    "end_time": "00:01:09,429",
+    "content": "好了,这里是画龙电剑我的问题是给到康康选手那么很遗憾这次圣地亚歌的旅程是结束了但是你的22色彩刚刚开始那想问一下,今天有没有什么圣人愿望可以跟我们大家一起分享",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:09,429",
+    "end_time": "00:01:19,358",
+    "content": "I'm sorry for the loss today but your 22nd is just beginning so what's your birthday wish for your birthday? Do you share with us?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:19,358",
+    "end_time": "00:01:22,706",
+    "content": "哈哈我们上次说我能不能不回来这个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:22,706",
+    "end_time": "00:01:25,459",
+    "content": "I'm so sorry I don't know how to say",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:25,459",
+    "end_time": "00:01:27,058",
+    "content": "I have another question for you.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:27,058",
+    "end_time": "00:01:38,695",
+    "content": "好 沒關係 那最後想說少年星期是不可再生之五還是希望你們能夠總結這一次的經驗然後繼續上夢想繼續奮鬥繼續戰鬥 謝謝",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:38,695",
+    "end_time": "00:01:52,228",
+    "content": "And I think all your pride is really precious, it's really important for us. And I hope you who fix all the things and gain enough experience this time and keep fighting to your dreams.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:52,228",
+    "end_time": "00:01:55,850",
+    "content": "well the one cult are happening so we were thinking women.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:55,850",
+    "end_time": "00:01:57,019",
+    "content": "Can I go fun?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:57,019",
+    "end_time": "00:01:58,772",
+    "content": "Estamos esperando que caminamos los workouts.",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:58,772",
+    "end_time": "00:02:04,400",
+    "content": "因为现在�悬守在出场所以说我们可能稍微延智一下大家稍等一分钟马上开始",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:04,400",
+    "end_time": "00:02:07,513",
+    "content": "unינו كل התיופסיטה, חיד cherry unt על עמינים.",
+    "confidence": 0,
+    "language": "he"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:07,513",
+    "end_time": "00:02:09,219",
+    "content": "We have another question during the room.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:09,219",
+    "end_time": "00:02:12,104",
+    "content": "Thank you. My question goes for teacher.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:12,104",
+    "end_time": "00:02:22,010",
+    "content": "Chichu, your one of the strongest teams from China was the biggest difference that you feel when playing against international teams compared to China.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:22,010",
+    "end_time": "00:02:26,612",
+    "content": "这个问题是问到求求选手的因为其实你们也是连最强的对务质",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:26,612",
+    "end_time": "00:02:28,625",
+    "content": "那你觉得在和国际对务比赛定手?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:28,625",
+    "end_time": "00:02:30,073",
+    "content": "我先都对武装比最大的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:30,073",
+    "end_time": "00:02:35,338",
+    "content": "我觉得最大的在于外的对付很能抓住我们的食物然后去得分吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:35,338",
+    "end_time": "00:02:36,520",
+    "content": "你最近是个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:36,520",
+    "end_time": "00:02:38,659",
+    "content": "很大的一个需要我们需要感情跟学",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:38,659",
+    "end_time": "00:02:52,890",
+    "content": "I think the biggest difference is the team from international leagues. It's like they don't know how to punish us to find our mistakes at a good timing and to grab the points.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:52,890",
+    "end_time": "00:02:54,471",
+    "content": "Thank you so much and next question please.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:54,471",
+    "end_time": "00:03:06,341",
+    "content": "Hello, my name is Raul Oits, I work for Fusion Esports, my question is for Smoggi. Smoggi, what do you think is going on with BCD China? Results haven't been grid-ladied. What do you think is behind that?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:06,341",
+    "end_time": "00:03:13,668",
+    "content": "这个问题是问到Smogic选手的因为可能最近连的成绩并没有那么的领算觉得主要的原因是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:13,668",
+    "end_time": "00:03:15,646",
+    "content": "我覺得跟全球就是差不多吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:15,646",
+    "end_time": "00:03:21,163",
+    "content": "我觉得上了这种比赛以后失误会比较多然后过来都会抓住我们的这些事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:21,163",
+    "end_time": "00:03:25,239",
+    "content": "I think my answer is pretty similar as Chou Chou's just said before.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:25,239",
+    "end_time": "00:03:32,324",
+    "content": "When we come to international stage, I think all the teams from other regions, they are good at finding time to punish us, to punish our women.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:32,324",
+    "end_time": "00:03:34,861",
+    "content": "Hello, my name is Zael from Command Kick.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:34,861",
+    "end_time": "00:03:36,332",
+    "content": "Please click on the ease for our nobody.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:36,332",
+    "end_time": "00:03:38,175",
+    "content": "Somebody please, you are leaving.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:38,175",
+    "end_time": "00:03:43,026",
+    "content": "around for the general world. What do you think that the other team did best that you...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:43,026",
+    "end_time": "00:03:56,419",
+    "content": "这个问题是温当Nobody选手的因为其实今天在第二轮的时候你带领队伍也实现了一个小草的力转嘛虽然说最后没得应该比赛的胜利那你觉得今天对方对舞做得比较好的部分",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:56,419",
+    "end_time": "00:03:58,747",
+    "content": "脫夜跟脫夜对面就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:58,747",
+    "end_time": "00:04:10,028",
+    "content": "也是改变了很多,然后很好地可能跟他们今天比赛有的时候是不一样的感觉对面也是很好地发挥的他们的陈荣的特性",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:10,028",
+    "end_time": "00:04:20,403",
+    "content": "for both of them at today, they've changed a lot and it's like really different of the place they'll compare with them before.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:20,403",
+    "end_time": "00:04:22,694",
+    "content": "I think also today your calm really...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:22,694",
+    "end_time": "00:04:27,134",
+    "content": "They have a comp designed for today's matchup and they show all the stress.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:27,134",
+    "end_time": "00:04:31,002",
+    "content": "Thank you so much, now we are going to take some questions on the call pervamedo to go.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:31,002",
+    "end_time": "00:05:05,533",
+    "content": "Yes, Pedro Merro, independent journalist, likewise, commissarations on this series and the subsequent elimination from this competition. Hope we can see a much stronger EDG in the future. I want to send this question over to Hong Kong. Obviously, you're no stranger to having to absorb eliminations in the international level. And, you know, of course, this is the another chapter in this story of yours, but still you've been able to overcome these past.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:05,533",
+    "end_time": "00:05:18,848",
+    "content": "issues and get to championship glory in the past. What I want to ask you though is, as you begin to reflect us to the issues of wrong for this team in this competition.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:18,848",
+    "end_time": "00:05:31,379",
+    "content": "Is this emotions, feelings, frustrations similar to what it was back then, or is it different in this case in particular for this year, from your opinion?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:31,379",
+    "end_time": "00:05:41,221",
+    "content": "其实 EDG在过去经历了很多包包过从比赛中被淘汰但是其实你们很好的客服的这一点并且在之前也有过非常好的成",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:41,221",
+    "end_time": "00:05:45,459",
+    "content": "那我们想问一下在这回的比赛里面对你们来说就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:45,459",
+    "end_time": "00:05:47,327",
+    "content": "所有的這些情緒化的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:47,327",
+    "end_time": "00:05:52,264",
+    "content": "我們說一些錯敗感說之前是否相同還是說這回是完全不同的一些",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:52,264",
+    "end_time": "00:05:56,531",
+    "content": "其实对我来说今年是一个重新的开始所以说没有什么错白",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:56,531",
+    "end_time": "00:06:07,704",
+    "content": "其实我们就变了我们换了教练然后换了一位新的选手然后我们现在就我打的时候我感觉就是一个新的阵容然后对我来说是一个新的开门",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:07,704",
+    "end_time": "00:06:10,216",
+    "content": "其实我觉得我们一定会越来越好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:10,216",
+    "end_time": "00:06:19,228",
+    "content": "因为后面还有很多比赛要打吗我觉得现在这种错败感对我来说其实没有什么感觉我只希望我们后面今年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:19,228",
+    "end_time": "00:06:24,209",
+    "content": "下半年或者年中能够打得更好然后把我们输得都赢回",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:24,209",
+    "end_time": "00:06:40,372",
+    "content": "I think this year is like a brand new start for me. I don't feel that frustrated as before, because we have a new coach, we have a new player, and it's totally new roster of ever gaming. And I also believe that in the future, we'll become better.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:40,372",
+    "end_time": "00:06:48,144",
+    "content": "because we still have a lot of matchups to play. And I hope in the future we could win all the things and get back.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:48,144",
+    "end_time": "00:06:58,076",
+    "content": "Hi, I'm Mikato Rez from Kitchen News. This question is for Autumn. From a coaching perspective, what would you say is the biggest challenge when playing on an international stage?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:58,076",
+    "end_time": "00:07:01,201",
+    "content": "살살電게 선발은 에너지가",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:01,201",
+    "end_time": "00:07:04,379",
+    "content": "I just want to focus on",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:04,379",
+    "end_time": "00:07:06,180",
+    "content": "It is perios like this so....",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,180",
+    "end_time": "00:07:08,274",
+    "content": "We already know what was our problem.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:08,274",
+    "end_time": "00:07:10,122",
+    "content": "like have an attack we already know",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:10,122",
+    "end_time": "00:07:11,511",
+    "content": "Even you lose, but I think...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:11,511",
+    "end_time": "00:07:12,834",
+    "content": "can be some...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:12,834",
+    "end_time": "00:07:18,841",
+    "content": "몸부터16 현금 본인 이물 자",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:18,841",
+    "end_time": "00:07:20,759",
+    "content": "It's just as our experience.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:20,759",
+    "end_time": "00:07:22,970",
+    "content": "for our better fit.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:22,970",
+    "end_time": "00:07:25,326",
+    "content": "Now we have another question from Perrero Méronde.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:25,326",
+    "end_time": "00:07:50,970",
+    "content": "This was going to be also for autumn just out of curiosity. This was a match between your team and T1 Obviously your past team. I want to know just out of curiosity. Have you had any time to like Give some next-style mutations or any greeting sand You know after this result. I want to know if like you have any words for like T1 Just just like maybe give them good luck with the rest of the competition or anything else with that nature",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:50,970",
+    "end_time": "00:07:54,161",
+    "content": "Oh, first I'm always happy about...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:54,161",
+    "end_time": "00:07:55,382",
+    "content": "T1 player because...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:55,382",
+    "end_time": "00:07:57,326",
+    "content": "I am the one who knows",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:57,326",
+    "end_time": "00:07:59,923",
+    "content": "They're hard working and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:59,923",
+    "end_time": "00:08:01,452",
+    "content": "their passion for",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:01,452",
+    "end_time": "00:08:02,697",
+    "content": "in every moment.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:02,697",
+    "end_time": "00:08:04,355",
+    "content": "Sekarang kita ada sалAJ",
+    "confidence": 0,
+    "language": "ms"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:04,355",
+    "end_time": "00:08:05,411",
+    "content": "Matched like this.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:05,411",
+    "end_time": "00:08:06,620",
+    "content": "even you lose but",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:06,620",
+    "end_time": "00:08:08,600",
+    "content": "What about the result is I always want to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:08,600",
+    "end_time": "00:08:09,723",
+    "content": "for the players.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:09,723",
+    "end_time": "00:08:10,975",
+    "content": "आज자 प्वकझे प 눈�ườiुे टीक तेते की लास यृ",
+    "confidence": 0,
+    "language": "hi"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:10,975",
+    "end_time": "00:08:13,451",
+    "content": "Halo guys, ini Matias dari Mag3",
+    "confidence": 0,
+    "language": "id"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:13,451",
+    "end_time": "00:08:14,862",
+    "content": "My question is for nobody.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:14,862",
+    "end_time": "00:08:24,048",
+    "content": "How did you feel with the Santiago crowd? Did it motivate you in your matches or was it sometimes like distracting to you? How did you feel in your staying in Santiago?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:24,048",
+    "end_time": "00:08:29,017",
+    "content": "這個問題是問到《南鬥包地選手》的你對聖畢亞哥整體的關注還有關催氛圍有什麼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:29,017",
+    "end_time": "00:08:33,400",
+    "content": "在比賽中覺得他會比較激勵你還是有些時候可能會讓你有一些分析呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:33,400",
+    "end_time": "00:08:41,018",
+    "content": "我觉得这边的观众就首先非常热情然后其实在比赛里面就是大家都会自发现的给自己喜欢的对我打扣吗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:41,018",
+    "end_time": "00:08:45,974",
+    "content": "然后其实我觉得挺好的,包括这个舞台,丽观众也挺近的,我就",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:45,974",
+    "end_time": "00:08:57,171",
+    "content": "I think the audience here is really passionate and the audience they are rooting for the team they like and also our stage is really close to all the crowd so the web is here is amazing.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:57,171",
+    "end_time": "00:08:58,250",
+    "content": "Hi, how you doing?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:58,250",
+    "end_time": "00:09:06,068",
+    "content": "Can you talk a little bit more about your uniform? I think that is pretty special that has some tegoa chillin' and had a lot of things about masters.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:06,068",
+    "end_time": "00:09:08,883",
+    "content": "Can you talk a little bit about more about that?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:08,883",
+    "end_time": "00:09:15,231",
+    "content": "其实想问一下各位关于你们的对付因为我们觉得设计的很特别融合了很多当地的文化",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:15,231",
+    "end_time": "00:09:16,801",
+    "content": "一些大时代的元素可以够能",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:16,801",
+    "end_time": "00:09:19,326",
+    "content": "这个对付就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:19,326",
+    "end_time": "00:09:22,073",
+    "content": "就是我们EDG的管理层他们",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:22,073",
+    "end_time": "00:09:28,702",
+    "content": "操作的嘛就是他们去设计给我们的我们每次的大赛对我都不一样嘛然后这个上面是有这个致力的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:28,702",
+    "end_time": "00:09:30,331",
+    "content": "地图在上面然后",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:30,331",
+    "end_time": "00:09:34,806",
+    "content": "用了白色也是因为之前可能比赛的时候",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:34,806",
+    "end_time": "00:09:39,071",
+    "content": "白色对付的对我都比较幸运嘛所以这算没有技能下来",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:39,071",
+    "end_time": "00:09:56,841",
+    "content": "The design is made by our management. Every time we come to global events, we all have different kind of uniforms. And this time, we have the night of San Diego on our clothes. And sometimes, we think why it means lucky in the past.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:56,841",
+    "end_time": "00:10:01,309",
+    "content": "So we we need that lucky this time, but unfortunately we didn't manage it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:01,309",
+    "end_time": "00:10:19,446",
+    "content": "Chicos, como algunos ya habrán escuchado, hoy es el cumpleaños de Cancan. Así que nos gustaría cantarle cumpleaños feliz, como lo hacemos aquí en Chile. We're going to sing Happy Birthday to Cancan, as we do here in Chile. So, uno, dos, tres. Cumpleaños feliz.",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:19,446",
+    "end_time": "00:10:22,315",
+    "content": "Te deseamos a...",
+    "confidence": 0,
+    "language": "es"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:22,315",
+    "end_time": "00:10:24,462",
+    "content": "Happy birthday! Well, thank you guys!",
+    "confidence": 0,
+    "language": "en"
+  }
+]

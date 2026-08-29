@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}任务管理 - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">任务管理</h1>
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">任务统计</h5>
+                </div>
+                <div class="card-body">
+                    <form id="dateRangeForm" class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label for="startDate" class="form-label">开始日期</label>
+                            <input type="date" class="form-control" id="startDate" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="endDate" class="form-label">结束日期</label>
+                            <input type="date" class="form-control" id="endDate" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-primary d-block">
+                                <i class="fas fa-search"></i> 筛选结果
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">总视频数</h6>
+                                    <h2 id="totalVideos">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">总时长</h6>
+                                    <h2 id="totalDuration">0:00:00</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">任务列表</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>任务ID</th>
+                                    <th>标题</th>
+                                    <th>类型</th>
+                                    <th>要求数量</th>
+                                    <th>完成数量</th>
+                                    <th>进度</th>
+                                    <th>开始日期</th>
+                                    <th>结束日期</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taskList">
+                                <!-- Tasks will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">用户表现</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>账号</th>
+                                    <th>录制视频数</th>
+                                    <th>总时长</th>
+                                    <th>完成任务数</th>
+                                    <th>补偿状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userPerformance">
+                                <!-- User performance will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function formatDuration(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+async function loadTaskStatistics(startDate, endDate) {
+    try {
+        const response = await fetch(`/api/tasks/statistics?start_date=${startDate}&end_date=${endDate}`);
+        if (!response.ok) throw new Error('Failed to load statistics');
+        
+        const data = await response.json();
+        document.getElementById('totalVideos').textContent = data.total_videos;
+        document.getElementById('totalDuration').textContent = formatDuration(data.total_duration);
+        
+        // Update task list
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = data.tasks.map(task => `
+            <tr>
+                <td>${task.id}</td>
+                <td>${task.title}</td>
+                <td>类型 ${task.task_type}</td>
+                <td>${task.required_count}</td>
+                <td>${task.completed_count}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: ${(task.completed_count / task.required_count) * 100}%">
+                            ${Math.round((task.completed_count / task.required_count) * 100)}%
+                        </div>
+                    </div>
+                </td>
+                <td>${new Date(task.start_date).toLocaleDateString()}</td>
+                <td>${new Date(task.end_date).toLocaleDateString()}</td>
+                <td><span class="badge bg-${task.status === 'completed' ? 'success' : task.status === 'active' ? 'primary' : 'secondary'}">${task.status === 'completed' ? '已完成' : task.status === 'active' ? '进行中' : '未开始'}</span></td>
+            </tr>
+        `).join('');
+        
+        // Update user performance
+        const userPerformance = document.getElementById('userPerformance');
+        userPerformance.innerHTML = data.user_performance.map(user => `
+            <tr>
+                <td>${user.username}</td>
+                <td>${user.videos_recorded}</td>
+                <td>${formatDuration(user.total_duration)}</td>
+                <td>${user.tasks_completed}</td>
+                <td>
+                    <span class="badge bg-${user.compensation_earned ? 'success' : 'warning'}">
+                        ${user.compensation_earned ? '已获得' : '待处理'}
+                    </span>
+                </td>
+            </tr>
+        `).join('');
+    } catch (err) {
+        console.error('Error loading statistics:', err);
+        alert('加载任务统计失败');
+    }
+}
+
+document.getElementById('dateRangeForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    loadTaskStatistics(startDate, endDate);
+});
+
+// Initialize with current month
+const now = new Date();
+const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+
+document.getElementById('startDate').value = firstDay;
+document.getElementById('endDate').value = lastDay;
+loadTaskStatistics(firstDay, lastDay);
+</script>
+{% endblock %} 

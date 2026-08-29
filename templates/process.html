@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}数据处理 - MAPS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">数据处理</h1>
+
+    <div class="card mb-3 border-primary">
+        <div class="card-body py-3">
+            <div class="fw-semibold mb-2">处理方式</div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="procMode" id="modeManual" value="manual" checked>
+                <label class="form-check-label" for="modeManual">（1）手动处理</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="procMode" id="modeAlgorithm" value="algorithm">
+                <label class="form-check-label" for="modeAlgorithm">（2）算法处理</label>
+            </div>
+            <p class="small text-muted mb-0 mt-2">手动处理：人工播放视频并检查/转写；算法处理：由系统自动或批处理流水线执行。</p>
+        </div>
+    </div>
+
+    <div id="algorithmProcessingPanel" class="d-none mb-4">
+        <div class="alert alert-info mb-0"><strong>算法处理模式</strong>：请在后台配置批处理任务；结果可在「数据管理」中检索。</div>
+    </div>
+
+    <div id="manualProcessingPanel">
+    <ul class="nav nav-tabs mb-4" id="processingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="type1-tab" data-bs-toggle="tab" data-bs-target="#type1" type="button" role="tab">
+                类型1任务（检查）
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
+                类型2任务（转录）
+            </button>
+        </li>
+    </ul>
+    
+    <div class="tab-content" id="processingTabsContent">
+        <!-- Type 1 Tasks -->
+        <div class="tab-pane fade show active" id="type1" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">视频播放器</h5>
+                        </div>
+                        <div class="card-body">
+                            <video id="videoPlayer1" class="w-100" controls>
+                                <source src="" type="video/webm">
+                                您的浏览器不支持视频标签。
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">文本检查</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="inspectionForm">
+                                <div class="mb-3">
+                                    <label class="form-label">原始文本</label>
+                                    <div id="originalText" class="form-control" style="height: 150px; overflow-y: auto;"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="corrections" class="form-label">修正</label>
+                                    <textarea class="form-control" id="corrections" rows="5"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comments" class="form-label">评论</label>
+                                    <textarea class="form-control" id="comments" rows="3"></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-success" name="action" value="approve">
+                                        <i class="fas fa-check"></i> 批准
+                                    </button>
+                                    <button type="submit" class="btn btn-danger" name="action" value="reject">
+                                        <i class="fas fa-times"></i> 拒绝
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Type 2 Tasks -->
+        <div class="tab-pane fade" id="type2" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">视频播放器</h5>
+                        </div>
+                        <div class="card-body">
+                            <video id="videoPlayer2" class="w-100" controls>
+                                <source src="" type="video/webm">
+                                您的浏览器不支持视频标签。
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">转录</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="transcriptionForm">
+                                <div class="mb-3">
+                                    <label for="transcription" class="form-label">输入转录</label>
+                                    <textarea class="form-control" id="transcription" rows="10"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> 保存转录
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function syncProcessMode() {
+    const manual = document.getElementById('modeManual').checked;
+    document.getElementById('manualProcessingPanel').classList.toggle('d-none', !manual);
+    document.getElementById('algorithmProcessingPanel').classList.toggle('d-none', manual);
+}
+document.getElementById('modeManual').addEventListener('change', syncProcessMode);
+document.getElementById('modeAlgorithm').addEventListener('change', syncProcessMode);
+syncProcessMode();
+
+// Type 1 Task Handling
+document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const action = e.submitter.value;
+    const formData = {
+        action: action,
+        corrections: document.getElementById('corrections').value,
+        comments: document.getElementById('comments').value
+    };
+    
+    try {
+        const response = await fetch('/api/process/inspect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Submission failed');
+        
+        const data = await response.json();
+        alert(data.message || '检查提交成功');
+        // Load next task
+        loadNextTask(1);
+    } catch (err) {
+        console.error('Submission error:', err);
+        alert('提交检查失败');
+    }
+});
+
+// Type 2 Task Handling
+document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = {
+        transcription: document.getElementById('transcription').value
+    };
+    
+    try {
+        const response = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) throw new Error('Submission failed');
+        
+        const data = await response.json();
+        alert(data.message || '转录保存成功');
+        // Load next task
+        loadNextTask(2);
+    } catch (err) {
+        console.error('Submission error:', err);
+        alert('保存转录失败');
+    }
+});
+
+// Load next task based on type
+async function loadNextTask(type) {
+    try {
+        const response = await fetch(`/api/process/next-task?type=${type}`);
+        if (!response.ok) throw new Error('Failed to load next task');
+        
+        const data = await response.json();
+        if (data.task) {
+            const videoPlayer = document.getElementById(`videoPlayer${type}`);
+            videoPlayer.src = data.task.video_url;
+            
+            if (type === 1) {
+                document.getElementById('originalText').textContent = data.task.text;
+                document.getElementById('corrections').value = '';
+                document.getElementById('comments').value = '';
+            } else {
+                document.getElementById('transcription').value = '';
+            }
+        } else {
+            alert('没有更多可用任务');
+        }
+    } catch (err) {
+        console.error('Error loading next task:', err);
+        alert('加载下一个任务失败');
+    }
+}
+
+// Initialize first tasks
+loadNextTask(1);
+loadNextTask(2);
+</script>
+{% endblock %} 

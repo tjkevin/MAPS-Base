@@ -1,0 +1,1338 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:07,110",
+    "content": "Por.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:07,110",
+    "end_time": "00:00:09,339",
+    "content": "Este嘴 found something in there那麽癚拄�",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:09,339",
+    "end_time": "00:00:18,123",
+    "content": "我姓姆买一圈我妈妈当时在家里还出发奇想不必想吃现作有利",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:18,123",
+    "end_time": "00:00:20,353",
+    "content": "頭那麼美咧我就同孩子的武藝",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:20,353",
+    "end_time": "00:00:25,371",
+    "content": "先坐好的吗先坐一下出去今天你好今天怎么说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:25,371",
+    "end_time": "00:00:30,538",
+    "content": "我是跟我爸行然后后面是我妈",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:30,538",
+    "end_time": "00:00:51,545",
+    "content": "因为他来当时晚上明到了成绩作了新节哦对您叫丁成绩吗没有我要丁作吗好的给作过先生那您怎么超过我性送然后我妈妈中秋家节的生活收到了一项有舒服的亚军送的学生",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:51,545",
+    "end_time": "00:00:56,046",
+    "content": "我就說那麼做了松亞先",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:56,046",
+    "end_time": "00:01:05,534",
+    "content": "好 我都送你教練了好救送您好接着我没有带来卖标但是您等着我们一个熟悉的接着才好节目我不是任你们这个那我就是不许不许不许不许不许不",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:05,534",
+    "end_time": "00:01:17,299",
+    "content": "首先你没有卖标你没有特殊的一个标证你到底是哪个节目的你到底是哪个节目的特殊的会跟我们打一个的我们那个节目叫做太棒的体位接受太棒的节目我们这个节目就是一个节目来 祝福节目你好请问怎么生活",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:17,299",
+    "end_time": "00:01:32,021",
+    "content": "你觉得我喜欢这样吗嗯 嗯 嗯 嗯 嗯 这样我比较我妈妈希望我光中药组文采过人来 开一开 我们明明是不用我们吗 坐嗯 但是零过人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:32,021",
+    "end_time": "00:01:39,689",
+    "content": "真的是个好名字呢我说这件事怎么说呢我心臟我妈那说我出生的天日郎真的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:39,689",
+    "end_time": "00:01:41,924",
+    "content": "好,様子為erem的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:41,924",
+    "end_time": "00:02:03,340",
+    "content": "我叫张中秋好在张中秋见一下这个东西见一下你好出自见面请问小小小小我姓言我的名字呢是因为我妈妈喜欢我来浩海的天空中飞翔哦所以那个是叫也浩翔吗呃名说错啊我的名字叫言天飞呃好好个言天飞翔可以好好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:03,340",
+    "end_time": "00:02:09,431",
+    "content": "Wenx杰同學",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:09,431",
+    "end_time": "00:02:14,674",
+    "content": "我妈呢告诉我说在我出生那天",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:14,674",
+    "end_time": "00:02:19,556",
+    "content": "天地,一向在距离我家最近的仇山郡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:19,556",
+    "end_time": "00:02:25,486",
+    "content": "空脚乾一點啊哦 莫非年叫賀俊年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:25,486",
+    "end_time": "00:02:31,751",
+    "content": "親啊我叫贺重山",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:31,751",
+    "end_time": "00:02:39,026",
+    "content": "好的重塞箭的那我们这期是一级中秋特技所以可能要问您几个一关于中秋的问题先最喜欢吃什么口味的约别呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:39,026",
+    "end_time": "00:02:40,260",
+    "content": "directly, bir Iın.",
+    "confidence": 0,
+    "language": "tr"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:40,260",
+    "end_time": "00:02:41,384",
+    "content": "미칠리",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:41,384",
+    "end_time": "00:02:42,941",
+    "content": "大家都很喜欢吃鱼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:42,941",
+    "end_time": "00:02:45,241",
+    "content": "不过我哪有点习惯",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:45,241",
+    "end_time": "00:02:49,140",
+    "content": "我这人把其实吃这月饼特挑剔不像他们其他人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:49,140",
+    "end_time": "00:03:00,042",
+    "content": "就必须要吃我妈给我做的而且这个馅它有酱就新鲜的辣椒吃客的小龙虾小龙虾切成都是费",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:00,042",
+    "end_time": "00:03:20,332",
+    "content": "我们现在一起辣椒得轻重但是小龙家要刺身的对对对辣椒生吃不行这玩意不行但小龙家必须得吃生的是早上吃的吗 这也是得中午吃早晚都吃不着早晚出事中午吃煎",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:20,332",
+    "end_time": "00:03:24,310",
+    "content": "而且这个它外面那层皮也有讲究有讲",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:24,310",
+    "end_time": "00:03:26,687",
+    "content": "它必須要用那個",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:26,687",
+    "end_time": "00:03:28,758",
+    "content": "生时会",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:28,758",
+    "end_time": "00:03:33,389",
+    "content": "和105度的真流水混合在一起",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:33,389",
+    "end_time": "00:03:36,195",
+    "content": "再加上那么一点点的使用黏",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:36,195",
+    "end_time": "00:03:43,979",
+    "content": "再加一点点鸡精一整再放两个外面的泥帽把花在一起就会有味道",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:43,979",
+    "end_time": "00:03:45,670",
+    "content": "就太虚了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:45,670",
+    "end_time": "00:03:50,766",
+    "content": "啊 这不就巧了吗我最近比上了一个新的口味的月饼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:50,766",
+    "end_time": "00:03:54,338",
+    "content": "他的名字就叫没有口味的原因",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:54,338",
+    "end_time": "00:04:02,295",
+    "content": "那没有口味是什么口味呢就是你尝下去你会想到各种口味的月饼然后俗称没有口味的月饼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:02,295",
+    "end_time": "00:04:07,954",
+    "content": "你这个魔法越来越活这个你可以这么理解了没错你想吃到什么类的呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:07,954",
+    "end_time": "00:04:10,234",
+    "content": "我想知道没有越的味道到越厉害",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:10,234",
+    "end_time": "00:04:11,530",
+    "content": "那就等於是沒吃飯",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:11,530",
+    "end_time": "00:04:15,858",
+    "content": "你也是可以最喜欢的月饼",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:15,858",
+    "end_time": "00:04:19,036",
+    "content": "排的是青椒炒肉丝再炒一份豬體",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:19,036",
+    "end_time": "00:04:21,413",
+    "content": "今天那下月明特别好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:21,413",
+    "end_time": "00:04:35,141",
+    "content": "每次吃那一下的时候我都感觉有一种回到了加香的味道你知道吗就是那种又甜又辣又鹹你清脚那个口感搅起来就是像那种搅滚滚",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:35,141",
+    "end_time": "00:04:38,612",
+    "content": "等於擺到混菜又跑到了素材",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:38,612",
+    "end_time": "00:04:50,497",
+    "content": "你这才是为消费降阻灯那种黄瓜 非死黄瓜那个黄瓜有一种独特的香味它是绿色的黄瓜但是我那个你想青浆是绿色的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:50,497",
+    "end_time": "00:04:51,615",
+    "content": "都体验谁是我我才难",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:51,615",
+    "end_time": "00:04:58,605",
+    "content": "肉丝也是肉粉的想去加肉丝是什么的虽然我也比形容不出来那个颜色但是你这个颜色的颜色然后",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:58,605",
+    "end_time": "00:05:03,370",
+    "content": "就是颜色要深一点这旁化的口感会好很多所以说不会直接吃好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:03,370",
+    "end_time": "00:05:05,776",
+    "content": "现在在月本这些一天不如一天了拜拜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:05,776",
+    "end_time": "00:05:19,206",
+    "content": "下次希望能做一个红辣椒 巧克力 巧克力 巧克力巧皮蛋这个味道非常不客的你吃了个包子喝点了老干嘛去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:19,206",
+    "end_time": "00:05:36,038",
+    "content": "敢骂月饼啊 炮椒月饼嗯嗯呃多椒月饼多半这样的月饼借摸月饼吃过吧借摸跟男文奶到一起怎么了借了月饼都怎么了那个也不知道是能吃进去吃吃的不进去吃的能吃",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:36,038",
+    "end_time": "00:05:42,528",
+    "content": "吃完多后不客气来啊我不知道我真的是考验人呐力的是一个那你看我留过人是吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:42,528",
+    "end_time": "00:05:46,721",
+    "content": "果然是口感过人啊嗯来鸡蛋鞋蛋黄",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:46,721",
+    "end_time": "00:05:48,750",
+    "content": "I need to go there and put on the animal to make it look very different.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:48,750",
+    "end_time": "00:05:50,903",
+    "content": "中潔您 个人特色的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:50,903",
+    "end_time": "00:05:54,413",
+    "content": "하지만 왠지",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:54,413",
+    "end_time": "00:06:28,648",
+    "content": "我喜欢吃大小的因为就是喜欢吃哦 哦那除了大小的想什么味呢米饭味儿吧变馅这也可以等一个个外面提供面米可以吃面对对对还有沙拉馅的菜馅菜馅不是 肉馅肉馅好 你知道好馅吗其实包子也都长不多也长不多我先让你尝一下",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:28,648",
+    "end_time": "00:06:30,545",
+    "content": "相太晚",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:30,545",
+    "end_time": "00:06:55,341",
+    "content": "好味道还有牵掌味道还有把椒味吃起来是黏嘴但是味道还是很有脚劲但是还是是是是你压过来挺好做法会发到平均的虚因为我的设计管越来越会怎么设计你设计你你还设计吗设计一个大家方面说",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:55,341",
+    "end_time": "00:06:56,812",
+    "content": "너희도 여기 치고어야acaksın",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:56,812",
+    "end_time": "00:06:59,997",
+    "content": "감사합니다.",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:59,997",
+    "end_time": "00:07:01,449",
+    "content": "Bijz由由",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:03,901",
+    "end_time": "00:07:05,422",
+    "content": "我以為有期望也失去了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:05,422",
+    "end_time": "00:07:06,557",
+    "content": "會做什麼月林?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:06,557",
+    "end_time": "00:07:07,562",
+    "content": "3 14 resolution",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:07,562",
+    "end_time": "00:07:15,007",
+    "content": "现在味儿都有过啊是哪会的大香人在我之前想出来人物所高生的月",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:15,007",
+    "end_time": "00:07:21,550",
+    "content": "辣你看你吃我了我的肌肉或是你跟吃边点也可以啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:21,550",
+    "end_time": "00:07:28,620",
+    "content": "切开最坏心我们切点吃那边切刚好那你做到我们中秋节",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:28,620",
+    "end_time": "00:07:31,930",
+    "content": "非常有意境的感覺對不對",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:31,930",
+    "end_time": "00:07:34,665",
+    "content": "일",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:34,665",
+    "end_time": "00:07:50,175",
+    "content": "辗蘭的肉饺辣椒料吃 Did not make the last hot dog成的吃到吃到廠商吃的这还这个饱子这个差不多",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:50,175",
+    "end_time": "00:08:05,108",
+    "content": "七博系 bal还有春秋会后才很有好放和",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:05,108",
+    "end_time": "00:08:50,798",
+    "content": "然后同一位玩家的经验整个蓝牌做实际的小时我设计成一种所有人都不敢想唱得到的这个月几乎没有人就是能想要日明里面能放这些东西好还有你们的那种首先我也是月明加一小小特别这种今天赶上干的那种见不就一点点因为不多嘛因为首先我要让客人口感就之前有那么一点点错但是刚好会知道再加一点点的算就那么一点点",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:50,798",
+    "end_time": "00:08:53,985",
+    "content": "請看這也這麼年輕一點還有香菜麗",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:53,985",
+    "end_time": "00:08:59,975",
+    "content": "然后最后加一支大片的那个奶油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:59,975",
+    "end_time": "00:09:06,184",
+    "content": "这一月不一定唱说我已经喝着做了个蛋糕了你还在上面拆个垃圾",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:06,184",
+    "end_time": "00:09:11,529",
+    "content": "不用不用不用就那小孩越來越驚喜往下就又甜又二",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:11,529",
+    "end_time": "00:09:13,474",
+    "content": "首先我要在他的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:13,474",
+    "end_time": "00:09:17,265",
+    "content": "那个下上可以一个鸡糖这是我爱心恋的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:17,265",
+    "end_time": "00:09:21,495",
+    "content": "우 Atlantic 마지막 Patreon致영 field 다음에 주� relaxing再见",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:21,495",
+    "end_time": "00:09:23,092",
+    "content": "然后音乐",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:23,092",
+    "end_time": "00:09:25,285",
+    "content": "用往的方式",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:25,285",
+    "end_time": "00:09:26,827",
+    "content": "用绑断方式写的这",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:26,827",
+    "end_time": "00:09:29,039",
+    "content": "我們他自己,相 father",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:29,039",
+    "end_time": "00:09:30,672",
+    "content": "很可愛先自己這裡",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:30,672",
+    "end_time": "00:09:34,453",
+    "content": "然后一定会唱销的这一阵一定唱销",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:34,453",
+    "end_time": "00:09:42,870",
+    "content": "然后里面的下人其实可以多变一点比如说可以我亲自下出有点面呀然后放在里面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:42,870",
+    "end_time": "00:09:55,519",
+    "content": "或者还有我亲手做的军机的感觉一下应该都知道吧天哪能吃好吃东西啊我没吃过这边都真的没做太好吃东西天哪这太好吃了非常带美味",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:55,519",
+    "end_time": "00:10:02,278",
+    "content": "那个总体在放在里面吧在家里刚刚说的那个黄瓜主体我觉得这个是一个",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:02,278",
+    "end_time": "00:10:10,985",
+    "content": "身上唯一一種最美味的產品我覺得當當每個魔法越冰油很好就是一千個人才有一千個魔法",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:10,985",
+    "end_time": "00:10:21,335",
+    "content": "大家都想都会知道大家想吃一个火花是所以大家的想象里扣过分没错就像左手上像好几个月现在是你们看不看得到的人会不会",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:21,335",
+    "end_time": "00:10:33,090",
+    "content": "還有什麼靠近的設定是想辣椒味的女兒那具體有什麼辣的女兒傳聞是蠻辣的就是想想說",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:33,090",
+    "end_time": "00:10:36,004",
+    "content": "好,所以有一个大象车车",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:36,004",
+    "end_time": "00:10:39,552",
+    "content": "我来看看反正反应也蛮熟悉的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:39,552",
+    "end_time": "00:10:56,144",
+    "content": "我觉得这已经不算是一个月这已经算是一个挑战谁能吃它这个月这就是太厉害了像是穿街吃蓝刀就像是褲子开合的月面因为是中秋节嘛这种都有个仪式感对吧你把这个辣椒三分之多月给你们再来挑战我和中秋节来反",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:56,144",
+    "end_time": "00:10:58,339",
+    "content": "下必才非常皮 好",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:58,339",
+    "end_time": "00:11:01,774",
+    "content": "你有什麼做你的這個事跟我說 Lorenito這個電話這個情況還是幾個 65幾是這剪 Thanos怎麼介紹那件事還是能獨自做一些有一個看法可能是不是人員沒有還是 famous",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:01,774",
+    "end_time": "00:11:05,190",
+    "content": "有新郊男生为她的外皮",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:05,190",
+    "end_time": "00:11:06,866",
+    "content": "눈 unfixed",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:06,866",
+    "end_time": "00:11:11,456",
+    "content": "这种时候不要用墙开一个问题很大帅很大帅包在",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:11,456",
+    "end_time": "00:11:13,121",
+    "content": "做好了时候,你得站",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:13,121",
+    "end_time": "00:12:21,639",
+    "content": "战什么呢战争那个肺贯的那个汁还还叫一个美味那等起吃了我告诉你你就看别的快乐我自己只有快乐的这啥都想不起了这时候可能吃了啥都想不起来了小时候对有什么特别的记忆吗对于中秋对 我就在想为什么中秋秋不能比如说什么三四五方价周六周日接着放你看一下放了五天下多好啊真搞不懂小时候对中秋的回忆啊我记得我看到长高姐姐就从我的面前冰沐以下就非常非常地那个月球然后我就很羡慕我说哇 为什么他能背我不能背然后我尝试了很久跟师傅学习了很久但是一点有没有所以我得更加努力的休息才行啊你那小时候也后想我得一点千千钱就这种回忆哎呀不好不小心抱路那我摊牌了实际上我就喝了很久了没错那可能就是小时候不是经常那种去餐吗一到中秋就去餐",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:21,639",
+    "end_time": "00:12:27,466",
+    "content": "然后我们呢就喜欢前几家人坐在一起吃个火锅啊啥的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:27,466",
+    "end_time": "00:12:50,779",
+    "content": "然后就有那种阿姨阿嬷阿姨姨姐姐稍微再姐姐一点的姐姐所以经常送一些月品啊哎12次月一边就有时候那个亮吧我们只好拿出来一个因为还要放回家继续吃嘛嗯然后拿出来一个呢就一群什么弟弟妹妹就突然就中过来了平时玩的时候也不见他们跟我一起玩",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:50,779",
+    "end_time": "00:12:55,658",
+    "content": "自由になってみんな。ちょっとそれまでリーネůお願いします。",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:55,658",
+    "end_time": "00:12:56,865",
+    "content": "이번 노래는",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:56,865",
+    "end_time": "00:12:59,217",
+    "content": "也無數雙手心向腦的月",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:59,217",
+    "end_time": "00:13:01,354",
+    "content": "我看見我的月皮那個時候是多麼的氣",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:01,354",
+    "end_time": "00:13:03,186",
+    "content": "我其實那時候是挺可憐的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:03,186",
+    "end_time": "00:13:22,715",
+    "content": "他们的手势但是太快了我永远的反应不过来他们就已经拿了差不多了最后那颗月饼就只剩下这么点给我可是我每次都很尴尬我说妈我能再吃一个吗妈就给我的一个眼神然后呢我吃点饭这就是一个好悲惨的故事呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:22,715",
+    "end_time": "00:13:45,392",
+    "content": "小时候我特别不喜欢吃肉馅的月饼好 导致我现在也是特别喜欢吃因为我当时喜欢吃肉馅的月饼我当时觉得哇 这什么月饼这么难吃啊所以肉馅的月饼是你不能介绍的口味吗对 我吃过来也不想那比如说豆浆 前豆浆和前豆浆",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:45,392",
+    "end_time": "00:13:48,381",
+    "content": "这鲜栋家是豆沾吗不不不 甜豆沾就是豆沾",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:48,381",
+    "end_time": "00:14:09,759",
+    "content": "甜的吧甜豆腐哪儿说甜豆腐哪儿呢甜的呀这个就甜的我遇到而且吃豆腐的要讲究即一定也得吃我们进换味的都不能就是刚才说加辣椒加泡椒加多椒对 加这些甜豆这 站进去行的小时候对中秋有什么特别的记忆吗你们不你有",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:09,759",
+    "end_time": "00:14:13,206",
+    "content": "小时候对维AG就是终究可以放三天这样",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:13,206",
+    "end_time": "00:14:17,692",
+    "content": "你想你的同學就放假了嗎是的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:17,692",
+    "end_time": "00:14:21,251",
+    "content": "小时候中央放上一下,有一次就回山东",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:21,251",
+    "end_time": "00:14:26,182",
+    "content": "酒流去三天短的下期提升中那我还用调修了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:26,182",
+    "end_time": "00:14:34,274",
+    "content": "你再排除中秋方家多休那两天家你不其他的工作呀好 那个不用了回去放心吧上小学的时候",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:34,274",
+    "end_time": "00:14:39,052",
+    "content": "不死啊小绝的时候不用多谈的两天上课吧我问你",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:39,052",
+    "end_time": "00:14:42,212",
+    "content": "这么少啊那必须还有个很测验的地方",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:42,212",
+    "end_time": "00:14:43,328",
+    "content": "腔熊是以為暈下來的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:43,328",
+    "end_time": "00:15:00,078",
+    "content": "忘了差不多了中期都回憶我非就是吃月餅了有沒有跟家人那些小褲子吃的或者是有趣的事情最沒有就可能是買到不好吃的月餅大家會這樣吐槽吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:00,078",
+    "end_time": "00:15:15,607",
+    "content": "那小时候你小时候几个钱是远吃吗五个小年的远吃因为我拿的远饼都不好吃拿的拿的不好吃远我拿的远饼五个小年的远吃都不好吃抓抓抓抓抓抓我这期呢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:15,607",
+    "end_time": "00:15:17,288",
+    "content": "反正什么节都试下了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:17,288",
+    "end_time": "00:15:18,333",
+    "content": "特别是中秋",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:18,333",
+    "end_time": "00:15:20,767",
+    "content": "中 Broadcasting表示到了芝士啊",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:20,767",
+    "end_time": "00:15:23,123",
+    "content": "我媽說的最多就是",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:23,123",
+    "end_time": "00:15:24,966",
+    "content": "我娘了吃饺子吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:24,966",
+    "end_time": "00:15:29,725",
+    "content": "哎今天中秋吃饺子吧哎明日国青呢吃饺子吧",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:29,725",
+    "end_time": "00:15:30,793",
+    "content": "三五五",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:30,793",
+    "end_time": "00:15:35,846",
+    "content": "啡 什麼找職員那保持時間",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:35,846",
+    "end_time": "00:15:37,340",
+    "content": "因為今年",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:37,340",
+    "end_time": "00:15:39,393",
+    "content": "我們一家都在四個不同",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:39,393",
+    "end_time": "00:15:42,065",
+    "content": "希望我们当时可以过一个线上的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:42,065",
+    "end_time": "00:15:43,136",
+    "content": "祝大家中午",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:43,136",
+    "end_time": "00:15:52,006",
+    "content": "可以不用好谢谢谢谢谢谢这个不过呀这个吃不过这个吃不过有什么话强对加油",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:52,006",
+    "end_time": "00:15:55,070",
+    "content": "早 właśnie见面",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:55,070",
+    "end_time": "00:16:03,517",
+    "content": "想得好第二期前的关键不能吗我们就他们想喝的话吧找人见面想担下了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:03,517",
+    "end_time": "00:16:08,836",
+    "content": "還有嗎我沒了真的沒有了趕緊去",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:08,836",
+    "end_time": "00:16:11,830",
+    "content": "好的好那请继续通知我们见见",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:11,830",
+    "end_time": "00:16:13,456",
+    "content": "跟初家姐沒能跟家人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:13,456",
+    "end_time": "00:16:15,423",
+    "content": "小时候除了书法的亚军的确",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:15,423",
+    "end_time": "00:16:16,945",
+    "content": "好的 那感謝從你向前",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:16,945",
+    "end_time": "00:16:18,587",
+    "content": "今天你 tune creating再见",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:18,587",
+    "end_time": "00:16:21,692",
+    "content": "雖然我不能跟我的我們家家人",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:21,692",
+    "end_time": "00:16:23,139",
+    "content": "但 Iron completely",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:23,139",
+    "end_time": "00:16:25,370",
+    "content": "在北京看月了,他们可以在床",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:25,370",
+    "end_time": "00:16:26,586",
+    "content": "算不在家了但是我们",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:26,586",
+    "end_time": "00:16:28,524",
+    "content": "正在看这个视频的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:28,524",
+    "end_time": "00:16:32,840",
+    "content": "觀眾朋友們也終究結塊了然後可以跟家人們一起看月亮",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:32,840",
+    "end_time": "00:16:34,028",
+    "content": "大家終究竟快了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:34,028",
+    "end_time": "00:16:37,094",
+    "content": "想吃什么口味都可以推荐给我",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:37,094",
+    "end_time": "00:16:39,120",
+    "content": "张大厨的身份去把它做",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:39,120",
+    "end_time": "00:16:40,330",
+    "content": "大家相信",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:40,330",
+    "end_time": "00:16:41,753",
+    "content": "中秋節快樂多吃的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:41,753",
+    "end_time": "00:16:44,910",
+    "content": "好啦.那吸着装胜今天再见拜拜",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:44,910",
+    "end_time": "00:16:49,730",
+    "content": "希望大家中秋節快樂然後都吃到這一場吃的越比",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:49,730",
+    "end_time": "00:16:51,187",
+    "content": "师父 希望师父",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:51,187",
+    "end_time": "00:16:52,389",
+    "content": "uh...",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:52,389",
+    "end_time": "00:16:55,772",
+    "content": "好 那谢谢 您的天威现身好 谢谢",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:55,772",
+    "end_time": "00:16:57,278",
+    "content": "好了相照以調漸",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:57,278",
+    "end_time": "00:16:58,601",
+    "content": "跟我爸说一个事",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:58,601",
+    "end_time": "00:17:00,729",
+    "content": "因为在之前我跟他发微信的",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:00,729",
+    "end_time": "00:17:05,278",
+    "content": "他以前跟我打拼湯去完全是为了让酒果让我们会要在所有的面前丢的面子",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:05,278",
+    "end_time": "00:17:12,582",
+    "content": "我想说我退一点你得好好的贷量如果再不贷量的话下次回来你本都变高潇了我觉得我一定打过他所以我这手一一二三十",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:14,116",
+    "end_time": "00:17:34,207",
+    "content": "好 谢谢我们的技术你们哪个台的我们带到当地位的太好看技术了就行了太好了是吧我天天看你你们说话了好 谢谢谢谢 谢谢再见",
+    "confidence": 0,
+    "language": "zh"
+  }
+]

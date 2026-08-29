@@ -1,0 +1,738 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:02,379",
+    "content": "What I liked about the book is that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:02,379",
+    "end_time": "00:00:22,606",
+    "content": "It took place in the future and it allowed me to create a future world which is always interesting for a filmmaker. But more than that, and I think what the book is really about is it's about human nature. And it's about what this young woman's going through, which I thought was very universal. And it's these issues of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:22,606",
+    "end_time": "00:00:23,899",
+    "content": "And where do I belong?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:23,899",
+    "end_time": "00:00:50,081",
+    "content": "whom I loyal to, my loyal to my group, or my family, and my loyal to myself. What do I really go out on a limb for? So I liked all those ideas and I liked that those ideas were tightly tied into this kind of epic adventure. And I had been looking to do a movie that was you know a big epic adventure. And I thought this was great because it took, it had the scope.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:50,081",
+    "end_time": "00:00:58,627",
+    "content": "of the action and of the character and of the emotion, but it also had these really intense ideas at the heart of it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:58,627",
+    "end_time": "00:01:06,539",
+    "content": "takes place in a future society where a person is permitted to be one thing and one thing only.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:06,539",
+    "end_time": "00:01:26,787",
+    "content": "And it's about this young woman, Triss, who is more than one thing, and knows she's more than one thing, and wants to be more than one thing. But that means that she's divergent. It means she doesn't fit in. It means she's different. And in this particular society, if you're different.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:26,787",
+    "end_time": "00:01:44,533",
+    "content": "For the role of Jeanine Matthews, we needed somebody that was incredibly powerful. And somebody that we felt you would believe was a genius. So there's a lot of really good actresses out there. And but there's maybe just a few that have that kind of personal power and that personal authority. And um...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:44,533",
+    "end_time": "00:01:50,522",
+    "content": "Luckily Kate Winslet who we went to love the book.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:50,522",
+    "end_time": "00:01:58,251",
+    "content": "and she loved the script and she wanted to be part of it. And so once that happened, we knew, we certainly knew we had our Janine, we knew that we had this, this...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:58,251",
+    "end_time": "00:02:23,239",
+    "content": "this heavy weight force that was going to hold down that part of the movie. I mean, she's basically the main villain in the movie. And any movie needs a great villain. And she hasn't really done anything like this before. She hadn't done anything in this kind of movie. And so it was really exciting, one, because she's a great actress, perhaps the greatest actress of her generation.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:23,239",
+    "end_time": "00:02:27,200",
+    "content": "You know, it was just really exciting to think about how she was going to play.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:27,200",
+    "end_time": "00:02:29,873",
+    "content": "that part and play with that part.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:29,873",
+    "end_time": "00:02:49,731",
+    "content": "I hope people have an intense experience and go on kind of a wild ride whether it be on the zipline or jumping off these trains or being in the fear landscapes. I hope that that's just a very cool experience for them. But then I also hope that they kind of put themselves in trisous shoes and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:49,731",
+    "end_time": "00:02:52,194",
+    "content": "come out of the movie thinking like what would I do?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:52,194",
+    "end_time": "00:02:58,161",
+    "content": "you know, would I conform to these to these factions or would I, you know,",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:58,161",
+    "end_time": "00:02:59,418",
+    "content": "Take off on my own.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:59,418",
+    "end_time": "00:03:17,259",
+    "content": "I play the character of Beatrice Pryor, more recognized as Trist Pryor, and she starts off in a faction called Abnegation, which values selflessness. And throughout the film she decides to transfer into a different faction, which values bravery, and her constant.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:17,259",
+    "end_time": "00:03:30,840",
+    "content": "The battle within her own mind is in myself, Lister, in my brave, and through that indecision, she becomes a young woman and also brings others with her and starts to save her whole colony.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:30,840",
+    "end_time": "00:03:42,235",
+    "content": "The world of divergent is giant. It's sort of unbounded. The pit alone, the pit we're in right now, is almost a size of a whole sound stage.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:42,235",
+    "end_time": "00:03:50,622",
+    "content": "They really, you know, it's one thing to read a book, especially a book about the future, and then to come up with that world through the director Neil Berger.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:50,622",
+    "end_time": "00:04:04,623",
+    "content": "and through the art department as well as every other department involved in this movie, they created something that is relatable. You know, it's something we recognize in today's world, today's society, but it's also tweak just enough to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:04,623",
+    "end_time": "00:04:10,919",
+    "content": "Established that it is something of the future. We're of the future in this movie. We're not in the present day.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:10,919",
+    "end_time": "00:04:13,758",
+    "content": "This movie is going to be so beautiful to watch. He's just...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:13,758",
+    "end_time": "00:04:23,437",
+    "content": "His capability of creating a world that doesn't exist is unbelievable. And so in awe of what he's created and what he continues to create.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:23,437",
+    "end_time": "00:04:42,507",
+    "content": "We couldn't be luckier to have a director who's so open to collaboration and who really, he doesn't seem to have an ego. I'm able to talk to him about things, but whether he agrees with them or not, he's able to hear me. And it's not just me, it's anybody on set, whether, no matter what department we're in, hair, makeup, art department.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:42,507",
+    "end_time": "00:04:51,286",
+    "content": "other actors. He's very open to collaboration and that's a beautiful and rare quality to have within such a big profound director.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:51,286",
+    "end_time": "00:04:58,935",
+    "content": "What was so beautiful about Tony Goldwyn and Ashley Judd is that they have worked together before and I had never met either of them.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:58,935",
+    "end_time": "00:05:22,762",
+    "content": "And I'll never forget the very first day that we were all on set. It was Ansel and I as well as Ashley and Tony. And Tony had such deep respect for Ashley. And Ashley had such deep respect for Tony. And they both had really, really phenomenal things to say about each other. Which doesn't always happen. You know, between two actors or between two people, two brokers or between two people who work at the fast food chain.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:22,762",
+    "end_time": "00:05:26,560",
+    "content": "So it was really amazing sort of witness the deep.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:26,560",
+    "end_time": "00:05:28,322",
+    "content": "reverence for each other and...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:28,322",
+    "end_time": "00:05:43,026",
+    "content": "Between getting to know both of them, I mean Ashley is such a strong woman who I respect so deeply. I'm in awe of what she's able to accomplish and what she does accomplish, and yet with such ease and such beauty and such just like raw, strong humanity.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:43,026",
+    "end_time": "00:05:46,178",
+    "content": "And Tony as well, I haven't worked with him as much, but he's...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:46,178",
+    "end_time": "00:05:58,197",
+    "content": "just a kind pure person, like another really strong person. We're so very fortunate in this film to be surrounded by very strong people with high integrity and with pure intentions.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:58,197",
+    "end_time": "00:06:02,161",
+    "content": "people who get things done and also who do work with the world.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:02,161",
+    "end_time": "00:06:25,629",
+    "content": "I see diversion as movie about integrity. A young adult, it follows a young adult, a young woman who leaves a faction behind which values selflessness and transfers herself into a faction that values bravery. And there's another faction that values intelligence who is trying to take over many things that they don't have the rights to take over. And throughout the movie, Triss, this young woman, has to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:25,629",
+    "end_time": "00:06:45,502",
+    "content": "bring together her community to change some paradigms and to shift some paradigms of thinking in order to not only save the current world that she lives in, but also remind people of the importance of integrity and the importance of being who you are and sticking to your truths.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:45,502",
+    "end_time": "00:07:19,406",
+    "content": "Divergent visually is going to be extremely compelling and I think that's going to bring a lot of people in because it's this new world and it's full of new experiences and new walls to sort of explore. But ultimately what drew me to this movie and what I think will draw a lot of people is that it's very metaphorical to things that are happening today. And there's a lot of beauty in that, there's a lot of beauty in seeing a movie that visually is stunning and that takes you on a roller coaster of emotions through the character's experiences. But yet you can also relate to and this being a dystopian sort of futuristic.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:19,406",
+    "end_time": "00:07:25,223",
+    "content": "world, and yet having so many comparisons today's model and to take what's going on in today's world.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:25,223",
+    "end_time": "00:07:29,887",
+    "content": "I think is very intriguing and very interesting and I think that a lot of people are responding.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:29,887",
+    "end_time": "00:07:37,130",
+    "content": "For really fits in the world he's kind of, he falls in love with Triss, but he also is this kind of mysterious character who...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:37,130",
+    "end_time": "00:07:53,257",
+    "content": "who you don't really know where he's coming from at the time or whose side he's on exactly away, he fits in in the world, but as the movie goes on and the story progresses, you begin to understand him and understand his demons and his kind of objectives in the story.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:53,257",
+    "end_time": "00:08:00,726",
+    "content": "Yeah, what is to be divergent? I mean, at the beginning you don't really know why it's such a problem or it's such a...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:00,726",
+    "end_time": "00:08:08,074",
+    "content": "a dangerous position to be in, Tris is trying to discover that herself. You know, the concept I suppose is...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:08,074",
+    "end_time": "00:08:16,663",
+    "content": "The world has reached a point where these people live within their factions, so they have to adhere to a certain way of thinking.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:16,663",
+    "end_time": "00:08:27,560",
+    "content": "So in a way that's kind of cross-overs with you know the concepts of a totalitarian regime where people kind of if they if they step outside the boundaries of normality or the you know the",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:27,560",
+    "end_time": "00:08:30,776",
+    "content": "the propaganda or the kind of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:30,776",
+    "end_time": "00:08:39,913",
+    "content": "the main core values of the system they're seeing is different or divergent or you know they're diverging from the norm and thus it's dangerous that's probably Veronica's concept.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:39,913",
+    "end_time": "00:08:42,995",
+    "content": "in its essence. But then what happens here is",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:42,995",
+    "end_time": "00:08:58,015",
+    "content": "divergent represents someone who can deviate from the norm and also can subvert the system, I suppose. So that's why it's dangerous, but you don't really know in what full context the danger comes from, but you start to discover why and it's because...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:58,015",
+    "end_time": "00:09:05,340",
+    "content": "You know, they're basically trying to curb people's thinking and curb their behavior to one way, essentially.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:05,340",
+    "end_time": "00:09:29,366",
+    "content": "I wanted him to be stronger and faster really than everyone else and feel that way, not just when we're shooting the movie. It's not the movie scene, it's not to say that the other guys aren't, that I'm some kind of legend, like ninja legend, but no, I wanted to be in a place where I was physically seemed older and mature and as if I'd had been through training because...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:29,366",
+    "end_time": "00:09:31,952",
+    "content": "you know he needs to feel you know",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:31,952",
+    "end_time": "00:09:46,687",
+    "content": "because he's kind of an officer above these kids who are coming in and he's in although they're similar in age he's trying to he's teaching them so he has to have that sense of authority so I mean I had to you know I wanted to reach a certain physical",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:46,687",
+    "end_time": "00:09:48,835",
+    "content": "physical state but also I kind of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:48,835",
+    "end_time": "00:09:54,576",
+    "content": "did my own stuff with my background in a little bit of boxing and...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:54,576",
+    "end_time": "00:10:01,368",
+    "content": "and wanted to kind of incorporate that style of movement into the way he moves, as well as felt as natural and real as possible.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:01,368",
+    "end_time": "00:10:04,578",
+    "content": "They meet as strangers in their relationship develops.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:04,578",
+    "end_time": "00:10:19,746",
+    "content": "The nice thing is, is that as we became closer as friends, the scenes were kind of developing in that way anyway. So you could feed off that, the beginning scenes where you don't know each other, you can use that, and then the later scenes where you have a kind of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:19,746",
+    "end_time": "00:10:25,950",
+    "content": "and ease in each other's company and in each other's kind of body language you can use that as well. So...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:25,950",
+    "end_time": "00:10:31,350",
+    "content": "But it's also kind of nice to see what comes in the moment and play chemistry between between people but",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:31,350",
+    "end_time": "00:10:46,332",
+    "content": "You know, you don't always know when you get on set. Sometimes you... You may have to be in a relationship with a person or you may have to be best friends with a person and you may not have natural chemistry but luckily we have, we, you know, with friends and we have that kind of natural chemistry so it's easy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:46,332",
+    "end_time": "00:10:51,166",
+    "content": "The film, if I were to sum it up, really would be about choice. It's about how you choose.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:51,166",
+    "end_time": "00:10:54,559",
+    "content": "your own destiny really and how that affects your life and whether.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:54,559",
+    "end_time": "00:11:18,283",
+    "content": "whether you can be one thing or whether in fact we're all a mixture of kind of the good and the bad. And it's also a story about kind of becoming an adult, a woman in Chase Case and a man in four and all the other characters, you know, cases and how they deal with pain and fear and death. And then also on top of that it's a love.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:18,283",
+    "end_time": "00:11:20,317",
+    "content": "Don't miss the faction of uh...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:20,317",
+    "end_time": "00:11:24,900",
+    "content": "of bravery and protection and helping people who can't help themselves and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:24,900",
+    "end_time": "00:11:35,356",
+    "content": "I think they're key because I mean in the story they kind of act like the military wing of the social hierarchy.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:35,356",
+    "end_time": "00:11:43,706",
+    "content": "But then really what they represent is kind of conquering fear above all else and acting in the face of things that are difficult.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:43,706",
+    "end_time": "00:12:00,619",
+    "content": "And also, you know, honor is a big part of the kind of dormous concept honor and strength. So at the same time, it's a flawed concept, which you find out. I mean, that's part of it, because obviously people, people, in every, because that's such an inherent part of the faction they kind of...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:00,619",
+    "end_time": "00:12:05,489",
+    "content": "take that above all else in some cases in resulting in bad consequences.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:05,489",
+    "end_time": "00:12:13,634",
+    "content": "Sisai Constris Cris y Porans yn'n oet yn ymlyck stimulationoveu slackietid yn f時d arrow hundred, tinyos.",
+    "confidence": 0,
+    "language": "cy"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:13,634",
+    "end_time": "00:12:15,921",
+    "content": "It's considered the intelligence faction.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:15,921",
+    "end_time": "00:12:47,495",
+    "content": "Well, each faction stands for a particular virtue and Jeanine is, she has a very scientific, intelligent mind and it's her desire that Erydite will be the governing faction, whereas at the beginning of the story, the governing faction is abnegation, so she is doing everything that she can to attempt to sort of out them and take over, essentially take over the world. It's pretty much her goal, so she's a very clever but not necessarily nice piece of work.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:47,495",
+    "end_time": "00:12:59,291",
+    "content": "Mae'n uliw Feitiodd sy'n injected gran i'r instal o'rrahu reffe, byd, cyliers yn mŵ from a co் translates a mŵ ro'n agodusol a'l bi'rų 2003?",
+    "confidence": 0,
+    "language": "cy"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:59,291",
+    "end_time": "00:14:07,812",
+    "content": "yr yr y gwar o p難io un pydredd o chy potato whewr diagnosed a'r Dyna pluralod Fullerton. Mae rydm Mal happenedbirds o dyna os, mae'r ppir pod neud i phlelu un bod yn isteg plydeau ac plydeau dod o neud o seťободi bun yn ffeumu acebduch oes. Fel Dolores código yw pwertyllolio eu hois i Islandhu mewn caer eu ddeungnaethys. Mae'n gallu toad felol weldedrwyfau cym llamado tewn ni. Mae dicig Yrdaf Progress wneud'n pwyllwna fel trefio car yarig bodud chi wedi ddiwed esft freefa. Mae rau bobna ar na gygdod kin iwedd, yna y mae meddwl ei gasti oes cofnianaillolch fi minw nhw I e am fungi wasionsc i'r���un angen i wrth Shuliach'r deg swich scotio sgyefort ons devam, ac esaming o rolledyn gwytir i dod â unig ddim'r gyda rydym didddaed barryddio o ar era tree.",
+    "confidence": 0,
+    "language": "cy"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:07,812",
+    "end_time": "00:14:32,144",
+    "content": "The thing for me that was the most fascinating about this story is that we as human beings we all want to count for something come from somewhere and to belong. Whether it's a family, a cult, a religion, a group of friends, whatever it is we all want to belong somewhere. And that is what this film is about. It's about establishing these five different factions, families. And you have to choose to belong.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:32,144",
+    "end_time": "00:15:02,482",
+    "content": "And if you don't or if you're cut from your faction, you are nobody, which is I think everyone's fear. It's all of our fear, you know, that we will be ostracized from society or friendship or a class or a group or something. And we fear, you know, I think as human beings, we do naturally fear being left out or other people's judgment, you know. It's, and I think it's hard in the world that we live today with so much media exposure, I think available to young kids. And so much in terms of the viral world and",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:02,482",
+    "end_time": "00:15:47,922",
+    "content": "phones and iPads and all of this stuff that pairing it all back and just being a person, being an individual, I think is even more challenging for kids now than it was for me when I was 16 years old. And so to me this film is really striking because it's very much about belonging somewhere and making that choice and making that commitment and there's a hell of a lot to be said for that, you know, there's a very basic values. So that's why I think that it is in some way quite different to a lot of the franchise pieces that have been out in the last five years because it has a very strong fundamental sort of moral message, I think, at its core. That doesn't necessarily mean it's better, it just means it's different. And for me that was the most interesting thing about this.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:47,922",
+    "end_time": "00:15:51,097",
+    "content": "I play Tory and um...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:51,097",
+    "end_time": "00:15:55,447",
+    "content": "Let us Tory fit into the world of divergent. She actually um...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:55,447",
+    "end_time": "00:16:09,067",
+    "content": "was, is, is, is, I wouldn't say an old timer, but she's a, she's a vet. Tori is sort of not one of the new kids and has been there a while and she becomes this, or is this sort of mysterious kind of character that, um...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:09,067",
+    "end_time": "00:16:17,384",
+    "content": "that Shaline's character comes in contact with who, you know, becomes this guide that she doesn't know she's going to be for her.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:17,384",
+    "end_time": "00:16:36,894",
+    "content": "But in this world that's been created for this film, there is a lot of control that goes on. There are five factions and those factions like people to fit into a certain category, live a certain way, die a certain way, be loyal in a way, be...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:36,894",
+    "end_time": "00:16:42,248",
+    "content": "subservient really in the big picture is that they have to serve their faction.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:42,248",
+    "end_time": "00:16:54,475",
+    "content": "And if you are too smart or too good or too multi-talented or you have too much going on, that's obviously not going to happen. That breeds dissent and that's not a good thing in this society.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:54,475",
+    "end_time": "00:17:16,585",
+    "content": "So, I think the leaders of all the factions, again, this is not an overt thing, but I think that the leaders of all the factions are looking out for this because a divergent would cause trouble in the status quo. And that's never a good thing. Actually, even in our own society, that's not a good thing. It's acceptable and it happens and you get into whatever trouble you get into, but in this world...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:16,585",
+    "end_time": "00:17:18,369",
+    "content": "It could cost you your life for your family's life.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:18,369",
+    "end_time": "00:17:26,611",
+    "content": "You see her for the first time at the aptitude test and...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:26,611",
+    "end_time": "00:17:53,991",
+    "content": "The thing that's cool about Tori is that she's very, she's don't list but she still has her own look. She definitely, she's very, she's very, her style specific. It's very her own. You're looking at someone who's been this for a long time, knows this and is very comfortable in her own skin. So when you see for the first time, she's juxtaposed against these kids who want to be something and are looking for something to either immerse themselves in or, or, you know, a skin that they're going to fit in, hopefully.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:53,991",
+    "end_time": "00:18:01,272",
+    "content": "And with Tori, it's not about that. She knows who she is, what hurts her, what motivates her, what she hides, what she doesn't.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:01,272",
+    "end_time": "00:18:10,685",
+    "content": "And it's parent right away. It's a parent that you don't mess with this person, that she may know more than you think she does, and that she may have something to tell you.",
+    "confidence": 0,
+    "language": "en"
+  }
+]

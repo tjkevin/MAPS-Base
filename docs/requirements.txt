@@ -1,0 +1,28 @@
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Werkzeug==3.0.1
+# 生产WSGI服务器（Windows/Linux跨平台）
+waitress==2.1.2
+# Flask debug 热重载需要（与 Werkzeug 3 配套）；Anaconda 自带旧版 watchdog 会报 EVENT_TYPE_OPENED 缺失
+watchdog>=4.0.0
+SQLAlchemy>=2.0.23
+python-dotenv==1.0.0
+requests==2.31.0
+redis>=5.0.7
+# MySQL driver (optional if using DATABASE_URL with mysql+pymysql)
+PyMySQL>=1.1.0
+cryptography>=42.0.0
+# ASR / optional heavy stack - Python 3.12 compatible versions
+# torch 2.4.1 CPU稳定版（Windows DLL加载正常，2.13+有DLL问题）
+openai-whisper>=20231117
+torch==2.4.1
+torchaudio==2.4.1
+soundfile>=0.12.1
+pydub>=0.25.1
+librosa>=0.10.1
+numpy>=1.26.0
+scipy>=1.11.4
+tiktoken>=0.5.0
+# 文档生成
+python-docx>=0.8.11

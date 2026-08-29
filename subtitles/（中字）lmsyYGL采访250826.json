@@ -1,0 +1,1034 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:08,679",
+    "content": "ao sing quite love Hey",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:08,679",
+    "end_time": "00:00:12,843",
+    "content": "สวัสดีค่ะสวัสดีค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:12,843",
+    "end_time": "00:00:21,234",
+    "content": "อย่า เป็นแรกครับสวันยาครับดูกมีครับเลย หลือใคร หลือริริงครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:22,623",
+    "end_time": "00:00:24,887",
+    "content": "โหล่อยแล้ว ข้าตัวแหล่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:24,887",
+    "end_time": "00:00:32,676",
+    "content": "สิ พวกนี้จริง นี่เจ้า นี่เจ้า นี่เจ้า นี่เจ้า นางตับอันนี้กว่า สิเพราะวัสเท่า ลือบรุ่งมีคือบแบบ นี่เจ้าอยู่แล้ว นั้นอ่ะ แต่ว่าสลับน้อง",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:32,676",
+    "end_time": "00:00:33,832",
+    "content": "Dang tämä셔 cei",
+    "confidence": 0,
+    "language": "vi"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:33,832",
+    "end_time": "00:00:37,259",
+    "content": "ก็เป็นใจมาก วับนี้ใจมากครับเพราะว่า",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:37,259",
+    "end_time": "00:00:57,131",
+    "content": "เฉาะไปเล่นมาแล้วมั้ย inningมาแล้วมันน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:57,131",
+    "end_time": "00:01:30,016",
+    "content": "เก่า ownershipelf2注意ไม่คงปลีดมันการ ท่านรักอย่างอย่างอย่างก็รู้สึกว่า ค่ะ ตัวรักคอนนี้",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:31,411",
+    "end_time": "00:01:33,161",
+    "content": "คิดว่ากันเป็นมีได้นะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:33,161",
+    "end_time": "00:01:38,078",
+    "content": "คือแกงมานัวว่า พ่อมันกายตัวน่วงมากเลยแบบ สีในกระหายสีในกระหาย",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:38,078",
+    "end_time": "00:02:11,112",
+    "content": "มีให้สียง. สีงให้เดินสischer used<|pa|>มีเหมนดั้น... เป็นๆ in aสีนสีน wash Aumd my transitioned in Just Like Väatique เหมือนหนึ่งอย่างยังไง เอา ต้องลือก็ลือออกสิ่น หรือสิ่งไหมอ่ะถ้าสิ่งก็มัน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:11,112",
+    "end_time": "00:02:15,697",
+    "content": "เป็นผู้นำหรือ หรือเป็นคนที่มีหอมมันใจรายตัวเอง",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:15,697",
+    "end_time": "00:02:32,915",
+    "content": "อย่าปล projet เอาเขาซะเอาจะตาย in my face",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:32,915",
+    "end_time": "00:02:35,444",
+    "content": "ทุกส่านตัวให้เครื่องเกรงนั้น",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:35,444",
+    "end_time": "00:02:53,596",
+    "content": "อ้า ของโนโน นู้ชอบสิน ที่ทำกาเตอฟษุกอืม อ้อ อ้ย คิดได้ยังไงคือ อิก ปิดเกินคือ คือ คือ คุณอีกแล้ว เริ่มก็ไม่คิดโดยอย่างจะทำเห็นการนี้คือ ล่ะคุณมีทำน้ำน้ำตกแต่เรื่องหา ถ้าเขาตัดออกคือ อ่ะ แล้วเป็นยัง",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:53,596",
+    "end_time": "00:03:00,139",
+    "content": "โหวววววววววววววววว LEEนฟั curseโหวววว ไงพูดมяลแต่นotion hardest aunt",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:01,344",
+    "end_time": "00:03:49,354",
+    "content": "นนี้เหรอส่uredว่า นนี้icem to ya solo mindie Sauce ทิด!!! ทิเด傷 ทิด!!!คุณลองเลยตอนนั้นนะ นั้นขอบคุณมาก ที่นี่คิดยวนทองจุด",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:54,242",
+    "end_time": "00:04:06,576",
+    "content": "ของนู นู สึกว่ามันไม่ครับ ว่า...เอ้ย นูเคยมีก่อนนั้นมาแล้ว คือ ครับไฟดีมันจะเป็นเล็กๆ น้อยหน่อยครับ แต่ว่า นี่มายก็คนข้านที่จะดีมากกว่า ก็เหมือนแบบว่า...เราแค่... มัน...",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:06,576",
+    "end_time": "00:04:23,000",
+    "content": "เดี๋ยวประ titled�วิตใสง布ชspeaksดี",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:24,187",
+    "end_time": "00:04:42,235",
+    "content": "กิน waterอ้าวหา เห็น ้องของ กกันเลยนะั่งแบบ อุขลงเนี่ยแล้วเนี่ย May 16นั่นคือขอมชิคก่อนbé เหรอของด้วยพาย เพราะกว่า เราไม่ล่ived awake เลยว่ามีสุด <|bs|> cup",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:42,235",
+    "end_time": "00:04:44,351",
+    "content": "คิวหนึ่งใส่ชุด ก็คงมันบาด",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:44,351",
+    "end_time": "00:04:46,930",
+    "content": "คือล่างลำไปยังมีอยู่บางนิ้นหนึ่ง ตอนกายจะจบแล้ว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:46,930",
+    "end_time": "00:05:06,142",
+    "content": "ใส่ไม่ได้ มันจะไปสอง ajudar pedoก็์ tears tout that he knows plane tooสุดท้าย เศ hè.สุดท้าย สุดท้าย สุดท้าย สุดént Áchoon рад คนกิน วะ discriminationมาก��นั้นจะรถสตาริธถามเลย พ regenerationว่าส Keithเดี๋ยวนะ การ  lange myavan",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:06,142",
+    "end_time": "00:05:11,716",
+    "content": "ก็กินเยอะ อันนี้กินกันอันนี้ รู้นี้ใช่ คือ ไม่ได้สั่งเลย พี่พี่สั่งตรอดใช่",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:11,716",
+    "end_time": "00:05:19,987",
+    "content": "ไม่มี มี มีกินดิจริงท้า กินเห็นได้ แต่ว่าถ้ากินบุกมันจะจูดเลย มันจะวายเลยแล้ว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:19,987",
+    "end_time": "00:05:50,589",
+    "content": "ไม่ใช่ ตามการค้ sidoไม่sizeง这样 จากลายกับแถวี้ทุกคนมีด้วยแน่น้ำมาก ดูบ้าน้ำใคร circumstance มีเป็นแีบ puedesพวกรู้มันไง ถ้าตلفเห็นเพลุยสินะ อย่าปลงดืนกล้องอінวน about me with a star in the middle of 2021 Euom Magephal Knights are without me. connecting the other parts with me look so comfortableคุณที่ดูว่าคนจะมันวิลีอันน่ะ คุณอาลุ่งมียังมันเลย คิดูอิ่ม คิดู อยู่น่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:50,589",
+    "end_time": "00:06:24,749",
+    "content": "คนมีอีกอย่างคือ นี่ Лิอร์Zeเพริ้นullenี่ไม้กินนองเครื่อหมี่皮ช I'm old residue ya 꿈กัน Everythingwed vegetablesนี่กันไม่กกัน에ท complimentsихัดฮะ what I'm sureอันนี้แบบอี หุเล่นนะ ถ้ากินหนัตพวกอือใช่ใช่ มินกับ อับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:24,749",
+    "end_time": "00:06:31,927",
+    "content": "เห็นแล้วที่มาว่าได้หนูลับล่อดดีแล้วไปตอนเขามาวหนูหนูไปบอกเขามากันก็มันหนูสปังหนูกันสืม",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:31,927",
+    "end_time": "00:06:51,581",
+    "content": "absolutamenteนั่ง! นั่ง!ดีήσยังฟุดทีมาชวน เดิoch thereครับoi r hour都บ้าดี Yok Tinmy possclamationอื่น เอาสคุณพ azdrawคือไว 알んだอื่น",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:51,581",
+    "end_time": "00:07:09,562",
+    "content": "ขอบคุณค่ะของกระลúcอิท ersจะตาร Hereเธอว่าจริงอราจถ FTแล้kieอ่ะไง ๆเหมือนในเกาพัว  Iciเอาได้เลยดูรอกริ่มอิทลอราจ เคาพัว are you?อลักaboutsนี่ are you?ว่าไง 혓ดีดูรอกกระ Hence",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:09,562",
+    "end_time": "00:07:25,978",
+    "content": "Knight ระมาณชุ admit รึง nightmares รับชีวงครั้ง ของคืนธรร Abdul ค initiatingกับ absolutamente II 的วันrationcüแค่youngหรือๆ เห Individual ย่า estracing ลู้ๆไปไม่ น้องwardama altered แล้วสิจะแล้วก็จบเลียงgroup center เป็นไม่เธyl Speech tenga  Latino מักทรในป่ smilechildชาวิต  ringsflight intensify 7 Chun",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:25,978",
+    "end_time": "00:08:07,353",
+    "content": "ที่มันไม่ดีage คิดโปรมากยังมีคน that you can't cover so muchอย่าไปว่านองมาเฮ้ว..มีว่ามามีดาicionalแต่อยากไปว่านsungไม่งั้นดงว่ามาจะไปเชื่อใจ hing拉 Mafia ได้คุณมาบอกเท่าายัง... recruitment 的โดนด aboutื่อเว้ย<|th|>บอกงาน very luckyดู sãoวัน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:07,353",
+    "end_time": "00:08:11,533",
+    "content": "做的哪",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:12,925",
+    "end_time": "00:08:13,978",
+    "content": "different The yeah",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:13,978",
+    "end_time": "00:08:53,306",
+    "content": "น치ras to meพอไม่ค่อย สนใจ พอไม่รัก นั้นคือมันความเราเตอร์ฟิวเลยเราไม่มีจิดใจจะทำอะไรเลยก็เลยสู้ว่าพอมรักคือของพอพวกคือ แบบที่สุดเลย",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:53,306",
+    "end_time": "00:08:56,971",
+    "content": "N fereng hauntal ako re可能 ra ng hit drums. Geros is wab!",
+    "confidence": 0,
+    "language": "tl"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:56,971",
+    "end_time": "00:09:17,865",
+    "content": "เขามาเขиก.. อื่นมาเรียนอย่างน own ทางท้างไปอาจกเปลี่ยนล่ะ แต่เรเธอ have a daughter's new study but Thai school is different since girls tend to be known any women but some women are only that kind of girls to young male who are never trained training. I'm sorry, but if you never want to work in front of your parents, then don't keep talking to your wand forever, like when you are sick or lying. That would Ironận UP typically Grass.",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:17,865",
+    "end_time": "00:09:19,421",
+    "content": "แล้วพล่อมองยันกับไปสิ่งมารถนึงมาก",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:19,421",
+    "end_time": "00:09:26,402",
+    "content": "แต่รู้สึกว่าตัวรอความเมื่อเมื่อการมันมีความตั้งใจมีความมุงมันสนาวรู้สึกว่า ถ้าเข้าตั้งใจแล้วเขาจะต้องทำให้ได้",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:26,402",
+    "end_time": "00:09:33,989",
+    "content": "ถ้าที่สุดแล้วไม่รู้ว่าการพรมูนจะชนาหลือไม่ชนาตะ แต่ท่ารู้สึกว่าจบไปนี้ไปไม่มั้ย ห้องมันสุดทางเข้าเข้าไปต่อในเวลียนี้",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:33,989",
+    "end_time": "00:09:39,719",
+    "content": "ค่ะ ค่ะ ค่ะก็ของตัวที่สอนให้นุ่นนิ่งคืน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:39,719",
+    "end_time": "00:09:43,725",
+    "content": "แล้วก็ ชิบอะไร รอบคอมมากคืน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:43,725",
+    "end_time": "00:09:46,432",
+    "content": "เพราะว่ามันคุณท่านต่าจะติดจริงเยอะเลยห่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:46,432",
+    "end_time": "00:09:58,360",
+    "content": "ก็นาจะได้แค่มีพอเป็นไม่ได้แหละนาจะได้แค่มีอยากเกิดพอเกิด ไม่ไว้อ้า อ้า ของนูนะคะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:58,360",
+    "end_time": "00:10:05,562",
+    "content": "ไม่ต้องตัวเอง ไม่เรียนรู้ แกการตอบแทน คนคนนึงใช่ เรื่องสึกว่า",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:05,562",
+    "end_time": "00:10:23,647",
+    "content": "อา พูดแหละใช่ ว่าเจ้าในเรา อมสู แล้วมาคือ ชุบชีวิตใหม่ให้เรา เราก็เลยตั้งใจทำงานให้เขาเราจะมีความหลัก แล้วก็ไม่อย่อมนี้ เพราะเราแบบอยากจะทำงานทุกอย่างเจ้าในพูดนุกคนนะ ไม่ใช่ พูดอย่างตัดแทน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:23,647",
+    "end_time": "00:10:39,985",
+    "content": "不用ซึ่งเลยนานจะมีบอกไหมอล », เหียว民ัตสิจะต้องตอบ hacerลม crookedอล พี่เหรอหนูไมตลอง knitงูไมตลอง live stillพี่ชมหน่อยพี่ชมหน้อย",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:39,985",
+    "end_time": "00:10:41,725",
+    "content": "ดีต่อพร้างหรือกันหรือ?อื้อ!",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:41,725",
+    "end_time": "00:10:45,438",
+    "content": "it says",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:45,438",
+    "end_time": "00:11:20,182",
+    "content": "inated 種เศวได้มือถูกเดิมเล็วระdri suppressor ฟุществแค่ Sounds like a buddy.ใครไม่ตาม in the hace as the invaluable captain of the ocean, I wrote a song for the entire ocean, that you need to be a complete amateur. แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่แค่ it takes me all in dreams.เดิตหละที่สิ้งที่พบพูดเวลาข้า the ocean in thePEados water. ผมสิ่งๆ ของaso подготовด At night.ใช่ คนรักกันคือมันยอมีคนไปได้ดีถ้าจะหมดรอบไปซ่า ต้องคงจะรู้สิกดีใจกับมีว่ามาถ้าจะมีทำอะไร ด้วยตัวมีเองแล้วมีมันสองคนคนเลยแม่ว่า นาวันนั้นจะเป็นมีคนเดียวที่ได้ไปก็รู้สึกว่า มัน...",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:20,182",
+    "end_time": "00:11:40,433",
+    "content": "!!) สองค waste, いただกตัดต่าย คุณๆ ชึ่งอคย ชำกัน Beniต์ินüzกัน ต้อง Argent dipping maisชม tremendously!!) สอรษชม สอรษชมแก!!) คือเจ้านายหนูนะคะ!!)กต corner ชอบพpy!!) ชม ชม สอรษชริพ\";  Пон こนב� reelooking Theatreคิดการชมอะไรกahahaha!!!สอ์คิด...สอ Uสอ in сок",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:40,433",
+    "end_time": "00:11:46,325",
+    "content": "อ้าเถอะ ๆ อ้าเถอะoodle hoodie คูบกันซะกล้าว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:46,325",
+    "end_time": "00:11:54,822",
+    "content": "ฝังข้าวอะไรง ก็รู้สึกว่า แค่อับเป็นเพื่อนกับคนค่ะ ดึงแล้วเขาทำดีกับเรา ก็รู้สึกดีมากขึ้น",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:54,822",
+    "end_time": "00:12:00,378",
+    "content": "สำหรับ ของรู้อ่ะ หนูไม่ได้อยากไปเพื่อเข้า ตอน มาถึงตอนแรกแล้วก็",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:00,378",
+    "end_time": "00:12:04,475",
+    "content": "ก็น่าจันไม่ใส่กันใครจ้อนังตัวเองหรอว่าเหมือน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:04,475",
+    "end_time": "00:12:08,666",
+    "content": "ยอมสนิดกัคห้าวเพื่อที่จะแบบว่าลวงความรับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:08,666",
+    "end_time": "00:12:13,380",
+    "content": "ในตอนเล็กแรง ตอนลังหลัง อาจจะมีเป็นแบง",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:13,380",
+    "end_time": "00:12:24,121",
+    "content": "ρείความ... валี่สืง!! horizont ตอนทำไมน่าอร Qing liang первый ความ tryingกระยิน neuron aunits apa  อังกัน?ก็เปิดนั้น有人 nak",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:24,121",
+    "end_time": "00:12:28,572",
+    "content": "มันได้รับดูถึงอร่วมนี้พอคุณ ผมก็ด้วยกันอยู่รังมนี้เธอเลยเนี่ยครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:28,572",
+    "end_time": "00:12:37,211",
+    "content": "ก็คือแบบเห็นแค่ล่าง โมทย์ยังไม่ได้ตัดต่อ ยังไม่ได้ใช่ใส่ว่าเพียงใส่ อะไรอย่างนี้ ก็รู้สึกว่าแบบอืม มันดีแล้วพอมาเห็น",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:37,211",
+    "end_time": "00:12:39,803",
+    "content": "ในที่มันออกมาแล้ว มันก็สื้อบรับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:39,803",
+    "end_time": "00:13:20,586",
+    "content": "เราischen  الكรรม70 รายปรวจพิดของเขาทุก Someone's Got It Stickเพซสนว่านี่ 大家ได้อีกเตอร์ นенноеและน่ะ ฟันจะเหมือนหรอมาให้เป็นแค่แต่กว่าใครารับสงแรกมาได้ ต兩 oftโชม prost therevenge fringelyมอình Europ一 és eightตegeรถเกร inve entertain snuglyاجัน you whatอรุกันไง sortsห็inea muchoไม่มีเร็นกันואתอาหันเร็นๆ แต่แบบ ให้บอดใหตรงอยู่แล้ว ไงเค้าก็มีเร็นกันhuaโทต Elle เฝอรokusว่า พี่ página 2.1 курดไป...ใช่  hors",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:20,586",
+    "end_time": "00:13:39,609",
+    "content": "มากจริงอะไร้องแล้ว Kennyก็พูดไปเนี่ยมากจริงเกิดชอบีอรulsiveไปยังมะ  มากจริงเกิดทhanได้ ไม่ได้อะไรกันเพลงกับแน่เนี่ย ต Against oneมีต้องวันไปเรื่องด้วยเราลåกๆ รู้ไงนายกับสักษณธี Assembly จากทาง reh is変 cruกับสักษณีด and you think it is localsชอบีกหรอโห้aresaฉันจริง มาขอเขารู้สึก",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:39,609",
+    "end_time": "00:14:03,091",
+    "content": "เพราะว่าไม่โอเคแล้วแค่ติดมาบูกได้เลยทำงานต่อไหนก่งเก่งเซปิดลิมากกิ่งจริงๆ สุดยอมแล้วเธอเทศอัตลายจริง คนจะนำบวันแล้วอายด้อ หรืออะไรโอ้ยกับสึงแล้ว กับสึงแล้วโอ้ยหนูกิดลูกแล้วมากันไม่มาหลีได้",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:04,447",
+    "end_time": "00:14:06,423",
+    "content": "สวัสดีค่ะ ไอวรินค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:06,423",
+    "end_time": "00:14:07,432",
+    "content": "ช่วยดีค่ะ ไหมวิกัน?",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:07,432",
+    "end_time": "00:14:08,993",
+    "content": "ขอสวัสดีค่ะ จิรันอาค",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:08,993",
+    "end_time": "00:14:11,128",
+    "content": "สัดดีข้าอย่างค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:11,128",
+    "end_time": "00:14:13,530",
+    "content": "two",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:13,530",
+    "end_time": "00:14:17,081",
+    "content": "กิ่ง ร่วยแล้วก็เป็นค่อน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:17,081",
+    "end_time": "00:14:23,097",
+    "content": "ลอกเราคนได้มีฉันชื่นมันการหาย จริงนี้ก็เขาคือว่าเขาเรียมเราเรียม",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:23,097",
+    "end_time": "00:14:24,330",
+    "content": "容量對於精定溫度",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:24,330",
+    "end_time": "00:14:27,265",
+    "content": "แต่ที่น่าคือมันใจรออยประสิน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:27,265",
+    "end_time": "00:14:31,154",
+    "content": "แค่ตัวที่ก็เป็นคนเนิงสุขุม",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:31,154",
+    "end_time": "00:14:34,860",
+    "content": "ไม่ ไม่ค่อยพูด ท่าเก็บความรู้สึกเกิน เราก็วางแพนเกิน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:34,860",
+    "end_time": "00:14:37,538",
+    "content": "In Youtube shotgun-Rekde gehahi ...",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:37,538",
+    "end_time": "00:14:39,042",
+    "content": "X-Toblet, mum!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:39,042",
+    "end_time": "00:14:45,337",
+    "content": "คิดบอกตลอด และก็ไม่มีเสียงในหัว พวกพูดออกมาทุกอย่างหรือสิ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:45,337",
+    "end_time": "00:14:54,010",
+    "content": "Happy อ่ะ สนาย ทุกคนเช่ย ยังเองอยู่ในช่วยอ่ะ คุณไอ้ ๆ ค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:55,404",
+    "end_time": "00:14:59,542",
+    "content": "นั้นอรึนอันนะเพราะว่า นั้นอรุ่นอัมคือ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:59,542",
+    "end_time": "00:15:02,038",
+    "content": "นี่มาสบการมากว่า แล้วก็...",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:02,038",
+    "end_time": "00:15:13,554",
+    "content": "เป็นคนที่คือวางแพนทุกอย่างไว้แล้ว วันนี้รอบขออืม แต่ถ้าพูดิงกับประมูนของนี้นะ หาดูสึกว่าจริงๆ เราต้องดูว่าแต่ต่อ แต่ต่อ แล้วมีความเขาในวันอะไร ความท่านัดต่อ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:18,643",
+    "end_time": "00:15:21,009",
+    "content": "มังคิดสิ่งที่เขาขาดไป เราจะมี",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:21,009",
+    "end_time": "00:15:24,024",
+    "content": "ก็เลยรู้สึกว่า ก็ต้องวัดกันว่าสุดหายแล้วเราจะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:24,024",
+    "end_time": "00:15:29,552",
+    "content": "มาสูกัน แต่ถ้าถ้ามองพับด้วยกันก็อย่างรู้สึกว่าทั้งสองคนมีความเรียม",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:29,552",
+    "end_time": "00:15:33,167",
+    "content": "แต่ถ้าเอาต้องคำถัด เร็วมีวิกาก็ ถ้าจะฉัน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:33,167",
+    "end_time": "00:15:34,254",
+    "content": "อ่ะ คิดมาก",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:34,254",
+    "end_time": "00:15:38,753",
+    "content": "Хм? Хм? Я? Я же доволен 난?",
+    "confidence": 0,
+    "language": "ru"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:38,753",
+    "end_time": "00:15:52,035",
+    "content": "ก็คงดู สุดพี่เรียนสะนา แม่นอนครับว่า อย่างแล้วคือมีเรา เลยขาที่ จริงจังก็ฟังหน่องคำ อย่างมากเลยครับเพราะว่า ฟังหน่องคำคนค่ะที่จัก ไม่สมบรรดี",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:52,035",
+    "end_time": "00:15:53,601",
+    "content": "ฉันเป็นข้าล่ะ จีอีกครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:53,601",
+    "end_time": "00:16:04,690",
+    "content": "สิ ตึงเลยนะสิ ค่ะ นิ่ง ไม่ค่ะนิ่งนะค่ะ สิค่ะ ค่ะก็รู้สึกว่า เราไปคนว่างแพนกิ่งกันแล้วค่ะเราก็ ช่วยเธอหน่าย",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:04,690",
+    "end_time": "00:16:09,485",
+    "content": "หมดนี่ต้องอาทแน่ไหมยา่า ส่านนี้",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:09,485",
+    "end_time": "00:16:19,350",
+    "content": "ก็ลูกสบวัสช่วยเจ้าไหน ได้ดีหรอว่าว่าว่าว่าแพงเจ้าไหนทำงานนี้เอาขึ้นดักฟังไปติดอะไรเนี่ยก็สุดว่าเรามีแพงการที่เราก็ต่อสู้เป็นด้วย บ้างกันบอกบองเจ้าไหน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:19,350",
+    "end_time": "00:16:21,365",
+    "content": "อ้านเรียนไอ้แล้วค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:21,365",
+    "end_time": "00:16:23,720",
+    "content": "มันต้องเป็นแบบนี้อยู่แล้วค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:23,720",
+    "end_time": "00:16:27,803",
+    "content": "上班了自己也沒上去了嗯下一位還放這裡也沒了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:27,803",
+    "end_time": "00:16:31,291",
+    "content": "Oh nice. Why? Why?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:31,291",
+    "end_time": "00:16:32,833",
+    "content": "พูดยังก่อน พูดยังก่อน",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:32,833",
+    "end_time": "00:16:35,169",
+    "content": "ช่วยวันมองคุณค่ะ อยู่แล้วพังมีคืนพักดี",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:35,169",
+    "end_time": "00:16:36,945",
+    "content": "นาลแล้วชิ้นต้องวัน ขอบไหนสอบคุณ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:36,945",
+    "end_time": "00:16:38,607",
+    "content": "아니 kidding",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:38,607",
+    "end_time": "00:16:40,336",
+    "content": "룸, 매",
+    "confidence": 0,
+    "language": "ko"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:41,456",
+    "end_time": "00:16:48,625",
+    "content": "อื้อ อีก อีกทำมันมาห้องด้วยทำงั้นอยู่แล้ว มามาห้องอีก บ้ามีกลึงสมิดลูก",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:48,625",
+    "end_time": "00:16:49,878",
+    "content": "Oh thank you. Bye.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:49,878",
+    "end_time": "00:16:51,394",
+    "content": "您您好,就 California 觉见就昨天发了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:51,394",
+    "end_time": "00:16:55,775",
+    "content": "ในเดียวกังนี้ให้เกิดชนาถ้าเกิดพอแล้วก็ตัวเองด้วยค่ะเพราะว่าทุกคนจะได้ยอมรับค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:55,775",
+    "end_time": "00:16:59,518",
+    "content": "มีแล้วที่อับพูดไม่แล้ว รักใช่หรือ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:59,518",
+    "end_time": "00:17:02,147",
+    "content": "但是完全沒把你ool!誒?",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:02,147",
+    "end_time": "00:17:06,747",
+    "content": "ในตอนนี้ หรือไม่รู้แต่หัวใจนะนะ น่ะ อันจะเคยเป็นของมือ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:06,747",
+    "end_time": "00:17:13,615",
+    "content": "เกิดเกิดเกิดเกิด ลงลูปทุกอย่างที่ทายกับไว้รินทั้งกว่า ลงให้รู้เลยว่า มีความสุขแค่ไหนที่เหมือนมา",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:13,615",
+    "end_time": "00:17:15,814",
+    "content": "ก็เป็นอะไรขาลูกแล้วพี่ทำไมนะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:15,814",
+    "end_time": "00:17:17,844",
+    "content": "Hi, oh, hi.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:17,844",
+    "end_time": "00:17:21,128",
+    "content": "ห้องอะไรดี ขอดูมีทุกอย่างล่ะว่า",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:21,128",
+    "end_time": "00:17:31,814",
+    "content": "ให้อะไรที่เขาไม่คอยมี ท่านให้ดรส ให้เขาใสดรสเพราะว่าคิดถึง ไง ว่าไม่อยู่ให้มีดรส เห็นชุดแด้ของเธอเขาไม่มีแล้ว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:31,814",
+    "end_time": "00:17:33,941",
+    "content": "那我沒買了那我沒買了",
+    "confidence": 0,
+    "language": "zh"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:33,941",
+    "end_time": "00:17:35,195",
+    "content": "ก็สึกลำคาน ค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:35,195",
+    "end_time": "00:17:37,271",
+    "content": "ไม่มี ท่าพวกทำทุกอย่างดีที่สุดแล้ว",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:37,271",
+    "end_time": "00:17:38,429",
+    "content": "2イン涙んんんんん",
+    "confidence": 0,
+    "language": "ja"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:38,429",
+    "end_time": "00:17:41,273",
+    "content": "ich bin хороший",
+    "confidence": 0,
+    "language": "de"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:41,273",
+    "end_time": "00:17:46,085",
+    "content": "มาเลยค่ะOKมาได้ไหมครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:46,085",
+    "end_time": "00:17:52,230",
+    "content": "สอสิทรับไหมครับ สิทรับไหมครับ มันต้องก่อนนะครับเจอชับตัวอยู่นี้ลีกครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:52,230",
+    "end_time": "00:17:53,961",
+    "content": "ความรับพัก",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:53,961",
+    "end_time": "00:17:56,215",
+    "content": "ฝากถึง ไขย์ดีอ่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:56,215",
+    "end_time": "00:17:58,791",
+    "content": "ฝากถึง คนใจค่ะ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:58,791",
+    "end_time": "00:18:15,875",
+    "content": "ถ้าชอบกับพูรสมา ถ้าชอบกับพูรุสมา deuxième โผลเสร็จโฮเสร็จ โผลเสร็จจะ skulleยังเหล่า aristrorelo same ใช่อ่ modified ตอนจะว่าจะเปลี่ยมาele en p<|th|>",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:15,875",
+    "end_time": "00:18:31,865",
+    "content": "อ้าว มันดำนะข้าว ภาษิตตามนะนะครับธรรมนี้สีควิตดีวันรับชอบรินๆนะครับตอนนี้ก็ EVD สีสี อ้าวนะสาติดตามใช่ครึ่งทางแล้วก็ภาษิตตามเอาใจช่วยนะครับว่า ยังกับจี หรือว่าคุณมีกับคุณอันย์จะเป็นอย่างให้ตอบไปครับ",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:31,865",
+    "end_time": "00:18:42,175",
+    "content": "ก็ติดนำแน่ทางช่องวันสำสบัติอาจทุกวันสาวเวลาสิทุกคื้นค่ะแล้วก็ล่ะ จนั้นก็สำมารับช่องอล่ะ วิร์ช่านั้นค่ะได้ที่ ICE หรือ IHIRD คำที่เดียวท่านั้น",
+    "confidence": 0,
+    "language": "th"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:42,175",
+    "end_time": "00:18:55,893",
+    "content": "ข้าแล้วก็ฝัดติดตามรี แอ่ช่انของพวกเราด้วยนะคะทุกคนพุทบราณหนึ่งทุกค่ะทาง YouTube และ Facebook ชีวิตสมหา 6600ค่ะยิง",
+    "confidence": 0,
+    "language": "th"
+  }
+]

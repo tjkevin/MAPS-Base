@@ -1,0 +1,962 @@
+[
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:00,000",
+    "end_time": "00:00:02,605",
+    "content": "It's a pleasure to have you, Yui. My pleasure.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:00:02,605",
+    "end_time": "00:00:58,920",
+    "content": "So when you first started, there was a time that you couldn't sell. You had very few followers, five to say. Five or four? Yeah. Did you see a point of making that effort? And why did you carry on? What made you carry on? I wasn't myself at the beginning when I was trying to sell goods to viewers in front of screen. I belated myself. I thought that was meaningless, because I used to be a teacher at English teacher for eight years. So I defined myself as someone who spread knowledge and what ambition, what mission they should make for the future. I am now the person to yell in front of screen. That wasn't something a teacher should do. You don't take pride in what you have to do. I didn't find the turning point, even though the world was changing for me, clapsed and re-constructed again. I didn't realize that.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:00:58,920",
+    "end_time": "00:01:01,432",
+    "content": "I was too obsessed with my past.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:01,432",
+    "end_time": "00:01:17,780",
+    "content": "Until one day I learned the story behind the fun product from Gunsoo Provis. A small county, young people go to big cities for better jobs, the elderly, lack of care, and they still need to work in a few.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:17,780",
+    "end_time": "00:01:23,006",
+    "content": "So I suddenly realized that, yeah, that was me. Come on, you were from...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:23,006",
+    "end_time": "00:01:28,034",
+    "content": "a certain kind of village just like that, a small county just like that.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:28,034",
+    "end_time": "00:01:29,052",
+    "content": "You tried hard.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:01:29,052",
+    "end_time": "00:01:47,634",
+    "content": "You learn a lot and now you have the chance to do the right thing. Why are you hesitating for a long time? So I suddenly realized that I cannot be obsessed with my past as a teacher. I do enjoy it. But...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:47,634",
+    "end_time": "00:01:52,275",
+    "content": "When you have no choice, make your current choice correct.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:52,275",
+    "end_time": "00:01:56,977",
+    "content": "So when you were making that transformation, what was the most difficult thing for you?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:56,977",
+    "end_time": "00:01:59,745",
+    "content": "How do I define myself?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:01:59,745",
+    "end_time": "00:02:04,900",
+    "content": "how I define myself is the major key for my work.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:04,900",
+    "end_time": "00:02:13,852",
+    "content": "Who do you think you are? And what do you think you are? I think this is the two major questions everybody should consider.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:13,852",
+    "end_time": "00:02:32,143",
+    "content": "Yeah, but now how would you describe yourself? You were to use just one word to identify what you're doing right now. Would it be a teacher, an influencer, an e-commerce salesperson, or something else? What would it be? I was an English teacher, but now to be honest, I am.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:32,143",
+    "end_time": "00:02:35,753",
+    "content": "promoter but I try to be an influencer in it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:35,753",
+    "end_time": "00:02:36,936",
+    "content": "That's totally different.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:36,936",
+    "end_time": "00:02:38,584",
+    "content": "I don't think I'm an influencer.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:02:38,584",
+    "end_time": "00:02:46,163",
+    "content": "Currently not yet not yet if you want to be an influencer you need to pay too much attention",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:02:46,163",
+    "end_time": "00:03:30,830",
+    "content": "to what you are trying to spread. Because if people adore you, people will learn to be you. But an influencer is what exactly a lot of followers consider you to be, because they think that you create a different vibe in your life's training sessions, and you get a lot of messages across, not just the products themselves, but also, you know, there's a sense of complexities, sophistication, and then, you know, the depths in the meaning. I tried to convey something like was positive, energetic, with these challenges in the life, but we cannot be upset all the time. I read feedbacks from the internet that people were very serious.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:30,830",
+    "end_time": "00:03:40,139",
+    "content": "mental disease watched our livestreams studio and after like months or a half year or a whole year",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:40,139",
+    "end_time": "00:03:58,193",
+    "content": "they recover. Sometimes we may face that kind of challenge too in life. We worry. You need a reason. Some people can find this reason on their own way, but still a lot of people. They may need to be kindly reminded.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:03:58,193",
+    "end_time": "00:03:59,872",
+    "content": "be repeatedly",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:03:59,872",
+    "end_time": "00:04:22,978",
+    "content": "Are you being more careful than when you started? Definitely, definitely. Social media, sometimes your language and your expression can be misunderstood. Very easily misunderstood on the internet. Especially since now you have so many followers. Especially, everyone you say, every sentence you talk can be interpreted.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:22,978",
+    "end_time": "00:04:30,786",
+    "content": "And it's definitely that we have not the sake in a change. What are some of the qualifications that you think are important before your...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:30,786",
+    "end_time": "00:04:36,339",
+    "content": "We are not sellers, we get attention, very much attention.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:36,339",
+    "end_time": "00:04:49,281",
+    "content": "When you have people's attention, you need to cherish the time they spent with you, what kind of values, what kind of knowledge, what you are trying to spread. What more does it take to become an influencer?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:49,281",
+    "end_time": "00:04:50,738",
+    "content": "You need to achieve something.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:50,738",
+    "end_time": "00:04:53,149",
+    "content": "I have it. Such as.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:53,149",
+    "end_time": "00:04:54,677",
+    "content": "Such as...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:04:54,677",
+    "end_time": "00:04:57,447",
+    "content": "Like, I had to find myself as...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:04:57,447",
+    "end_time": "00:05:04,391",
+    "content": "a man from the village and I try to help the farmers, the low income class.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:04,391",
+    "end_time": "00:05:07,141",
+    "content": "which is highly related to the land.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:07,141",
+    "end_time": "00:05:33,728",
+    "content": "I can help farmers by introducing or selling angry cultural products, but we've just started. This is the only beginning. So I want to ask you this, you way. Your responsibility of helping farmers is just your way of staying connected to a roots. Definitely. Are you trying to give back something to the land where you grew up? You know, I grew up in a rural village.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:05:33,728",
+    "end_time": "00:05:37,879",
+    "content": "And I spent my previous 18 years in that...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:05:37,879",
+    "end_time": "00:06:18,139",
+    "content": "So I know the life. I know they work really hard to get very poor income. So it's not all about selling things. Sometimes the consumers and the providers of agricultural products, they have no simultaneous information exchange. You need to make it balanced. You need to make the profit more profit into the farmers. When people need to buy something, people want cheaper price. But to be honest, the cheaper price always means... Bad quality? I'm trying to use another word about it. Yes.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:18,139",
+    "end_time": "00:06:27,509",
+    "content": "if we want lower price for agricultural products all the time, those who have no right to speak for themselves.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:27,509",
+    "end_time": "00:06:29,083",
+    "content": "they will suffer the most.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:29,083",
+    "end_time": "00:06:31,747",
+    "content": "What do you envision to be the future of the e-commerce industry?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:31,747",
+    "end_time": "00:06:51,269",
+    "content": "I don't know. It's a bonus. I'm not a business leader. I'm just a lucky young person. But in my opinion, e-commerce is just a different way. It's a different approach. You need to improve the quality. You need to improve the industry. Standards. You need to build.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:06:51,269",
+    "end_time": "00:06:53,723",
+    "content": "to self-hears at a proper...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:06:53,723",
+    "end_time": "00:07:00,134",
+    "content": "because the business industry, this need profit to make improvements to pay the worker.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:00,134",
+    "end_time": "00:07:08,894",
+    "content": "But then you found a way to associate or to transfer what you did in the past. How to interpret your own success.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:08,894",
+    "end_time": "00:07:26,901",
+    "content": "First, how do you define success? If you define yourself as a successful person, you need to achieve something which can be beneficial to yourself and to others. I am not successful because who I am, I am lucky for.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:26,901",
+    "end_time": "00:07:31,605",
+    "content": "who I am and what I am. Your rise in popularity. Did you see this coming?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:07:31,605",
+    "end_time": "00:07:35,279",
+    "content": "We were like walking in a total darkness.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:35,279",
+    "end_time": "00:07:47,466",
+    "content": "with no hint, with no hope, with no reinforcement. There was no direction. No direction. At the beginning of my introduction, like 10% was about the product.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:47,466",
+    "end_time": "00:07:55,714",
+    "content": "Other than that, I told something about the like literature, geography, history, poetry, which...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:07:55,714",
+    "end_time": "00:08:04,401",
+    "content": "They didn't care. They didn't care. You honest didn't care. At that time, nobody cared. Until one day, last June.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:04,401",
+    "end_time": "00:08:23,314",
+    "content": "Yeah, June 9th. That morning, magically, there's over thousands, yeah, thousands people flooded the aim. And they seem to be interested about my introduction, about Shakespeare, you know, I was reading Shakespeare's poem. Sonnet!",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:23,314",
+    "end_time": "00:08:28,189",
+    "content": "Uh-huh. Shall I compare thee to the summer's day? Zau, atmol, not thee.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:28,189",
+    "end_time": "00:08:34,322",
+    "content": "They were interested. I didn't know the reason why. And that was a magic moment.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:08:34,322",
+    "end_time": "00:08:37,003",
+    "content": "Totally magical moments for no reason.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:08:37,003",
+    "end_time": "00:09:01,556",
+    "content": "I cannot figure out the reason I'm seeing you now, so I can say I'm a lucky. You keep saying you're the lucky person, but then for some you seem to be the gifted person, because there are so many people like you, English, speaking, and then you know having who used to be a teacher, did you take a lot of effort to look effortless? I don't think...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:01,556",
+    "end_time": "00:09:30,801",
+    "content": "I am gifted. No, I'm not talented. I started to learn English in my junior high. At that time, I cannot spell the 26 letters in alphabet. I even made mistakes about them. So I was very angry about myself with too much frustration. I tried to memorize the words and I tried to write them down on my hand, you know, without luck.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:09:30,801",
+    "end_time": "00:09:49,778",
+    "content": "On the way I see and I memorize I try to repeat, repeat, repeat all the time. Elephants, elephants, restaurants, restaurants, stupid rap. But that was the way I chose. So do you think I'm talented or gifted? No, come on.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:49,778",
+    "end_time": "00:09:55,562",
+    "content": "You turned down many better paid job offers. Why did you do that?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:55,562",
+    "end_time": "00:09:59,413",
+    "content": "I didn't need them. I didn't need them.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:09:59,413",
+    "end_time": "00:10:04,164",
+    "content": "This is my first reaction to the offer.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:04,164",
+    "end_time": "00:10:30,302",
+    "content": "Yeah, very highly paid. Very highly paid either. But I don't need that. I mean, I have a clear intuition that if I get too much, I need to work too much. I may need to persuade people to buy too much things that they don't need. Well, this is definitely against to my...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:30,302",
+    "end_time": "00:10:42,158",
+    "content": "values which is wrong to me I cannot convince myself to do that very simple reason and also There are many companions who I like",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:10:42,158",
+    "end_time": "00:10:47,200",
+    "content": "Working with here. Does our car end up make you happy a part of yeah",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:10:47,200",
+    "end_time": "00:11:05,009",
+    "content": "I cannot say the whole thing. No. I don't enjoy selling people things honestly. Still. Still. I cannot enjoy people buy too much things just because they love me. You can shitter that a bad thing. That is definitely vicious. That is not correct. I cannot...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:05,009",
+    "end_time": "00:11:16,174",
+    "content": "take merits from the process. Buying things necessary makes your life good. Buying too much things which you don't need.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:16,174",
+    "end_time": "00:11:31,066",
+    "content": "The value you mission once you could exert a certain influence on people and to really promote your values. But then what are some of the values that you hold dear to and you're trying to promote to your followers?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:31,066",
+    "end_time": "00:11:44,039",
+    "content": "My values mainly come from my education, and also a major part from my family, from my parents. First, you need to have a correct attitude towards your life.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:11:44,039",
+    "end_time": "00:11:51,788",
+    "content": "like money is not a major thing or money is not the first and the most important thing in your life",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:11:51,788",
+    "end_time": "00:12:21,804",
+    "content": "telling people this point is not easy to be honest. It is becoming increasingly difficult, right? Because people now are enjoying greater material affluence and then they tend to live a fast-paced life. It takes them a lot of effort to really slow down. Yeah, I mean, enough material support is beneficial to your life. I don't admit for everybody. But you know, if you want to be really rich, people worry when you do want something very much.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:21,804",
+    "end_time": "00:12:29,626",
+    "content": "and makes you unhappy, makes you hesitate, and makes you make really better choice for your life.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:29,626",
+    "end_time": "00:12:36,812",
+    "content": "So this is the first thing I mean money is good, but you still need to think clear what do you want?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:36,812",
+    "end_time": "00:12:43,397",
+    "content": "People are too busy to read a book, to enjoy that afternoon just with a companion of several books.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:43,397",
+    "end_time": "00:12:45,321",
+    "content": "so they need to manage their life.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:12:45,321",
+    "end_time": "00:12:50,695",
+    "content": "You just talked about reading books literature and that really has...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:12:50,695",
+    "end_time": "00:13:17,927",
+    "content": "Shaved to you in a great way. Do you still take pleasure in reading? Now that your schedule is packed with traveling and to use? Definitely. I enjoy reading. Do you still find peace in reading? Yeah, I should say this can be my only way to find peace for my life currently. Reading books construct a bridge between you and other people. So books makes my life rich.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:17,927",
+    "end_time": "00:13:24,783",
+    "content": "So last year I tried to introduce a good book to Anders which is called Ergona Hei-Uan.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:24,783",
+    "end_time": "00:13:43,296",
+    "content": "I had only 7 or 17 years for this life, the continents, the stages, but I can express them, I can view them from the books. And also sometimes books can give you like strength, give you confidence, give you ideas.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:13:43,296",
+    "end_time": "00:13:48,192",
+    "content": "Basically, I think it can give most of the things you need other than money, you know.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:48,192",
+    "end_time": "00:13:58,673",
+    "content": "Just like the English writer, Somerset Mom has said that, you know, to acquire the habit of reading and to some extent construct for yourself a refuge.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:13:58,673",
+    "end_time": "00:14:05,153",
+    "content": "from different miseries of life. Yeah, we are all in the gutter, but some of us are looking at stars, folks are the stars.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:14:05,153",
+    "end_time": "00:14:20,345",
+    "content": "A lot of viewers like you because they see there's a strong sense of cultural identity. What is the Chinese culture or the Chinese identity signify to you? Why are they important for the younger generation that you're a drag?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:14:20,345",
+    "end_time": "00:15:00,114",
+    "content": "I am born and raised in this country with its tradition, with its cultural identity. I am a Chinese first. The books about Confucius, they've been feeding me the most when I was a child. When I say open-minded to others, I actually mean you need to accept any kind of feedbacks from the internet, from the information you are in. On the internet, if I'm most of things superficial, basically showing off. Various stupid repetition, some kind of gestures. I don't think it's meaning.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:00,114",
+    "end_time": "00:15:07,932",
+    "content": "Sometimes we are too sensitive. I don't want to be criticized. I just want to be flattered. I just want to be praised.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:07,932",
+    "end_time": "00:15:11,684",
+    "content": "Come on, stupid. I am not perfect.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:11,684",
+    "end_time": "00:15:16,123",
+    "content": "After you realize that you are not perfect, you get a conflict.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:16,123",
+    "end_time": "00:15:18,331",
+    "content": "but you still need to",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:18,331",
+    "end_time": "00:15:25,995",
+    "content": "stick to your own principle. You cannot be changed very easily. Now you are brave to face anything. See anything you want.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:15:25,995",
+    "end_time": "00:15:37,421",
+    "content": "So in a way you are becoming more mature, more accepting criticism compared to when you were a member. Definitely. Yeah. You can still find it very...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:15:37,421",
+    "end_time": "00:16:22,448",
+    "content": "Haha, unfriendly feedbacks from the internet for me. Okay, I heard it. I saw it. I know. I don't care. I am still me, myself. There was a person who typed you are so ugly. Why are you here? Why are you here for whole night? Did that hurt your feelings? At first, yeah. Well, I realized, yeah, I wasn't good looking at all. But once you've joked on your live streaming show, that some followers say that you resent both of your territorial warriors. Yeah, I do like a Terricotta warrior, which is my privilege, because definitely my privilege. Yeah, it's certainly a nice way to live. When you see me, you see history.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:16:22,448",
+    "end_time": "00:16:47,967",
+    "content": "You are not perfect too. Come on. You're just being mean. I'm just being kind. And you become free of all the biases. There's a lot of discussion right now about the evolution of this generation, which is characterized by fast-paced lifestyle and your competition with your peers. And already at a very young age, people are tired and lost.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:47,967",
+    "end_time": "00:16:53,634",
+    "content": "will be your advice to the generation, to this evolution generation. Well...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:16:53,634",
+    "end_time": "00:17:02,336",
+    "content": "So you need to be focused. At most conditions, people are distracted by too many devices, by too many proposals.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:02,336",
+    "end_time": "00:17:03,977",
+    "content": "and buy too many",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:03,977",
+    "end_time": "00:17:06,753",
+    "content": "I don't think we need...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:06,753",
+    "end_time": "00:17:09,813",
+    "content": "to know too much. When you think too much, you act.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:09,813",
+    "end_time": "00:17:32,430",
+    "content": "to later. So be focused, be simple minded. Second, you need to be determined. We don't know what kind of future life holds for you. You can't hesitate, you can't doubt yourself. But please do not stop, continue to move. Don't give up easily. I don't say never stop.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:32,430",
+    "end_time": "00:17:33,978",
+    "content": "activation do experiência스 que não prevух",
+    "confidence": 0,
+    "language": "pt"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:33,978",
+    "end_time": "00:17:39,673",
+    "content": "We live in the age when everything changed so fast. Please do not...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:17:39,673",
+    "end_time": "00:17:40,877",
+    "content": "to the future.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:40,877",
+    "end_time": "00:17:49,934",
+    "content": "shape their future or make the future. Don't expect yourself to make the correct choice all the time. But please follow the train to fast.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:17:49,934",
+    "end_time": "00:18:02,082",
+    "content": "And third, I think you do need to be open-minded and to collect your ideas, to put your words in your way, instead of listening to...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:02,082",
+    "end_time": "00:18:04,061",
+    "content": "to many voices from around.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:04,061",
+    "end_time": "00:18:21,257",
+    "content": "because everybody is trying to tell you what you should do. But that is your life. You need to make your own choice. And men are constantly searching for meaning. There needs to be a sense of purpose to keep you going, to keep you strong. Have you found that purpose?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:21,257",
+    "end_time": "00:18:22,500",
+    "content": "Making",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:22,500",
+    "end_time": "00:18:27,092",
+    "content": "people's life that are with my own ability.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:27,092",
+    "end_time": "00:18:34,633",
+    "content": "provides meaning to me. Well, from my previous education, I think I'm the person with mission.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:34,633",
+    "end_time": "00:18:47,337",
+    "content": "The previous literacy in history told you that if you still poor, please manage your life very well. But if you have the chance to do something.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:47,337",
+    "end_time": "00:18:49,686",
+    "content": "any video or stuff and others.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:49,686",
+    "end_time": "00:18:56,510",
+    "content": "still consider the chance my fame or the social attention paid to me.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:18:56,510",
+    "end_time": "00:18:57,872",
+    "content": "That was something.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:18:57,872",
+    "end_time": "00:19:24,738",
+    "content": "The faith has chosen to give me and make me to do correct the faiths instead of to make profit for myself. For a reason, come on, I am not so good looking. I'm not tall. I'm a handsome, not handsome. That was me. There's got to be a reason why I was the chosen one. And finally, Quee, if you were to introduce yourself to a global audience, who may not be that familiar with you in a few sentences, what would you say about yourself?",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:24,738",
+    "end_time": "00:19:37,894",
+    "content": "A young man with not very good English, especially my accents and pronunciation and grammatical mistake, sorry. Yeah, you suffered a lot in this interview. Thank you.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:37,894",
+    "end_time": "00:19:47,083",
+    "content": "Thank you so much for your time. To share with us all the spots, your spruggles, especially over the year and the things that you.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:47,083",
+    "end_time": "00:19:48,962",
+    "content": "but still it's just how I do it.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:48,962",
+    "end_time": "00:19:52,469",
+    "content": "Well, I want to explain for my... my behavior.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:52,469",
+    "end_time": "00:19:54,317",
+    "content": "You may find it strange but...",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:19:54,317",
+    "end_time": "00:19:57,479",
+    "content": "I don't think they find or introduce myself.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:19:57,479",
+    "end_time": "00:20:04,269",
+    "content": "It's useful. You cannot make people believe who you are by introducing yourself.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:04,269",
+    "end_time": "00:20:06,588",
+    "content": "people believe who you are.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人1",
+    "start_time": "00:20:06,588",
+    "end_time": "00:20:11,340",
+    "content": "from their dimension. They define you by what you do.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:11,340",
+    "end_time": "00:20:13,146",
+    "content": "This is definitely an input.",
+    "confidence": 0,
+    "language": "en"
+  },
+  {
+    "speaker": "说话人2",
+    "start_time": "00:20:13,146",
+    "end_time": "00:20:15,090",
+    "content": "Thank you. Thank you.",
+    "confidence": 0,
+    "language": "en"
+  }
+]
