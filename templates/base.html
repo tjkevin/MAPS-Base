@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{% block title %}多模态数据采集处理系统{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -79,8 +80,8 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* 导航链接样式 */
-        .nav-link {
+        /* 导航链接样式（反馈#8：选择器收窄到侧边栏，避免白字样式泄漏到内容区 nav-tabs 导致标签页不可见）*/
+        .sidebar .nav-link {
             display: flex;
             align-items: center;
             padding: 15px 25px;
@@ -96,7 +97,7 @@
             overflow: hidden;
         }
 
-        .nav-link::before {
+        .sidebar .nav-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -107,25 +108,25 @@
             transition: left 0.5s ease;
         }
 
-        .nav-link:hover::before {
+        .sidebar .nav-link:hover::before {
             left: 100%;
         }
 
-        .nav-link:hover {
+        .sidebar .nav-link:hover {
             background: rgba(255, 255, 255, 0.15);
             color: white;
             transform: translateX(5px);
             border-left-color: rgba(255, 255, 255, 0.5);
         }
 
-        .nav-link.active {
+        .sidebar .nav-link.active {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border-left-color: #fff;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .nav-link i {
+        .sidebar .nav-link i {
             width: 24px;
             height: 24px;
             margin-right: 15px;
@@ -136,12 +137,50 @@
             transition: all 0.3s ease;
         }
 
-        .nav-link:hover i {
+        .sidebar .nav-link:hover i {
             transform: scale(1.1);
         }
 
-        .nav-link.active i {
+        .sidebar .nav-link.active i {
             transform: scale(1.1);
+        }
+
+        /* 反馈#8：内容区标签页（采集/处理等页面的 nav-tabs）常显清晰，未悬停也可见 */
+        .main-content .nav-tabs {
+            border-bottom: 2px solid #e3e6f0;
+            margin-bottom: 1.25rem;
+            gap: 4px;
+        }
+        .main-content .nav-tabs .nav-link {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid #e3e6f0;
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 9px 22px;
+            margin-bottom: -2px;
+            background: #f6f7fb;
+            transition: all 0.25s ease;
+        }
+        .main-content .nav-tabs .nav-link:hover {
+            background: #eef0fb;
+            color: #764ba2;
+            border-color: #d5daf5;
+        }
+        .main-content .nav-tabs .nav-link.active,
+        .main-content .nav-tabs .nav-link.show {
+            color: #fff;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+        }
+        .main-content .tab-content > .tab-pane {
+            animation: fadeInTab 0.25s ease;
+        }
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* 主内容区域 */
@@ -392,6 +431,76 @@
             color: #333;
         }
 
+        /* 反馈#8：整站轻度美化（不改紫渐变风格，仅细化层次与交互） */
+        .main-content .card {
+            border: 1px solid rgba(102, 126, 234, 0.12);
+        }
+        .main-content .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(102, 126, 234, 0.12);
+        }
+        /* 宽表行悬停不再缩放（避免抖动），保留浅紫底色 */
+        .table tbody tr:hover {
+            transform: none;
+            background: rgba(102, 126, 234, 0.06);
+        }
+        /* 二级胶囊导航（任务管理监控子页等） */
+        .main-content .nav-pills .nav-link {
+            color: #667eea;
+            font-weight: 600;
+            border-radius: 20px;
+            padding: 6px 18px;
+            transition: all 0.25s ease;
+        }
+        .main-content .nav-pills .nav-link:hover {
+            background: rgba(102, 126, 234, 0.08);
+        }
+        .main-content .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        /* 下拉框与输入框风格统一 */
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid #e1e5e9;
+            transition: all 0.3s ease;
+        }
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        /* 弹窗圆角与阴影 */
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        .modal-header {
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+        }
+        .modal-footer {
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+        }
+        /* 小按钮轻微悬浮反馈 */
+        .btn-sm {
+            transition: all 0.2s ease;
+        }
+        .btn-sm:hover {
+            transform: translateY(-1px);
+        }
+        /* 内容区滚动条细化 */
+        .main-content ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .main-content ::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.25);
+            border-radius: 4px;
+        }
+        .main-content ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.45);
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .sidebar {
@@ -419,22 +528,34 @@
             .content-card {
                 padding: 20px;
             }
+
+            .language-toggle {
+                right: 20px;
+                top: 20px;
+            }
+
+            .user-info {
+                right: 20px;
+                top: 70px;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         /* 用户信息区域 */
         .user-info {
             position: fixed;
             top: 20px;
-            right: 30px;
+            right: 20px;
             z-index: 1001;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
@@ -442,36 +563,37 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-size: 14px;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .user-details {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 8px 12px;
+            border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .user-name {
             font-weight: 600;
             color: #333;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .user-role {
             color: #666;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .logout-btn {
             background: rgba(220, 53, 69, 0.1);
             color: #dc3545;
             border: 1px solid rgba(220, 53, 69, 0.3);
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 18px;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -481,14 +603,49 @@
             color: white;
             text-decoration: none;
         }
+
+        /* 反馈#8：CN/EN 按钮缩小并向页面中间移动，改用主题紫底白字保证浅背景下清晰可见 */
+        .language-toggle {
+            position: fixed;
+            top: 23px;
+            right: 340px;
+            z-index: 1002;
+            display: flex;
+            gap: 4px;
+        }
+
+        .language-btn {
+            padding: 2px 10px;
+            border: 1px solid rgba(255,255,255,0.85);
+            background: rgba(102, 126, 234, 0.55);
+            color: #fff;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 11px;
+            line-height: 1.7;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .language-btn:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #fff;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
+        }
+
+        .language-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #fff;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.35);
+        }
     </style>
 </head>
 <body>
-    {% if current_user.username == 'testuser' and current_user.role == 'super_admin' %}
-    {% set ui_display_name = 'GR' %}
-    {% else %}
-    {% set ui_display_name = (current_user.full_name or current_user.username or 'U') %}
-    {% endif %}
+    {# 反馈#8：显示名优先取账号昵称（nickname，全员可设），其次姓名/账号；超管昵称 GR 由用户数据配置 #}
+    {% set ui_display_name = (current_user.nickname or current_user.full_name or current_user.username or 'U') %}
     <!-- 用户信息 -->
     <div class="user-info">
         <div class="user-avatar">
@@ -496,11 +653,24 @@
         </div>
         <div class="user-details">
             <div class="user-name">{{ ui_display_name }}</div>
-            <div class="user-role">{{ '管理员' if current_user.role == 'admin' else '用户' }}</div>
+            <div class="user-role">{% if current_user.role == 'super_admin' %}超级管理员{% elif current_user.role == 'admin' %}系统管理员{% elif current_user.role == 'inspector' %}质检审核{% elif current_user.role == 'recorder' %}采集与处理{% else %}用户{% endif %}</div>
         </div>
-        <a href="{{ url_for('logout') }}" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i> 退出
+        <a href="{{ url_for('profile_page') }}" class="logout-btn" style="margin-right:6px;" title="个人中心">
+            <i class="fas fa-user-circle"></i>
         </a>
+        <form method="post" action="{{ url_for('logout') }}" style="display:inline;margin:0;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="logout-btn" title="退出登录"
+                    style="border:none;background:none;cursor:pointer;padding:0;font:inherit;color:inherit;">
+                <i class="fas fa-sign-out-alt"></i> 退出
+            </button>
+        </form>
+    </div>
+
+    <!-- Language Toggle Buttons -->
+    <div class="language-toggle">
+        <a href="{{ url_for('switch_language', language='cn') }}" class="language-btn {% if session.get('language', 'cn') == 'cn' %}active{% endif %}">CN</a>
+        <a href="{{ url_for('switch_language', language='en') }}" class="language-btn {% if session.get('language', 'cn') == 'en' %}active{% endif %}">EN</a>
     </div>
 
     <!-- 侧边栏 -->
@@ -518,6 +688,7 @@
                         <span>仪表板</span>
                     </a>
                 </li>
+                {% if current_user.role in ['recorder', 'admin', 'super_admin'] %}
                 <li class="nav-item">
                     <a class="nav-link {% if request.endpoint == 'upload' %}active{% endif %}" href="{{ url_for('upload') }}">
                         <i class="fas fa-database"></i>
@@ -530,19 +701,37 @@
                         <span>数据处理</span>
                     </a>
                 </li>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.role in ['admin', 'super_admin', 'inspector'] %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'audit_page' %}active{% endif %}" href="{{ url_for('audit_page') }}">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>数据审核</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if current_user.role in ['admin', 'super_admin'] %}
                 <li class="nav-item">
                     <a class="nav-link {% if request.endpoint == 'manage' %}active{% endif %}" href="{{ url_for('manage') }}">
-                        <i class="fas fa-database"></i>
+                        <i class="fas fa-folder-open"></i>
                         <span>数据管理</span>
                     </a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link {% if request.endpoint == 'tasks' %}active{% endif %}" href="{{ url_for('tasks') }}">
                         <i class="fas fa-tasks"></i>
                         <span>任务管理</span>
                     </a>
                 </li>
-                {% if current_user.role == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'messages_page' %}active{% endif %}" href="{{ url_for('messages_page') }}" style="position:relative;">
+                        <i class="fas fa-bell"></i>
+                        <span>消息中心</span>
+                        <span id="navUnreadBadge" class="badge bg-danger" style="position:absolute;top:4px;right:8px;min-width:18px;height:18px;line-height:18px;padding:0 4px;border-radius:9px;font-size:.68rem;text-align:center;display:none;z-index:5;">0</span>
+                    </a>
+                </li>
+                {% if current_user.role in ['admin', 'super_admin'] %}
                 <li class="nav-item">
                     <a class="nav-link {% if request.endpoint == 'users' %}active{% endif %}" href="{{ url_for('users') }}">
                         <i class="fas fa-users-cog"></i>
@@ -583,6 +772,30 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // 反馈#7：消息中心微信式未读红圈角标——60s 轮询未读数，0 时隐藏
+    (function () {
+        function refreshUnreadBadge() {
+            var badge = document.getElementById('navUnreadBadge');
+            if (!badge) return;
+            fetch('/api/messages/unread-count', { credentials: 'same-origin' })
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (data) {
+                    if (!data) return;
+                    var n = parseInt(data.count != null ? data.count : data.inbox, 10) || 0;
+                    if (n > 0) {
+                        badge.textContent = n > 99 ? '99+' : String(n);
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                })
+                .catch(function () { /* 静默失败，不打扰页面 */ });
+        }
+        document.addEventListener('DOMContentLoaded', refreshUnreadBadge);
+        setInterval(refreshUnreadBadge, 60000);
+    })();
+    </script>
     {% block scripts %}{% endblock %}
 </body>
-</html> 
+</html>

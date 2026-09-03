@@ -1,11 +1,138 @@
 {% extends "base_en.html" %}
 
 {% block title %}Task Management - MAPS{% endblock %}
+{% block page_title %}Task Management{% endblock %}
+{% block page_subtitle %}Statistics overview and full workflow: create · claim · execute · review · score · archive{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Task Management</h1>
-    
+<div class="container-fluid">
+    <h1 class="mb-4 d-none d-md-block">Task Management</h1>
+
+    <!-- Feedback #8: top-level tabs — Tasks & Stats / Model Backends & Queue Monitoring -->
+    <ul class="nav nav-tabs mb-3" id="taskMainTabs" role="tablist">
+        {% if current_user.role in ['admin', 'super_admin'] %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
+                <i class="fas fa-paper-plane"></i> Task Initiation
+            </button>
+        </li>
+        {% endif %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
+                <i class="fas fa-tasks"></i> Tasks &amp; Statistics
+            </button>
+        </li>
+        {% if current_user.role in ['admin', 'super_admin'] %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mainTabMonitor" data-pane="paneMonitor" type="button" role="tab">
+                <i class="fas fa-microchip"></i> Model Backends &amp; Queue Monitoring
+            </button>
+        </li>
+        {% endif %}
+    </ul>
+
+    <div id="paneTasks">
+    <div class="card mb-4">
+        <div class="card-header">Workflow Tasks</div>
+        <div class="card-body">
+            <p class="small text-muted">System/super admins can create drafts and publish (feedback #7: collectors cannot publish tasks); pool tasks can be claimed by eligible roles; executors report progress and submit for review; reviewers approve/reject; creators score; admins archive.</p>
+            {% if current_user.role in ['admin', 'super_admin'] %}
+            <div class="row g-2 mb-3 border-bottom pb-3">
+                <div class="col-md-2"><input class="form-control form-control-sm" id="wf_title" placeholder="Task name"></div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" id="wf_category">
+                        <option value="collect">Collect</option>
+                        <option value="process" selected>Process</option>
+                        <option value="audit">Audit</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm" id="wf_assign">
+                        <option value="manual">Manual assign</option>
+                        <option value="auto">Auto balance</option>
+                        <option value="pool">Pool claim</option>
+                    </select>
+                </div>
+                <div class="col-md-1"><input class="form-control form-control-sm" id="wf_count" type="number" value="10" min="1" title="Target count"></div>
+                <div class="col-md-1">
+                    <select class="form-select form-select-sm" id="wf_priority">
+                        <option value="high">High</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><input class="form-control form-control-sm" id="wf_end" type="date" title="Due date"></div>
+                <div class="col-md-2"><button type="button" class="btn btn-sm btn-primary" id="btnWfCreate">Create draft</button></div>
+                <div class="col-12 mt-1"><input class="form-control form-control-sm" id="wf_accept" placeholder="Acceptance criteria (optional)"></div>
+            </div>
+            {% endif %}
+            <div class="row g-2 mb-2">
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-primary" id="btnWfList">All tasks</button></div>
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-secondary" id="btnWfMine">My tasks</button></div>
+                <div class="col-auto"><button type="button" class="btn btn-sm btn-outline-success" id="btnWfPool">Pool (claimable)</button></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead><tr><th>No.</th><th>Title</th><th>Category</th><th>Mode</th><th>Status</th><th>Progress</th><th>Due</th><th>Actions</th></tr></thead>
+                    <tbody id="wfTaskBody"></tbody>
+                </table>
+            </div>
+            <div class="mt-2 small" id="wfDetail"></div>
+        </div>
+    </div>
+
+    <!-- Feedback #9 req.3b: in-progress data overview for admins/super admins (processing/fix/review) -->
+    {% if current_user.role in ['admin', 'super_admin'] %}
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">In-progress Data Overview <small class="text-muted">processing / review pipeline</small></h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnIpRefresh"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-3" id="ipTiles">
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0" id="ipCntPending">–</div><div class="small text-muted">Pending processing</div></div></div>
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0 text-danger" id="ipCntFix">–</div><div class="small text-muted">Sent back for fix</div></div></div>
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0 text-warning" id="ipCntReview">–</div><div class="small text-muted">Pending review</div></div></div>
+            </div>
+            <div class="table-responsive" style="max-height:360px;overflow-y:auto;">
+                <table class="table table-sm table-striped align-middle">
+                    <thead style="position:sticky;top:0;background:#fff;">
+                    <tr><th>Data ID</th><th>Filename</th><th>Type</th><th>Status</th><th>Uploader</th><th>Processor</th><th>Reviewer</th><th>Collect No.</th><th>Time</th></tr>
+                    </thead>
+                    <tbody id="ipBody"><tr><td colspan="9" class="text-muted text-center">Loading…</td></tr></tbody>
+                </table>
+            </div>
+            <div class="small text-muted mt-1">"Processor" shows the current claim-lock holder (15-min renewable lock); if no lock, the latest processor who submitted a result. "Reviewer" shows the auditor who most recently opened this pending-review item.</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Feedback #6: compute usage stats (admins see platform-wide; regular users see only their own) -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Compute Usage <small class="text-muted" id="csScopeLabel"></small></h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnCsRefresh"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-3" id="csTiles"></div>
+            <div class="row">
+                <div class="col-md-5">
+                    <h6>By inference backend (last 30 days)</h6>
+                    <table class="table table-sm table-striped align-middle">
+                        <thead><tr><th>Backend</th><th class="text-end">Credits used</th><th class="text-end">Calls</th></tr></thead>
+                        <tbody id="csBackendBody"><tr><td colspan="3" class="text-muted text-center">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="col-md-7">
+                    <h6>Last 30 days trend (credits/day)</h6>
+                    <div id="csTrend" class="d-flex align-items-end gap-1" style="height:120px;"></div>
+                    <div class="d-flex justify-content-between small text-muted mt-1"><span>30 days ago</span><span>Today</span></div>
+                </div>
+            </div>
+            <div class="mt-3" id="csExtraWrap"></div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12 mb-4">
             <div class="card">
@@ -29,21 +156,37 @@
                             </button>
                         </div>
                     </form>
-                    
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3 col-6">
                             <div class="card bg-light">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">Total Videos</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-video"></i> Total Videos</h6>
                                     <h2 id="totalVideos">0</h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3 col-6">
                             <div class="card bg-light">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">Total Duration</h6>
-                                    <h2 id="totalDuration">0:00:00</h2>
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-headphones"></i> Total Audios</h6>
+                                    <h2 id="totalAudios">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-image"></i> Total Images</h6>
+                                    <h2 id="totalImages">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-clock"></i> Total A/V Duration</h6>
+                                    <h2 class="fs-4" id="totalDuration">0:00:00</h2>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +194,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -81,7 +224,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-12 mt-4">
             <div class="card">
                 <div class="card-header">
@@ -93,10 +236,12 @@
                             <thead>
                                 <tr>
                                     <th>Account</th>
-                                    <th>Recorded Videos</th>
-                                    <th>Total Duration</th>
-                                    <th>Completed Tasks</th>
-                                    <th>Compensation Status</th>
+                                    <th>Videos</th>
+                                    <th>Audios</th>
+                                    <th>Images</th>
+                                    <th>A/V Duration</th>
+                                    <th>Tasks Done</th>
+                                    <th>Compensation</th>
                                 </tr>
                             </thead>
                             <tbody id="userPerformance">
@@ -108,12 +253,314 @@
             </div>
         </div>
     </div>
+    </div><!-- /paneTasks -->
+
+    {% if current_user.role in ['admin', 'super_admin'] %}
+    <div id="paneMonitor" class="d-none">
+        <!-- Second-level tabs: Queue overview / External LLM API config (super admin only) -->
+        <ul class="nav nav-pills mb-3" id="monitorSubTabs">
+            <li class="nav-item">
+                <button class="nav-link active" id="subTabOverview" data-subpane="subOverview" type="button">
+                    <i class="fas fa-heart-pulse"></i> Queue Monitoring Overview
+                </button>
+            </li>
+            {% if current_user.role == 'super_admin' %}
+            <li class="nav-item">
+                <button class="nav-link" id="subTabLlm" data-subpane="subLlmConfig" type="button">
+                    <i class="fas fa-key"></i> External LLM API Config
+                </button>
+            </li>
+            {% endif %}
+        </ul>
+
+        <!-- ========== Sub-pane A: Queue monitoring overview ========== -->
+        <div id="subOverview">
+            <div class="card mb-3 border-info">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-microchip text-info"></i> Model Backend Status</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadModelQuota()"><i class="fas fa-sync"></i> Refresh</button>
+                    <button class="btn btn-sm btn-outline-danger" type="button" onclick="recoverStuck()"><i class="fas fa-ambulance"></i> Scan stuck tasks</button>
+                    <button class="btn btn-sm btn-outline-dark" type="button" onclick="loadDeadTasks()"><i class="fas fa-skull"></i> Dead-letter queue</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2" id="modelStatusRow">
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="gpuAutodlBox">autoDL full: loading…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="gpuLocalBox">LAN optimized: loading…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="llmBox" style="cursor:pointer">External LLM: loading…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="workerBox">Workers: loading…</div></div>
+                    </div>
+                    <div class="small text-muted mt-2">
+                        Image/audio-video understanding tasks run on BAGEL backends (autoDL full / LAN optimized, with automatic failover); pure-text tasks are routed to the external LLM.
+                        {% if current_user.role == 'super_admin' %}
+                        Click the "External LLM" status box or the "External LLM API Config" tab above to manage the API key.
+                        {% endif %}
+                    </div>
+                    <div id="deadTasksBox" class="mt-3 d-none">
+                        <div class="fw-semibold small mb-1">Dead-letter tasks (failed after 3 retries; can be re-queued manually)</div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead><tr><th>Task ID</th><th>Backend</th><th>Data ID</th><th>Error</th><th>Time</th><th>Actions</th></tr></thead>
+                                <tbody id="deadTaskList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback #8: live queue monitoring (running count / progress / model in use, auto-refresh 5s) -->
+            <div class="card mb-3 border-primary">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-list-check text-primary"></i> Live Queue Monitoring</span>
+                    <span class="badge bg-success" id="liveAutoBadge"><i class="fas fa-circle-notch fa-spin"></i> Auto-refresh 5s</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadQueueLive()"><i class="fas fa-sync"></i> Refresh now</button>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center g-2 mb-3" id="queueCountTiles"></div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-bolt text-primary"></i> Running tasks (model in use and progress)</div>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>Task</th><th>Data file</th><th>Type</th><th>Model in use</th><th>Worker node</th><th>Progress</th><th>Elapsed</th><th>Submitted by</th><th>Est. credits</th></tr></thead>
+                            <tbody id="liveRunningBody"><tr><td colspan="9" class="text-muted small text-center">Loading…</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-hourglass-half text-secondary"></i> Queued tasks</div>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>Queue pos.</th><th>Task</th><th>Data file</th><th>Type</th><th>Routed backend</th><th>Submitted by</th><th>Waited</th></tr></thead>
+                            <tbody id="liveQueuedBody"><tr><td colspan="7" class="text-muted small text-center">Loading…</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-rotate text-warning"></i> Retry wait</div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>Task</th><th>Data file</th><th>Attempts</th><th>Next run</th><th>Last error</th></tr></thead>
+                            <tbody id="liveRetryBody"><tr><td colspan="5" class="text-muted small text-center">Loading…</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- External LLM traffic & compute usage stats (moved from User Management) -->
+            <div class="card mb-3 border-success">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-chart-line text-success"></i> External LLM Traffic &amp; Compute Usage</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadLlmUsage()"><i class="fas fa-sync"></i> Refresh</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Total calls</div><div class="fs-5 fw-bold" id="llmTotCalls">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Failed calls</div><div class="fs-5 fw-bold text-danger" id="llmTotFailed">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Total tokens</div><div class="fs-5 fw-bold" id="llmTotTokens">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Total credits used</div><div class="fs-5 fw-bold" id="llmTotCredits">0</div></div></div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="fw-semibold small mb-1">Token trend (last 30 days)</div>
+                            <div id="llmDailyTrend" class="small text-muted">No data</div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="fw-semibold small mb-1">By user (algorithm processing + audit review)</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead><tr><th>Account</th><th>Calls</th><th>Tokens</th><th>Credits</th></tr></thead>
+                                    <tbody id="llmByUser"><tr><td colspan="4" class="text-muted small">Loading…</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /subOverview -->
+
+        <!-- ========== Sub-pane B: External LLM API config (super admin only) ========== -->
+        {% if current_user.role == 'super_admin' %}
+        <div id="subLlmConfig" class="d-none">
+            <div class="card mb-3 border-danger">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-key text-danger"></i> External LLM API Configuration (core system config · super admin only)</span>
+                    <span class="badge bg-secondary" id="llmConfiguredBadge">—</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="switchSubPane('subOverview')"><i class="fas fa-arrow-left"></i> Back to queue monitoring</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-3">
+                            <label class="form-label small mb-1">External LLM provider</label>
+                            <select class="form-select form-select-sm" id="llmProvider">
+                                <option value="deepseek" selected>DeepSeek (available now)</option>
+                                <option value="qwen" disabled>Qwen (reserved, coming soon)</option>
+                                <option value="zhipu" disabled>Zhipu GLM (reserved, coming soon)</option>
+                                <option value="kimi" disabled>Moonshot Kimi (reserved, coming soon)</option>
+                                <option value="openai_compat" disabled>OpenAI-compatible API (reserved, coming soon)</option>
+                            </select>
+                            <div class="form-text">The external LLM handles text-only understanding and review. Currently only the DeepSeek provider is integrated and ready to use; the other providers are reserved slots and can be enabled once their API details are configured.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small mb-1">API Key (enter sk-…; leave blank to keep unchanged)</label>
+                            <input type="password" class="form-control form-control-sm" id="llmApiKey" autocomplete="off" placeholder="Paste external LLM API key">
+                            <div class="form-text">Current: <span id="llmApiKeyMasked" class="text-monospace">—</span></div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small mb-1">Base URL</label>
+                            <input type="text" class="form-control form-control-sm" id="llmBaseUrl" placeholder="https://api.deepseek.com">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">Model</label>
+                            <input type="text" class="form-control form-control-sm" id="llmModel" placeholder="deepseek-chat">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">Daily token limit</label>
+                            <input type="number" class="form-control form-control-sm" id="llmDaily" min="0" placeholder="0=none">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">Monthly token limit</label>
+                            <input type="number" class="form-control form-control-sm" id="llmMonthly" min="0" placeholder="0=none">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-2 align-items-center">
+                        <button class="btn btn-sm btn-danger" type="button" onclick="saveLlmConfig()"><i class="fas fa-save"></i> Save config</button>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="clearLlmKey()"><i class="fas fa-eraser"></i> Clear API key</button>
+                        <span class="small text-muted">Saved config takes effect immediately and is persisted. The external LLM is a text-only API; image/audio-video understanding is automatically routed to BAGEL GPU backends (autoDL / LAN).</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /subLlmConfig -->
+        {% endif %}
+    </div><!-- /paneMonitor -->
+
+    <!-- Feedback #12: Task Initiation (admins/super-admins only; assignees can be specified) -->
+    <div id="paneInitiate" class="d-none">
+        <div class="card mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-paper-plane me-1"></i> Initiate a New Task
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">System administrators / super-admins can initiate collection, processing or review tasks. You may <b>assign specific members</b> (manual assignment), publish to the <b>open pool</b> for eligible roles to claim, or let the system <b>auto-balance</b> the workload. Once published, the task enters the workflow and assignees receive an in-site notification.</p>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label small fw-bold">Task title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="ti_title" maxlength="255" placeholder="e.g. Autumn 2026 intangible-heritage oral-history collection (phase 1)">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold">Target count <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control form-control-sm" id="ti_count" value="10" min="1" max="9999">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold">Priority</label>
+                        <select class="form-select form-select-sm" id="ti_priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Task category <span class="text-danger">*</span></label>
+                        <select class="form-select form-select-sm" id="ti_category">
+                            <option value="collect">Collection (recorders)</option>
+                            <option value="process" selected>Processing (recorders / processors)</option>
+                            <option value="audit">Review (quality inspectors)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Assignment mode</label>
+                        <select class="form-select form-select-sm" id="ti_assign">
+                            <option value="manual" selected>Assign to specific members (manual)</option>
+                            <option value="pool">Open pool (eligible members claim)</option>
+                            <option value="auto">Auto balanced (by active workload)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Start date</label>
+                        <input type="date" class="form-control form-control-sm" id="ti_start">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Due date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="ti_end">
+                    </div>
+                    <div class="col-12" id="tiAssigneeWrap">
+                        <label class="form-label small fw-bold">Assignees (tick members; the target count is split evenly among them)</label>
+                        <div class="border rounded p-2" style="max-height:170px;overflow-y:auto;background:#f8f9fc;" id="tiAssigneeBox">
+                            <span class="small text-muted">Loading…</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-none" id="tiMaxClaimWrap">
+                        <label class="form-label small fw-bold">Max claims per member</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_maxclaim" value="1" min="1" max="999">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">Acceptance criteria (optional)</label>
+                        <textarea class="form-control form-control-sm" id="ti_accept" rows="2" maxlength="1000" placeholder="e.g. each audio clip must be fully transcribed and pass inspector review; photos must include capture time and location notes."></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">Task description (optional)</label>
+                        <textarea class="form-control form-control-sm" id="ti_desc" rows="3" maxlength="2000" placeholder="Background, content requirements, notes, etc."></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnTiSubmit"><i class="fas fa-paper-plane me-1"></i>Initiate &amp; publish</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnTiReset">Reset form</button>
+                    <span class="small" id="tiHint"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Tasks I initiated</h5>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnTiRefresh"><i class="fas fa-sync"></i> Refresh</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped align-middle">
+                        <thead><tr><th>No.</th><th>Title</th><th>Category</th><th>Assignment</th><th>Status</th><th>Progress</th><th>Due</th></tr></thead>
+                        <tbody id="tiMineBody"><tr><td colspan="7" class="text-muted text-center">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- /paneInitiate -->
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-const SEED_TASK_TABLES = true;
+// f2 security: HTML-escape user-controlled fields to prevent stored XSS
+function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+// f3: disable hardcoded demo seed rows; statistics show real data only
+const SEED_TASK_TABLES = false;
+const WF_SEED = [
+    ['WF-2026-0210-088', 'Urban intersection multi-cam labeling batch', 'Process', 'pool', 'pending_claim', 'Claimable', 'secondary', 0, 0, 80, '2026-04-18'],
+    ['WF-2026-0211-042', 'Night highway traffic collection QA', 'Collect', 'manual', 'pending_execute', 'Running', 'primary', 62, 31, 50, '2026-03-22'],
+    ['WF-2026-0212-156', 'Campus security video QC pack', 'Audit', 'auto', 'pending_review', 'In review', 'warning', 100, 100, 40, '2026-03-05'],
+    ['WF-2026-0213-073', 'Dialect interview transcription', 'Process', 'pool', 'pending_execute', 'Running', 'primary', 44, 22, 60, '2026-05-01'],
+    ['WF-2026-0214-019', 'Medical de-identification batch', 'Process', 'manual', 'pending_fix', 'Returned', 'danger', 70, 35, 50, '2026-02-28'],
+    ['WF-2026-0215-201', 'Industrial QC stereo video batch', 'Collect', 'pool', 'draft', 'Draft', 'secondary', 0, 0, 30, '2026-06-12'],
+    ['WF-2026-0216-134', 'Metro platform behavior pack', 'Process', 'auto', 'completed', 'Completed', 'success', 100, 50, 50, '2026-02-14'],
+    ['WF-2026-0217-067', 'Court evidence redaction review', 'Audit', 'manual', 'pending_score', 'To score', 'warning', 100, 100, 24, '2026-04-02'],
+    ['WF-2026-0218-095', 'Greenhouse timelapse records', 'Collect', 'pool', 'pending_claim', 'Claimable', 'secondary', 0, 0, 45, '2026-05-20'],
+    ['WF-2026-0219-121', 'Retail dual-stream checkout sync', 'Process', 'auto', 'pending_execute', 'Running', 'primary', 28, 14, 72, '2026-03-30'],
+    ['WF-2026-0220-008', 'Stadium wide-angle highlights', 'Collect', 'manual', 'pending_review', 'In review', 'warning', 100, 80, 100, '2026-02-09'],
+    ['WF-2026-0221-177', 'Conference room panorama export', 'Process', 'pool', 'pending_execute', 'Running', 'primary', 55, 44, 80, '2026-04-25'],
+    ['WF-2026-0222-053', 'Factory night-shift robot view', 'Collect', 'auto', 'terminated', 'Terminated', 'danger', 40, 20, 60, '2026-01-30'],
+    ['WF-2026-0223-166', 'Nursing station handheld inspection', 'Process', 'manual', 'archived', 'Archived', 'success', 100, 100, 36, '2026-01-18']
+];
+function seedWfRows() {
+    if (!SEED_TASK_TABLES) return '';
+    return WF_SEED.map(([no, title, cat, mode, ws, label, bcls, pct, done, req, end]) => `<tr>
+            <td><small>${no}</small></td>
+            <td>${title}</td>
+            <td>${cat}</td>
+            <td>${mode}</td>
+            <td><span class="badge bg-${bcls}">${label}</span></td>
+            <td><div class="progress" style="height:6px"><div class="progress-bar" style="width:${pct}%"></div></div> ${done}/${req}</td>
+            <td><small>${end}</small></td>
+            <td><span class="text-muted small">—</span></td>
+        </tr>`).join('');
+}
 const STAT_SEED = [
     [-801, 'Urban intersection multi-cam batch', 'Process', 80, 52, 65, '2026-02-03', '2026-04-18', 'In progress', 'primary'],
     [-802, 'Night highway traffic QA', 'Collect', 60, 60, 100, '2026-01-15', '2026-03-22', 'Completed', 'success'],
@@ -125,7 +572,7 @@ const STAT_SEED = [
     [-808, 'Court evidence redaction', 'Audit', 24, 6, 25, '2026-02-18', '2026-04-02', 'In progress', 'primary'],
     [-809, 'Greenhouse timelapse', 'Collect', 55, 18, 33, '2026-02-25', '2026-05-20', 'In progress', 'warning'],
     [-810, 'Retail dual-stream checkout', 'Process', 72, 72, 100, '2026-01-22', '2026-03-30', 'Completed', 'success'],
-    [-811, 'Sports wide-angle highlights', 'Collect', 64, 22, 34, '2026-02-14', '2026-02-09', 'Not started', 'secondary'],
+    [-811, 'Sports wide-angle highlights', 'Collect', 64, 22, 34, '2026-02-14', '2026-03-01', 'Not started', 'secondary'],
     [-812, 'Conference room panorama export', 'Process', 88, 71, 81, '2026-02-07', '2026-04-25', 'In progress', 'primary']
 ];
 function seedStatTaskRows() {
@@ -143,16 +590,18 @@ function seedStatTaskRows() {
         </tr>`).join('');
 }
 const PERF_SEED = [
-    ['kR7mP2xQ9', 112, 4140, 9, true], ['nB4vL8wZ1', 87, 3025, 7, true], ['tX3jH6cM5', 64, 2280, 5, false],
-    ['wY9dF2sK4', 143, 5105, 11, true], ['zQ1uN7gV8', 51, 1890, 4, false], ['aU5iE3rT6', 96, 3600, 8, true],
-    ['oP2sD9fG1', 78, 2755, 6, true], ['hJ8kW4xC7', 121, 4420, 10, false], ['mL3nQ8vR2', 69, 2415, 5, true],
-    ['bY6tH1wZ4', 105, 3885, 9, true], ['cV9xK2pN7', 58, 2100, 4, false], ['dF4jR8wM1', 134, 4890, 10, true]
+    ['kR7mP2xQ9', 112, 14, 31, 4140, 9, true], ['nB4vL8wZ1', 87, 9, 22, 3025, 7, true], ['tX3jH6cM5', 64, 6, 12, 2280, 5, false],
+    ['wY9dF2sK4', 143, 18, 40, 5105, 11, true], ['zQ1uN7gV8', 51, 4, 9, 1890, 4, false], ['aU5iE3rT6', 96, 11, 27, 3600, 8, true],
+    ['oP2sD9fG1', 78, 8, 18, 2755, 6, true], ['hJ8kW4xC7', 121, 15, 33, 4420, 10, false], ['mL3nQ8vR2', 69, 7, 15, 2415, 5, true],
+    ['bY6tH1wZ4', 105, 12, 26, 3885, 9, true], ['cV9xK2pN7', 58, 5, 10, 2100, 4, false], ['dF4jR8wM1', 134, 16, 38, 4890, 10, true]
 ];
 function seedUserPerfRows() {
     if (!SEED_TASK_TABLES) return '';
-    return PERF_SEED.map(([name, v, d, tc, earned]) => `<tr>
+    return PERF_SEED.map(([name, v, a, i, d, tc, earned]) => `<tr>
             <td>${name}</td>
             <td>${v}</td>
+            <td>${a}</td>
+            <td>${i}</td>
             <td>${formatDuration(d)}</td>
             <td>${tc}</td>
             <td><span class="badge bg-${earned ? 'success' : 'warning'}">${earned ? 'Earned' : 'Pending'}</span></td>
@@ -169,40 +618,44 @@ async function loadTaskStatistics(startDate, endDate) {
     try {
         const response = await fetch(`/api/tasks/statistics?start_date=${startDate}&end_date=${endDate}`);
         if (!response.ok) throw new Error('Failed to load statistics');
-        
+
         const data = await response.json();
         document.getElementById('totalVideos').textContent = data.total_videos;
+        document.getElementById('totalAudios').textContent = data.total_audios ?? 0;
+        document.getElementById('totalImages').textContent = data.total_images ?? 0;
         document.getElementById('totalDuration').textContent = formatDuration(data.total_duration);
-        
+
         // Update task list
         const taskList = document.getElementById('taskList');
-        const realRows = (data.tasks || []).map(task => `
-            <tr>
+        const realTaskRows = (data.tasks || []).map(task => {
+            const req = task.required_count || 1;
+            const done = task.completed_count || 0;
+            const pct = Math.min(100, Math.round(done * 100 / req));
+            const st = task.workflow_status || task.status;
+            const badge = (st === 'completed' || st === 'archived') ? 'success' : (st === 'pending_review' ? 'warning' : (st === 'draft' ? 'secondary' : 'primary'));
+            const label = task.workflow_label || st;
+            return `<tr>
                 <td>${task.id}</td>
-                <td>${task.title}</td>
-                <td>Type ${task.task_type}</td>
-                <td>${task.required_count}</td>
-                <td>${task.completed_count}</td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: ${(task.completed_count / task.required_count) * 100}%">
-                            ${Math.round((task.completed_count / task.required_count) * 100)}%
-                        </div>
-                    </div>
-                </td>
-                <td>${new Date(task.start_date).toLocaleDateString()}</td>
-                <td>${new Date(task.end_date).toLocaleDateString()}</td>
-                <td><span class="badge bg-${task.status === 'completed' ? 'success' : task.status === 'active' ? 'primary' : 'secondary'}">${task.status === 'completed' ? 'Completed' : task.status === 'active' ? 'In Progress' : 'Not Started'}</span></td>
-            </tr>
-        `).join('');
-        taskList.innerHTML = seedStatTaskRows() + realRows;
-        
+                <td>${escapeHtml(task.title)}</td>
+                <td>${escapeHtml(task.task_category || ('Type ' + task.task_type))}</td>
+                <td>${req}</td>
+                <td>${done}</td>
+                <td><div class="progress"><div class="progress-bar" style="width:${pct}%">${pct}%</div></div></td>
+                <td>${task.start_date ? new Date(task.start_date).toLocaleDateString() : ''}</td>
+                <td>${task.end_date ? new Date(task.end_date).toLocaleDateString() : ''}</td>
+                <td><span class="badge bg-${badge}">${escapeHtml(label)}</span></td>
+            </tr>`;
+        }).join('');
+        taskList.innerHTML = seedStatTaskRows() + realTaskRows;
+
         // Update user performance
         const userPerformance = document.getElementById('userPerformance');
-        const perfReal = (data.user_performance || []).map(user => `
+        const realPerf = (data.user_performance || []).map(user => `
             <tr>
-                <td>${user.username}</td>
+                <td>${escapeHtml(user.nickname || user.username)}<div class="text-muted small">${escapeHtml(user.username)}</div></td>
                 <td>${user.videos_recorded}</td>
+                <td>${user.audios_recorded ?? 0}</td>
+                <td>${user.images_recorded ?? 0}</td>
                 <td>${formatDuration(user.total_duration)}</td>
                 <td>${user.tasks_completed}</td>
                 <td>
@@ -212,7 +665,7 @@ async function loadTaskStatistics(startDate, endDate) {
                 </td>
             </tr>
         `).join('');
-        userPerformance.innerHTML = seedUserPerfRows() + perfReal;
+        userPerformance.innerHTML = seedUserPerfRows() + realPerf;
     } catch (err) {
         console.error('Error loading statistics:', err);
         alert('Failed to load statistics');
@@ -234,5 +687,788 @@ const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString()
 document.getElementById('startDate').value = firstDay;
 document.getElementById('endDate').value = lastDay;
 loadTaskStatistics(firstDay, lastDay);
+
+// —— Feedback #6: compute usage stats (admins: platform-wide; regular users: own only) ——
+const CS_BACKEND_LABEL = {
+    autodl: 'AutoDL cloud GPU',
+    local: 'LAN GPU',
+    deepseek: 'External LLM API',
+    cache: 'Cache reuse',
+    unknown: 'Unknown'
+};
+function csBackendLabel(b) { return CS_BACKEND_LABEL[b] || (b || 'Unknown'); }
+function csTile(label, value, color) {
+    return `<div class="col-6 col-md-3 mb-2"><div class="card bg-light h-100"><div class="card-body py-2">
+        <h6 class="card-subtitle mb-1 text-muted small">${label}</h6>
+        <h4 class="mb-0 text-${color || 'dark'}">${value}</h4></div></div></div>`;
+}
+async function loadComputeStats() {
+    try {
+        const res = await fetch('/api/tasks/compute-stats');
+        const d = await res.json();
+        if (!res.ok || !d.success) { return; }
+        const isAdmin = (d.scope === 'all');
+        document.getElementById('csScopeLabel').textContent = isAdmin ? '(platform-wide · admin)' : '(my compute · own data only)';
+        let tiles;
+        if (isAdmin) {
+            tiles = csTile('Total credits used', d.total_credits, 'danger')
+                + csTile('Total credits granted', d.granted_total, 'success')
+                + csTile('Successful calls', d.total_calls, 'primary')
+                + csTile('Cache hits / failed', d.cache_hits + ' / ' + d.failed_calls, 'warning');
+        } else {
+            tiles = csTile('My credit balance', (d.balance == null ? '—' : d.balance), 'success')
+                + csTile('My credits used', d.total_credits, 'danger')
+                + csTile('Successful calls', d.total_calls, 'primary')
+                + csTile('Cache hits / failed', d.cache_hits + ' / ' + d.failed_calls, 'warning');
+        }
+        document.getElementById('csTiles').innerHTML = tiles;
+        const bb = document.getElementById('csBackendBody');
+        bb.innerHTML = (d.by_backend || []).length
+            ? d.by_backend.map(r => `<tr><td>${csBackendLabel(r.backend)}</td><td class="text-end">${r.credits}</td><td class="text-end">${r.calls}</td></tr>`).join('')
+            : '<tr><td colspan="3" class="text-muted text-center">No usage in the last 30 days</td></tr>';
+        const trend = d.trend || [];
+        const maxC = Math.max(1, ...trend.map(t => t.credits));
+        document.getElementById('csTrend').innerHTML = trend.map(t => {
+            const h = Math.round(t.credits / maxC * 100);
+            return `<div class="flex-grow-1 d-flex flex-column justify-content-end" style="min-width:2px" title="${t.date}: ${t.credits} credits / ${t.calls} calls">
+                <div class="bg-primary rounded-top" style="height:${t.credits ? Math.max(h, 4) : 0}%"></div></div>`;
+        }).join('');
+        const wrap = document.getElementById('csExtraWrap');
+        if (isAdmin) {
+            const rows = (d.by_user || []).map(u => `<tr><td>${escapeHtml(u.nickname || u.username)}</td><td>${escapeHtml(u.role || '')}</td><td class="text-end">${u.credits}</td><td class="text-end">${u.calls}</td></tr>`).join('');
+            wrap.innerHTML = `<h6>Usage by user (all time, credits descending)</h6>
+                <div class="table-responsive"><table class="table table-sm table-striped align-middle">
+                <thead><tr><th>Account</th><th>Role</th><th class="text-end">Credits used</th><th class="text-end">Calls</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="4" class="text-muted text-center">No usage records</td></tr>'}</tbody></table></div>`;
+        } else {
+            const rows = (d.recent || []).map(r => `<tr><td><small>${(r.created_at || '').replace('T', ' ').slice(0, 16)}</small></td><td>${csBackendLabel(r.backend)}</td><td>${escapeHtml(r.modality || '—')}</td><td class="text-end">${r.cost_credits}</td><td><span class="badge bg-${r.status === 'success' ? 'success' : (r.status === 'reused' ? 'info' : 'danger')}">${r.status}</span></td></tr>`).join('');
+            wrap.innerHTML = `<h6>My recent compute records</h6>
+                <div class="table-responsive"><table class="table table-sm table-striped align-middle">
+                <thead><tr><th>Time</th><th>Backend</th><th>Type</th><th class="text-end">Credits</th><th>Status</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="5" class="text-muted text-center">No records</td></tr>'}</tbody></table></div>`;
+        }
+    } catch (err) {
+        console.error('compute stats error:', err);
+    }
+}
+document.getElementById('btnCsRefresh').addEventListener('click', loadComputeStats);
+
+// —— Workflow API ——
+const WF_ROLE = "{{ current_user.role }}";
+const WF_UID = {{ current_user.id }};
+// Feedback #7: super admin has all system admin permissions
+const WF_IS_ADMIN = (WF_ROLE === 'admin' || WF_ROLE === 'super_admin');
+const WF_IS_REVIEWER = (WF_ROLE === 'inspector' || WF_ROLE === 'admin' || WF_ROLE === 'super_admin');
+function wfBadge(ws) {
+    if (ws === 'completed' || ws === 'archived') return 'success';
+    if (ws === 'pending_review' || ws === 'pending_score') return 'warning';
+    if (ws === 'pending_fix' || ws === 'terminated') return 'danger';
+    if (ws === 'draft' || ws === 'pending_claim') return 'secondary';
+    return 'primary';
+}
+async function loadWf(scope) {
+    const res = await fetch('/api/workflow/tasks?scope=' + (scope || 'all'));
+    const data = await res.json();
+    const tb = document.getElementById('wfTaskBody');
+    if (!res.ok) { tb.innerHTML = '<tr><td colspan="8">Failed to load</td></tr>'; return; }
+    const wfDemo = seedWfRows();
+    const wfReal = (data.items || []).map(t => {
+        const pct = t.progress_percent || 0;
+        return `<tr id="wfRow_${t.id}">
+            <td><small>${t.task_no || t.id}</small></td>
+            <td>${escapeHtml(t.title)}</td>
+            <td>${escapeHtml(t.task_category)}</td>
+            <td>${escapeHtml(t.assign_mode)}</td>
+            <td><span class="badge bg-${wfBadge(t.workflow_status)}">${escapeHtml(t.workflow_label || t.workflow_status)}</span></td>
+            <td><div class="progress" style="height:6px"><div class="progress-bar" style="width:${pct}%"></div></div> ${t.completed_count}/${t.required_count}</td>
+            <td><small>${t.end_date ? t.end_date.slice(0,10) : ''}</small></td>
+            <td>
+                <button class="btn btn-sm btn-link p-0" onclick="wfDetail(${t.id})">Detail</button>
+                ${t.assign_mode==='pool' && t.workflow_status==='pending_claim' ? `<button class="btn btn-sm btn-link p-0" onclick="wfClaim(${t.id})">Claim</button>` : ''}
+                ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfProg(${t.id})">+Progress</button>` : ''}
+                ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfSubRev(${t.id})">Submit review</button>` : ''}
+                ${WF_IS_REVIEWER && t.workflow_status==='pending_review' ? `<button class="btn btn-sm btn-link p-0" onclick="wfRev(${t.id},true)">Approve</button><button class="btn btn-sm btn-link p-0 text-danger" onclick="wfRev(${t.id},false)">Reject</button>` : ''}
+                ${(WF_IS_ADMIN || t.created_by == WF_UID) && t.workflow_status==='pending_score' ? `<button class="btn btn-sm btn-link p-0" onclick="wfScore(${t.id})">Score</button>` : ''}
+                ${WF_IS_ADMIN && t.workflow_status==='completed' ? `<button class="btn btn-sm btn-link p-0" onclick="wfArch(${t.id})">Archive</button>` : ''}
+            </td>
+        </tr>`;
+    }).join('');
+    if (wfDemo || wfReal) tb.innerHTML = wfDemo + wfReal;
+    else tb.innerHTML = '<tr><td colspan="8" class="text-muted">None</td></tr>';
+    applyWfHighlight();
+}
+
+// Feedback #9 req.3a: /tasks?highlight=<task_id> from the message center — locate and flash the row
+let wfHighlightId = null;
+function applyWfHighlight() {
+    if (!wfHighlightId) return false;
+    const row = document.getElementById('wfRow_' + wfHighlightId);
+    if (!row) return false;
+    row.classList.add('table-warning');
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const cell = row.querySelector('td');
+    if (cell) {
+        const mark = document.createElement('span');
+        mark.className = 'badge bg-danger ms-1';
+        mark.textContent = 'From message';
+        cell.appendChild(mark);
+    }
+    wfHighlightId = null;
+    return true;
+}
+async function wfDetail(id) {
+    const res = await fetch('/api/workflow/tasks/' + id);
+    const d = await res.json();
+    document.getElementById('wfDetail').innerHTML = '<pre class="small bg-light p-2" style="max-height:200px;overflow:auto">' + JSON.stringify(d, null, 2) + '</pre>';
+}
+async function wfClaim(id) {
+    if (!confirm('Confirm claim?')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/claim', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const j = await res.json();
+    alert(j.success ? 'Claimed successfully' : (j.error || 'Failed'));
+    loadWf('all');
+}
+async function wfProg(id) {
+    const res = await fetch('/api/workflow/tasks/' + id + '/progress', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ delta: 1 }) });
+    const j = await res.json();
+    alert(j.success ? 'Progress updated' : (j.error || 'Failed'));
+    loadWf('mine');
+}
+async function wfSubRev(id) {
+    if (!confirm('Submit for review? Completed count must meet the target.')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/submit-review', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const j = await res.json();
+    alert(j.success ? 'Submitted for review' : (j.error || 'Failed'));
+    loadWf('mine');
+}
+async function wfRev(id, ok) {
+    let c = '';
+    if (!ok) { c = prompt('Rejection reason (required)') || ''; if (!c) return; }
+    const res = await fetch('/api/workflow/tasks/' + id + '/review', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ approve: ok, comments: c }) });
+    const j = await res.json();
+    alert(j.success ? 'Done' : (j.error || 'Failed'));
+    loadWf('all');
+}
+async function wfScore(id) {
+    const s = prompt('Quality score 0-100', '90');
+    if (s === null) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/score', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ score: parseFloat(s) }) });
+    const j = await res.json();
+    alert(j.success ? 'Score saved' : (j.error || 'Failed'));
+    loadWf('all');
+}
+async function wfArch(id) {
+    if (!confirm('Archive is irreversible. Confirm?')) return;
+    const res = await fetch('/api/workflow/tasks/' + id + '/archive', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    alert((await res.json()).success ? 'Archived' : 'Failed');
+    loadWf('all');
+}
+document.getElementById('btnWfList')?.addEventListener('click', () => loadWf('all'));
+document.getElementById('btnWfMine')?.addEventListener('click', () => loadWf('mine'));
+document.getElementById('btnWfPool')?.addEventListener('click', () => loadWf('pool'));
+
+// ================= Feedback #9 req.3b: in-progress data overview (admins/super admins) =================
+const IP_STATUS_LABEL = { pending: 'Pending processing', pending_fix: 'Sent back for fix', pending_review: 'Pending review' };
+const IP_STATUS_BADGE = { pending: 'bg-secondary', pending_fix: 'bg-danger', pending_review: 'bg-warning text-dark' };
+const IP_MOD_LABEL = { video: 'Video', audio: 'Audio', image: 'Image', unknown: 'Unknown' };
+function ipEscape(s) { return String(s == null ? '' : s).replace(/</g, '&lt;'); }
+async function loadInProgressOverview() {
+    const tb = document.getElementById('ipBody');
+    if (!tb) return;
+    try {
+        const res = await fetch('/api/admin/recordings/in-progress');
+        const data = await res.json();
+        if (!res.ok) { tb.innerHTML = '<tr><td colspan="9" class="text-danger text-center">Load failed: ' + ipEscape(data.error) + '</td></tr>'; return; }
+        const c = data.counts || {};
+        document.getElementById('ipCntPending').textContent = c.pending || 0;
+        document.getElementById('ipCntFix').textContent = c.pending_fix || 0;
+        document.getElementById('ipCntReview').textContent = c.pending_review || 0;
+        const items = data.items || [];
+        if (!items.length) { tb.innerHTML = '<tr><td colspan="9" class="text-muted text-center">No in-progress data</td></tr>'; return; }
+        tb.innerHTML = items.map(it => {
+            const proc = it.claim_owner ? ('<b>' + ipEscape(it.claim_owner) + '</b><br><small class="text-muted">claim lock held</small>')
+                : (it.processor ? ipEscape(it.processor) : '—');
+            const when = it.created_at ? String(it.created_at).replace('T', ' ').slice(0, 16) : '';
+            return `<tr>
+                <td><small>#${it.id}</small></td>
+                <td style="max-width:220px;"><small class="d-inline-block text-truncate" style="max-width:220px;">${ipEscape(it.filename)}</small></td>
+                <td><span class="badge bg-info text-dark">${IP_MOD_LABEL[it.modality] || it.modality || 'Unknown'}</span></td>
+                <td><span class="badge ${IP_STATUS_BADGE[it.status] || 'bg-secondary'}">${IP_STATUS_LABEL[it.status] || it.status}</span></td>
+                <td><small>${ipEscape(it.uploader || '—')}</small></td>
+                <td><small>${proc}</small></td>
+                <td><small>${it.status === 'pending_review' ? ipEscape(it.reviewer || 'Not opened yet') : '—'}</small></td>
+                <td><small>${ipEscape(it.task_no || '—')}</small></td>
+                <td><small class="text-muted">${when}</small></td>
+            </tr>`;
+        }).join('');
+    } catch (e) {
+        tb.innerHTML = '<tr><td colspan="9" class="text-danger text-center">Load error: ' + ipEscape(e.message) + '</td></tr>';
+    }
+}
+document.getElementById('btnIpRefresh')?.addEventListener('click', loadInProgressOverview);
+document.getElementById('btnWfCreate')?.addEventListener('click', async () => {
+    const end = document.getElementById('wf_end').value;
+    const body = {
+        title: document.getElementById('wf_title').value || 'Untitled task',
+        task_category: document.getElementById('wf_category').value,
+        assign_mode: document.getElementById('wf_assign').value,
+        required_count: parseInt(document.getElementById('wf_count').value, 10) || 10,
+        priority: document.getElementById('wf_priority').value,
+        end_date: end || undefined,
+        acceptance_criteria: document.getElementById('wf_accept').value
+    };
+    const res = await fetch('/api/workflow/tasks', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const j = await res.json();
+    if (!res.ok) { alert(j.error || 'Create failed'); return; }
+    let uids = [];
+    if (body.assign_mode === 'manual') {
+        const raw = prompt('Manual assign: enter user IDs, comma-separated', '1');
+        if (raw) uids = raw.split(',').map(x => parseInt(x.trim(), 10)).filter(Boolean);
+    }
+    const pr = await fetch('/api/workflow/tasks/' + j.id + '/publish', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ user_ids: uids }) });
+    const pj = await pr.json();
+    alert(pj.success ? 'Created and published' : ('Draft created, publish failed: ' + (pj.error || '')));
+    loadWf('all');
+});
+// ================= Feedback #8: model backends & queue monitoring sub-page (moved from User Management) =================
+const MON_IS_SUPER = {{ 'true' if current_user.role == 'super_admin' else 'false' }};
+const MON_ROLE_LABEL = { super_admin: 'Super admin', admin: 'System admin', recorder: 'Collector/processor', inspector: 'Reviewer' };
+
+function monBackendLabel(b) {
+    return ({ deepseek: 'External LLM', autodl: 'autoDL GPU (full)', local: 'LAN GPU (optimized)', cache: 'Cache reuse' })[b]
+        || (b === 'auto' ? 'Auto routing' : (b || 'Auto routing'));
+}
+function monModalityLabel(m) {
+    return ({ video: '<span class="badge bg-primary">Video</span>', audio: '<span class="badge bg-success">Audio</span>', image: '<span class="badge bg-warning text-dark">Image</span>' })[m]
+        || (m ? escapeHtml(m) : '-');
+}
+function fmtElapsed(sec) {
+    if (sec == null) return '-';
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    if (sec < 60) return sec + 's';
+    const m = Math.floor(sec / 60), s = sec % 60;
+    if (m < 60) return m + 'm ' + s + 's';
+    return Math.floor(m / 60) + 'h ' + (m % 60) + 'm';
+}
+function shortId(id, n) { return String(id || '').slice(0, n || 8); }
+
+function switchMainPane(id) {
+    document.querySelectorAll('#taskMainTabs .nav-link').forEach(b => b.classList.toggle('active', b.dataset.pane === id));
+    document.getElementById('paneTasks').classList.toggle('d-none', id !== 'paneTasks');
+    const mon = document.getElementById('paneMonitor');
+    if (mon) mon.classList.toggle('d-none', id !== 'paneMonitor');
+    const ini = document.getElementById('paneInitiate');
+    if (ini) ini.classList.toggle('d-none', id !== 'paneInitiate');
+    if (id === 'paneMonitor' && mon) {
+        loadModelQuota();
+        loadQueueLive();
+        loadLlmUsage();
+        if (MON_IS_SUPER) loadLlmConfig();
+    }
+    if (id === 'paneInitiate' && ini) {
+        loadEligibleAssignees();
+        loadMyInitiated();
+    }
+}
+function switchSubPane(id) {
+    document.querySelectorAll('#monitorSubTabs .nav-link').forEach(b => b.classList.toggle('active', b.dataset.subpane === id));
+    document.getElementById('subOverview').classList.toggle('d-none', id !== 'subOverview');
+    const cfg = document.getElementById('subLlmConfig');
+    if (cfg) cfg.classList.toggle('d-none', id !== 'subLlmConfig');
+    if (id === 'subLlmConfig') loadLlmConfig();
+}
+document.querySelectorAll('#taskMainTabs .nav-link').forEach(b => b.addEventListener('click', () => switchMainPane(b.dataset.pane)));
+document.querySelectorAll('#monitorSubTabs .nav-link').forEach(b => b.addEventListener('click', () => switchSubPane(b.dataset.subpane)));
+
+// ---------------- Feedback #12/#13: Task Initiation ----------------
+// Feedback #13 fix: the functions below MUST be declared at the top <script> level.
+// Previously they were wrapped inside if(paneInitiate){...}, making block-scoped
+// function declarations invisible to switchMainPane outside the block (browser threw
+// ReferenceError: loadEligibleAssignees is not defined), so the assignee list and
+// "My initiated tasks" stayed stuck at "Loading…". Non-admin pages lack the elements;
+// each function returns safely when its elements are absent.
+function tiEl(id) { return document.getElementById(id); }
+
+function tiSetHint(kind, text) {
+    const tiHint = tiEl('tiHint');
+    if (!tiHint) return;
+    tiHint.textContent = text || '';
+    tiHint.className = 'small ' + (kind === 'ok' ? 'text-success' : kind === 'bad' ? 'text-danger' : 'text-muted');
+}
+function tiApplyAssignUi() {
+    const tiAssign = tiEl('ti_assign');
+    if (!tiAssign) return;
+    const mode = tiAssign.value;
+    const wrapAssignee = tiEl('tiAssigneeWrap');
+    const wrapMaxClaim = tiEl('tiMaxClaimWrap');
+    if (wrapAssignee) wrapAssignee.classList.toggle('d-none', mode !== 'manual');
+    if (wrapMaxClaim) wrapMaxClaim.classList.toggle('d-none', mode !== 'pool');
+}
+
+async function loadEligibleAssignees() {
+    const tiCat = tiEl('ti_category');
+    const box = tiEl('tiAssigneeBox');
+    if (!tiCat || !box) return;
+    const cat = tiCat.value;
+    box.innerHTML = '<span class="small text-muted">Loading…</span>';
+    try {
+        const r = await fetch('/api/tasks/eligible-users?category=' + encodeURIComponent(cat));
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        if (!j.users.length) {
+            box.innerHTML = '<span class="small text-danger">No eligible accounts for this category (must be active, not deregistered, not expired). Please create users in User Management first.</span>';
+            return;
+        }
+        box.innerHTML = j.users.map(u =>
+            '<div class="form-check mb-1"><input class="form-check-input ti-assignee" type="checkbox" value="' + u.id + '" id="tiu_' + u.id + '">'
+            + '<label class="form-check-label small" for="tiu_' + u.id + '">'
+            + escapeHtml(u.nickname || u.username) + ' <span class="text-muted">(' + escapeHtml(u.username) + (u.department ? ' · ' + escapeHtml(u.department) : '') + ')</span>'
+            + '</label></div>').join('');
+    } catch (e) {
+        box.innerHTML = '<span class="small text-danger">Failed to load eligible members: ' + escapeHtml(e.message) + '</span>';
+    }
+}
+
+function tiIsoDate(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function tiInitDates() {
+    const startEl = tiEl('ti_start');
+    const endEl = tiEl('ti_end');
+    if (!startEl || !endEl) return;
+    const now = new Date();
+    const end = new Date(now.getTime() + 7 * 86400000);
+    if (!startEl.value) startEl.value = tiIsoDate(now);
+    if (!endEl.value) endEl.value = tiIsoDate(end);
+}
+
+function tiResetForm() {
+    ['ti_title', 'ti_accept', 'ti_desc'].forEach(id => { const el = tiEl(id); if (el) el.value = ''; });
+    const cnt = tiEl('ti_count'); if (cnt) cnt.value = 10;
+    const mc = tiEl('ti_maxclaim'); if (mc) mc.value = 1;
+    const asg = tiEl('ti_assign'); if (asg) asg.value = 'manual';
+    const cat = tiEl('ti_category'); if (cat) cat.value = 'process';
+    tiInitDates();
+    tiSetHint('muted', '');
+    tiApplyAssignUi();
+    loadEligibleAssignees();
+}
+
+async function tiSubmitTask() {
+    const titleEl = tiEl('ti_title');
+    const title = titleEl ? titleEl.value.trim() : '';
+    if (!title) { alert('Please enter the task title.'); return; }
+    const count = parseInt((tiEl('ti_count') || {}).value, 10);
+    if (!count || count < 1) { alert('Target count must be a positive integer.'); return; }
+    const startDate = (tiEl('ti_start') || {}).value || '';
+    const endDate = (tiEl('ti_end') || {}).value || '';
+    if (!endDate) { alert('Please select a due date.'); return; }
+    const mode = (tiEl('ti_assign') || {}).value || 'manual';
+    const userIds = Array.from(document.querySelectorAll('.ti-assignee:checked')).map(cb => parseInt(cb.value, 10));
+    if (mode === 'manual' && !userIds.length) { alert('In manual mode, please tick at least one assignee.'); return; }
+
+    const body = {
+        title: title,
+        description: (tiEl('ti_desc') || {}).value ? tiEl('ti_desc').value.trim() : '',
+        acceptance_criteria: (tiEl('ti_accept') || {}).value ? tiEl('ti_accept').value.trim() : '',
+        required_count: count,
+        priority: (tiEl('ti_priority') || {}).value || 'medium',
+        task_category: (tiEl('ti_category') || {}).value || 'process',
+        assign_mode: mode,
+        max_claim_per_user: Math.max(1, parseInt((tiEl('ti_maxclaim') || {}).value, 10) || 1),
+        start_date: startDate ? startDate + 'T00:00:00' : undefined,
+        end_date: endDate + 'T23:59:59',
+    };
+    const btn = tiEl('btnTiSubmit');
+    if (btn) btn.disabled = true;
+    tiSetHint('muted', 'Initiating…');
+    try {
+        // Step 1: create the task draft
+        const r1 = await fetch('/api/workflow/tasks', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        });
+        const j1 = await r1.json();
+        if (!r1.ok || !j1.success) throw new Error(j1.error || 'Creation failed');
+        // Step 2: publish (manual mode carries user_ids; pool / auto are handled by the backend)
+        const r2 = await fetch('/api/workflow/tasks/' + j1.id + '/publish', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_ids: userIds })
+        });
+        const j2 = await r2.json();
+        if (!r2.ok || !j2.success) throw new Error(j2.error || 'Publish failed');
+        tiSetHint('ok', 'Task initiated and published (No. ' + (j1.task_no || j1.id) + '). Assignees have been notified in-site.');
+        alert('Task initiated successfully!\nNo.: ' + (j1.task_no || j1.id) + '\nYou can track progress under "Tasks & Statistics".');
+        const t = tiEl('ti_title'); if (t) t.value = '';
+        const d = tiEl('ti_desc'); if (d) d.value = '';
+        const a = tiEl('ti_accept'); if (a) a.value = '';
+        loadMyInitiated();
+    } catch (e) {
+        tiSetHint('bad', 'Initiation failed: ' + e.message);
+        alert('Task initiation failed: ' + e.message);
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+async function loadMyInitiated() {
+    const body = tiEl('tiMineBody');
+    if (!body) return;
+    try {
+        const r = await fetch('/api/workflow/tasks?scope=all&limit=50');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const items = (j.items || []).filter(t => t.created_by === {{ current_user.id }});
+        if (!items.length) {
+            body.innerHTML = '<tr><td colspan="7" class="text-muted text-center">No initiated tasks yet</td></tr>';
+            return;
+        }
+        const catLabel = { collect: 'Collection', process: 'Processing', audit: 'Review' };
+        const modeLabel = { manual: 'Assigned', pool: 'Open pool', auto: 'Auto balanced' };
+        body.innerHTML = items.map(t =>
+            '<tr><td class="font-monospace small">' + escapeHtml(t.task_no || ('#' + t.id)) + '</td>'
+            + '<td>' + escapeHtml(t.title) + '</td>'
+            + '<td>' + (catLabel[t.task_category] || escapeHtml(t.task_category || '-')) + '</td>'
+            + '<td>' + (modeLabel[t.assign_mode] || escapeHtml(t.assign_mode || '-')) + '</td>'
+            + '<td><span class="badge bg-info text-dark">' + escapeHtml(t.workflow_label || t.workflow_status || '-') + '</span></td>'
+            + '<td>' + (t.completed_count || 0) + ' / ' + (t.required_count || 0) + '</td>'
+            + '<td class="small">' + escapeHtml((t.end_date || '').slice(0, 10)) + '</td></tr>').join('');
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="7" class="text-danger text-center">Load failed: ' + escapeHtml(e.message) + '</td></tr>';
+    }
+}
+// Wire events and initialise only when the admin panel exists (non-admin pages lack the elements)
+if (document.getElementById('paneInitiate')) {
+    tiEl('ti_assign').addEventListener('change', tiApplyAssignUi);
+    tiEl('ti_category').addEventListener('change', loadEligibleAssignees);
+    tiEl('btnTiReset').addEventListener('click', tiResetForm);
+    tiEl('btnTiSubmit').addEventListener('click', tiSubmitTask);
+    tiEl('btnTiRefresh').addEventListener('click', () => { loadEligibleAssignees(); loadMyInitiated(); });
+    tiInitDates();
+    tiApplyAssignUi();
+}
+
+// ---------------- Backend status ----------------
+function gpuBoxHtml(key, info) {
+    if (!info.configured) return key + ': <span class="badge bg-secondary">Not configured</span>';
+    const badge = info.healthy
+        ? '<span class="badge bg-success">Healthy</span>'
+        : '<span class="badge bg-danger">Unavailable (auto failover)</span>';
+    return key + ': ' + badge + '<div class="text-muted mt-1">' + (info.health_detail || info.detail || '') + '</div>';
+}
+
+async function loadModelQuota() {
+    const box = document.getElementById('workerBox');
+    if (!box) return;
+    try {
+        const r = await fetch('/api/admin/model/quota');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const g = j.gpu_backends || {};
+        if (g.autodl) document.getElementById('gpuAutodlBox').innerHTML = gpuBoxHtml('autoDL full (BAGEL)', g.autodl);
+        if (g.local) document.getElementById('gpuLocalBox').innerHTML = gpuBoxHtml('LAN optimized (BAGEL)', g.local);
+        const q = j.quota || {};
+        const dailyLimit = q.daily_limit || 0;
+        const monthlyLimit = q.monthly_limit || 0;
+        const withinLimit = (!dailyLimit || (q.daily_used || 0) < dailyLimit)
+            && (!monthlyLimit || (q.monthly_used || 0) < monthlyLimit);
+        const fmtLimit = v => (v ? Number(v).toLocaleString() : 'No limit');
+        const llmBox = document.getElementById('llmBox');
+        const llmHtml = j.deepseek_configured
+            ? ('External LLM (' + j.deepseek_model + '): <span class="badge ' + (withinLimit ? 'bg-success' : 'bg-danger') + '">'
+               + (withinLimit ? 'Within quota' : 'Limit reached') + '</span>'
+               + '<div class="text-muted mt-1">Today ' + (q.daily_used ?? 0) + ' / ' + fmtLimit(dailyLimit)
+               + ' tokens; this month ' + (q.monthly_used ?? 0) + ' / ' + fmtLimit(monthlyLimit) + ' tokens</div>')
+            : 'External LLM: <span class="badge bg-secondary">API key not set</span>';
+        llmBox.innerHTML = llmHtml + (MON_IS_SUPER
+            ? '<div class="mt-1 text-primary"><i class="fas fa-key"></i> Click to open "External LLM API Config"</div>' : '');
+        if (MON_IS_SUPER) llmBox.onclick = () => switchSubPane('subLlmConfig');
+        else llmBox.onclick = null;
+        const workers = j.workers || [];
+        const online = workers.length;
+        const workerDetail = workers.map(w =>
+            escapeHtml(w.host || w.worker_id || 'worker') + ' (heartbeat ' + (w.seen_at ? w.seen_at.replace('T', ' ').slice(0, 19) : '-') + ')'
+        ).join('; ');
+        box.innerHTML =
+            'Workers online: <span class="badge ' + (online ? 'bg-success' : 'bg-danger') + '">' + online + '</span>'
+            + '; dead-letter <span class="badge ' + (j.dead_task_count ? 'bg-danger' : 'bg-secondary') + '">' + j.dead_task_count + '</span>'
+            + '<div class="text-muted mt-1">Default backend: ' + monBackendLabel(j.default_backend) + ' / default GPU: ' + monBackendLabel(j.default_gpu_backend)
+            + (workerDetail ? '<br>Online nodes: ' + workerDetail : '<br>No online worker (cloud tasks will queue until an autoDL/LAN worker comes online)') + '</div>';
+    } catch (e) {
+        box.textContent = 'Load failed: ' + e.message;
+    }
+}
+
+// ---------------- Live queue monitoring (feedback #8 new endpoint) ----------------
+async function loadQueueLive() {
+    const body = document.getElementById('liveRunningBody');
+    if (!body) return;
+    const pm = document.getElementById('paneMonitor');
+    if (pm && pm.classList.contains('d-none')) return;
+    try {
+        const r = await fetch('/api/admin/queue/live');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        const c = j.counts || {};
+        const depths = j.depths || {};
+        const workers = j.workers || [];
+        const tiles = [
+            ['Queued', c.queued ?? 0, 'secondary', 'fa-hourglass-half'],
+            ['Running', c.running ?? 0, 'primary', 'fa-bolt'],
+            ['Retry wait', c.retry_wait ?? 0, 'warning', 'fa-rotate'],
+            ['Done (recent)', c.done ?? 0, 'success', 'fa-check'],
+            ['Failed', c.failed ?? 0, 'danger', 'fa-xmark'],
+            ['Dead letter', depths.dead_list ?? 0, 'dark', 'fa-skull'],
+            ['Online workers', workers.length, 'info', 'fa-server']
+        ];
+        document.getElementById('queueCountTiles').innerHTML = tiles.map(([label, val, color, icon]) =>
+            `<div class="col-6 col-md-3 mb-2"><div class="card border-${color} h-100"><div class="card-body py-2 text-center">
+            <div class="small text-muted"><i class="fas ${icon}"></i> ${label}</div>
+            <h4 class="mb-0 text-${color}">${val}</h4></div></div></div>`).join('');
+
+        const runs = j.running || [];
+        body.innerHTML = runs.length ? runs.map(t => `
+            <tr>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('Data #' + (t.recording_id || '-')))}<div class="text-muted small">Data ID: ${t.recording_id || '-'}</div></td>
+                <td>${monModalityLabel(t.modality)}</td>
+                <td><span class="badge bg-info text-dark">${monBackendLabel(t.backend_selected)}</span></td>
+                <td>${escapeHtml(t.worker_host || '-')}<div class="text-muted small font-monospace">${t.worker_id ? 'worker:' + shortId(t.worker_id) : ''}</div></td>
+                <td style="min-width:150px"><div class="progress" style="height:8px"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%"></div></div><small class="text-muted">Model inference/processing${t.attempts > 1 ? ' · attempt #' + t.attempts : ''}</small></td>
+                <td><small>${fmtElapsed(t.elapsed_seconds)}</small></td>
+                <td>${escapeHtml(t.submitted_by_name || t.submitted_by || '-')}</td>
+                <td>${(t.est_cost !== '' && t.est_cost != null) ? (t.est_cost + ' credits') : '-'}</td>
+            </tr>`).join('')
+            : '<tr><td colspan="9" class="text-muted small text-center">No running tasks at the moment</td></tr>';
+
+        const qb = document.getElementById('liveQueuedBody');
+        const qs = j.queued || [];
+        qb.innerHTML = qs.length ? qs.map(t => `
+            <tr>
+                <td><span class="badge bg-secondary">#${t.queue_position}</span></td>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('Data #' + (t.recording_id || '-')))}</td>
+                <td>${monModalityLabel(t.modality)}</td>
+                <td><span class="badge bg-light text-dark border">${monBackendLabel(t.backend_selected)}</span></td>
+                <td>${escapeHtml(t.submitted_by_name || t.submitted_by || '-')}</td>
+                <td><small>${fmtElapsed(t.elapsed_seconds)}</small></td>
+            </tr>`).join('')
+            : '<tr><td colspan="7" class="text-muted small text-center">Queue is empty; plenty of compute available</td></tr>';
+
+        const rtb = document.getElementById('liveRetryBody');
+        const rw = j.retry_wait || [];
+        rtb.innerHTML = rw.length ? rw.map(t => `
+            <tr>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('Data #' + (t.recording_id || '-')))}</td>
+                <td>${t.attempts}</td>
+                <td><small>${t.wait_left_seconds != null ? ('auto-retry in ~' + fmtElapsed(t.wait_left_seconds)) : '-'}</small></td>
+                <td class="small text-danger" style="max-width:360px">${escapeHtml(t.error || '-')}</td>
+            </tr>`).join('')
+            : '<tr><td colspan="5" class="text-muted small text-center">No tasks waiting for retry</td></tr>';
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="9" class="text-danger small text-center">Failed to load queue status: ' + escapeHtml(e.message) + '</td></tr>';
+    }
+}
+setInterval(() => {
+    const pm = document.getElementById('paneMonitor');
+    if (!pm || pm.classList.contains('d-none')) return;
+    const cfg = document.getElementById('subLlmConfig');
+    if (cfg && !cfg.classList.contains('d-none')) return;
+    loadQueueLive();
+}, 5000);
+
+// ---------------- Dead-letter queue / stuck recovery (moved from User Management) ----------------
+async function loadDeadTasks() {
+    try {
+        const r = await fetch('/api/admin/model/dead-tasks');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const box = document.getElementById('deadTasksBox');
+        const list = document.getElementById('deadTaskList');
+        box.classList.remove('d-none');
+        const tasks = j.dead_tasks || [];
+        if (!tasks.length) {
+            list.innerHTML = '<tr><td colspan="6" class="text-muted small">Dead-letter queue is empty</td></tr>';
+            return;
+        }
+        list.innerHTML = tasks.map(t => {
+            const msg = t.msg || {};
+            const payload = msg.payload || {};
+            const tid = msg.task_id || '';
+            const deadAt = (t.dead_at || '').replace('T', ' ').slice(0, 19) || '-';
+            return '<tr><td class="small font-monospace">' + shortId(tid) + '</td><td>' + monBackendLabel(payload.backend)
+                + '</td><td>' + (payload.recording_id || '-')
+                + '<div class="text-muted small">' + escapeHtml(payload.filename || '') + '</div></td>'
+                + '<td class="small text-danger" style="max-width:320px">' + escapeHtml(t.error || '-')
+                + '<div class="text-muted">Retried ' + (t.attempts ?? 0) + ' times</div></td>'
+                + '<td class="small">' + deadAt + '</td>'
+                + '<td><button class="btn btn-sm btn-outline-primary" onclick="requeueDead(\'' + tid + '\')">Re-queue</button></td></tr>';
+        }).join('');
+    } catch (e) {
+        alert('Failed to load dead-letter queue: ' + e.message);
+    }
+}
+
+async function requeueDead(taskId) {
+    try {
+        const r = await fetch('/api/admin/model/dead-tasks/' + encodeURIComponent(taskId) + '/requeue', { method: 'POST' });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('Re-queued successfully');
+        loadDeadTasks();
+        loadModelQuota();
+        loadQueueLive();
+    } catch (e) {
+        alert('Re-queue failed: ' + e.message);
+    }
+}
+
+async function recoverStuck() {
+    if (!confirm('Scan stuck tasks: queued-but-never-consumed tasks will be re-queued; timed-out running tasks without heartbeat will be marked failed and refunded. Continue?')) return;
+    try {
+        const r = await fetch('/api/admin/model/recover-stuck', { method: 'POST' });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        alert('Recovery done: re-queued ' + (j.requeued || []).length + ', marked failed & refunded ' + (j.marked_failed || []).length);
+        loadModelQuota();
+        loadQueueLive();
+    } catch (e) {
+        alert('Operation failed: ' + e.message);
+    }
+}
+
+// ---------------- External LLM API config (formerly DeepSeek config, super admin only) ----------------
+async function loadLlmConfig() {
+    const badge = document.getElementById('llmConfiguredBadge');
+    if (!badge) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/config');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        badge.textContent = j.configured ? 'Key set' : 'No key';
+        badge.className = 'badge ' + (j.configured ? 'bg-success' : 'bg-secondary');
+        const q = j.quota || {};
+        const fmtLimit = v => (v ? Number(v).toLocaleString() : 'No limit');
+        document.getElementById('llmApiKeyMasked').innerHTML =
+            (j.api_key_masked || '(not set)')
+            + '<div class="text-muted">Used today ' + Number(q.daily_used || 0).toLocaleString() + ' / ' + fmtLimit(q.daily_limit)
+            + ' tokens; used this month ' + Number(q.monthly_used || 0).toLocaleString() + ' / ' + fmtLimit(q.monthly_limit) + ' tokens</div>';
+        document.getElementById('llmBaseUrl').value = j.base_url || '';
+        document.getElementById('llmModel').value = j.model || '';
+        document.getElementById('llmDaily').value = j.daily_token_limit || 0;
+        document.getElementById('llmMonthly').value = j.monthly_token_limit || 0;
+    } catch (e) {
+        badge.textContent = 'Load failed';
+        badge.className = 'badge bg-danger';
+    }
+}
+
+async function saveLlmConfig() {
+    const body = {
+        base_url: document.getElementById('llmBaseUrl').value.trim(),
+        model: document.getElementById('llmModel').value.trim(),
+        daily_token_limit: parseInt(document.getElementById('llmDaily').value || '0', 10) || 0,
+        monthly_token_limit: parseInt(document.getElementById('llmMonthly').value || '0', 10) || 0
+    };
+    const key = document.getElementById('llmApiKey').value.trim();
+    if (key) body.api_key = key;
+    try {
+        const r = await fetch('/api/admin/deepseek/config', {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('External LLM config saved and takes effect immediately');
+        document.getElementById('llmApiKey').value = '';
+        loadLlmConfig();
+        loadLlmUsage();
+        loadModelQuota();
+    } catch (e) {
+        alert('Save failed: ' + e.message);
+    }
+}
+
+async function clearLlmKey() {
+    if (!confirm('Clear the external LLM API key? Algorithm processing/review will not be able to call the external LLM until a new key is set.')) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/config', {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ clear_api_key: true })
+        });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('API key cleared');
+        document.getElementById('llmApiKey').value = '';
+        loadLlmConfig();
+        loadModelQuota();
+    } catch (e) {
+        alert('Operation failed: ' + e.message);
+    }
+}
+
+// ---------------- External LLM traffic stats (moved from User Management) ----------------
+async function loadLlmUsage() {
+    if (!document.getElementById('llmTotCalls')) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/usage');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        const t = j.totals || {};
+        document.getElementById('llmTotCalls').textContent = t.calls ?? 0;
+        document.getElementById('llmTotFailed').textContent = t.failed ?? 0;
+        document.getElementById('llmTotTokens').textContent = Number(t.tokens || 0).toLocaleString();
+        document.getElementById('llmTotCredits').textContent = t.credits ?? 0;
+        const daily = j.daily || [];
+        const trend = document.getElementById('llmDailyTrend');
+        if (!daily.length) {
+            trend.innerHTML = '<span class="text-muted">No calls in the last 30 days</span>';
+        } else {
+            const maxTok = Math.max.apply(null, daily.map(d => d.tokens || 0).concat([1]));
+            trend.innerHTML = daily.map(d => {
+                const pct = Math.max(2, Math.round((d.tokens || 0) / maxTok * 100));
+                return '<div class="d-flex align-items-center gap-2 mb-1" title="' + d.date + ': '
+                    + Number(d.tokens || 0).toLocaleString() + ' tokens, ' + (d.calls || 0) + ' calls">'
+                    + '<span class="text-muted" style="width:44px;flex:0 0 auto;">' + d.date.slice(5) + '</span>'
+                    + '<div class="progress flex-grow-1" style="height:14px;min-width:60px;"><div class="progress-bar bg-success" style="width:' + pct + '%"></div></div>'
+                    + '<span class="text-muted" style="width:76px;flex:0 0 auto;text-align:right;">' + Number(d.tokens || 0).toLocaleString() + '</span></div>';
+            }).join('');
+        }
+        const users = j.by_user || [];
+        const ub = document.getElementById('llmByUser');
+        if (!users.length) {
+            ub.innerHTML = '<tr><td colspan="4" class="text-muted small">No usage records</td></tr>';
+        } else {
+            ub.innerHTML = users.map(u => '<tr><td>' + escapeHtml(u.nickname || u.username)
+                + '<div class="text-muted small">' + (MON_ROLE_LABEL[u.role] || u.role || '') + '</div></td>'
+                + '<td>' + (u.calls || 0)
+                + (u.failed ? ' <span class="text-danger small">(' + u.failed + ' failed)</span>' : '') + '</td>'
+                + '<td>' + Number(u.tokens || 0).toLocaleString() + '</td>'
+                + '<td>' + (u.credits || 0) + '</td></tr>').join('');
+        }
+    } catch (e) {
+        const trend = document.getElementById('llmDailyTrend');
+        if (trend) trend.innerHTML = '<span class="text-danger">Load failed: ' + escapeHtml(e.message) + '</span>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Feedback #9 req.3a: support /tasks?highlight=<task_id> from the message center
+    const hl = parseInt(new URLSearchParams(location.search).get('highlight') || '', 10);
+    if (hl) {
+        wfHighlightId = hl;
+        switchMainPane('paneTasks');
+        await loadWf(WF_IS_ADMIN ? 'all' : 'mine');
+        if (wfHighlightId) await loadWf('pool');  // unclaimed pool tasks live in the pool list
+        if (wfHighlightId) {  // not found in either list: try opening the detail directly
+            wfDetail(hl);
+            wfHighlightId = null;
+        }
+    } else {
+        loadWf('all');
+    }
+    loadComputeStats();
+    // Feedback #9 req.3b: admin in-progress data overview
+    if (WF_IS_ADMIN) loadInProgressOverview();
+});
 </script>
-{% endblock %} 
+{% endblock %}

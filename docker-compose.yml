@@ -7,19 +7,21 @@ services:
     container_name: maps-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: maps_root_dev
-      MYSQL_DATABASE: maps
-      MYSQL_USER: maps
-      MYSQL_PASSWORD: maps_dev
-      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     volumes:
       - maps_mysql_data:/var/lib/mysql
-      - ./scripts/mysql_create_maps_user.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # 首初始化加固：限制账号主机范围（仅空数据卷首启时执行，见脚本注释）
+      - ./deploy/mysql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pmaps_root_dev"]
+      # 密码经 MYSQL_PWD 环境变量传递，避免出现在进程命令行/日志告警中
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_ROOT_PASSWORD\" mysqladmin ping -h 127.0.0.1 -u root --silent"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,13 +33,16 @@ services:
     image: redis:7-alpine
     container_name: maps-redis
     restart: unless-stopped
+    environment:
+      # 供健康检查通过 REDISCLI_AUTH 读取，避免 -a 命令行传密码产生告警
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - maps_redis_data:/data
-    command: redis-server --appendonly yes --requirepass maps_redis_dev
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "maps_redis_dev", "ping"]
+      test: ["CMD-SHELL", "REDISCLI_AUTH=\"$$REDIS_PASSWORD\" redis-cli ping | grep -q PONG"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -51,18 +56,102 @@ services:
       dockerfile: Dockerfile
     container_name: maps-web
     restart: unless-stopped
+    # 资源上限（宿主机约 1G 内存，保守限制防单容器 OOM 拖垮整机）
+    mem_limit: 512m
+    cpus: 1.0
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
+    # 反馈#8续：容器经 host.docker.internal 访问云宿主机端口——frp / SSH 反向隧道把
+    # 局域网 Windows 机的 BAGEL API（6006）映射到云宿主机；容器内 127.0.0.1 是容器自身，
+    # 必须经宿主网关访问（.env 中 BAGEL_LOCAL_SERVICE_URL=http://host.docker.internal:6006）
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
-      - SECRET_KEY=change-this-to-a-random-secret-key-in-production
+      - SECRET_KEY=${SECRET_KEY}
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
-      - MYSQL_USER=maps
-      - MYSQL_PASSWORD=maps_dev
-      - MYSQL_DATABASE=maps
-      - REDIS_URL=redis://:maps_redis_dev@redis:6379/0
-      - SESSION_IDLE_TIMEOUT=1800
-      - TZ=Asia/Shanghai
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_POOL_SIZE=${MYSQL_POOL_SIZE}
+      - MYSQL_MAX_OVERFLOW=${MYSQL_MAX_OVERFLOW}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
+      - BAGEL_SERVICE_URL=${BAGEL_SERVICE_URL}
+      - BAGEL_QUEUE_NAME=${BAGEL_QUEUE_NAME}
+      - BAGEL_RESULT_TTL_SECONDS=${BAGEL_RESULT_TTL_SECONDS}
+      - MODEL_DEFAULT_BACKEND=${MODEL_DEFAULT_BACKEND}
+      - MODEL_DEFAULT_GPU_BACKEND=${MODEL_DEFAULT_GPU_BACKEND}
+      - BAGEL_AUTODL_SERVICE_URL=${BAGEL_AUTODL_SERVICE_URL}
+      - BAGEL_AUTODL_SERVICE_TOKEN=${BAGEL_AUTODL_SERVICE_TOKEN}
+      - BAGEL_LOCAL_SERVICE_URL=${BAGEL_LOCAL_SERVICE_URL}
+      - BAGEL_LOCAL_SERVICE_TOKEN=${BAGEL_LOCAL_SERVICE_TOKEN}
+      # GPU 后端通信协议：lan=局域网NF4优化版(/v1/understand+转写抽帧)；
+      # autodl_v1=autoDL serve_api.py(GET /health + POST /v1/infer，SFT单图问答)；
+      # infer=旧版 BAGEL 协议(POST /infer，全模态，仅旧服务兼容)。local 默认 lan，autodl 默认 autodl_v1
+      - BAGEL_LOCAL_PROTOCOL=${BAGEL_LOCAL_PROTOCOL:-lan}
+      - BAGEL_AUTODL_PROTOCOL=${BAGEL_AUTODL_PROTOCOL:-autodl_v1}
+      - BAGEL_LAN_UNDERSTAND_TIMEOUT=${BAGEL_LAN_UNDERSTAND_TIMEOUT:-300}
+      - BAGEL_LAN_HEALTH_TIMEOUT=${BAGEL_LAN_HEALTH_TIMEOUT:-8}
+      # autoDL serve_api.py（autodl_v1）：模型形态 sft_nf4/sft_bf16、调用与健康检查超时
+      - BAGEL_AUTODL_MODEL=${BAGEL_AUTODL_MODEL:-sft_nf4}
+      - BAGEL_AUTODL_V1_TIMEOUT=${BAGEL_AUTODL_V1_TIMEOUT:-300}
+      - BAGEL_AUTODL_HEALTH_TIMEOUT=${BAGEL_AUTODL_HEALTH_TIMEOUT:-8}
+      # 反馈#10：局域网 API 媒体端点（Whisper 转写 / 视频关键帧）超时与上传上限
+      - BAGEL_LAN_TRANSCRIBE_TIMEOUT=${BAGEL_LAN_TRANSCRIBE_TIMEOUT:-1800}
+      - BAGEL_LAN_KEYFRAMES_TIMEOUT=${BAGEL_LAN_KEYFRAMES_TIMEOUT:-1800}
+      - BAGEL_LAN_MEDIA_MAX_MB=${BAGEL_LAN_MEDIA_MAX_MB:-300}
+      - BAGEL_SERVICE_TOKEN=${BAGEL_SERVICE_TOKEN}
+      - BAGEL_FILE_TRANSFER=${BAGEL_FILE_TRANSFER}
+      - MODEL_FILE_BASE_URL=${MODEL_FILE_BASE_URL}
+      - MODEL_FILE_TOKEN=${MODEL_FILE_TOKEN}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL}
+      - DEEPSEEK_DAILY_TOKEN_LIMIT=${DEEPSEEK_DAILY_TOKEN_LIMIT}
+      - DEEPSEEK_MONTHLY_TOKEN_LIMIT=${DEEPSEEK_MONTHLY_TOKEN_LIMIT}
+      # 按人算力积分（计量/预检/冻结/结算全在 Web 侧完成）
+      - CREDIT_ENABLED=${CREDIT_ENABLED:-1}
+      - CREDIT_DEEPSEEK_PER_1K=${CREDIT_DEEPSEEK_PER_1K:-1}
+      - CREDIT_AUTODL_BASE=${CREDIT_AUTODL_BASE:-10}
+      - CREDIT_AUTODL_PER_MIN=${CREDIT_AUTODL_PER_MIN:-3}
+      - CREDIT_LOCAL_BASE=${CREDIT_LOCAL_BASE:-2}
+      - CREDIT_LOCAL_PER_MIN=${CREDIT_LOCAL_PER_MIN:-1}
+      - CREDIT_EST_VIDEO_SECONDS=${CREDIT_EST_VIDEO_SECONDS:-600}
+      - CREDIT_EST_AUDIO_SECONDS=${CREDIT_EST_AUDIO_SECONDS:-300}
+      - CREDIT_CACHE_HIT_FREE=${CREDIT_CACHE_HIT_FREE:-1}
+      # 反馈#10：Whisper 转写 / BAGEL 关键帧简述组件计价
+      - CREDIT_TRANSCRIBE_BASE=${CREDIT_TRANSCRIBE_BASE:-1}
+      - CREDIT_TRANSCRIBE_PER_MIN=${CREDIT_TRANSCRIBE_PER_MIN:-1}
+      - CREDIT_KEYFRAMES_BASE=${CREDIT_KEYFRAMES_BASE:-2}
+      - CREDIT_KEYFRAMES_PER_FRAME=${CREDIT_KEYFRAMES_PER_FRAME:-2}
+      - CREDIT_KEYFRAME_INTERVAL_SEC=${CREDIT_KEYFRAME_INTERVAL_SEC:-8}
+      - CREDIT_KEYFRAME_MAX_FRAMES=${CREDIT_KEYFRAME_MAX_FRAMES:-6}
+      # GPU 健康检查 / 故障切换
+      - GPU_HEALTH_TIMEOUT=${GPU_HEALTH_TIMEOUT:-5}
+      - GPU_HEALTH_CACHE_SECONDS=${GPU_HEALTH_CACHE_SECONDS:-60}
+      - GPU_FAILOVER_ENABLED=${GPU_FAILOVER_ENABLED:-1}
+      # 重试 / 死信 / 心跳 / 卡死恢复
+      - BAGEL_MAX_ATTEMPTS=${BAGEL_MAX_ATTEMPTS:-3}
+      - BAGEL_RETRY_BACKOFF_SECONDS=${BAGEL_RETRY_BACKOFF_SECONDS:-60}
+      - BAGEL_WORKER_TTL_SECONDS=${BAGEL_WORKER_TTL_SECONDS:-90}
+      - BAGEL_DELAYED_ZSET=${BAGEL_DELAYED_ZSET:-bagel:task:delayed}
+      - BAGEL_DEAD_QUEUE_NAME=${BAGEL_DEAD_QUEUE_NAME:-bagel:task:dead}
+      - BAGEL_WORKER_PREFIX=${BAGEL_WORKER_PREFIX:-bagel:worker:}
+      - BAGEL_STUCK_QUEUED_SECONDS=${BAGEL_STUCK_QUEUED_SECONDS:-600}
+      - BAGEL_STUCK_RUNNING_SECONDS=${BAGEL_STUCK_RUNNING_SECONDS:-1800}
+      # 登录限流（按 IP 固定窗口）
+      - LOGIN_RATE_LIMIT_MAX=${LOGIN_RATE_LIMIT_MAX:-20}
+      - LOGIN_RATE_WINDOW_SECONDS=${LOGIN_RATE_WINDOW_SECONDS:-300}
+      # 文件存储后端：local=本地磁盘（当前唯一生效）；oss=预留扩展桩，尚未接线，配置不生效
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-local}
+      - OSS_ENDPOINT=${OSS_ENDPOINT:-}
+      - OSS_BUCKET_NAME=${OSS_BUCKET_NAME:-}
+      - OSS_ACCESS_KEY_ID=${OSS_ACCESS_KEY_ID:-}
+      - OSS_ACCESS_KEY_SECRET=${OSS_ACCESS_KEY_SECRET:-}
+      - OSS_PUBLIC_BASE_URL=${OSS_PUBLIC_BASE_URL:-}
+      - SESSION_IDLE_TIMEOUT=${SESSION_IDLE_TIMEOUT}
+      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
+      - TZ=${TZ}
     volumes:
       - ./uploads:/app/uploads
       - ./subtitles:/app/subtitles
@@ -82,16 +171,64 @@ services:
       dockerfile: Dockerfile
     container_name: maps-bagel-worker
     restart: unless-stopped
+    # worker 为轻量轮询/转发进程，限额比 web 更保守
+    mem_limit: 384m
+    cpus: 1.0
+    # 同 web：经 host.docker.internal 访问云宿主机上的 frp/SSH 隧道（局域网 BAGEL API）
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
-      - SECRET_KEY=change-this-to-a-random-secret-key-in-production
+      - SECRET_KEY=${SECRET_KEY}
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
-      - MYSQL_USER=maps
-      - MYSQL_PASSWORD=maps_dev
-      - MYSQL_DATABASE=maps
-      - REDIS_URL=redis://:maps_redis_dev@redis:6379/0
-      - TZ=Asia/Shanghai
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
+      - BAGEL_SERVICE_URL=${BAGEL_SERVICE_URL}
+      - BAGEL_QUEUE_NAME=${BAGEL_QUEUE_NAME}
+      - BAGEL_RESULT_TTL_SECONDS=${BAGEL_RESULT_TTL_SECONDS}
+      - MODEL_DEFAULT_BACKEND=${MODEL_DEFAULT_BACKEND}
+      - MODEL_DEFAULT_GPU_BACKEND=${MODEL_DEFAULT_GPU_BACKEND}
+      - BAGEL_AUTODL_SERVICE_URL=${BAGEL_AUTODL_SERVICE_URL}
+      - BAGEL_AUTODL_SERVICE_TOKEN=${BAGEL_AUTODL_SERVICE_TOKEN}
+      - BAGEL_LOCAL_SERVICE_URL=${BAGEL_LOCAL_SERVICE_URL}
+      - BAGEL_LOCAL_SERVICE_TOKEN=${BAGEL_LOCAL_SERVICE_TOKEN}
+      # GPU 后端通信协议（worker dispatch 分流用，注释同 web）
+      - BAGEL_LOCAL_PROTOCOL=${BAGEL_LOCAL_PROTOCOL:-lan}
+      - BAGEL_AUTODL_PROTOCOL=${BAGEL_AUTODL_PROTOCOL:-infer}
+      - BAGEL_LAN_UNDERSTAND_TIMEOUT=${BAGEL_LAN_UNDERSTAND_TIMEOUT:-300}
+      - BAGEL_LAN_HEALTH_TIMEOUT=${BAGEL_LAN_HEALTH_TIMEOUT:-8}
+      # 反馈#10：Whisper 转写 / 关键帧端点超时、上传上限、默认抽帧数（dispatch 实际读取）
+      - BAGEL_LAN_TRANSCRIBE_TIMEOUT=${BAGEL_LAN_TRANSCRIBE_TIMEOUT:-1800}
+      - BAGEL_LAN_KEYFRAMES_TIMEOUT=${BAGEL_LAN_KEYFRAMES_TIMEOUT:-1800}
+      - BAGEL_LAN_MEDIA_MAX_MB=${BAGEL_LAN_MEDIA_MAX_MB:-300}
+      - CREDIT_KEYFRAME_MAX_FRAMES=${CREDIT_KEYFRAME_MAX_FRAMES:-6}
+      - BAGEL_SERVICE_TOKEN=${BAGEL_SERVICE_TOKEN}
+      - BAGEL_FILE_TRANSFER=${BAGEL_FILE_TRANSFER}
+      - MODEL_FILE_BASE_URL=${MODEL_FILE_BASE_URL}
+      - MODEL_FILE_TOKEN=${MODEL_FILE_TOKEN}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL}
+      - DEEPSEEK_DAILY_TOKEN_LIMIT=${DEEPSEEK_DAILY_TOKEN_LIMIT}
+      - DEEPSEEK_MONTHLY_TOKEN_LIMIT=${DEEPSEEK_MONTHLY_TOKEN_LIMIT}
+      # GPU 健康检查 / 故障切换（worker dispatch 时使用）
+      - GPU_HEALTH_TIMEOUT=${GPU_HEALTH_TIMEOUT:-5}
+      - GPU_HEALTH_CACHE_SECONDS=${GPU_HEALTH_CACHE_SECONDS:-60}
+      - GPU_FAILOVER_ENABLED=${GPU_FAILOVER_ENABLED:-1}
+      # 重试 / 死信 / 心跳（积分记账在 Web 侧，worker 无需 CREDIT_* 配置）
+      - BAGEL_MAX_ATTEMPTS=${BAGEL_MAX_ATTEMPTS:-3}
+      - BAGEL_RETRY_BACKOFF_SECONDS=${BAGEL_RETRY_BACKOFF_SECONDS:-60}
+      - BAGEL_WORKER_TTL_SECONDS=${BAGEL_WORKER_TTL_SECONDS:-90}
+      - BAGEL_DELAYED_ZSET=${BAGEL_DELAYED_ZSET:-bagel:task:delayed}
+      - BAGEL_DEAD_QUEUE_NAME=${BAGEL_DEAD_QUEUE_NAME:-bagel:task:dead}
+      - BAGEL_WORKER_PREFIX=${BAGEL_WORKER_PREFIX:-bagel:worker:}
+      - TZ=${TZ}
     command: ["python", "scripts/bagel_worker.py"]
+    # worker 不提供HTTP服务，禁用继承自镜像的web健康检查
+    healthcheck:
+      disable: true
     volumes:
       - ./uploads:/app/uploads
       - ./subtitles:/app/subtitles

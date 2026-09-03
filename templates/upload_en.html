@@ -21,33 +21,75 @@
 
     <div class="tab-content" id="acqTabContent">
         <div class="tab-pane fade show active" id="local-pane" role="tabpanel" aria-labelledby="local-tab" tabindex="0">
-            <p class="text-muted small mb-2">Upload from disk or record from camera; data is sent in chunks.</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-                <button type="button" class="btn btn-success" id="btnWebCrawlJump">
-                    <i class="fas fa-globe me-1"></i> Web crawl / batch fetch
-                </button>
-                <span class="small text-muted align-self-center">Opens the Internet batch collection tab</span>
-            </div>
+            <p class="text-muted small mb-3">Upload from disk or record from camera; data is sent in chunks. For web data, use the &ldquo;Internet batch collection&rdquo; tab above.</p>
             <div class="row g-3">
                 <div class="col-lg-6">
                     <div class="card h-100">
                         <div class="card-header">
-                            <h5 class="card-title mb-0"><i class="fas fa-video me-1"></i> Record in browser</h5>
+                            <h5 class="card-title mb-0"><i class="fas fa-video me-1"></i> Record / <i class="fas fa-camera me-1"></i>Photo capture</h5>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3">
-                                <video id="videoPreview" class="w-100 rounded border" autoplay muted playsinline></video>
+                            <!-- Insecure context (plain HTTP over public IP): browsers block camera/microphone -->
+                            <div class="alert alert-warning py-2 small d-none" id="mediaInsecureAlert" role="alert">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                <strong>Camera/microphone are not available on this address.</strong><br>
+                                Browsers only allow camera/microphone over <b>HTTPS</b> (or localhost). This page is served over plain HTTP.
+                                Please open <code id="mediaHttpsHint"></code> instead (with the self-signed certificate, click &ldquo;Advanced &rarr; Proceed&rdquo; on the first visit).
+                                File upload is not affected and works as usual.
                             </div>
+                            <div class="mb-3">
+                                <video id="videoPreview" class="w-100 rounded border bg-dark" autoplay muted playsinline></video>
+                            </div>
+                            <!-- Camera / microphone settings -->
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-5">
+                                    <label for="cameraSelect" class="form-label small mb-1"><i class="fas fa-video me-1"></i>Camera</label>
+                                    <select class="form-select form-select-sm" id="cameraSelect" disabled>
+                                        <option value="">Default camera</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="micSelect" class="form-label small mb-1"><i class="fas fa-microphone me-1"></i>Microphone</label>
+                                    <select class="form-select form-select-sm" id="micSelect" disabled>
+                                        <option value="">Default microphone</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-primary btn-sm w-100" id="btnToggleMedia">
+                                        <i class="fas fa-power-off"></i> Turn on
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="small text-muted mb-2" id="mediaStatus">Camera/microphone off. Click &ldquo;Turn on&rdquo; and allow the permission prompt.</div>
                             <div class="d-flex flex-wrap gap-2">
-                                <button type="button" id="startRecording" class="btn btn-primary">
+                                <button type="button" id="startRecording" class="btn btn-primary" disabled>
                                     <i class="fas fa-video"></i> Start recording
                                 </button>
                                 <button type="button" id="stopRecording" class="btn btn-danger" disabled>
                                     <i class="fas fa-stop"></i> Stop
                                 </button>
+                                <button type="button" id="capturePhoto" class="btn btn-outline-success" disabled>
+                                    <i class="fas fa-camera"></i> Capture photo
+                                </button>
                             </div>
                             <div class="mt-3">
                                 <div class="progress d-none" id="recProgressWrap">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <!-- On-site photo capture: snapshots (several frames), uploaded as images -->
+                            <div class="mt-3 border rounded p-2" id="photoStripWrap" style="background:#f8f9fc;display:none;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="small fw-bold"><i class="fas fa-images me-1"></i>Captured photos (<span id="photoCount">0</span>)</span>
+                                    <span>
+                                        <button type="button" class="btn btn-success btn-sm" id="uploadPhotos">
+                                            <i class="fas fa-upload"></i> Upload all photos
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" id="clearPhotos">Clear</button>
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2" id="photoStrip"></div>
+                                <div class="progress d-none mt-2" id="photoProgressWrap">
                                     <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                 </div>
                             </div>
@@ -62,8 +104,39 @@
                         <div class="card-body">
                             <form id="uploadForm" class="mb-3">
                                 <div class="mb-3">
+                                    <label for="collectNo" class="form-label">Recording / collection ID</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control font-monospace" id="collectNo"
+                                               maxlength="63" autocomplete="off" spellcheck="false"
+                                               placeholder="Auto-generated, editable">
+                                        <button type="button" class="btn btn-outline-secondary" id="btnRegenNo" title="Regenerate ID">
+                                            <i class="fas fa-rotate"></i> Regenerate
+                                        </button>
+                                    </div>
+                                    <div class="small mt-1" id="collectNoHint"></div>
+                                    <div class="form-text">Auto-generated as timestamp + random suffix (same rule as in Data Management); editable. <b>A duplicate ID cannot be saved</b> — change it and retry. Used by local upload, recording and photo capture; a fresh ID is generated after each successful ingestion.</div>
+                                </div>
+                                <div class="mb-3">
                                     <label for="file" class="form-label">Files (multi-select, uploaded one by one)</label>
                                     <input type="file" class="form-control" id="file" accept="video/*,audio/*,image/*" multiple>
+                                </div>
+                                <!-- Android quick capture: capture attribute launches the system camera/camcorder/recorder -->
+                                <div class="mb-3 rounded p-2 d-none" id="nativeCaptureWrap" style="background:#f3f4fa;">
+                                    <div class="small text-muted mb-1"><i class="fas fa-mobile-screen me-1"></i>Quick capture on Android: launches the system camera / camcorder / voice recorder; captured files are added to the file list above automatically.</div>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button type="button" class="btn btn-outline-success btn-sm" id="btnCapPhoto">
+                                            <i class="fas fa-camera"></i> Photo
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="btnCapVideo">
+                                            <i class="fas fa-video"></i> Video
+                                        </button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm" id="btnCapAudio">
+                                            <i class="fas fa-microphone"></i> Audio
+                                        </button>
+                                    </div>
+                                    <input type="file" accept="image/*" capture="environment" id="capPhotoInput" class="d-none">
+                                    <input type="file" accept="video/*" capture="environment" id="capVideoInput" class="d-none">
+                                    <input type="file" accept="audio/*" capture id="capAudioInput" class="d-none">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-upload"></i> Upload
@@ -82,41 +155,137 @@
             <div class="card border-success">
                 <div class="card-header bg-success text-white d-flex align-items-center gap-2">
                     <i class="fas fa-cloud-download-alt"></i>
-                    <span>Batch collection from the Internet</span>
+                    <span>Batch web collection (videos / images)</span>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted small">Paste direct media links, playlist pages, or RSS/podcast feeds. Ensure compliance with each site&rsquo;s terms and applicable law.</p>
+                    <p class="text-muted small">Major video sites are supported (Bilibili, YouTube, Douyin, Youku, iQiyi, Tencent Video, Weibo, Xiaohongshu and more) plus image collection (Bing image search / image extraction from any web page). Search by keyword and multi-select, or paste a collection/channel/page URL to extract items; selected items are downloaded in one batch with <b>meta metadata</b>. Please comply with each site&rsquo;s terms of service and applicable law.</p>
+
+                    <!-- Step 1: search criteria -->
+                    <div class="border rounded p-3 mb-3" style="background:#f8f9fc;">
+                        <div class="row g-2 align-items-end mb-2">
+                            <div class="col-md-auto col-6">
+                                <label class="form-label small mb-1">Media type</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="crawlMediaType" id="cmtVideo" value="video" checked>
+                                    <label class="btn btn-outline-primary btn-sm text-nowrap" for="cmtVideo"><i class="fas fa-video me-1"></i>Video</label>
+                                    <input type="radio" class="btn-check" name="crawlMediaType" id="cmtImage" value="image">
+                                    <label class="btn btn-outline-primary btn-sm text-nowrap" for="cmtImage"><i class="fas fa-image me-1"></i>Image</label>
+                                </div>
+                            </div>
+                            <div class="col-md-auto col-6">
+                                <label class="form-label small mb-1">Method</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="crawlMode" id="cmKeyword" value="keyword" checked>
+                                    <label class="btn btn-outline-secondary btn-sm text-nowrap" for="cmKeyword"><i class="fas fa-search me-1"></i>Keyword search</label>
+                                    <input type="radio" class="btn-check" name="crawlMode" id="cmUrl" value="url">
+                                    <label class="btn btn-outline-secondary btn-sm text-nowrap" for="cmUrl"><i class="fas fa-link me-1"></i>URL batch</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12" id="crawlSiteWrap">
+                                <label class="form-label small mb-1" for="crawlSite">Video site</label>
+                                <select class="form-select form-select-sm" id="crawlSite">
+                                    <option value="bilibili">Bilibili (keyword search)</option>
+                                    <option value="youtube">YouTube (keyword search)</option>
+                                    <option value="douyin">Douyin (URL mode)</option>
+                                    <option value="youku">Youku (URL mode)</option>
+                                    <option value="iqiyi">iQiyi (URL mode)</option>
+                                    <option value="qq">Tencent Video (URL mode)</option>
+                                    <option value="weibo">Weibo (URL mode)</option>
+                                    <option value="xiaohongshu">Xiaohongshu (URL mode)</option>
+                                    <option value="generic">Other sites (generic URL mode)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <label class="form-label small mb-1" for="crawlCount">Results</label>
+                                <select class="form-select form-select-sm" id="crawlCount">
+                                    <option value="10">10 items</option>
+                                    <option value="20" selected>20 items</option>
+                                    <option value="30">30 items</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-6" id="crawlDurWrap">
+                                <label class="form-label small mb-1" for="crawlDur">Dur&le;min</label>
+                                <input type="number" class="form-control form-control-sm" id="crawlDur" value="30" min="1" max="120">
+                            </div>
+                        </div>
+                        <div class="row g-2" id="crawlKeywordRow">
+                            <div class="col-12">
+                                <label class="form-label small mb-1" for="crawlKeywords">Keywords (comma-separated, up to 5)</label>
+                                <input type="text" class="form-control form-control-sm" id="crawlKeywords" placeholder="e.g. oral history, interview, intangible heritage">
+                            </div>
+                        </div>
+                        <div class="row g-2 d-none" id="crawlUrlRow">
+                            <div class="col-12">
+                                <label class="form-label small mb-1" for="crawlPageUrl">Page URL (video page / collection / channel / uploader / playlist; any web page in image mode)</label>
+                                <input type="text" class="form-control form-control-sm font-monospace" id="crawlPageUrl" placeholder="https://&hellip;">
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex gap-2 align-items-center flex-wrap">
+                            <button class="btn btn-success btn-sm" id="btnCrawlSearch" type="button"><i class="fas fa-search me-1"></i>Search / extract candidates</button>
+                            <span class="small" id="crawlSearchHint"></span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: multi-select results -->
                     <div class="mb-3">
-                        <label for="crawlUrls" class="form-label">Target URLs (one per line)</label>
-                        <textarea class="form-control font-monospace small" id="crawlUrls" rows="10" placeholder="https://example.com/media/video1.mp4&#10;https://example.com/channel/playlist&#10;https://example.com/feed/podcast.xml"></textarea>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-4">
-                            <label for="crawlMode" class="form-label">Mode</label>
-                            <select class="form-select" id="crawlMode">
-                                <option value="direct">Direct file URLs (video / audio)</option>
-                                <option value="page">Parse embedded media on pages</option>
-                                <option value="feed">Expand RSS / podcast feeds</option>
-                            </select>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0"><i class="fas fa-list-ul me-1"></i>Candidates (check to download in one batch)</h6>
+                            <div class="small text-muted" id="crawlSelInfo">No search yet</div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="crawlMax" class="form-label">Max items per job</label>
-                            <input type="number" class="form-control" id="crawlMax" value="50" min="1" max="500">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="crawlDelay" class="form-label">Delay between requests (s)</label>
-                            <input type="number" class="form-control" id="crawlDelay" value="2" min="0.5" step="0.5">
+                        <div class="table-responsive" style="max-height:340px;overflow:auto;border:1px solid #e3e6f0;border-radius:8px;">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light" style="position:sticky;top:0;z-index:1;">
+                                    <tr>
+                                        <th style="width:36px;"><div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="crawlCheckAll"></div></th>
+                                        <th style="width:72px;">Preview</th>
+                                        <th>Title</th>
+                                        <th style="width:120px;">Source / author</th>
+                                        <th style="width:80px;" id="crawlThMeta1">Duration</th>
+                                        <th style="width:96px;" id="crawlThMeta2">Views</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="crawlResultBody">
+                                    <tr><td colspan="6" class="text-center text-muted small py-3">Enter keywords or a URL above and click &ldquo;Search / extract candidates&rdquo;</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="crawlRobots" checked>
-                        <label class="form-check-label" for="crawlRobots">Respect robots.txt and crawl policies</label>
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 align-items-center">
-                        <button type="button" class="btn btn-success" id="btnSubmitCrawl">
-                            <i class="fas fa-play"></i> Submit batch job
-                        </button>
-                        <span class="badge bg-secondary">Jobs run on the server queue once the crawler service is connected</span>
+
+                    <!-- Step 3: scope options + remark + download -->
+                    <div class="border rounded p-3" style="background:#f8f9fc;">
+                        <div class="row g-3">
+                            <div class="col-lg-7">
+                                <label class="form-label small fw-bold mb-1">Collection scope (multi-select; media info is always saved to the meta file)</label>
+                                <div class="d-flex flex-wrap gap-3 small" id="crawlOptionsVideo">
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optSubtitles" value="subtitles" checked><label class="form-check-label" for="optSubtitles">Subtitles</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optDanmaku" value="danmaku"><label class="form-check-label" for="optDanmaku">Danmaku (Bilibili)</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optStats" value="stats" checked><label class="form-check-label" for="optStats">View / like stats</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optCover" value="cover" checked><label class="form-check-label" for="optCover">Cover image</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optDesc" value="description"><label class="form-check-label" for="optDesc">Description / tags</label></div>
+                                </div>
+                                <div class="small text-muted d-none" id="crawlOptionsImageHint">Images are saved with source page URL, dimensions and other info in the meta file.</div>
+                                <!-- Feedback #15: ignore robots.txt toggle (shown for both video and image) -->
+                                <div class="form-check mt-2 pt-2 border-top">
+                                    <input class="form-check-input" type="checkbox" id="optIgnoreRobots">
+                                    <label class="form-check-label text-danger fw-semibold small" for="optIgnoreRobots">
+                                        <i class="fas fa-robot me-1"></i>Ignore robots protocol
+                                    </label>
+                                    <span class="small text-muted d-block">Target sites' robots.txt is respected by default; tick to bypass it. Use only when you are sure it complies with applicable law and the site's terms of service.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <label class="form-label small fw-bold mb-1" for="crawlRemark">Content remark (what this batch is for; optional)</label>
+                                <textarea class="form-control form-control-sm" id="crawlRemark" rows="2" maxlength="500" placeholder="e.g. 2026 oral-history interview material for dialect transcription training"></textarea>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                            <button class="btn btn-primary btn-sm" id="btnCrawlDownload" type="button" disabled><i class="fas fa-cloud-download-alt me-1"></i>Download selected &amp; import</button>
+                            <span class="small text-muted">Up to 30 items per batch; download runs synchronously — keep this page open.</span>
+                        </div>
+                        <div class="progress d-none mt-2" id="crawlProgressWrap" style="height:18px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%">Downloading, please wait…</div>
+                        </div>
+                        <div class="mt-2" id="crawlDownloadResult"></div>
                     </div>
                 </div>
             </div>
@@ -129,57 +298,264 @@
 <script>
 let mediaRecorder;
 let recordedChunks = [];
+let mediaStream = null;
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
 
-async function setupVideoRecording() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
-        });
-        document.getElementById('videoPreview').srcObject = stream;
+// ---- Camera/microphone settings (local devices accessed by the browser; HTTPS required) ----
+const videoPreview = document.getElementById('videoPreview');
+const cameraSelect = document.getElementById('cameraSelect');
+const micSelect = document.getElementById('micSelect');
+const btnToggleMedia = document.getElementById('btnToggleMedia');
+const mediaStatus = document.getElementById('mediaStatus');
+const startRecBtn = document.getElementById('startRecording');
+const stopRecBtn = document.getElementById('stopRecording');
+const capturePhotoBtn = document.getElementById('capturePhoto');
+const insecureAlert = document.getElementById('mediaInsecureAlert');
 
-        mediaRecorder = new MediaRecorder(stream);
+function isMediaSupported() {
+    return window.isSecureContext === true
+        && !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+}
 
-        mediaRecorder.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        };
+function setMediaStatus(text, ok) {
+    mediaStatus.textContent = text;
+    mediaStatus.className = 'small mb-2 ' + (ok === true ? 'text-success' : (ok === false ? 'text-danger' : 'text-muted'));
+}
 
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            uploadRecordedVideo(blob);
-        };
-
-        document.getElementById('startRecording').disabled = false;
-    } catch (err) {
-        console.error('Error accessing media devices:', err);
-        alert('Could not access camera/microphone');
+function mediaErrorText(err) {
+    if (!isMediaSupported()) {
+        return 'Camera/microphone are blocked on plain HTTP. Please use the HTTPS address shown above.';
+    }
+    switch (err && err.name) {
+        case 'NotAllowedError':
+        case 'PermissionDeniedError':
+            return 'Permission denied. Click the lock/settings icon in the address bar, allow camera and microphone, then retry.';
+        case 'NotFoundError':
+        case 'DevicesNotFoundError':
+            return 'No camera or microphone detected. Make sure the device is connected and not disabled by the OS.';
+        case 'NotReadableError':
+        case 'TrackStartError':
+            return 'The camera/microphone is busy in another application (e.g. a meeting app). Close it and retry.';
+        case 'OverconstrainedError':
+            return 'The selected device is unavailable. Pick a different camera/microphone in the settings above.';
+        case 'SecurityError':
+            return 'Browser security blocked device access. Make sure you are on HTTPS and media devices are not disabled in browser settings.';
+        default:
+            return 'Could not access camera/microphone: ' + (err && err.message ? err.message : String(err));
     }
 }
 
-document.getElementById('startRecording').addEventListener('click', () => {
-    recordedChunks = [];
-    mediaRecorder.start();
-    document.getElementById('startRecording').disabled = true;
-    document.getElementById('stopRecording').disabled = false;
+function stopMediaStream() {
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(t => { try { t.stop(); } catch (e) {} });
+        mediaStream = null;
+    }
+    if (videoPreview) videoPreview.srcObject = null;
+}
+
+function fillDeviceSelect(sel, devices, defaultLabel) {
+    const prev = sel.value;
+    sel.innerHTML = '';
+    const def = document.createElement('option');
+    def.value = '';
+    def.textContent = defaultLabel;
+    sel.appendChild(def);
+    devices.forEach((d, i) => {
+        const opt = document.createElement('option');
+        opt.value = d.deviceId;
+        const kind = d.kind === 'videoinput' ? 'Camera' : 'Microphone';
+        opt.textContent = d.label || (kind + ' ' + (i + 1));
+        sel.appendChild(opt);
+    });
+    if (prev && Array.from(sel.options).some(o => o.value === prev)) sel.value = prev;
+}
+
+async function refreshDeviceLists() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        fillDeviceSelect(cameraSelect, devices.filter(d => d.kind === 'videoinput'), 'Default camera');
+        fillDeviceSelect(micSelect, devices.filter(d => d.kind === 'audioinput'), 'Default microphone');
+    } catch (e) {
+        console.warn('enumerateDevices failed:', e);
+    }
+}
+
+async function startMedia() {
+    if (!isMediaSupported()) {
+        alert(mediaErrorText(null));
+        return false;
+    }
+    if (typeof MediaRecorder === 'undefined') {
+        setMediaStatus('In-browser recording (MediaRecorder) is not supported by this browser. Use a recent Chrome / Edge / Firefox / Safari.', false);
+        return false;
+    }
+    try {
+        const constraints = {
+            video: cameraSelect.value ? { deviceId: { exact: cameraSelect.value } } : true,
+            audio: micSelect.value ? { deviceId: { exact: micSelect.value } } : true
+        };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        stopMediaStream();
+        mediaStream = stream;
+        videoPreview.srcObject = stream;
+        videoPreview.muted = true;
+
+        let mimeType = 'video/webm';
+        if (!MediaRecorder.isTypeSupported('video/webm')) {
+            mimeType = MediaRecorder.isTypeSupported('video/mp4') ? 'video/mp4' : '';
+        }
+        mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data && event.data.size > 0) recordedChunks.push(event.data);
+        };
+        mediaRecorder.onstop = () => {
+            const type = mediaRecorder.mimeType || 'video/webm';
+            const ext = type.indexOf('mp4') >= 0 ? 'mp4' : 'webm';
+            const blob = new Blob(recordedChunks, { type: type });
+            uploadRecordedVideo(blob, ext);
+        };
+
+        await refreshDeviceLists();
+        cameraSelect.disabled = false;
+        micSelect.disabled = false;
+        startRecBtn.disabled = false;
+        capturePhotoBtn.disabled = false;
+        btnToggleMedia.innerHTML = '<i class="fas fa-power-off"></i> Turn off';
+        btnToggleMedia.classList.remove('btn-outline-primary');
+        btnToggleMedia.classList.add('btn-outline-danger');
+        const vtrack = stream.getVideoTracks()[0];
+        setMediaStatus('Camera/microphone on' + (vtrack ? ' (' + vtrack.label + ')' : ' (no video device)'), true);
+        return true;
+    } catch (err) {
+        console.error('Error accessing media devices:', err);
+        setMediaStatus(mediaErrorText(err), false);
+        alert(mediaErrorText(err));
+        return false;
+    }
+}
+
+function stopMedia() {
+    stopMediaStream();
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        try { mediaRecorder.stop(); } catch (e) {}
+    }
+    cameraSelect.disabled = true;
+    micSelect.disabled = true;
+    startRecBtn.disabled = true;
+    stopRecBtn.disabled = true;
+    btnToggleMedia.innerHTML = '<i class="fas fa-power-off"></i> Turn on';
+    btnToggleMedia.classList.remove('btn-outline-danger');
+    btnToggleMedia.classList.add('btn-outline-primary');
+    setMediaStatus('Camera/microphone off.', null);
+}
+
+btnToggleMedia.addEventListener('click', async () => {
+    if (mediaStream) stopMedia();
+    else await startMedia();
+});
+cameraSelect.addEventListener('change', async () => { if (mediaStream) await startMedia(); });
+micSelect.addEventListener('change', async () => { if (mediaStream) await startMedia(); });
+if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+    navigator.mediaDevices.addEventListener('devicechange', () => {
+        if (isMediaSupported()) refreshDeviceLists();
+    });
+}
+window.addEventListener('beforeunload', stopMediaStream);
+
+startRecBtn.addEventListener('click', () => {
+    if (!mediaStream || !mediaRecorder) {
+        alert('Please click "Turn on" first and allow the camera/microphone permission prompt.');
+        return;
+    }
+    if (mediaRecorder.state === 'inactive') {
+        recordedChunks = [];
+        mediaRecorder.start();
+        startRecBtn.disabled = true;
+        stopRecBtn.disabled = false;
+    }
 });
 
-document.getElementById('stopRecording').addEventListener('click', () => {
-    mediaRecorder.stop();
-    document.getElementById('startRecording').disabled = false;
-    document.getElementById('stopRecording').disabled = true;
+stopRecBtn.addEventListener('click', () => {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+    }
+    startRecBtn.disabled = false;
+    stopRecBtn.disabled = true;
 });
 
+// Init: under insecure context (HTTP over public IP) show guidance and disable device controls
+(function initMediaDevices() {
+    if (!isMediaSupported()) {
+        insecureAlert.classList.remove('d-none');
+        const hint = document.getElementById('mediaHttpsHint');
+        if (hint) hint.textContent = window.location.href.replace(/^http:/i, 'https:');
+        btnToggleMedia.disabled = true;
+        cameraSelect.disabled = true;
+        micSelect.disabled = true;
+        capturePhotoBtn.disabled = true;
+        setMediaStatus('Camera/microphone are unavailable over plain HTTP; use the HTTPS address above. File upload is not affected.', false);
+        return;
+    }
+    refreshDeviceLists();
+})();
+
+// ---- Feedback #12: recording/collection ID (timestamp + random, pre-filled, editable; duplicate rejected) ----
+const collectNoInput = document.getElementById('collectNo');
+const collectNoHint = document.getElementById('collectNoHint');
+
+function genCollectNo() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    const ts = d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
+    const rand = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+    return 'COLLECT-' + ts + '-' + rand;
+}
+function setNoHint(kind, text) {
+    collectNoHint.textContent = text || '';
+    collectNoHint.className = 'small mt-1 ' + (kind === 'ok' ? 'text-success' : kind === 'bad' ? 'text-danger' : 'text-muted');
+    collectNoInput.classList.toggle('is-valid', kind === 'ok');
+    collectNoInput.classList.toggle('is-invalid', kind === 'bad');
+}
+async function checkCollectNo(silent) {
+    const tn = (collectNoInput.value || '').trim();
+    if (!tn) { setNoHint('bad', 'ID cannot be empty; click "Regenerate" to auto-create one'); return false; }
+    if (!/^[A-Za-z0-9][A-Za-z0-9_-]{3,62}$/.test(tn)) {
+        setNoHint('bad', 'Invalid ID: 4-63 chars, start with letter/digit, only letters, digits, dash and underscore');
+        return false;
+    }
+    try {
+        const resp = await fetch('/api/upload/check-no?task_no=' + encodeURIComponent(tn));
+        const data = await resp.json();
+        if (data.available) { setNoHint('ok', 'ID available'); return true; }
+        setNoHint('bad', data.reason || 'ID not available');
+        return false;
+    } catch (e) {
+        if (!silent) setNoHint('bad', 'ID check failed: ' + e.message);
+        return true; // pre-check failure does not hard-block (server enforces authoritatively)
+    }
+}
+function refreshCollectNo() {
+    collectNoInput.value = genCollectNo();
+    setNoHint('muted', 'Auto-generated, editable');
+}
+document.getElementById('btnRegenNo').addEventListener('click', refreshCollectNo);
+collectNoInput.addEventListener('change', () => checkCollectNo(true));
+refreshCollectNo();
+
+// Returns true on success; each media item carries the current recording ID,
+// and a fresh ID is generated after each success (avoids ID clashes on multi-file uploads).
 async function uploadChunkedFile(file, progressWrapId) {
     const wrapId = progressWrapId || 'fileProgressWrap';
     const progress = document.getElementById(wrapId);
-    if (!progress) return;
+    if (!progress) return false;
     const progressBar = progress.querySelector('.progress-bar');
     progress.classList.remove('d-none');
+    progressBar.style.width = '0%';
 
     const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+    const taskNo = (collectNoInput.value || '').trim();
 
     for (let chunk = 0; chunk < totalChunks; chunk++) {
         const start = chunk * CHUNK_SIZE;
@@ -191,35 +567,48 @@ async function uploadChunkedFile(file, progressWrapId) {
         formData.append('chunk_number', chunk);
         formData.append('total_chunks', totalChunks);
         formData.append('filename', file.name);
+        formData.append('task_no', taskNo);
 
         try {
             const response = await fetch('/api/upload/stream', {
                 method: 'POST',
                 body: formData
             });
-
-            if (!response.ok) throw new Error('Upload failed');
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                alert('Upload failed: ' + (data.error || ('HTTP ' + response.status)));
+                progress.classList.add('d-none');
+                if (data.code === 'duplicate_task_no') { checkCollectNo(true); }
+                return false;
+            }
 
             const percent = ((chunk + 1) / totalChunks) * 100;
             progressBar.style.width = percent + '%';
             progressBar.setAttribute('aria-valuenow', percent);
 
-            const data = await response.json();
             if (data.recording_id) {
-                alert('Upload completed successfully!');
                 progress.classList.add('d-none');
+                alert('Upload completed successfully!\nRecording ID: ' + (data.task_no || taskNo));
+                refreshCollectNo();
+                return true;
             }
         } catch (err) {
             console.error('Upload error:', err);
-            alert('Upload failed');
+            alert('Upload failed: ' + err.message);
             progress.classList.add('d-none');
-            break;
+            return false;
         }
     }
+    return false;
 }
 
-async function uploadRecordedVideo(blob) {
-    const file = new File([blob], `recording_${Date.now()}.webm`, { type: 'video/webm' });
+async function uploadRecordedVideo(blob, ext) {
+    const suffix = ext || 'webm';
+    if (!(await checkCollectNo(false))) {
+        alert('Recording ID is not available. Please change it before uploading the recording.');
+        return;
+    }
+    const file = new File([blob], `recording_${Date.now()}.${suffix}`, { type: blob.type || 'video/webm' });
     await uploadChunkedFile(file, 'recProgressWrap');
 }
 
@@ -231,34 +620,292 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
         return;
     }
     for (let i = 0; i < list.length; i++) {
-        await uploadChunkedFile(list[i], 'fileProgressWrap');
+        const ok = await uploadChunkedFile(list[i], 'fileProgressWrap');
+        if (!ok) break; // stop on failure (e.g. duplicate ID) so the ID can be fixed first
     }
 });
 
-document.getElementById('btnSubmitCrawl').addEventListener('click', () => {
-    const raw = document.getElementById('crawlUrls').value.trim();
-    if (!raw) {
-        alert('Enter at least one URL');
+// ---- Feedback #16: native Android capture (capture attribute -> system camera/camcorder/recorder) ----
+(function () {
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    const wrap = document.getElementById('nativeCaptureWrap');
+    if (isMobile && wrap) wrap.classList.remove('d-none');
+
+    const mainInput = document.getElementById('file');
+    function mergeIntoMain(fileList) {
+        if (!fileList || !fileList.length) return;
+        try {
+            const dt = new DataTransfer();
+            const exist = mainInput.files;
+            for (let i = 0; i < exist.length; i++) dt.items.add(exist[i]);
+            for (let i = 0; i < fileList.length; i++) dt.items.add(fileList[i]);
+            mainInput.files = dt.files;
+            alert('Added to the file list. Total files: ' + mainInput.files.length + '. Click "Upload" to ingest them.');
+        } catch (err) {
+            alert('This browser does not support automatic file merging. Please use "Files" to select manually.');
+        }
+    }
+    const bindCap = (btnId, inputId) => {
+        const btn = document.getElementById(btnId);
+        const inp = document.getElementById(inputId);
+        if (!btn || !inp) return;
+        btn.addEventListener('click', () => inp.click());
+        inp.addEventListener('change', () => {
+            mergeIntoMain(inp.files);
+            inp.value = ''; // allow capturing the same file again
+        });
+    };
+    bindCap('btnCapPhoto', 'capPhotoInput');
+    bindCap('btnCapVideo', 'capVideoInput');
+    bindCap('btnCapAudio', 'capAudioInput');
+})();
+
+// ---- Feedback #12: on-site photo capture (same camera view as recording, just a few snapshots) ----
+let photoFrames = [];
+const photoStripWrap = document.getElementById('photoStripWrap');
+const photoStrip = document.getElementById('photoStrip');
+const photoCountEl = document.getElementById('photoCount');
+
+function renderPhotoStrip() {
+    photoCountEl.textContent = photoFrames.length;
+    photoStripWrap.style.display = photoFrames.length ? 'block' : 'none';
+    photoStrip.innerHTML = photoFrames.map((p, i) =>
+        '<div class="position-relative">'
+        + '<img src="' + p.url + '" style="width:88px;height:66px;object-fit:cover;border-radius:6px;border:1px solid #ccc;" alt="Photo ' + (i + 1) + '">'
+        + '<button type="button" class="btn btn-danger btn-sm position-absolute" style="top:-6px;right:-6px;padding:0 5px;line-height:16px;" '
+        + 'onclick="removePhoto(' + i + ')" title="Remove this photo">&times;</button>'
+        + '<div class="small text-muted text-center">' + (i + 1) + '</div></div>'
+    ).join('');
+}
+window.removePhoto = function (idx) {
+    const p = photoFrames[idx];
+    if (p) URL.revokeObjectURL(p.url);
+    photoFrames.splice(idx, 1);
+    renderPhotoStrip();
+};
+capturePhotoBtn.addEventListener('click', () => {
+    if (!mediaStream || !videoPreview.videoWidth) {
+        alert('Please click "Turn on" first and wait for the camera preview before taking photos.');
         return;
     }
-    const lines = raw.split(/\n/).map(s => s.trim()).filter(Boolean);
-    const mode = document.getElementById('crawlMode').value;
-    const maxN = document.getElementById('crawlMax').value;
-    const delay = document.getElementById('crawlDelay').value;
-    const robots = document.getElementById('crawlRobots').checked;
-    alert(
-        'Validated ' + lines.length + ' URL(s).\n' +
-        'Mode: ' + mode + ' | cap: ' + maxN + ' | delay: ' + delay + 's | robots: ' + (robots ? 'yes' : 'no') + '\n\n' +
-        'Batch jobs will be handled by the server acquisition queue (service connection in progress).'
-    );
+    const canvas = document.createElement('canvas');
+    canvas.width = videoPreview.videoWidth;
+    canvas.height = videoPreview.videoHeight;
+    canvas.getContext('2d').drawImage(videoPreview, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+        if (!blob) { alert('Photo capture failed, please retry.'); return; }
+        const name = `photo_${Date.now()}_${photoFrames.length + 1}.jpg`;
+        photoFrames.push({ blob: blob, url: URL.createObjectURL(blob), name: name });
+        renderPhotoStrip();
+    }, 'image/jpeg', 0.92);
+});
+document.getElementById('clearPhotos').addEventListener('click', () => {
+    photoFrames.forEach(p => URL.revokeObjectURL(p.url));
+    photoFrames = [];
+    renderPhotoStrip();
+});
+document.getElementById('uploadPhotos').addEventListener('click', async () => {
+    if (!photoFrames.length) { alert('No photos captured yet'); return; }
+    const frames = photoFrames.slice();
+    for (let i = 0; i < frames.length; i++) {
+        if (!(await checkCollectNo(false))) {
+            alert('Recording ID is not available. Please change it before uploading photos.');
+            return;
+        }
+        const file = new File([frames[i].blob], frames[i].name, { type: 'image/jpeg' });
+        const ok = await uploadChunkedFile(file, 'photoProgressWrap');
+        if (!ok) return; // keep unuploaded photos so they can be retried after fixing the ID
+    }
+    photoFrames.forEach(p => URL.revokeObjectURL(p.url));
+    photoFrames = [];
+    renderPhotoStrip();
 });
 
-document.getElementById('btnWebCrawlJump').addEventListener('click', () => {
-    const el = document.getElementById('web-tab');
-    if (el && window.bootstrap && bootstrap.Tab) {
-        bootstrap.Tab.getOrCreateInstance(el).show();
+// ---- Batch web collection (feedback #8: multi-site video + image, keyword/URL, multi-select) ----
+let crawlItems = [];
+
+function crawlMediaType() {
+    const el = document.querySelector('input[name="crawlMediaType"]:checked');
+    return el ? el.value : 'video';
+}
+function crawlMode() {
+    const el = document.querySelector('input[name="crawlMode"]:checked');
+    return el ? el.value : 'keyword';
+}
+function crawlApplyUiState() {
+    const mt = crawlMediaType(), mode = crawlMode();
+    document.getElementById('crawlKeywordRow').classList.toggle('d-none', mode !== 'keyword');
+    document.getElementById('crawlUrlRow').classList.toggle('d-none', mode !== 'url');
+    document.getElementById('crawlSiteWrap').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlDurWrap').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlOptionsVideo').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlOptionsImageHint').classList.toggle('d-none', mt !== 'image');
+    document.getElementById('crawlThMeta1').textContent = mt === 'image' ? 'Size' : 'Duration';
+    document.getElementById('crawlThMeta2').textContent = mt === 'image' ? 'Source' : 'Views';
+}
+document.querySelectorAll('input[name="crawlMediaType"]').forEach(r => r.addEventListener('change', crawlApplyUiState));
+document.querySelectorAll('input[name="crawlMode"]').forEach(r => r.addEventListener('change', crawlApplyUiState));
+crawlApplyUiState();
+
+function fmtDuration(sec) {
+    sec = parseInt(sec) || 0;
+    if (!sec) return '—';
+    const m = Math.floor(sec / 60), s = sec % 60;
+    return m + ':' + String(s).padStart(2, '0');
+}
+function fmtCount(n) {
+    n = parseInt(n) || 0;
+    if (n >= 10000) return (n / 10000).toFixed(1) + 'w';
+    return n ? String(n) : '—';
+}
+function escHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+
+async function crawlDoSearch() {
+    const mt = crawlMediaType(), mode = crawlMode();
+    const body = {
+        media_type: mt, mode: mode,
+        count: parseInt(document.getElementById('crawlCount').value) || 10,
+        duration_limit: parseInt(document.getElementById('crawlDur').value) || 30,
+        ignore_robots: document.getElementById('optIgnoreRobots').checked
+    };
+    if (mt === 'video') body.site = document.getElementById('crawlSite').value;
+    if (mode === 'keyword') {
+        const kw = document.getElementById('crawlKeywords').value.trim();
+        if (!kw) { alert('Enter keywords (comma-separated)'); return; }
+        body.keywords = kw;
+    } else {
+        const u = document.getElementById('crawlPageUrl').value.trim();
+        if (!u) { alert('Enter a page URL (video / collection / channel / web page)'); return; }
+        body.page_url = u;
+    }
+    const btn = document.getElementById('btnCrawlSearch');
+    const hint = document.getElementById('crawlSearchHint');
+    btn.disabled = true;
+    hint.textContent = 'Searching, please wait…';
+    hint.className = 'small text-muted';
+    try {
+        const resp = await fetch('/api/crawl/search', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+            hint.textContent = 'Search failed: ' + (data.error || 'unknown error');
+            hint.className = 'small text-danger';
+            return;
+        }
+        crawlItems = data.items || [];
+        renderCrawlResults();
+        hint.textContent = crawlItems.length + ' candidate(s) found'
+            + (crawlItems.length === 0 ? ' (try other keywords/site, or use URL batch mode)' : '');
+        hint.className = 'small ' + (crawlItems.length ? 'text-success' : 'text-danger');
+    } catch (e) {
+        hint.textContent = 'Search failed: ' + e.message;
+        hint.className = 'small text-danger';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+function renderCrawlResults() {
+    const mt = crawlMediaType();
+    const tbody = document.getElementById('crawlResultBody');
+    document.getElementById('crawlCheckAll').checked = false;
+    if (!crawlItems.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted small py-3">No candidates found</td></tr>';
+        updateCrawlSelInfo();
+        return;
+    }
+    tbody.innerHTML = crawlItems.map((it, i) => {
+        const link = it.page_url || it.image_url || '#';
+        const preview = mt === 'image'
+            ? '<a href="' + escHtml(it.image_url) + '" target="_blank"><img src="' + escHtml(it.image_url)
+              + '" style="width:56px;height:56px;object-fit:cover;border-radius:6px;" loading="lazy" alt="preview"></a>'
+            : (it.cover
+                ? '<img src="' + escHtml(it.cover) + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;" loading="lazy" alt="cover">'
+                : '<span class="text-muted small">no cover</span>');
+        const meta1 = mt === 'image'
+            ? (it.width && it.height ? escHtml(it.width) + '×' + escHtml(it.height) : '—')
+            : fmtDuration(it.duration);
+        const src2 = mt === 'image'
+            ? escHtml(String(it.source_page || it.site || '').replace(/^https?:\/\//, '').slice(0, 18))
+            : fmtCount(it.play_count);
+        return '<tr>'
+            + '<td><div class="form-check mb-0"><input class="form-check-input crawl-item-check" type="checkbox" data-idx="' + i + '"></div></td>'
+            + '<td>' + preview + '</td>'
+            + '<td class="small"><div class="text-truncate" style="max-width:380px;" title="' + escHtml(it.title) + '">' + escHtml(it.title) + '</div>'
+            + '<a class="small text-decoration-none" href="' + escHtml(link) + '" target="_blank"><i class="fas fa-external-link-alt me-1"></i>source</a></td>'
+            + '<td class="small text-muted">' + escHtml(it.author || it.site || '') + '</td>'
+            + '<td class="small">' + meta1 + '</td>'
+            + '<td class="small">' + src2 + '</td>'
+            + '</tr>';
+    }).join('');
+    document.querySelectorAll('.crawl-item-check').forEach(cb => cb.addEventListener('change', updateCrawlSelInfo));
+    updateCrawlSelInfo();
+}
+
+function updateCrawlSelInfo() {
+    const boxes = document.querySelectorAll('.crawl-item-check');
+    const n = document.querySelectorAll('.crawl-item-check:checked').length;
+    document.getElementById('crawlSelInfo').textContent =
+        crawlItems.length ? (n + ' / ' + crawlItems.length + ' selected') : 'No search yet';
+    document.getElementById('btnCrawlDownload').disabled = n === 0;
+    document.getElementById('crawlCheckAll').checked = boxes.length > 0 && Array.from(boxes).every(b => b.checked);
+}
+document.getElementById('crawlCheckAll').addEventListener('change', function () {
+    document.querySelectorAll('.crawl-item-check').forEach(cb => { cb.checked = this.checked; });
+    updateCrawlSelInfo();
+});
+document.getElementById('btnCrawlSearch').addEventListener('click', crawlDoSearch);
+
+document.getElementById('btnCrawlDownload').addEventListener('click', async () => {
+    const mt = crawlMediaType();
+    const selected = Array.from(document.querySelectorAll('.crawl-item-check:checked'))
+        .map(cb => crawlItems[parseInt(cb.dataset.idx)]).filter(Boolean);
+    if (!selected.length) { alert('Check at least one item to download'); return; }
+    if (selected.length > 30) { alert('Up to 30 items per batch'); return; }
+    const options = {};
+    document.querySelectorAll('.crawl-opt').forEach(cb => { options[cb.value] = cb.checked; });
+    options.ignore_robots = document.getElementById('optIgnoreRobots').checked;
+    const remark = document.getElementById('crawlRemark').value.trim();
+    if (!confirm('About to download and import ' + selected.length + ' ' + (mt === 'image' ? 'image(s)' : 'video(s)')
+        + '. Keep this page open during download. Continue?')) return;
+    const btn = document.getElementById('btnCrawlDownload');
+    const wrap = document.getElementById('crawlProgressWrap');
+    const out = document.getElementById('crawlDownloadResult');
+    btn.disabled = true;
+    wrap.classList.remove('d-none');
+    out.innerHTML = '';
+    try {
+        const resp = await fetch('/api/crawl/download', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({media_type: mt, items: selected, options: options, remark: remark})
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+            out.innerHTML = '<div class="alert alert-danger py-2 small mb-0">Download failed: ' + escHtml(data.error || 'unknown error') + '</div>';
+        } else {
+            const failed = data.failed || [];
+            out.innerHTML = '<div class="alert alert-success py-2 small mb-0">Collection finished: <b>'
+                + data.created_count + '</b> imported'
+                + (data.duplicate_count ? ', ' + data.duplicate_count + ' duplicate(s) skipped' : '')
+                + (failed.length ? ', ' + failed.length + ' failed ('
+                    + escHtml(failed.slice(0, 3).map(f => f.title || '').join('; '))
+                    + (failed.length > 3 ? ' etc.' : '') + ')' : '')
+                + '. See Data management, or claim tasks in Data processing.</div>';
+            crawlItems = [];
+            renderCrawlResults();
+        }
+    } catch (e) {
+        out.innerHTML = '<div class="alert alert-danger py-2 small mb-0">Download failed: ' + escHtml(e.message) + '</div>';
+    } finally {
+        wrap.classList.add('d-none');
+        btn.disabled = document.querySelectorAll('.crawl-item-check:checked').length === 0;
     }
 });
-setupVideoRecording();
+
+// Page init (Feedback #15: the in-page "Web crawl" jump button was removed; use the top tabs)
 </script>
 {% endblock %}

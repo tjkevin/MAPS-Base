@@ -1,0 +1,27 @@
+# ========== MAPS 模型推理依赖（仅 GPU / 模型机器安装）==========
+# 适用环境：
+#   1) autoDL 租用卡实例 / 局域网 GPU 机器（跑 BAGEL 推理服务或本地 worker）
+#   2) 需要在本机离线跑 Whisper ASR / CLIP+Mamba 的开发环境
+# 云端 Web/Worker 容器【不要】安装本文件（无GPU且占用6GB+磁盘）。
+#
+# GPU机器安装：
+#   pip install -r docs/requirements-models.txt
+# CPU-only机器安装（避免拉取NVIDIA CUDA包）：
+#   pip install torch==2.4.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r docs/requirements-models.txt
+
+-r requirements.txt
+
+# ASR (Whisper)
+openai-whisper>=20231117
+torch==2.4.1
+torchaudio==2.4.1
+soundfile>=0.12.1
+pydub>=0.25.1
+librosa>=0.10.1
+numpy>=1.26.0
+scipy>=1.11.4
+tiktoken>=0.5.0
+
+# 多模态模型（CLIP + Mamba / 融合检索）
+-r ../multimodal_models/requirements_mm.txt

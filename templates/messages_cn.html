@@ -126,14 +126,16 @@ async function loadInbox() {
                     <p class="mb-1 small text-muted">${escapeHtml((it.summary || it.body || '').slice(0, 280))}</p>
                     <small class="text-muted">${it.created_at || ''} · ${it.msg_type || ''} · ${it.sender_type || ''}</small>
                 </div>
-                <div class="btn-group-vertical btn-group-sm">
-                    ${it.action_url ? `<a class="btn btn-outline-primary btn-sm" href="${it.action_url}">处理</a>` : ''}
+                <!-- 反馈#16：操作按钮横排自动换行，避免竖放导致每条消息高度不一 -->
+                <div class="d-flex flex-wrap gap-1 justify-content-end align-items-start" style="flex:0 0 auto;min-width:170px;max-width:240px;">
+                    ${(!seed && it.msg_type === 'task_published_pool' && it.business_id) ? `<button class="btn btn-success btn-sm text-nowrap" onclick="claimTaskFromMsg(${it.business_id}, ${it.id}, this)"><i class="fas fa-hand-paper"></i> 一键申领</button>` : ''}
+                    ${it.action_url ? `<a class="btn btn-outline-primary btn-sm text-nowrap" href="${it.action_url}">处理</a>` : ''}
                     ${seed ? '' : (it.source === 'inbox' ? `
-                        <button class="btn btn-outline-secondary btn-sm" onclick="markReadInbox(${it.id})">已读</button>
-                        <button class="btn btn-outline-warning btn-sm" onclick="pinInbox(${it.id}, ${it.pinned_at ? 'false' : 'true'})">${it.pinned_at ? '取消置顶' : '置顶'}</button>
-                        <button class="btn btn-outline-danger btn-sm" onclick="delInbox(${it.id})">删除</button>
+                        <button class="btn btn-outline-secondary btn-sm text-nowrap" onclick="markReadInbox(${it.id})">已读</button>
+                        <button class="btn btn-outline-warning btn-sm text-nowrap" onclick="pinInbox(${it.id}, ${it.pinned_at ? 'false' : 'true'})">${it.pinned_at ? '取消置顶' : '置顶'}</button>
+                        <button class="btn btn-outline-danger btn-sm text-nowrap" onclick="delInbox(${it.id})">删除</button>
                     ` : `
-                        <button class="btn btn-outline-secondary btn-sm" onclick="markLegacy('${it.source}', ${it.id})">已读</button>
+                        <button class="btn btn-outline-secondary btn-sm text-nowrap" onclick="markLegacy('${it.source}', ${it.id})">已读</button>
                     `)}
                 </div>
             </div>
@@ -150,6 +152,30 @@ function escapeHtml(s) {
 async function markReadInbox(id) {
     await fetch(`/api/messages/inbox/${id}/read`, { method: 'POST' });
     loadInbox();
+}
+
+// 反馈#9 需求3a：消息中心对公海任务消息一键申领
+async function claimTaskFromMsg(taskId, msgId, btn) {
+    if (!taskId) return;
+    if (!confirm('确认申领该任务？申领后可在「任务管理 → 我的任务」中查看并执行。')) return;
+    if (btn) { btn.disabled = true; btn.textContent = '申领中…'; }
+    try {
+        const r = await fetch(`/api/workflow/tasks/${taskId}/claim`, { method: 'POST' });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.success) {
+            alert('申领失败：' + (j.error || '任务可能已被领完或状态已变更'));
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-hand-paper"></i> 一键申领'; }
+            return;
+        }
+        alert('✅ 申领成功（配额 ' + (j.claimed_quota || 1) + '）！可前往任务管理执行，或点击「处理」查看任务详情。');
+        // 申领成功后将该消息标记已读并刷新
+        try { await fetch(`/api/messages/inbox/${msgId}/read`, { method: 'POST' }); } catch (e) {}
+        loadInbox();
+        if (typeof loadUnreadBadge === 'function') loadUnreadBadge();
+    } catch (e) {
+        alert('申领异常：' + e);
+        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-hand-paper"></i> 一键申领'; }
+    }
 }
 async function markLegacy(source, id) {
     await fetch('/api/messages/legacy/read', {

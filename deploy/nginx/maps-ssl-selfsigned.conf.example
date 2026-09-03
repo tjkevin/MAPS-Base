@@ -1,0 +1,53 @@
+# MAPS Nginx 反向代理配置 —— HTTPS（自签名证书，无域名 / 按公网 IP 访问场景）
+#
+# 用途：浏览器仅在 HTTPS（或 localhost）安全上下文下开放摄像头/麦克风权限。
+#       没有域名时，用自签名证书即可让 https://<服务器IP> 正常调用采集页的现场录制功能。
+#
+# 一、在服务器上生成自签名证书（把 49.232.149.114 替换为你的公网 IP；
+#     subjectAltName 必须包含该 IP，否则浏览器报证书域名不匹配）：
+#
+#   sudo mkdir -p /etc/nginx/ssl
+#   sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+#     -keyout /etc/nginx/ssl/maps-selfsigned.key \
+#     -out /etc/nginx/ssl/maps-selfsigned.crt \
+#     -subj "/CN=49.232.149.114" \
+#     -addext "subjectAltName=IP:49.232.149.114,DNS:localhost"
+#   sudo chmod 600 /etc/nginx/ssl/maps-selfsigned.key
+#
+# 二、部署本配置并重载：
+#
+#   sudo cp deploy/nginx/maps-ssl-selfsigned.conf.example /etc/nginx/conf.d/maps-ssl.conf
+#   sudo nginx -t && sudo systemctl reload nginx
+#
+# 三、云控制台安全组 / 防火墙放行 TCP 443（80 端口的 HTTP 配置 maps.conf 保留不动）。
+#
+# 四、浏览器首次访问 https://<IP> 会提示"证书不受信任"：点击"高级 → 继续前往"即可。
+#     自签名仅用于传输加密；正式对外服务请绑定域名后用 Let's Encrypt 免费证书
+#     （sudo certbot --nginx -d <域名>），并将 .env 的 SESSION_COOKIE_SECURE 设为 true。
+
+server {
+    listen 443 ssl;
+    # 无域名时用 _ 匹配任意 Host（按 IP 访问）；有域名改为实际域名
+    server_name _;
+
+    ssl_certificate     /etc/nginx/ssl/maps-selfsigned.crt;
+    ssl_certificate_key /etc/nginx/ssl/maps-selfsigned.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 1h;
+
+    # 与应用 MAX_CONTENT_LENGTH=4G 对齐，支持大文件/分片上传
+    client_max_body_size 4096M;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_connect_timeout 60s;
+    }
+}

@@ -122,14 +122,16 @@ async function loadInbox() {
                     <p class="mb-1 small text-muted">${(it.summary || it.body || '').slice(0, 280).replace(/</g,'&lt;')}</p>
                     <small class="text-muted">${it.created_at || ''} · ${it.msg_type || ''} · ${it.sender_type || ''}</small>
                 </div>
-                <div class="btn-group-vertical btn-group-sm">
-                    ${it.action_url ? `<a class="btn btn-outline-primary btn-sm" href="${it.action_url}">Open</a>` : ''}
+                <!-- Feedback #16: action buttons laid out horizontally with wrapping, keeping row heights consistent -->
+                <div class="d-flex flex-wrap gap-1 justify-content-end align-items-start" style="flex:0 0 auto;min-width:150px;max-width:260px;">
+                    ${(!seed && it.msg_type === 'task_published_pool' && it.business_id) ? `<button class="btn btn-success btn-sm text-nowrap" onclick="claimTaskFromMsg(${it.business_id}, ${it.id}, this)"><i class="fas fa-hand-paper"></i> Claim</button>` : ''}
+                    ${it.action_url ? `<a class="btn btn-outline-primary btn-sm text-nowrap" href="${it.action_url}">Open</a>` : ''}
                     ${seed ? '' : (it.source === 'inbox' ? `
-                        <button class="btn btn-outline-secondary btn-sm" onclick="markReadInbox(${it.id})">Read</button>
-                        <button class="btn btn-outline-warning btn-sm" onclick="pinInbox(${it.id}, ${it.pinned_at ? 'false' : 'true'})">Pin</button>
-                        <button class="btn btn-outline-danger btn-sm" onclick="delInbox(${it.id})">Remove</button>
+                        <button class="btn btn-outline-secondary btn-sm text-nowrap" onclick="markReadInbox(${it.id})">Read</button>
+                        <button class="btn btn-outline-warning btn-sm text-nowrap" onclick="pinInbox(${it.id}, ${it.pinned_at ? 'false' : 'true'})">${it.pinned_at ? 'Unpin' : 'Pin'}</button>
+                        <button class="btn btn-outline-danger btn-sm text-nowrap" onclick="delInbox(${it.id})">Remove</button>
                     ` : `
-                        <button class="btn btn-outline-secondary btn-sm" onclick="markLegacy('${it.source}', ${it.id})">Read</button>
+                        <button class="btn btn-outline-secondary btn-sm text-nowrap" onclick="markLegacy('${it.source}', ${it.id})">Read</button>
                     `)}
                 </div>
             </div>
@@ -137,6 +139,28 @@ async function loadInbox() {
     }).join('');
 }
 async function markReadInbox(id) { await fetch(`/api/messages/inbox/${id}/read`, { method: 'POST' }); loadInbox(); }
+
+// Feedback #9 req.3a: one-click claim for pool task messages
+async function claimTaskFromMsg(taskId, msgId, btn) {
+    if (!taskId) return;
+    if (!confirm('Claim this task? After claiming you can find and execute it under "Task Management → My tasks".')) return;
+    if (btn) { btn.disabled = true; btn.textContent = 'Claiming…'; }
+    try {
+        const r = await fetch(`/api/workflow/tasks/${taskId}/claim`, { method: 'POST' });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.success) {
+            alert('Claim failed: ' + (j.error || 'the task may be full or its status has changed'));
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-hand-paper"></i> Claim'; }
+            return;
+        }
+        alert('✅ Claimed (quota ' + (j.claimed_quota || 1) + '). Go to Task Management to execute it, or click "Open" for task details.');
+        try { await fetch(`/api/messages/inbox/${msgId}/read`, { method: 'POST' }); } catch (e) {}
+        loadInbox();
+    } catch (e) {
+        alert('Claim error: ' + e);
+        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-hand-paper"></i> Claim'; }
+    }
+}
 async function markLegacy(source, id) {
     await fetch('/api/messages/legacy/read', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ source, id }) });
     loadInbox();

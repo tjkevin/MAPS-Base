@@ -21,33 +21,75 @@
 
     <div class="tab-content" id="acqTabContent">
         <div class="tab-pane fade show active" id="local-pane" role="tabpanel" aria-labelledby="local-tab" tabindex="0">
-            <p class="text-muted small mb-2">从本机选择多模态文件或调用摄像头录制，数据经分片上传进入系统。</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-                <button type="button" class="btn btn-success" id="btnWebCrawlJump">
-                    <i class="fas fa-globe me-1"></i> 互联网抓取
-                </button>
-                <span class="small text-muted align-self-center">跳转到「互联网批量采集」配置 URL 与采集策略</span>
-            </div>
+            <p class="text-muted small mb-3">从本机选择多模态文件或调用摄像头录制，数据经分片上传进入系统。互联网批量采集请使用上方「互联网批量采集」标签页。</p>
             <div class="row g-3">
                 <div class="col-lg-6">
                     <div class="card h-100">
                         <div class="card-header">
-                            <h5 class="card-title mb-0"><i class="fas fa-video me-1"></i> 现场录制</h5>
+                            <h5 class="card-title mb-0"><i class="fas fa-video me-1"></i> 现场录制 / <i class="fas fa-camera me-1"></i>现场摄影</h5>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3">
-                                <video id="videoPreview" class="w-100 rounded border" autoplay muted playsinline></video>
+                            <!-- 非安全上下文（HTTP 公网访问）提示：浏览器禁止摄像头/麦克风 -->
+                            <div class="alert alert-warning py-2 small d-none" id="mediaInsecureAlert" role="alert">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                <strong>当前地址下浏览器不允许使用摄像头/麦克风。</strong><br>
+                                浏览器仅在 <b>HTTPS</b>（或本机 localhost）地址开放摄像头/麦克风权限，当前为明文 HTTP 访问。
+                                请改用 <code id="mediaHttpsHint"></code> 打开本页（自签名证书首次打开需点&ldquo;高级 &rarr; 继续前往&rdquo;）。
+                                文件上传功能不受影响，可正常使用。
                             </div>
+                            <div class="mb-3">
+                                <video id="videoPreview" class="w-100 rounded border bg-dark" autoplay muted playsinline></video>
+                            </div>
+                            <!-- 摄像头/麦克风设置 -->
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-5">
+                                    <label for="cameraSelect" class="form-label small mb-1"><i class="fas fa-video me-1"></i>摄像头</label>
+                                    <select class="form-select form-select-sm" id="cameraSelect" disabled>
+                                        <option value="">默认摄像头</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="micSelect" class="form-label small mb-1"><i class="fas fa-microphone me-1"></i>麦克风</label>
+                                    <select class="form-select form-select-sm" id="micSelect" disabled>
+                                        <option value="">默认麦克风</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-primary btn-sm w-100" id="btnToggleMedia">
+                                        <i class="fas fa-power-off"></i> 开启
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="small text-muted mb-2" id="mediaStatus">摄像头/麦克风未开启。点击&ldquo;开启&rdquo;并在浏览器弹窗中允许权限。</div>
                             <div class="d-flex flex-wrap gap-2">
-                                <button type="button" id="startRecording" class="btn btn-primary">
+                                <button type="button" id="startRecording" class="btn btn-primary" disabled>
                                     <i class="fas fa-video"></i> 开始录制
                                 </button>
                                 <button type="button" id="stopRecording" class="btn btn-danger" disabled>
                                     <i class="fas fa-stop"></i> 停止录制
                                 </button>
+                                <button type="button" id="capturePhoto" class="btn btn-outline-success" disabled>
+                                    <i class="fas fa-camera"></i> 拍照（现场摄影）
+                                </button>
                             </div>
                             <div class="mt-3">
                                 <div class="progress d-none" id="recProgressWrap">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <!-- 现场摄影：抓拍的帧（可拍多张，统一上传入库） -->
+                            <div class="mt-3 border rounded p-2" id="photoStripWrap" style="background:#f8f9fc;display:none;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="small fw-bold"><i class="fas fa-images me-1"></i>已拍照片（<span id="photoCount">0</span> 张）</span>
+                                    <span>
+                                        <button type="button" class="btn btn-success btn-sm" id="uploadPhotos">
+                                            <i class="fas fa-upload"></i> 上传全部照片
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" id="clearPhotos">清空</button>
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2" id="photoStrip"></div>
+                                <div class="progress d-none mt-2" id="photoProgressWrap">
                                     <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                 </div>
                             </div>
@@ -62,8 +104,39 @@
                         <div class="card-body">
                             <form id="uploadForm" class="mb-3">
                                 <div class="mb-3">
+                                    <label for="collectNo" class="form-label">录制 / 采集编号</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control font-monospace" id="collectNo"
+                                               maxlength="63" autocomplete="off" spellcheck="false"
+                                               placeholder="自动生成，可修改">
+                                        <button type="button" class="btn btn-outline-secondary" id="btnRegenNo" title="重新生成编号">
+                                            <i class="fas fa-rotate"></i> 换一个
+                                        </button>
+                                    </div>
+                                    <div class="small mt-1" id="collectNoHint"></div>
+                                    <div class="form-text">按“时间戳+随机后缀”自动生成（与数据管理中编号同规则），可直接修改；<b>若编号已存在则无法保存，需更换后重试</b>。本地上传、现场录制、现场摄影均使用该编号，每次入库后自动生成下一个。</div>
+                                </div>
+                                <div class="mb-3">
                                     <label for="file" class="form-label">选择文件（支持多选，将依次上传）</label>
                                     <input type="file" class="form-control" id="file" accept="video/*,audio/*,image/*" multiple>
+                                </div>
+                                <!-- 安卓手机快捷采集：capture 属性直接调起系统相机/摄像机/录音机 -->
+                                <div class="mb-3 rounded p-2 d-none" id="nativeCaptureWrap" style="background:#f3f4fa;">
+                                    <div class="small text-muted mb-1"><i class="fas fa-mobile-screen me-1"></i>手机快捷采集（安卓）：直接调起系统相机 / 摄像机 / 录音机，采集后自动加入上方文件列表。</div>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button type="button" class="btn btn-outline-success btn-sm" id="btnCapPhoto">
+                                            <i class="fas fa-camera"></i> 拍照
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="btnCapVideo">
+                                            <i class="fas fa-video"></i> 录像
+                                        </button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm" id="btnCapAudio">
+                                            <i class="fas fa-microphone"></i> 录音
+                                        </button>
+                                    </div>
+                                    <input type="file" accept="image/*" capture="environment" id="capPhotoInput" class="d-none">
+                                    <input type="file" accept="video/*" capture="environment" id="capVideoInput" class="d-none">
+                                    <input type="file" accept="audio/*" capture id="capAudioInput" class="d-none">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-upload"></i> 开始上传
@@ -82,41 +155,137 @@
             <div class="card border-success">
                 <div class="card-header bg-success text-white d-flex align-items-center gap-2">
                     <i class="fas fa-cloud-download-alt"></i>
-                    <span>互联网批量采集</span>
+                    <span>互联网批量采集（视频 / 图片）</span>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted small">面向公开可访问的直链、列表页或 RSS/播客源，批量拉取视频/音频元数据与文件。请确保符合目标站点服务条款与法律法规。</p>
+                    <p class="text-muted small">支持主流视频站点（哔哩哔哩、YouTube、抖音、优酷、爱奇艺、腾讯视频、微博、小红书等）与图片采集（必应图片搜索 / 网页图片提取）。输入关键字搜索后多选，或粘贴合集 / 频道 / 网页链接批量提取，选中后统一下载，媒体文件与 <b>meta 元数据</b>一并入库。请确保采集内容符合目标站点服务条款与法律法规。</p>
+
+                    <!-- 第一步：检索条件 -->
+                    <div class="border rounded p-3 mb-3" style="background:#f8f9fc;">
+                        <div class="row g-2 align-items-end mb-2">
+                            <div class="col-md-auto col-6">
+                                <label class="form-label small mb-1">数据类型</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="crawlMediaType" id="cmtVideo" value="video" checked>
+                                    <label class="btn btn-outline-primary btn-sm text-nowrap" for="cmtVideo"><i class="fas fa-video me-1"></i>视频</label>
+                                    <input type="radio" class="btn-check" name="crawlMediaType" id="cmtImage" value="image">
+                                    <label class="btn btn-outline-primary btn-sm text-nowrap" for="cmtImage"><i class="fas fa-image me-1"></i>图片</label>
+                                </div>
+                            </div>
+                            <div class="col-md-auto col-6">
+                                <label class="form-label small mb-1">采集方式</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="crawlMode" id="cmKeyword" value="keyword" checked>
+                                    <label class="btn btn-outline-secondary btn-sm text-nowrap" for="cmKeyword"><i class="fas fa-search me-1"></i>关键字搜索</label>
+                                    <input type="radio" class="btn-check" name="crawlMode" id="cmUrl" value="url">
+                                    <label class="btn btn-outline-secondary btn-sm text-nowrap" for="cmUrl"><i class="fas fa-link me-1"></i>链接批量</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12" id="crawlSiteWrap">
+                                <label class="form-label small mb-1" for="crawlSite">视频站点</label>
+                                <select class="form-select form-select-sm" id="crawlSite">
+                                    <option value="bilibili">哔哩哔哩（支持关键字搜索）</option>
+                                    <option value="youtube">YouTube（支持关键字搜索）</option>
+                                    <option value="douyin">抖音（链接采集）</option>
+                                    <option value="youku">优酷（链接采集）</option>
+                                    <option value="iqiyi">爱奇艺（链接采集）</option>
+                                    <option value="qq">腾讯视频（链接采集）</option>
+                                    <option value="weibo">微博（链接采集）</option>
+                                    <option value="xiaohongshu">小红书（链接采集）</option>
+                                    <option value="generic">其他站点（通用链接采集）</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <label class="form-label small mb-1" for="crawlCount">结果数量</label>
+                                <select class="form-select form-select-sm" id="crawlCount">
+                                    <option value="10">10 条</option>
+                                    <option value="20" selected>20 条</option>
+                                    <option value="30">30 条</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-6" id="crawlDurWrap">
+                                <label class="form-label small mb-1" for="crawlDur">时长≤分</label>
+                                <input type="number" class="form-control form-control-sm" id="crawlDur" value="30" min="1" max="120">
+                            </div>
+                        </div>
+                        <div class="row g-2" id="crawlKeywordRow">
+                            <div class="col-12">
+                                <label class="form-label small mb-1" for="crawlKeywords">关键字（多个用英文逗号分隔，最多 5 个）</label>
+                                <input type="text" class="form-control form-control-sm" id="crawlKeywords" placeholder="例如：口述历史, 人物访谈, 非遗传承">
+                            </div>
+                        </div>
+                        <div class="row g-2 d-none" id="crawlUrlRow">
+                            <div class="col-12">
+                                <label class="form-label small mb-1" for="crawlPageUrl">页面地址（视频页 / 合集 / 频道 / UP 主主页 / 播放列表；图片模式为任意网页）</label>
+                                <input type="text" class="form-control form-control-sm font-monospace" id="crawlPageUrl" placeholder="https://&hellip;">
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex gap-2 align-items-center flex-wrap">
+                            <button class="btn btn-success btn-sm" id="btnCrawlSearch" type="button"><i class="fas fa-search me-1"></i>搜索 / 提取候选</button>
+                            <span class="small" id="crawlSearchHint"></span>
+                        </div>
+                    </div>
+
+                    <!-- 第二步：结果多选 -->
                     <div class="mb-3">
-                        <label for="crawlUrls" class="form-label">采集目标 URL（每行一条）</label>
-                        <textarea class="form-control font-monospace small" id="crawlUrls" rows="10" placeholder="https://example.com/media/video1.mp4&#10;https://example.com/channel/playlist&#10;https://example.com/feed/podcast.xml"></textarea>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-4">
-                            <label for="crawlMode" class="form-label">采集模式</label>
-                            <select class="form-select" id="crawlMode">
-                                <option value="direct">直链文件（视频 / 音频）</option>
-                                <option value="page">页面内嵌媒体解析</option>
-                                <option value="feed">RSS / 播客列表展开</option>
-                            </select>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0"><i class="fas fa-list-ul me-1"></i>候选结果（勾选后统一下载）</h6>
+                            <div class="small text-muted" id="crawlSelInfo">尚未搜索</div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="crawlMax" class="form-label">单次任务最大条数</label>
-                            <input type="number" class="form-control" id="crawlMax" value="50" min="1" max="500">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="crawlDelay" class="form-label">请求间隔（秒）</label>
-                            <input type="number" class="form-control" id="crawlDelay" value="2" min="0.5" step="0.5">
+                        <div class="table-responsive" style="max-height:340px;overflow:auto;border:1px solid #e3e6f0;border-radius:8px;">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light" style="position:sticky;top:0;z-index:1;">
+                                    <tr>
+                                        <th style="width:36px;"><div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="crawlCheckAll"></div></th>
+                                        <th style="width:72px;">预览</th>
+                                        <th>标题</th>
+                                        <th style="width:120px;">来源 / 作者</th>
+                                        <th style="width:80px;" id="crawlThMeta1">时长</th>
+                                        <th style="width:96px;" id="crawlThMeta2">播放量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="crawlResultBody">
+                                    <tr><td colspan="6" class="text-center text-muted small py-3">请先在上方输入关键字或链接，点击「搜索 / 提取候选」</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="crawlRobots" checked>
-                        <label class="form-check-label" for="crawlRobots">遵守 robots.txt 与站点爬取政策</label>
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 align-items-center">
-                        <button type="button" class="btn btn-success" id="btnSubmitCrawl">
-                            <i class="fas fa-play"></i> 提交批量采集任务
-                        </button>
-                        <span class="badge bg-secondary">服务端采集队列接入后，任务将自动下发执行</span>
+
+                    <!-- 第三步：采集范围 + 备注 + 下载 -->
+                    <div class="border rounded p-3" style="background:#f8f9fc;">
+                        <div class="row g-3">
+                            <div class="col-lg-7">
+                                <label class="form-label small fw-bold mb-1">采集范围（多选；媒体信息始终写入 meta 文件）</label>
+                                <div class="d-flex flex-wrap gap-3 small" id="crawlOptionsVideo">
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optSubtitles" value="subtitles" checked><label class="form-check-label" for="optSubtitles">字幕</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optDanmaku" value="danmaku"><label class="form-check-label" for="optDanmaku">弹幕（B站）</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optStats" value="stats" checked><label class="form-check-label" for="optStats">播放 / 点赞统计</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optCover" value="cover" checked><label class="form-check-label" for="optCover">封面图</label></div>
+                                    <div class="form-check mb-0"><input class="form-check-input crawl-opt" type="checkbox" id="optDesc" value="description"><label class="form-check-label" for="optDesc">简介 / 标签</label></div>
+                                </div>
+                                <div class="small text-muted d-none" id="crawlOptionsImageHint">图片将保存画面文件，并记录来源页地址、尺寸等信息到 meta 元数据文件。</div>
+                                <!-- 反馈#15：忽略 robots 协议开关（视频/图片模式均显示） -->
+                                <div class="form-check mt-2 pt-2 border-top">
+                                    <input class="form-check-input" type="checkbox" id="optIgnoreRobots">
+                                    <label class="form-check-label text-danger fw-semibold small" for="optIgnoreRobots">
+                                        <i class="fas fa-robot me-1"></i>忽略 robots 协议
+                                    </label>
+                                    <span class="small text-muted d-block">默认遵守目标站点 robots.txt；勾选后抓取将跳过该限制，请仅在确认符合法律法规与站点服务条款时使用。</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <label class="form-label small fw-bold mb-1" for="crawlRemark">内容备注（说明这批数据主要是干什么的，可留空）</label>
+                                <textarea class="form-control form-control-sm" id="crawlRemark" rows="2" maxlength="500" placeholder="例如：2026 年非遗口述史访谈素材，用于方言转写训练"></textarea>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                            <button class="btn btn-primary btn-sm" id="btnCrawlDownload" type="button" disabled><i class="fas fa-cloud-download-alt me-1"></i>下载选中项并入库</button>
+                            <span class="small text-muted">单批最多 30 条；下载为同步执行，期间请勿关闭页面。</span>
+                        </div>
+                        <div class="progress d-none mt-2" id="crawlProgressWrap" style="height:18px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%">正在下载，请稍候…</div>
+                        </div>
+                        <div class="mt-2" id="crawlDownloadResult"></div>
                     </div>
                 </div>
             </div>
@@ -129,97 +298,319 @@
 <script>
 let mediaRecorder;
 let recordedChunks = [];
+let mediaStream = null;
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
 
-// Video recording functions
-async function setupVideoRecording() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-            video: true, 
-            audio: true 
-        });
-        document.getElementById('videoPreview').srcObject = stream;
-        
-        mediaRecorder = new MediaRecorder(stream);
-        
-        mediaRecorder.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        };
-        
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            uploadRecordedVideo(blob);
-        };
-        
-        document.getElementById('startRecording').disabled = false;
-    } catch (err) {
-        console.error('Error accessing media devices:', err);
-        alert('无法访问摄像头/麦克风');
+// ---- 摄像头/麦克风设置（本地设备由浏览器访问，需 HTTPS 安全上下文）----
+const videoPreview = document.getElementById('videoPreview');
+const cameraSelect = document.getElementById('cameraSelect');
+const micSelect = document.getElementById('micSelect');
+const btnToggleMedia = document.getElementById('btnToggleMedia');
+const mediaStatus = document.getElementById('mediaStatus');
+const startRecBtn = document.getElementById('startRecording');
+const stopRecBtn = document.getElementById('stopRecording');
+const capturePhotoBtn = document.getElementById('capturePhoto');
+const insecureAlert = document.getElementById('mediaInsecureAlert');
+
+function isMediaSupported() {
+    return window.isSecureContext === true
+        && !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+}
+
+function setMediaStatus(text, ok) {
+    mediaStatus.textContent = text;
+    mediaStatus.className = 'small mb-2 ' + (ok === true ? 'text-success' : (ok === false ? 'text-danger' : 'text-muted'));
+}
+
+function mediaErrorText(err) {
+    if (!isMediaSupported()) {
+        return '当前为 HTTP 明文访问，浏览器禁止使用摄像头/麦克风。请改用本页提示的 HTTPS 地址访问。';
+    }
+    switch (err && err.name) {
+        case 'NotAllowedError':
+        case 'PermissionDeniedError':
+            return '摄像头/麦克风权限被拒绝。请点击浏览器地址栏左侧的锁形（或设置）图标，允许摄像头和麦克风后重试。';
+        case 'NotFoundError':
+        case 'DevicesNotFoundError':
+            return '未检测到摄像头或麦克风，请确认设备已连接且未被系统禁用。';
+        case 'NotReadableError':
+        case 'TrackStartError':
+            return '摄像头/麦克风正被其他程序占用（如会议软件），请关闭后重试。';
+        case 'OverconstrainedError':
+            return '所选设备不可用，请在上方设置中换一个摄像头/麦克风。';
+        case 'SecurityError':
+            return '浏览器安全策略阻止了设备访问，请确认通过 HTTPS 访问且未在浏览器设置中禁用媒体设备。';
+        default:
+            return '无法访问摄像头/麦克风：' + (err && err.message ? err.message : String(err));
     }
 }
 
-document.getElementById('startRecording').addEventListener('click', () => {
-    recordedChunks = [];
-    mediaRecorder.start();
-    document.getElementById('startRecording').disabled = true;
-    document.getElementById('stopRecording').disabled = false;
+function stopMediaStream() {
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(t => { try { t.stop(); } catch (e) {} });
+        mediaStream = null;
+    }
+    if (videoPreview) videoPreview.srcObject = null;
+}
+
+function fillDeviceSelect(sel, devices, defaultLabel) {
+    const prev = sel.value;
+    sel.innerHTML = '';
+    const def = document.createElement('option');
+    def.value = '';
+    def.textContent = defaultLabel;
+    sel.appendChild(def);
+    devices.forEach((d, i) => {
+        const opt = document.createElement('option');
+        opt.value = d.deviceId;
+        const kind = d.kind === 'videoinput' ? '摄像头' : '麦克风';
+        opt.textContent = d.label || (kind + ' ' + (i + 1));
+        sel.appendChild(opt);
+    });
+    if (prev && Array.from(sel.options).some(o => o.value === prev)) sel.value = prev;
+}
+
+async function refreshDeviceLists() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        fillDeviceSelect(cameraSelect, devices.filter(d => d.kind === 'videoinput'), '默认摄像头');
+        fillDeviceSelect(micSelect, devices.filter(d => d.kind === 'audioinput'), '默认麦克风');
+    } catch (e) {
+        console.warn('enumerateDevices failed:', e);
+    }
+}
+
+async function startMedia() {
+    if (!isMediaSupported()) {
+        alert(mediaErrorText(null));
+        return false;
+    }
+    if (typeof MediaRecorder === 'undefined') {
+        setMediaStatus('当前浏览器不支持页面录制（MediaRecorder），请使用新版 Chrome / Edge / Firefox / Safari。', false);
+        return false;
+    }
+    try {
+        const constraints = {
+            video: cameraSelect.value ? { deviceId: { exact: cameraSelect.value } } : true,
+            audio: micSelect.value ? { deviceId: { exact: micSelect.value } } : true
+        };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        stopMediaStream();
+        mediaStream = stream;
+        videoPreview.srcObject = stream;
+        videoPreview.muted = true;
+
+        let mimeType = 'video/webm';
+        if (!MediaRecorder.isTypeSupported('video/webm')) {
+            mimeType = MediaRecorder.isTypeSupported('video/mp4') ? 'video/mp4' : '';
+        }
+        mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data && event.data.size > 0) recordedChunks.push(event.data);
+        };
+        mediaRecorder.onstop = () => {
+            const type = mediaRecorder.mimeType || 'video/webm';
+            const ext = type.indexOf('mp4') >= 0 ? 'mp4' : 'webm';
+            const blob = new Blob(recordedChunks, { type: type });
+            uploadRecordedVideo(blob, ext);
+        };
+
+        await refreshDeviceLists();
+        cameraSelect.disabled = false;
+        micSelect.disabled = false;
+        startRecBtn.disabled = false;
+        capturePhotoBtn.disabled = false;
+        btnToggleMedia.innerHTML = '<i class="fas fa-power-off"></i> 关闭';
+        btnToggleMedia.classList.remove('btn-outline-primary');
+        btnToggleMedia.classList.add('btn-outline-danger');
+        const vtrack = stream.getVideoTracks()[0];
+        setMediaStatus('摄像头/麦克风已开启' + (vtrack ? '（' + vtrack.label + '）' : '（未检测到视频设备）'), true);
+        return true;
+    } catch (err) {
+        console.error('Error accessing media devices:', err);
+        setMediaStatus(mediaErrorText(err), false);
+        alert(mediaErrorText(err));
+        return false;
+    }
+}
+
+function stopMedia() {
+    stopMediaStream();
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        try { mediaRecorder.stop(); } catch (e) {}
+    }
+    cameraSelect.disabled = true;
+    micSelect.disabled = true;
+    startRecBtn.disabled = true;
+    stopRecBtn.disabled = true;
+    capturePhotoBtn.disabled = true;
+    btnToggleMedia.innerHTML = '<i class="fas fa-power-off"></i> 开启';
+    btnToggleMedia.classList.remove('btn-outline-danger');
+    btnToggleMedia.classList.add('btn-outline-primary');
+    setMediaStatus('摄像头/麦克风已关闭。', null);
+}
+
+btnToggleMedia.addEventListener('click', async () => {
+    if (mediaStream) stopMedia();
+    else await startMedia();
+});
+cameraSelect.addEventListener('change', async () => { if (mediaStream) await startMedia(); });
+micSelect.addEventListener('change', async () => { if (mediaStream) await startMedia(); });
+if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+    navigator.mediaDevices.addEventListener('devicechange', () => {
+        if (isMediaSupported()) refreshDeviceLists();
+    });
+}
+window.addEventListener('beforeunload', stopMediaStream);
+
+startRecBtn.addEventListener('click', () => {
+    if (!mediaStream || !mediaRecorder) {
+        alert('请先点击“开启”打开摄像头/麦克风，并在浏览器弹窗中允许权限。');
+        return;
+    }
+    if (mediaRecorder.state === 'inactive') {
+        recordedChunks = [];
+        mediaRecorder.start();
+        startRecBtn.disabled = true;
+        stopRecBtn.disabled = false;
+    }
 });
 
-document.getElementById('stopRecording').addEventListener('click', () => {
-    mediaRecorder.stop();
-    document.getElementById('startRecording').disabled = false;
-    document.getElementById('stopRecording').disabled = true;
+stopRecBtn.addEventListener('click', () => {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+    }
+    startRecBtn.disabled = false;
+    stopRecBtn.disabled = true;
 });
+
+// 初始化：非安全上下文（HTTP 公网）下给出明确提示并禁用设备区
+(function initMediaDevices() {
+    if (!isMediaSupported()) {
+        insecureAlert.classList.remove('d-none');
+        const hint = document.getElementById('mediaHttpsHint');
+        if (hint) hint.textContent = window.location.href.replace(/^http:/i, 'https:');
+        btnToggleMedia.disabled = true;
+        cameraSelect.disabled = true;
+        micSelect.disabled = true;
+        capturePhotoBtn.disabled = true;
+        setMediaStatus('HTTP 明文访问下摄像头/麦克风不可用，请改用上方提示的 HTTPS 地址；文件上传不受影响。', false);
+        return;
+    }
+    refreshDeviceLists();
+})();
+
+// ---- 反馈#12：录制/采集编号（时间戳+随机后缀，预生成可修改，重复拒绝）----
+const collectNoInput = document.getElementById('collectNo');
+const collectNoHint = document.getElementById('collectNoHint');
+
+function genCollectNo() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    const ts = d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
+    const rand = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+    return 'COLLECT-' + ts + '-' + rand;
+}
+function setNoHint(kind, text) {
+    collectNoHint.textContent = text || '';
+    collectNoHint.className = 'small mt-1 ' + (kind === 'ok' ? 'text-success' : kind === 'bad' ? 'text-danger' : 'text-muted');
+    collectNoInput.classList.toggle('is-valid', kind === 'ok');
+    collectNoInput.classList.toggle('is-invalid', kind === 'bad');
+}
+async function checkCollectNo(silent) {
+    const tn = (collectNoInput.value || '').trim();
+    if (!tn) { setNoHint('bad', '编号不能为空，可点击“换一个”自动生成'); return false; }
+    if (!/^[A-Za-z0-9][A-Za-z0-9_-]{3,62}$/.test(tn)) {
+        setNoHint('bad', '编号格式无效：4-63 位，以字母/数字开头，仅含字母、数字、中划线、下划线');
+        return false;
+    }
+    try {
+        const resp = await fetch('/api/upload/check-no?task_no=' + encodeURIComponent(tn));
+        const data = await resp.json();
+        if (data.available) { setNoHint('ok', '编号可用'); return true; }
+        setNoHint('bad', data.reason || '编号不可用');
+        return false;
+    } catch (e) {
+        if (!silent) setNoHint('bad', '编号校验失败：' + e.message);
+        return true; // 预检失败不硬阻（服务端仍会权威校验）
+    }
+}
+function refreshCollectNo() {
+    collectNoInput.value = genCollectNo();
+    setNoHint('muted', '已自动生成，可修改');
+}
+document.getElementById('btnRegenNo').addEventListener('click', refreshCollectNo);
+collectNoInput.addEventListener('change', () => checkCollectNo(true));
+refreshCollectNo();
 
 // Chunked upload functions
+// 返回 true=成功；每条媒体携带当前录制编号，成功后自动生成下一个编号（防多文件编号冲突）
 async function uploadChunkedFile(file, progressWrapId) {
     const wrapId = progressWrapId || 'fileProgressWrap';
     const progress = document.getElementById(wrapId);
-    if (!progress) return;
+    if (!progress) return false;
     const progressBar = progress.querySelector('.progress-bar');
     progress.classList.remove('d-none');
-    
+    progressBar.style.width = '0%';
+
+    // f3 修复：原代码遗漏 totalChunks 声明，导致分片上传直接 ReferenceError
+    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+    const taskNo = (collectNoInput.value || '').trim();
+
     for (let chunk = 0; chunk < totalChunks; chunk++) {
         const start = chunk * CHUNK_SIZE;
         const end = Math.min(start + CHUNK_SIZE, file.size);
         const chunkBlob = file.slice(start, end);
-        
+
         const formData = new FormData();
         formData.append('chunk', chunkBlob);
         formData.append('chunk_number', chunk);
         formData.append('total_chunks', totalChunks);
         formData.append('filename', file.name);
-        
+        formData.append('task_no', taskNo);
+
         try {
             const response = await fetch('/api/upload/stream', {
                 method: 'POST',
                 body: formData
             });
-            
-            if (!response.ok) throw new Error('Upload failed');
-            
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                alert('上传失败：' + (data.error || ('HTTP ' + response.status)));
+                progress.classList.add('d-none');
+                if (data.code === 'duplicate_task_no') { checkCollectNo(true); }
+                return false;
+            }
+
             const percent = ((chunk + 1) / totalChunks) * 100;
             progressBar.style.width = percent + '%';
             progressBar.setAttribute('aria-valuenow', percent);
-            
-            const data = await response.json();
+
             if (data.recording_id) {
-                alert('上传成功完成！');
                 progress.classList.add('d-none');
+                alert('上传成功完成！\n录制编号：' + (data.task_no || taskNo));
+                refreshCollectNo();
+                return true;
             }
         } catch (err) {
             console.error('Upload error:', err);
-            alert('上传失败');
+            alert('上传失败：' + err.message);
             progress.classList.add('d-none');
-            break;
+            return false;
         }
     }
+    return false;
 }
 
-async function uploadRecordedVideo(blob) {
-    const file = new File([blob], `recording_${Date.now()}.webm`, { type: 'video/webm' });
+async function uploadRecordedVideo(blob, ext) {
+    const suffix = ext || 'webm';
+    if (!(await checkCollectNo(false))) {
+        alert('录制编号不可用，请修改编号后重新录制上传');
+        return;
+    }
+    const file = new File([blob], `recording_${Date.now()}.${suffix}`, { type: blob.type || 'video/webm' });
     await uploadChunkedFile(file, 'recProgressWrap');
 }
 
@@ -231,35 +622,292 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
         return;
     }
     for (let i = 0; i < list.length; i++) {
-        await uploadChunkedFile(list[i], 'fileProgressWrap');
+        const ok = await uploadChunkedFile(list[i], 'fileProgressWrap');
+        if (!ok) break; // 编号冲突等失败时中止后续文件，先修正编号
     }
 });
 
-document.getElementById('btnSubmitCrawl').addEventListener('click', () => {
-    const raw = document.getElementById('crawlUrls').value.trim();
-    if (!raw) {
-        alert('请至少填写一行 URL');
+// ---- 反馈#16：安卓手机原生采集（capture 属性调起系统相机/摄像机/录音机）----
+(function () {
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    const wrap = document.getElementById('nativeCaptureWrap');
+    if (isMobile && wrap) wrap.classList.remove('d-none');
+
+    const mainInput = document.getElementById('file');
+    function mergeIntoMain(fileList) {
+        if (!fileList || !fileList.length) return;
+        try {
+            const dt = new DataTransfer();
+            const exist = mainInput.files;
+            for (let i = 0; i < exist.length; i++) dt.items.add(exist[i]);
+            for (let i = 0; i < fileList.length; i++) dt.items.add(fileList[i]);
+            mainInput.files = dt.files;
+            alert('已加入文件列表，当前共 ' + mainInput.files.length + ' 个文件，点击「开始上传」即可入库。');
+        } catch (err) {
+            alert('当前浏览器不支持自动合并文件，请改用「选择文件」手动选择。');
+        }
+    }
+    const bindCap = (btnId, inputId) => {
+        const btn = document.getElementById(btnId);
+        const inp = document.getElementById(inputId);
+        if (!btn || !inp) return;
+        btn.addEventListener('click', () => inp.click());
+        inp.addEventListener('change', () => {
+            mergeIntoMain(inp.files);
+            inp.value = ''; // 允许再次采集同一文件
+        });
+    };
+    bindCap('btnCapPhoto', 'capPhotoInput');
+    bindCap('btnCapVideo', 'capVideoInput');
+    bindCap('btnCapAudio', 'capAudioInput');
+})();
+
+// ---- 反馈#12：现场摄影（与现场录制同一摄像头画面，仅抓拍几帧照片）----
+let photoFrames = [];
+const photoStripWrap = document.getElementById('photoStripWrap');
+const photoStrip = document.getElementById('photoStrip');
+const photoCountEl = document.getElementById('photoCount');
+
+function renderPhotoStrip() {
+    photoCountEl.textContent = photoFrames.length;
+    photoStripWrap.style.display = photoFrames.length ? 'block' : 'none';
+    photoStrip.innerHTML = photoFrames.map((p, i) =>
+        '<div class="position-relative">'
+        + '<img src="' + p.url + '" style="width:88px;height:66px;object-fit:cover;border-radius:6px;border:1px solid #ccc;" alt="照片' + (i + 1) + '">'
+        + '<button type="button" class="btn btn-danger btn-sm position-absolute" style="top:-6px;right:-6px;padding:0 5px;line-height:16px;" '
+        + 'onclick="removePhoto(' + i + ')" title="删除这张">&times;</button>'
+        + '<div class="small text-muted text-center">' + (i + 1) + '</div></div>'
+    ).join('');
+}
+window.removePhoto = function (idx) {
+    const p = photoFrames[idx];
+    if (p) URL.revokeObjectURL(p.url);
+    photoFrames.splice(idx, 1);
+    renderPhotoStrip();
+};
+capturePhotoBtn.addEventListener('click', () => {
+    if (!mediaStream || !videoPreview.videoWidth) {
+        alert('请先点击“开启”打开摄像头，画面出现后再拍照。');
         return;
     }
-    const lines = raw.split(/\n/).map(s => s.trim()).filter(Boolean);
-    const mode = document.getElementById('crawlMode').value;
-    const maxN = document.getElementById('crawlMax').value;
-    const delay = document.getElementById('crawlDelay').value;
-    const robots = document.getElementById('crawlRobots').checked;
-    alert(
-        '已校验 ' + lines.length + ' 条 URL。\n' +
-        '模式: ' + mode + ' | 上限: ' + maxN + ' | 间隔: ' + delay + 's | robots: ' + (robots ? '是' : '否') + '\n\n' +
-        '批量采集将交由服务端任务队列执行（采集服务接入中）。'
-    );
+    const canvas = document.createElement('canvas');
+    canvas.width = videoPreview.videoWidth;
+    canvas.height = videoPreview.videoHeight;
+    canvas.getContext('2d').drawImage(videoPreview, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+        if (!blob) { alert('拍照失败，请重试'); return; }
+        const name = `photo_${Date.now()}_${photoFrames.length + 1}.jpg`;
+        photoFrames.push({ blob: blob, url: URL.createObjectURL(blob), name: name });
+        renderPhotoStrip();
+    }, 'image/jpeg', 0.92);
+});
+document.getElementById('clearPhotos').addEventListener('click', () => {
+    photoFrames.forEach(p => URL.revokeObjectURL(p.url));
+    photoFrames = [];
+    renderPhotoStrip();
+});
+document.getElementById('uploadPhotos').addEventListener('click', async () => {
+    if (!photoFrames.length) { alert('还没有拍照'); return; }
+    const frames = photoFrames.slice();
+    for (let i = 0; i < frames.length; i++) {
+        if (!(await checkCollectNo(false))) {
+            alert('录制编号不可用，请修改编号后再上传照片');
+            return;
+        }
+        const file = new File([frames[i].blob], frames[i].name, { type: 'image/jpeg' });
+        const ok = await uploadChunkedFile(file, 'photoProgressWrap');
+        if (!ok) return; // 编号冲突等：保留未传照片供修正后重试
+    }
+    photoFrames.forEach(p => URL.revokeObjectURL(p.url));
+    photoFrames = [];
+    renderPhotoStrip();
 });
 
-// Initialize video recording
-document.getElementById('btnWebCrawlJump').addEventListener('click', () => {
-    const el = document.getElementById('web-tab');
-    if (el && window.bootstrap && bootstrap.Tab) {
-        bootstrap.Tab.getOrCreateInstance(el).show();
+// ---- 互联网批量采集（反馈#8：多站点视频 + 图片，关键字/链接检索，多选统一下载）----
+let crawlItems = [];
+
+function crawlMediaType() {
+    const el = document.querySelector('input[name="crawlMediaType"]:checked');
+    return el ? el.value : 'video';
+}
+function crawlMode() {
+    const el = document.querySelector('input[name="crawlMode"]:checked');
+    return el ? el.value : 'keyword';
+}
+function crawlApplyUiState() {
+    const mt = crawlMediaType(), mode = crawlMode();
+    document.getElementById('crawlKeywordRow').classList.toggle('d-none', mode !== 'keyword');
+    document.getElementById('crawlUrlRow').classList.toggle('d-none', mode !== 'url');
+    document.getElementById('crawlSiteWrap').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlDurWrap').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlOptionsVideo').classList.toggle('d-none', mt === 'image');
+    document.getElementById('crawlOptionsImageHint').classList.toggle('d-none', mt !== 'image');
+    document.getElementById('crawlThMeta1').textContent = mt === 'image' ? '尺寸' : '时长';
+    document.getElementById('crawlThMeta2').textContent = mt === 'image' ? '来源' : '播放量';
+}
+document.querySelectorAll('input[name="crawlMediaType"]').forEach(r => r.addEventListener('change', crawlApplyUiState));
+document.querySelectorAll('input[name="crawlMode"]').forEach(r => r.addEventListener('change', crawlApplyUiState));
+crawlApplyUiState();
+
+function fmtDuration(sec) {
+    sec = parseInt(sec) || 0;
+    if (!sec) return '—';
+    const m = Math.floor(sec / 60), s = sec % 60;
+    return m + ':' + String(s).padStart(2, '0');
+}
+function fmtCount(n) {
+    n = parseInt(n) || 0;
+    if (n >= 10000) return (n / 10000).toFixed(1) + '万';
+    return n ? String(n) : '—';
+}
+function escHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+
+async function crawlDoSearch() {
+    const mt = crawlMediaType(), mode = crawlMode();
+    const body = {
+        media_type: mt, mode: mode,
+        count: parseInt(document.getElementById('crawlCount').value) || 10,
+        duration_limit: parseInt(document.getElementById('crawlDur').value) || 30,
+        ignore_robots: document.getElementById('optIgnoreRobots').checked
+    };
+    if (mt === 'video') body.site = document.getElementById('crawlSite').value;
+    if (mode === 'keyword') {
+        const kw = document.getElementById('crawlKeywords').value.trim();
+        if (!kw) { alert('请输入关键字（多个用英文逗号分隔）'); return; }
+        body.keywords = kw;
+    } else {
+        const u = document.getElementById('crawlPageUrl').value.trim();
+        if (!u) { alert('请输入页面地址（视频页 / 合集 / 频道 / 网页）'); return; }
+        body.page_url = u;
+    }
+    const btn = document.getElementById('btnCrawlSearch');
+    const hint = document.getElementById('crawlSearchHint');
+    btn.disabled = true;
+    hint.textContent = '搜索中，请稍候…';
+    hint.className = 'small text-muted';
+    try {
+        const resp = await fetch('/api/crawl/search', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+            hint.textContent = '搜索失败：' + (data.error || '未知错误');
+            hint.className = 'small text-danger';
+            return;
+        }
+        crawlItems = data.items || [];
+        renderCrawlResults();
+        hint.textContent = '共找到 ' + crawlItems.length + ' 条候选'
+            + (crawlItems.length === 0 ? '（可更换关键字/站点，或改用链接批量采集）' : '');
+        hint.className = 'small ' + (crawlItems.length ? 'text-success' : 'text-danger');
+    } catch (e) {
+        hint.textContent = '搜索失败：' + e.message;
+        hint.className = 'small text-danger';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+function renderCrawlResults() {
+    const mt = crawlMediaType();
+    const tbody = document.getElementById('crawlResultBody');
+    document.getElementById('crawlCheckAll').checked = false;
+    if (!crawlItems.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted small py-3">没有找到候选结果</td></tr>';
+        updateCrawlSelInfo();
+        return;
+    }
+    tbody.innerHTML = crawlItems.map((it, i) => {
+        const link = it.page_url || it.image_url || '#';
+        const preview = mt === 'image'
+            ? '<a href="' + escHtml(it.image_url) + '" target="_blank"><img src="' + escHtml(it.image_url)
+              + '" style="width:56px;height:56px;object-fit:cover;border-radius:6px;" loading="lazy" alt="预览"></a>'
+            : (it.cover
+                ? '<img src="' + escHtml(it.cover) + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;" loading="lazy" alt="封面">'
+                : '<span class="text-muted small">无封面</span>');
+        const meta1 = mt === 'image'
+            ? (it.width && it.height ? escHtml(it.width) + '×' + escHtml(it.height) : '—')
+            : fmtDuration(it.duration);
+        const src2 = mt === 'image'
+            ? escHtml(String(it.source_page || it.site || '').replace(/^https?:\/\//, '').slice(0, 18))
+            : fmtCount(it.play_count);
+        return '<tr>'
+            + '<td><div class="form-check mb-0"><input class="form-check-input crawl-item-check" type="checkbox" data-idx="' + i + '"></div></td>'
+            + '<td>' + preview + '</td>'
+            + '<td class="small"><div class="text-truncate" style="max-width:380px;" title="' + escHtml(it.title) + '">' + escHtml(it.title) + '</div>'
+            + '<a class="small text-decoration-none" href="' + escHtml(link) + '" target="_blank"><i class="fas fa-external-link-alt me-1"></i>原页面</a></td>'
+            + '<td class="small text-muted">' + escHtml(it.author || it.site || '') + '</td>'
+            + '<td class="small">' + meta1 + '</td>'
+            + '<td class="small">' + src2 + '</td>'
+            + '</tr>';
+    }).join('');
+    document.querySelectorAll('.crawl-item-check').forEach(cb => cb.addEventListener('change', updateCrawlSelInfo));
+    updateCrawlSelInfo();
+}
+
+function updateCrawlSelInfo() {
+    const boxes = document.querySelectorAll('.crawl-item-check');
+    const n = document.querySelectorAll('.crawl-item-check:checked').length;
+    document.getElementById('crawlSelInfo').textContent =
+        crawlItems.length ? ('已勾选 ' + n + ' / ' + crawlItems.length + ' 条') : '尚未搜索';
+    document.getElementById('btnCrawlDownload').disabled = n === 0;
+    document.getElementById('crawlCheckAll').checked = boxes.length > 0 && Array.from(boxes).every(b => b.checked);
+}
+document.getElementById('crawlCheckAll').addEventListener('change', function () {
+    document.querySelectorAll('.crawl-item-check').forEach(cb => { cb.checked = this.checked; });
+    updateCrawlSelInfo();
+});
+document.getElementById('btnCrawlSearch').addEventListener('click', crawlDoSearch);
+
+document.getElementById('btnCrawlDownload').addEventListener('click', async () => {
+    const mt = crawlMediaType();
+    const selected = Array.from(document.querySelectorAll('.crawl-item-check:checked'))
+        .map(cb => crawlItems[parseInt(cb.dataset.idx)]).filter(Boolean);
+    if (!selected.length) { alert('请先勾选要下载的条目'); return; }
+    if (selected.length > 30) { alert('单批最多下载 30 条'); return; }
+    const options = {};
+    document.querySelectorAll('.crawl-opt').forEach(cb => { options[cb.value] = cb.checked; });
+    options.ignore_robots = document.getElementById('optIgnoreRobots').checked;
+    const remark = document.getElementById('crawlRemark').value.trim();
+    if (!confirm('即将下载 ' + selected.length + ' 条' + (mt === 'image' ? '图片' : '视频')
+        + '并入库，下载期间请勿关闭页面。是否继续？')) return;
+    const btn = document.getElementById('btnCrawlDownload');
+    const wrap = document.getElementById('crawlProgressWrap');
+    const out = document.getElementById('crawlDownloadResult');
+    btn.disabled = true;
+    wrap.classList.remove('d-none');
+    out.innerHTML = '';
+    try {
+        const resp = await fetch('/api/crawl/download', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({media_type: mt, items: selected, options: options, remark: remark})
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+            out.innerHTML = '<div class="alert alert-danger py-2 small mb-0">下载失败：' + escHtml(data.error || '未知错误') + '</div>';
+        } else {
+            const failed = data.failed || [];
+            out.innerHTML = '<div class="alert alert-success py-2 small mb-0">采集完成：成功入库 <b>'
+                + data.created_count + '</b> 条'
+                + (data.duplicate_count ? '，重复跳过 ' + data.duplicate_count + ' 条' : '')
+                + (failed.length ? '，失败 ' + failed.length + ' 条（'
+                    + escHtml(failed.slice(0, 3).map(f => f.title || '').join('；'))
+                    + (failed.length > 3 ? ' 等' : '') + '）' : '')
+                + '。可前往「数据管理」查看，或前往「数据处理」领取任务。</div>';
+            crawlItems = [];
+            renderCrawlResults();
+        }
+    } catch (e) {
+        out.innerHTML = '<div class="alert alert-danger py-2 small mb-0">下载失败：' + escHtml(e.message) + '</div>';
+    } finally {
+        wrap.classList.add('d-none');
+        btn.disabled = document.querySelectorAll('.crawl-item-check:checked').length === 0;
     }
 });
-setupVideoRecording();
+
+// 采集页交互初始化（反馈#15：本地上传页内的"互联网抓取"跳转按钮已移除，直接使用顶部标签页切换）
 </script>
 {% endblock %} 

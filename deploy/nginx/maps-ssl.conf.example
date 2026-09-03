@@ -1,0 +1,72 @@
+# MAPS Nginx HTTPS 配置模板（域名 + Let's Encrypt 证书就位后启用）
+#
+# 启用步骤：
+#   1) 域名 A 记录解析到本机公网 IP；确保安全组/防火墙放行 80、443
+#   2) 先用 80 端口配置（deploy/nginx/maps.conf）申请证书：
+#        sudo certbot --nginx -d maps.example.com
+#      certbot 会自动改写配置；或手动申请：
+#        sudo certbot certonly --webroot -w /var/www/html -d maps.example.com
+#   3) 复制本模板并替换 maps.example.com 与证书路径：
+#        sudo cp deploy/nginx/maps-ssl.conf.example /etc/nginx/conf.d/maps.conf
+#        sudo nginx -t && sudo systemctl reload nginx
+#   4) 在 .env 中设置 SESSION_COOKIE_SECURE=1（仅 HTTPS 下传递会话 Cookie），
+#      并重建 web 容器使配置生效
+#
+# 证书自动续期：certbot 安装后自带 systemd timer（certbot.timer），
+#   可手动验证：sudo certbot renew --dry-run
+
+# 80 端口：全部跳转 HTTPS（保留 ACME 挑战目录供续期使用）
+server {
+    listen 80;
+    server_name maps.example.com;   # TODO: 替换为你的域名
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# 443 端口：正式服务
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name maps.example.com;   # TODO: 替换为你的域名
+
+    # Let's Encrypt 证书路径（certbot 默认位置）
+    ssl_certificate     /etc/letsencrypt/live/maps.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/maps.example.com/privkey.pem;
+
+    # TLS 安全基线
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+
+    # 与应用 MAX_CONTENT_LENGTH=4G 对齐，支持大文件/分片上传
+    client_max_body_size 4096M;
+
+    # 基础安全响应头
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+
+    # 说明：上传文件统一走 Flask 鉴权端点 /uploads/<filename>，
+    # 不使用 nginx alias 直接暴露 uploads 目录（/home/ubuntu 为 750 权限，
+    # nginx worker(www-data) 无权读取只会 403，且直链存在越权风险）。
+    # 注：应用已通过 after_request 统一下发 nosniff/Frame-Options/CSP 等安全头，
+    # 上方 add_header 会与应用头重复但同值，不影响安全；如需单一来源可删除上方两行。
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;   # 应用据此识别 HTTPS（登录限流取真实 IP）
+        proxy_read_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_connect_timeout 60s;
+    }
+}

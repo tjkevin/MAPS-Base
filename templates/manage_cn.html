@@ -17,79 +17,83 @@
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSaveTpl">保存为模板</button>
             </div>
         </div>
-        <div class="card-body row g-2 small">
-            <div class="col-md-2">
-                <label class="form-label">状态（多选逗号分隔）</label>
-                <input type="text" class="form-control" id="f_statuses" placeholder="如 pending_review,approved">
+        <div class="card-body">
+            <!-- 反馈#15：筛选控件统一 form-control-sm / form-select-sm、等高对齐、栅格整齐 -->
+            <div class="row g-2 align-items-end">
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_statuses">状态（逗号分隔）</label>
+                    <input type="text" class="form-control form-control-sm" id="f_statuses" placeholder="如 pending_review,approved">
                 </div>
-            <div class="col-md-2">
-                <label class="form-label">文件类型</label>
-                <select class="form-select" id="f_file_type">
-                    <option value="">全部</option>
-                    <option value="video">视频</option>
-                    <option value="audio">音频</option>
-                    <option value="image">图片</option>
-                            </select>
-                        </div>
-            <div class="col-md-2">
-                <label class="form-label">上传时间起</label>
-                <input type="date" class="form-control" id="f_upload_from">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">上传时间止</label>
-                <input type="date" class="form-control" id="f_upload_to">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">处理时间起</label>
-                <input type="date" class="form-control" id="f_process_from">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">处理时间止</label>
-                <input type="date" class="form-control" id="f_process_to">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">审核时间起</label>
-                <input type="date" class="form-control" id="f_audit_from">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">审核时间止</label>
-                <input type="date" class="form-control" id="f_audit_to">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">上传账号</label>
-                <select class="form-select" id="f_uploader_id"><option value="">全部</option></select>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">处理账号</label>
-                <select class="form-select" id="f_processor_id"><option value="">全部</option></select>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">审核账号</label>
-                <select class="form-select" id="f_auditor_id"><option value="">全部</option></select>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">任务编号</label>
-                <input type="text" class="form-control" id="f_task_no" placeholder="精准">
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">MD5</label>
-                <input type="text" class="form-control" id="f_md5" placeholder="32位">
-            </div>
-            <div class="col-md-2 d-flex align-items-end">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="f_include_invalid">
-                    <label class="form-check-label" for="f_include_invalid">含无效数据</label>
-                        </div>
-                        </div>
-            <div class="col-md-2 d-flex align-items-end">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="f_invalid_only">
-                    <label class="form-check-label" for="f_invalid_only">仅无效</label>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_file_type">文件类型</label>
+                    <select class="form-select form-select-sm" id="f_file_type">
+                        <option value="">全部</option>
+                        <option value="video">视频</option>
+                        <option value="audio">音频</option>
+                        <option value="image">图片</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-12 mt-2">
-                <button type="button" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> 查询</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnReset">重置</button>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_upload_from">上传时间起</label>
+                    <input type="date" class="form-control form-control-sm" id="f_upload_from">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_upload_to">上传时间止</label>
+                    <input type="date" class="form-control form-control-sm" id="f_upload_to">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_process_from">处理时间起</label>
+                    <input type="date" class="form-control form-control-sm" id="f_process_from">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_process_to">处理时间止</label>
+                    <input type="date" class="form-control form-control-sm" id="f_process_to">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_audit_from">审核时间起</label>
+                    <input type="date" class="form-control form-control-sm" id="f_audit_from">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_audit_to">审核时间止</label>
+                    <input type="date" class="form-control form-control-sm" id="f_audit_to">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_uploader_id">上传账号</label>
+                    <select class="form-select form-select-sm" id="f_uploader_id"><option value="">全部</option></select>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_processor_id">处理账号</label>
+                    <select class="form-select form-select-sm" id="f_processor_id"><option value="">全部</option></select>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_auditor_id">审核账号</label>
+                    <select class="form-select form-select-sm" id="f_auditor_id"><option value="">全部</option></select>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_task_no">任务编号</label>
+                    <input type="text" class="form-control form-control-sm" id="f_task_no" placeholder="精准匹配">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap" for="f_md5">MD5</label>
+                    <input type="text" class="form-control form-control-sm" id="f_md5" placeholder="32位">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1 text-nowrap">无效数据</label>
+                    <div class="form-control form-control-sm bg-light d-flex align-items-center gap-3 py-0">
+                        <div class="form-check my-0">
+                            <input class="form-check-input" type="checkbox" id="f_include_invalid">
+                            <label class="form-check-label small" for="f_include_invalid">含无效</label>
+                        </div>
+                        <div class="form-check my-0">
+                            <input class="form-check-input" type="checkbox" id="f_invalid_only">
+                            <label class="form-check-label small" for="f_invalid_only">仅无效</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex gap-2 pt-1">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fas fa-search"></i> 查询</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnReset">重置</button>
+                </div>
             </div>
         </div>
     </div>
@@ -123,28 +127,93 @@
         <div class="col-auto ms-auto d-flex gap-2 flex-wrap">
             <button class="btn btn-success btn-sm" id="btnBatchDl" disabled><i class="fas fa-file-archive"></i> 批量下载 ZIP</button>
             <button class="btn btn-outline-primary btn-sm" id="btnAddDataset" disabled>加入数据集</button>
+            <button class="btn btn-outline-warning btn-sm" id="btnBatchTrash" disabled><i class="fas fa-trash"></i> 移入垃圾箱</button>
+            <button class="btn btn-outline-success btn-sm" id="btnBatchRestore" disabled style="display:none"><i class="fas fa-undo"></i> 批量恢复</button>
+            <button class="btn btn-outline-danger btn-sm" id="btnBatchPurge" disabled style="display:none"><i class="fas fa-trash-alt"></i> 批量彻底删除</button>
             <button class="btn btn-outline-dark btn-sm" id="btnExportV2">导出当前筛选(JSON/CSV)</button>
             </div>
         </div>
+
+    <!-- 反馈#6：全部文件 / 垃圾箱 视图切换 -->
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        <div class="btn-group btn-group-sm" role="group" aria-label="视图切换">
+            <button type="button" class="btn btn-primary" id="viewNormal"><i class="fas fa-folder-open"></i> 全部文件</button>
+            <button type="button" class="btn btn-outline-secondary" id="viewTrash"><i class="fas fa-trash"></i> 垃圾箱</button>
+        </div>
+        <span class="text-muted small" id="trashHint" style="display:none"><i class="fas fa-info-circle"></i> 垃圾箱内文件保留 30 天，到期自动彻底删除；期间可恢复，或由管理员彻底删除。</span>
+    </div>
         
-    <!-- 自定义数据集 -->
-    <div class="card mb-3">
-        <div class="card-header">自定义数据集</div>
-        <div class="card-body row g-2">
-            <div class="col-md-3">
-                <input type="text" class="form-control" id="ds_name" placeholder="数据集名称">
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="ds_ver" placeholder="版本 V1.0" value="V1.0">
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="ds_desc" placeholder="业务描述">
-            </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary" id="btnCreateDs">新建数据集</button>
-                <select class="form-select mt-2" id="dsSelect"><option value="">选择已有数据集…</option></select>
+    <!-- 反馈#15：自定义数据集细化——输出格式 / 导出内容 / 训练集划分 / 条目查看与导出 -->
+    <div class="card mb-3 border-info">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span><i class="fas fa-database text-info"></i> 自定义数据集</span>
+            <small class="text-muted">把勾选或筛选结果沉淀为可导出的训练 / 评测数据集，支持输出格式、导出内容与 train/val/test 划分</small>
+        </div>
+        <div class="card-body">
+            <div class="row g-2 align-items-end">
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label small mb-1" for="ds_name">数据集名称</label>
+                    <input type="text" class="form-control form-control-sm" id="ds_name" placeholder="如 多模态转录训练集-2026Q3">
+                </div>
+                <div class="col-lg-1 col-md-3 col-6">
+                    <label class="form-label small mb-1" for="ds_ver">版本</label>
+                    <input type="text" class="form-control form-control-sm" id="ds_ver" value="V1.0">
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label small mb-1" for="ds_desc">业务描述</label>
+                    <input type="text" class="form-control form-control-sm" id="ds_desc" placeholder="用途 / 数据来源 / 标注口径说明">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small mb-1" for="ds_format">输出格式</label>
+                    <select class="form-select form-select-sm" id="ds_format">
+                        <option value="jsonl">JSONL（每行一条样本）</option>
+                        <option value="json">JSON（manifest 清单）</option>
+                        <option value="csv">CSV（表格）</option>
+                        <option value="zip_media">ZIP（媒体文件 + 标注打包）</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label small mb-1" for="ds_split">数据集划分</label>
+                    <select class="form-select form-select-sm" id="ds_split">
+                        <option value="none">不划分（整体导出）</option>
+                        <option value="8:1:1">训练 : 验证 : 测试 = 8 : 1 : 1</option>
+                        <option value="7:1:2">训练 : 验证 : 测试 = 7 : 1 : 2</option>
+                        <option value="9:0.5:0.5">训练 : 验证 : 测试 = 9 : 0.5 : 0.5</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <span class="small text-muted me-2"><i class="fas fa-file-export"></i> 导出内容：</span>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input ds-field" type="checkbox" id="dsf_media" value="media" checked>
+                        <label class="form-check-label small" for="dsf_media">媒体文件</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input ds-field" type="checkbox" id="dsf_transcript" value="transcript" checked>
+                        <label class="form-check-label small" for="dsf_transcript">转写 / 描述文本</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input ds-field" type="checkbox" id="dsf_timeline" value="timeline">
+                        <label class="form-check-label small" for="dsf_timeline">时间轴标注</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input ds-field" type="checkbox" id="dsf_meta" value="metadata" checked>
+                        <label class="form-check-label small" for="dsf_meta">元数据（类型 / 时长 / MD5 / 账号）</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input ds-field" type="checkbox" id="dsf_audit" value="audit">
+                        <label class="form-check-label small" for="dsf_audit">审核记录</label>
                     </div>
                 </div>
+                <div class="col-12 d-flex flex-wrap gap-2 pt-1">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnCreateDs"><i class="fas fa-folder-plus"></i> 新建数据集</button>
+                    <select class="form-select form-select-sm" style="width:auto" id="dsSelect"><option value="">选择已有数据集…</option></select>
+                    <button type="button" class="btn btn-outline-info btn-sm" id="btnDsDetail" disabled><i class="fas fa-list-ul"></i> 查看条目</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" id="btnDsExport" disabled><i class="fas fa-download"></i> 导出数据集</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="btnDsDelete" disabled><i class="fas fa-trash"></i> 删除数据集</button>
+                    <span id="dsHint" class="small text-muted align-self-center mb-0"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
                     <div class="table-responsive">
@@ -152,11 +221,11 @@
                             <thead>
                                 <tr>
                     <th><input type="checkbox" id="chkAll"></th>
-                                    <th>ID</th>
+                                    <th>数据编号</th>
                                     <th>文件名</th>
                                     <th>类型</th>
                                     <th>状态</th>
-                    <th>任务编号</th>
+                    <th>MD5</th>
                     <th>上传账号</th>
                     <th>处理账号</th>
                     <th>上传时间</th>
@@ -193,6 +262,8 @@
                 </div>
                 <h6>转写 / 描述</h6>
                 <pre class="bg-light p-2 small" id="previewText" style="white-space:pre-wrap;max-height:200px;overflow:auto"></pre>
+                <h6>备注说明 <small class="text-muted">（审核员备注）</small></h6>
+                <pre class="bg-light p-2 small" id="previewRemark" style="white-space:pre-wrap;max-height:120px;overflow:auto"></pre>
                 <h6>时间轴</h6>
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered"><thead><tr><th>开始</th><th>结束</th><th>文本</th></tr></thead><tbody id="previewTimeline"></tbody></table>
@@ -219,12 +290,34 @@
 <div id="batchProgress" class="position-fixed bottom-0 end-0 p-3" style="display:none;z-index:1080">
     <div class="card shadow"><div class="card-body"><span id="batchProgressText">打包中…</span></div></div>
 </div>
+
+<!-- 反馈#15：数据集条目查看弹窗 -->
+<div class="modal fade" id="dsDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dsDetailTitle">数据集条目</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body">
+                <p class="small text-muted mb-2" id="dsDetailMeta"></p>
+                <div id="dsDetailBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
 const ROLE = "{{ current_user.role }}";
-const SEED_TABLE_ROWS = true;
+const SEED_TABLE_ROWS = false;
+// 反馈#6：垃圾箱视图（false=全部文件；true=垃圾箱）
+let trashView = false;
+const IS_SYS_ADMIN = (ROLE === 'admin' || ROLE === 'super_admin');
 const SEED_MANAGE = [
     ['高架车流夜间_4k_0211.mp4', 'video', 'pending_review', 'TK-2026-0211-045', '刘景涛', '马文博', '2026-02-01 09:12'],
     ['访谈室收音_双轨_48k.wav', 'audio', 'approved', 'TK-2026-0212-112', '陈若瑜', '周若彤', '2026-02-02 14:33'],
@@ -259,11 +352,11 @@ function seedManageRows() {
         const id = -(i + 1);
         html += `<tr>
             <td></td>
-            <td>${id}</td>
+            <td><small class="font-monospace">${escapeHtml(tno)}</small><br><span class="text-muted" style="font-size:.72em">ID: ${id}</span></td>
             <td>${escapeHtml(fn)}</td>
             <td>${ftype}</td>
             <td><span class="badge bg-${bcls}">${lab}</span></td>
-            <td><small>${escapeHtml(tno)}</small></td>
+            <td><span class="text-muted small">—</span></td>
             <td>${escapeHtml(up)}</td>
             <td>${escapeHtml(proc)}</td>
             <td><small>${dt}</small></td>
@@ -306,6 +399,7 @@ function buildQueryParams(page) {
     if (md5) p.set('md5', md5);
     if (document.getElementById('f_include_invalid').checked) p.set('include_invalid', 'true');
     if (document.getElementById('f_invalid_only').checked) p.set('invalid_only', 'true');
+    if (trashView) p.set('trash_only', 'true');
     return p;
 }
 
@@ -367,6 +461,16 @@ document.getElementById('btnSaveTpl').addEventListener('click', async () => {
     else alert('保存失败');
 });
 
+// 反馈#15：数据集携带输出格式 / 导出内容 / 划分配置
+function dsConfigFromForm() {
+    const fields = Array.from(document.querySelectorAll('.ds-field:checked')).map(el => el.value);
+    return {
+        output_format: document.getElementById('ds_format').value,
+        include_fields: fields.join(','),
+        split_rule: document.getElementById('ds_split').value,
+    };
+}
+
 async function loadDatasets() {
     const res = await fetch('/api/manage/datasets');
     const data = await res.json();
@@ -375,19 +479,96 @@ async function loadDatasets() {
     (data.items || []).forEach(d => {
         const o = document.createElement('option');
         o.value = d.id;
-        o.textContent = d.name + ' ' + d.version_label + ' (' + d.item_count + ')';
+        const fmtLabel = { jsonl: 'JSONL', json: 'JSON', csv: 'CSV', zip_media: 'ZIP' }[d.output_format] || (d.output_format || 'JSONL');
+        o.textContent = d.name + ' ' + (d.version_label || '') + ' [' + fmtLabel + '] 条目' + (d.item_count != null ? d.item_count : 0);
         sel.appendChild(o);
     });
+    document.getElementById('btnDsDetail').disabled = !sel.value;
+    document.getElementById('btnDsExport').disabled = !sel.value;
+    document.getElementById('btnDsDelete').disabled = !sel.value;
 }
+document.getElementById('dsSelect').addEventListener('change', () => {
+    const has = !!document.getElementById('dsSelect').value;
+    document.getElementById('btnDsDetail').disabled = !has;
+    document.getElementById('btnDsExport').disabled = !has;
+    document.getElementById('btnDsDelete').disabled = !has;
+    document.getElementById('dsHint').textContent = '';
+});
 
 document.getElementById('btnCreateDs').addEventListener('click', async () => {
     const name = document.getElementById('ds_name').value.trim();
-    if (!name) { alert('填写名称'); return; }
+    if (!name) { alert('请填写数据集名称'); return; }
+    const cfg = dsConfigFromForm();
+    if (!cfg.include_fields) { alert('请至少勾选一项「导出内容」'); return; }
     const res = await fetch('/api/manage/datasets', { method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ name, version: document.getElementById('ds_ver').value, description: document.getElementById('ds_desc').value }) });
+        body: JSON.stringify(Object.assign({
+            name,
+            version: document.getElementById('ds_ver').value,
+            description: document.getElementById('ds_desc').value,
+        }, cfg)) });
     const j = await res.json();
-    if (res.ok) { alert('创建成功 id=' + j.id); loadDatasets(); }
-    else alert(j.error || '失败');
+    if (res.ok) { alert('创建成功（id=' + j.id + '）。勾选下方数据后点「加入数据集」添加条目。'); loadDatasets(); }
+    else alert(j.error || '创建失败');
+});
+
+// 反馈#15：查看数据集条目（弹窗显示前 100 条样本）
+document.getElementById('btnDsDetail').addEventListener('click', async () => {
+    const dsid = document.getElementById('dsSelect').value;
+    if (!dsid) return;
+    const res = await fetch('/api/manage/datasets/' + dsid + '/items?page_size=100');
+    const j = await res.json();
+    if (!res.ok) { alert(j.error || '加载失败'); return; }
+    const rows = (j.items || []).map(it =>
+        `<tr><td>${it.id}</td><td>${escapeHtml(it.filename || '')}</td><td>${it.media_type || ''}</td><td>${it.status || ''}</td><td>${escapeHtml(it.uploader_username || '')}</td><td>${escapeHtml(it.processor_username || '')}</td></tr>`
+    ).join('');
+    const meta = j.dataset || {};
+    const info = `格式：${meta.output_format || 'jsonl'} ｜ 导出内容：${(meta.include_fields || '').replace(/,/g, '、') || '—'} ｜ 划分：${meta.split_rule || '不划分'} ｜ 条目总数：${j.total}`;
+    document.getElementById('dsHint').textContent = info;
+    const modal = document.getElementById('dsDetailModal');
+    document.getElementById('dsDetailTitle').textContent = '数据集条目：' + (meta.name || '');
+    document.getElementById('dsDetailMeta').textContent = info;
+    document.getElementById('dsDetailBody').innerHTML =
+        '<table class="table table-sm table-striped small"><thead><tr><th>ID</th><th>文件名</th><th>类型</th><th>状态</th><th>上传账号</th><th>处理账号</th></tr></thead><tbody>'
+        + (rows || '<tr><td colspan="6" class="text-muted">暂无条目，请先勾选数据并「加入数据集」</td></tr>') + '</tbody></table>';
+    new bootstrap.Modal(modal).show();
+});
+
+// 反馈#15：按数据集配置导出（JSONL / JSON / CSV / ZIP 媒体包，含 train/val/test 划分）
+document.getElementById('btnDsExport').addEventListener('click', async () => {
+    const dsid = document.getElementById('dsSelect').value;
+    if (!dsid) return;
+    document.getElementById('dsHint').textContent = '正在生成导出文件…';
+    try {
+        const resp = await fetch('/api/manage/datasets/' + dsid + '/export');
+        if (!resp.ok) {
+            const j = await resp.json().catch(() => ({}));
+            alert(j.error || ('导出失败（HTTP ' + resp.status + '）'));
+            document.getElementById('dsHint').textContent = '';
+            return;
+        }
+        const blob = await resp.blob();
+        const cd = resp.headers.get('Content-Disposition') || '';
+        const m = cd.match(/filename\*?=(?:UTF-8'')?["']?([^"';]+)/i);
+        const fname = m ? decodeURIComponent(m[1]) : ('dataset_' + dsid + '.export');
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fname; document.body.appendChild(a); a.click();
+        a.remove(); URL.revokeObjectURL(url);
+        document.getElementById('dsHint').textContent = '导出完成：' + fname;
+    } catch (e) {
+        alert('导出失败：' + e);
+        document.getElementById('dsHint').textContent = '';
+    }
+});
+
+document.getElementById('btnDsDelete').addEventListener('click', async () => {
+    const dsid = document.getElementById('dsSelect').value;
+    if (!dsid) return;
+    if (!confirm('确认删除该数据集？（仅删除数据集定义与条目关联，不删除原始数据文件）')) return;
+    const res = await fetch('/api/manage/datasets/' + dsid, { method: 'DELETE' });
+    const j = await res.json();
+    if (res.ok) { alert('已删除'); loadDatasets(); }
+    else alert(j.error || '删除失败');
 });
 
 async function loadData(page) {
@@ -398,27 +579,51 @@ async function loadData(page) {
     if (!res.ok) { document.getElementById('dataList').innerHTML = '<tr><td colspan="10" class="text-danger">加载失败</td></tr>'; return; }
     const tbody = document.getElementById('dataList');
     const demoRows = seedManageRows();
-    const realRows = (data.items || []).map(item => `
-            <tr>
+    const realRows = (data.items || []).map(item => {
+        const remarkIcon = item.review_remark
+            ? ` <i class="fas fa-sticky-note text-info" title="备注说明：${escapeHtml(item.review_remark)}"></i>` : '';
+        const timeCell = trashView
+            ? `<small class="text-muted">删于 ${(item.deleted_at || '').replace('T', ' ').slice(0, 16)}<br>操作：${escapeHtml(item.deleted_by_username || '—')}<br><span class="text-danger">剩余 ${item.days_remaining == null ? '?' : item.days_remaining} 天自动清除</span></small>`
+            : `<small>${item.uploaded_at || item.created_at || ''}</small>`;
+        const statusCell = trashView
+            ? `<span class="badge bg-secondary">${item.status_label || item.status}</span> <span class="badge bg-dark">垃圾箱</span>`
+            : `<span class="badge bg-secondary">${item.status_label || item.status}</span>`;
+        const actions = trashView
+            ? `<div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})" title="预览"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline-success" onclick="restoreRec(${item.id})" title="恢复到文件列表"><i class="fas fa-undo"></i></button>
+                ${IS_SYS_ADMIN ? `<button class="btn btn-outline-danger" onclick="purgeRec(${item.id})" title="彻底删除（不可恢复）"><i class="fas fa-trash-alt"></i></button>` : ''}
+               </div>`
+            : `<div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})" title="预览"><i class="fas fa-eye"></i></button>
+                <a class="btn btn-outline-success" href="/api/manage/download/${item.id}" title="下载"><i class="fas fa-download"></i></a>
+                <button class="btn btn-outline-warning" onclick="trashRec(${item.id})" title="移入垃圾箱（保留30天）"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-outline-danger" onclick="invalidateRec(${item.id})" title="标记无效"><i class="fas fa-ban"></i></button>
+               </div>`;
+        // 反馈#8：数据编号采用时间戳式采集编号（COLLECT-YYYYMMDDHHMMSS-XXXXXXXX），下方灰显数据库 ID
+        const dataNo = item.task_no
+            ? `<small class="font-monospace">${escapeHtml(item.task_no)}</small><br><span class="text-muted" style="font-size:.72em">ID: ${item.id}</span>`
+            : `<span class="font-monospace">#${item.id}</span>`;
+        const md5 = item.file_md5 || '';
+        const md5Cell = md5
+            ? `<small class="font-monospace text-primary" style="cursor:pointer" title="点击复制完整 MD5" onclick="copyMd5('${md5}')">${md5.slice(0, 12)}…</small>`
+            : '<span class="text-muted small">—</span>';
+        return `<tr>
                 <td><input type="checkbox" class="row-chk" value="${item.id}"></td>
-                <td>${item.id}</td>
-                <td>${escapeHtml(item.filename)}</td>
+                <td>${dataNo}</td>
+                <td>${escapeHtml(item.filename)}${remarkIcon}</td>
                 <td>${item.file_type}</td>
-                <td><span class="badge bg-secondary">${item.status_label || item.status}</span></td>
-                <td><small>${escapeHtml(item.task_no || '')}</small></td>
+                <td>${statusCell}</td>
+                <td>${md5Cell}</td>
                 <td>${escapeHtml(item.uploader_username)}</td>
                 <td>${escapeHtml(item.processor_username || '')}</td>
-                <td><small>${item.uploaded_at || item.created_at || ''}</small></td>
-                <td>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})"><i class="fas fa-eye"></i></button>
-                        <a class="btn btn-outline-success" href="/api/manage/download/${item.id}"><i class="fas fa-download"></i></a>
-                        ${(ROLE === 'admin' || ROLE === 'inspector') ? `<button class="btn btn-outline-danger" onclick="invalidateRec(${item.id})"><i class="fas fa-ban"></i></button>` : ''}
-                    </div>
-                </td>
-            </tr>`).join('');
+                <td>${timeCell}</td>
+                <td>${actions}</td>
+            </tr>`;
+    }).join('');
+    const emptyText = trashView ? '垃圾箱为空（已过保留期的文件会被自动彻底删除）' : '暂无数据';
     if (demoRows || realRows) tbody.innerHTML = demoRows + realRows;
-    else tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted">暂无数据</td></tr>';
+    else tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted">${emptyText}</td></tr>`;
     const totalPages = data.total_pages || 1;
     const pg = document.getElementById('pagination');
     pg.innerHTML = `
@@ -430,6 +635,17 @@ async function loadData(page) {
     updateBatchButtons();
 }
 
+// 反馈#8：点击 MD5 单元格复制完整值
+function copyMd5(md5) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md5).then(
+            () => alert('MD5 已复制：\n' + md5),
+            () => prompt('复制此 MD5：', md5)
+        );
+    } else {
+        prompt('复制此 MD5：', md5);
+    }
+}
 function escapeHtml(s) {
     if (!s) return '';
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -443,7 +659,73 @@ function updateBatchButtons() {
     const n = selectedIds().length;
     document.getElementById('btnBatchDl').disabled = n === 0;
     document.getElementById('btnAddDataset').disabled = n === 0;
+    document.getElementById('btnBatchTrash').disabled = n === 0;
+    document.getElementById('btnBatchRestore').disabled = n === 0;
+    document.getElementById('btnBatchPurge').disabled = n === 0;
 }
+
+// ---- 反馈#6：垃圾箱 / 恢复 / 彻底删除 ----
+function setTrashView(on) {
+    trashView = !!on;
+    document.getElementById('viewNormal').className = trashView ? 'btn btn-outline-secondary' : 'btn btn-primary';
+    document.getElementById('viewTrash').className = trashView ? 'btn btn-primary' : 'btn btn-outline-secondary';
+    document.getElementById('trashHint').style.display = trashView ? '' : 'none';
+    // 正常视图按钮
+    ['btnBatchDl', 'btnAddDataset', 'btnBatchTrash', 'btnExportV2'].forEach(id => {
+        document.getElementById(id).style.display = trashView ? 'none' : '';
+    });
+    // 垃圾箱视图按钮
+    document.getElementById('btnBatchRestore').style.display = trashView ? '' : 'none';
+    document.getElementById('btnBatchPurge').style.display = (trashView && IS_SYS_ADMIN) ? '' : 'none';
+    document.getElementById('chkAll').checked = false;
+    loadData(1);
+}
+
+async function trashRec(id) {
+    if (!confirm('确定将该文件移入垃圾箱？\n文件将保留 30 天，期间可在「垃圾箱」中恢复；到期后自动彻底删除。')) return;
+    const res = await fetch('/api/manage/trash/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已移入垃圾箱'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function restoreRec(id) {
+    const res = await fetch('/api/manage/restore/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已恢复'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function purgeRec(id) {
+    if (!confirm('彻底删除后不可恢复！确定要彻底删除该文件吗？')) return;
+    if (!confirm('请再次确认：将永久删除该文件及其媒体文件、处理结果与审核记录。')) return;
+    const res = await fetch('/api/manage/purge/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已彻底删除'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function batchAction(url, confirmMsg) {
+    const ids = selectedIds();
+    if (!ids.length) return;
+    if (confirmMsg && !confirm(confirmMsg)) return;
+    const res = await fetch(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids })
+    });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '操作完成'); document.getElementById('chkAll').checked = false; loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+document.getElementById('viewNormal').addEventListener('click', () => setTrashView(false));
+document.getElementById('viewTrash').addEventListener('click', () => setTrashView(true));
+document.getElementById('btnBatchTrash').addEventListener('click', () =>
+    batchAction('/api/manage/trash', `确定将选中的 ${selectedIds().length} 个文件移入垃圾箱？\n保留 30 天，可在垃圾箱中恢复。`));
+document.getElementById('btnBatchRestore').addEventListener('click', () =>
+    batchAction('/api/manage/restore', `确定恢复选中的 ${selectedIds().length} 个文件？`));
+document.getElementById('btnBatchPurge').addEventListener('click', () =>
+    batchAction('/api/manage/purge', `彻底删除不可恢复！确定彻底删除选中的 ${selectedIds().length} 个文件吗？`));
 
 document.getElementById('chkAll').addEventListener('change', function() {
     document.querySelectorAll('.row-chk').forEach(c => { c.checked = this.checked; });
@@ -476,6 +758,7 @@ async function previewDetail(id) {
         wrap.innerHTML = '<div class="text-muted">无媒体或文件缺失</div>';
     }
     document.getElementById('previewText').textContent = d.text_full || '';
+    document.getElementById('previewRemark').textContent = d.review_remark || '（无）';
     const tb = document.getElementById('previewTimeline');
     tb.innerHTML = '';
     (d.timeline || []).forEach(t => {

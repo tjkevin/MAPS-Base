@@ -17,8 +17,11 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     full_name = db.Column(db.String(80))
+    # 反馈#8：账号昵称（界面显示名优先取它，如超管 GR）；管理员备注（可空）
+    nickname = db.Column(db.String(80))
     department = db.Column(db.String(128))
     phone = db.Column(db.String(32))
+    admin_remark = db.Column(db.Text)  # 管理员对账号的备注说明（可空）
     is_active = db.Column(db.Boolean, default=True)
     is_locked_account = db.Column(db.Boolean, default=False)
     account_valid_until = db.Column(db.DateTime)
@@ -36,29 +39,8 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
-class LoginLog(db.Model):
-    """登录/登出审计（含失败尝试）。"""
-    __tablename__ = 'login_logs'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    username_attempted = db.Column(db.String(80), index=True)
-    event_type = db.Column(db.String(20), nullable=False, index=True)  # login_success / login_fail / logout / idle_timeout / force_logout
-    success = db.Column(db.Boolean, default=False)
-    ip_address = db.Column(db.String(45))
-    user_agent = db.Column(db.String(512))
-    message = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-
-
-class UserAuditLog(db.Model):
-    """账号与权限类操作审计。"""
-    __tablename__ = 'user_audit_logs'
-    id = db.Column(db.Integer, primary_key=True)
-    actor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    target_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    action_type = db.Column(db.String(40), nullable=False, index=True)
-    detail_json = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+# 注：登录/账号审计/导出等运维日志统一并入 system_event_logs（SystemEventLog，见文件末尾），
+# 原 login_logs / user_audit_logs / export_logs 三表已退役（迁移脚本 RENAME 备份）。
 
 
 class Recording(db.Model):
@@ -73,7 +55,7 @@ class Recording(db.Model):
     text_content = db.Column(db.Text)
     task_type = db.Column(db.Integer)  # 1 for first type, 2 for second type
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
+
     # 字幕相关字段
     subtitle_srt_path = db.Column(db.String(512))  # SRT字幕文件路径
     subtitle_json_path = db.Column(db.String(512))  # JSON字幕文件路径
@@ -84,30 +66,25 @@ class Recording(db.Model):
     invalidated_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     business_task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), index=True)
 
+    # ---- 采集元数据（表精简：原 acquisition_metadata 表并入 recordings）----
+    uploader_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)  # 上传人
+    file_type = db.Column(db.String(20), index=True)  # video / image / audio
+    file_size = db.Column(db.BigInteger)  # bytes
+    file_md5 = db.Column(db.String(32), index=True)  # 同文件去重 / 算法结果复用
+    source_channel = db.Column(db.String(20), default='upload')  # upload/record/crawl
+    acquisition_task_no = db.Column(db.String(64), index=True)  # 采集时填写的任务编号
+    acquisition_audit_status = db.Column(db.String(20), default='pending', index=True)  # pending/pass/pending_fix
 
-class AcquisitionMetadata(db.Model):
-    __tablename__ = 'acquisition_metadata'
-    id = db.Column(db.Integer, primary_key=True)
-    recording_id = db.Column(db.Integer, db.ForeignKey('recordings.id'), nullable=False, index=True)
-    uploader_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-    filename = db.Column(db.String(255), nullable=False)
-    file_type = db.Column(db.String(20), nullable=False)  # video/image/audio
-    file_size = db.Column(db.BigInteger, nullable=False)  # bytes
-    file_md5 = db.Column(db.String(32), nullable=False, index=True)
-    task_no = db.Column(db.String(64), nullable=False, index=True)
-    audit_status = db.Column(db.String(20), default='pending', index=True)  # pending/pass/pending_fix
-    source_channel = db.Column(db.String(20), nullable=False, default='upload')  # upload/record/crawl
+    # ---- 反馈#6：垃圾箱（软删除，保留 30 天可恢复，到期物理删除）----
+    deleted_at = db.Column(db.DateTime, index=True)
+    deleted_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # 审核员对文件的备注说明（随文件归档，数据管理中可见）
+    review_remark = db.Column(db.Text)
 
-class Inspection(db.Model):
-    __tablename__ = 'inspections'
-    id = db.Column(db.Integer, primary_key=True)
-    recording_id = db.Column(db.Integer, db.ForeignKey('recordings.id'))
-    inspector_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    inspection_date = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.String(20))  # 'approved', 'rejected'
-    corrections = db.Column(db.Text)
-    comments = db.Column(db.Text)
+    # ---- 反馈#8：互联网批量采集扩展 ----
+    crawl_remark = db.Column(db.Text)  # 采集内容备注（说明该视频/图片主要是做什么的）
+    crawl_meta_json = db.Column(db.Text)  # 采集元数据 JSON（来源站点/播放量/弹幕/UP主/采集选项等）
+    meta_json_path = db.Column(db.String(512))  # 随媒体落盘的 .meta.json 侧车文件路径
 
 class Task(db.Model):
     __tablename__ = 'tasks'
@@ -142,6 +119,10 @@ class Task(db.Model):
 
 class TaskAssignment(db.Model):
     __tablename__ = 'task_assignments'
+    # f3：同一任务同一用户仅一条分配记录（防并发申领/重复分配）
+    __table_args__ = (
+        db.UniqueConstraint('task_id', 'user_id', name='uq_task_assignment_task_user'),
+    )
     id = db.Column(db.Integer, primary_key=True)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
@@ -178,19 +159,6 @@ class TaskReturnRequest(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-class TaskMessage(db.Model):
-    """任务相关站内通知（可对接统一消息中心）。"""
-    __tablename__ = 'task_messages'
-    id = db.Column(db.Integer, primary_key=True)
-    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False, index=True)
-    title = db.Column(db.String(255), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    read_at = db.Column(db.DateTime)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-
-
 class ProcessingResult(db.Model):
     __tablename__ = 'processing_results'
     id = db.Column(db.Integer, primary_key=True)
@@ -215,12 +183,17 @@ class FilterTemplate(db.Model):
 
 
 class DataSet(db.Model):
-    """自定义数据集（命名、版本、描述）。"""
+    """自定义数据集（命名、版本、描述 + 反馈#15：输出格式 / 导出内容 / 训练集划分）。"""
     __tablename__ = 'data_sets'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
     version_label = db.Column(db.String(32), default='V1.0')
+    # 反馈#15：导出配置——output_format: jsonl/json/csv/zip_media；
+    # include_fields: 逗号分隔（media,transcript,timeline,metadata,audit）；split_rule: none/8:1:1/7:1:2/9:0.5:0.5
+    output_format = db.Column(db.String(16), default='jsonl')
+    include_fields = db.Column(db.String(255), default='media,transcript,metadata')
+    split_rule = db.Column(db.String(16), default='none')
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -236,42 +209,17 @@ class DataSetItem(db.Model):
     __table_args__ = (db.UniqueConstraint('dataset_id', 'recording_id', name='uq_dataset_recording'),)
 
 
-class ExportLog(db.Model):
-    """结构化导出审计日志。"""
-    __tablename__ = 'export_logs'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    scope_type = db.Column(db.String(32), nullable=False)  # filter / dataset / ids
-    scope_ref = db.Column(db.String(255))
-    export_format = db.Column(db.String(16), nullable=False)
-    fields_json = db.Column(db.Text)
-    row_count = db.Column(db.Integer, default=0)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-
-
 class AuditLog(db.Model):
-    """全链路审核操作留痕：通过 / 打回修正 / 审核员自行修正。"""
+    """全链路审核操作留痕：通过(pass) / 打回修正(reject_return) / 审核员自行修正(self_fix)；
+    表精简后原 inspections 表的采集审核记录并入本表（action_type='inspection'，corrections 存 detail_json）。"""
     __tablename__ = 'audit_logs'
     id = db.Column(db.Integer, primary_key=True)
     recording_id = db.Column(db.Integer, db.ForeignKey('recordings.id'), nullable=False, index=True)
     auditor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    action_type = db.Column(db.String(32), nullable=False)  # pass / reject_return / self_fix
-    audit_result = db.Column(db.String(32), nullable=False)  # approved / pending_fix
+    action_type = db.Column(db.String(32), nullable=False)  # pass / reject_return / self_fix / inspection
+    audit_result = db.Column(db.String(32), nullable=False)  # approved / pending_fix / rejected
     comments = db.Column(db.Text)
-    detail_json = db.Column(db.Text)  # 结构化：时间轴快照、修正摘要等
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-
-
-class AuditMessage(db.Model):
-    """审核打回时推送给原处理人的站内消息（消息管理模块可对接扩展）。"""
-    __tablename__ = 'audit_messages'
-    id = db.Column(db.Integer, primary_key=True)
-    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
-    recording_id = db.Column(db.Integer, db.ForeignKey('recordings.id'), nullable=True, index=True)
-    title = db.Column(db.String(255), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    read_at = db.Column(db.DateTime)
+    detail_json = db.Column(db.Text)  # 结构化：时间轴快照、修正摘要、原 inspections.corrections 等
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
 
@@ -345,11 +293,69 @@ class SystemAnnouncement(db.Model):
     is_active = db.Column(db.Boolean, default=True, index=True)
 
 
-class MessageChannelConfig(db.Model):
-    """可选渠道开关（单例 id=1）；邮件/短信为扩展桩。"""
-    __tablename__ = 'message_channel_config'
+# 注：原 message_channel_config 单例表已退役——邮件/短信渠道开关改为环境变量
+# （MSG_EMAIL_ENABLED / MSG_SMS_ENABLED / MSG_EMAIL_ROLES），由 services/messaging.py 读取。
+
+
+# ---------------- 算力积分（按人计量 DeepSeek API 与 GPU 算力消耗）----------------
+
+class UserCreditGrant(db.Model):
+    """积分分配记录：管理员按人发放，追加式流水（Redis 余额实时累加，本表为持久凭据）。"""
+    __tablename__ = 'user_credit_grants'
     id = db.Column(db.Integer, primary_key=True)
-    email_enabled = db.Column(db.Boolean, default=False)
-    sms_enabled = db.Column(db.Boolean, default=False)
-    email_roles_json = db.Column(db.Text)  # JSON list of roles that may receive email
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    credits = db.Column(db.Integer, nullable=False)  # 本次发放积分（正数）
+    period = db.Column(db.String(16), default='permanent', index=True)  # 周期标签：202609 / permanent
+    reason = db.Column(db.String(255))
+    granted_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+
+class ComputeUsageLog(db.Model):
+    """算力消耗流水：每次算法推理一条；MySQL 为持久账单，Redis 计数为实时防刷。"""
+    __tablename__ = 'compute_usage_logs'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    backend = db.Column(db.String(16), nullable=False, index=True)  # autodl / local / deepseek / cache
+    task_id = db.Column(db.String(64), index=True)  # Redis 队列任务 UUID
+    recording_id = db.Column(db.Integer, db.ForeignKey('recordings.id'), index=True)
+    modality = db.Column(db.String(16))
+    metric_type = db.Column(db.String(24))  # tokens / media_seconds / cache_hit
+    metric_value = db.Column(db.Float, default=0)  # token 数 / 媒体秒数
+    cost_credits = db.Column(db.Integer, default=0)  # 实际扣减积分
+    est_credits = db.Column(db.Integer, default=0)  # 提交时冻结积分
+    status = db.Column(db.String(16), default='success', index=True)  # success / failed / reused
+    detail = db.Column(db.String(512))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+
+# ---------------- 系统核心配置（键值表，超级管理员运行时管理，如 DeepSeek API Key）----------------
+
+class SystemSetting(db.Model):
+    """系统核心配置键值表（反馈#7）：DeepSeek API Key/Base URL/模型/配额等运行时可改配置。
+    属"系统核心配置"，仅超级管理员可读写；启动时加载并覆盖环境变量默认值。"""
+    __tablename__ = 'system_settings'
+    id = db.Column(db.Integer, primary_key=True)
+    key = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    value = db.Column(db.Text)
+    remark = db.Column(db.String(255))
+    updated_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+# ---------------- 统一系统事件日志（登录/账号审计/导出等运维审计，合并自多张旧日志表）----------------
+
+class SystemEventLog(db.Model):
+    """统一系统事件日志：event_type 区分 login / user_audit / export 等，替代分散的旧日志表。"""
+    __tablename__ = 'system_event_logs'
+    id = db.Column(db.Integer, primary_key=True)
+    event_type = db.Column(db.String(32), nullable=False, index=True)  # login / user_audit / export ...
+    actor_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    target_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    success = db.Column(db.Boolean, default=True)
+    ip_address = db.Column(db.String(45))
+    action_type = db.Column(db.String(64), index=True)  # 事件子类：login_success / export_dataset ...
+    summary = db.Column(db.String(255))
+    detail_json = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)

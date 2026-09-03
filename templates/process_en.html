@@ -3,63 +3,157 @@
 {% block title %}Data Processing - MAPS{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Data Processing</h1>
+<div class="container-fluid d-flex flex-column">
+    <h1 class="mb-3">Data Processing</h1>
 
-    <div class="card mb-3 border-primary">
-        <div class="card-body py-3">
-            <div class="fw-semibold mb-2">Processing mode</div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="procMode" id="modeManual" value="manual" checked>
-                <label class="form-check-label" for="modeManual">(1) Manual processing</label>
+    <!-- Feedback #16: manual and algorithm processing fused into one page — the manual
+         queue workspace is below; algorithm processing is consolidated into one card with
+         a "single / batch" mode switch, no more strong 1/2 section separation -->
+    <p class="text-muted small mb-3"><i class="fas fa-circle-info me-1"></i>
+        Claim tasks in the workspace below for manual processing (the workspace switches automatically between text review / transcription / image description);
+        or use algorithm processing, where external compute performs automatic transcription and multimodal understanding (billed by compute credits; identical files are reused for free via MD5).
+    </p>
+
+    <div id="algorithmProcessingPanel" class="order-2 mb-4">
+        <div class="card border-warning">
+            <div class="card-header d-flex align-items-center flex-wrap gap-2">
+                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> Algorithm processing (external compute)</strong>
+                <span class="ms-auto d-flex align-items-center flex-wrap gap-2 small">
+                    <i class="fas fa-coins text-warning"></i>
+                    <span>My credits</span>
+                    <span id="creditBalance" class="badge bg-warning text-dark">Loading&hellip;</span>
+                    <span id="creditEnabled" class="badge bg-secondary"></span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary py-0" onclick="loadMyCredits()">Refresh</button>
+                </span>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="procMode" id="modeAlgorithm" value="algorithm">
-                <label class="form-check-label" for="modeAlgorithm">(2) Algorithm / batch processing</label>
+            <div class="card-body">
+                <!-- Feedback #16: single / batch mode switch -->
+                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="Algorithm mode">
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeSingleRadio" value="single" checked onchange="switchAlgoMode('single')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeSingleRadio"><i class="fas fa-paper-plane me-1"></i>Single</label>
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeBatchRadio" value="batch" onchange="switchAlgoMode('batch')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeBatchRadio"><i class="fas fa-layer-group me-1"></i>Batch</label>
+                </div>
+
+                <!-- Single submit -->
+                <div id="algoModeSingle">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-4">
+                            <label for="algoRecordingId" class="form-label">Recording (pick from list)</label>
+                            <div class="input-group">
+                                <select class="form-select" id="algoRecordingId">
+                                    <option value="">Loading&hellip;</option>
+                                </select>
+                                <button type="button" class="btn btn-outline-secondary" onclick="loadAlgoCandidates()" title="Refresh candidate list">
+                                    <i class="fas fa-rotate"></i>
+                                </button>
+                            </div>
+                            <div class="form-text small">Files you are allowed to process, grouped into &ldquo;my uploads / others' uploads&rdquo; with modality and source tags.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="algoBackend" class="form-label">Inference backend</label>
+                            <select class="form-select" id="algoBackend">
+                                <option value="auto">auto (automatic routing)</option>
+                                <option value="deepseek">External LLM (text only, ready, built-in default prompts)</option>
+                                <option value="local">local (LAN BAGEL optimized &middot; image understanding)</option>
+                                <option value="autodl" disabled>autodl (autoDL BAGEL full &middot; reserved)</option>
+                            </select>
+                            <div class="form-text small">External LLM processing/recheck works out of the box; the LAN BAGEL optimized edition (NF4) handles image understanding once confirmed online under Task management - Model backend monitoring. Audio/video understanding requires the autoDL full edition (to be configured); auto routing switches automatically.</div>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <div class="form-check ms-1">
+                                <input class="form-check-input" type="checkbox" id="algoForceRecompute">
+                                <label class="form-check-label small" for="algoForceRecompute">Force recompute (no MD5 reuse)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <button type="button" class="btn btn-primary w-100" id="algoSubmitBtn" onclick="submitAlgorithmTask()">
+                                <i class="fas fa-paper-plane"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback #16: batch processing -->
+                <div id="algoModeBatch" class="d-none">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-3 col-6">
+                            <label for="batchScope" class="form-label small mb-1">Scope</label>
+                            <select class="form-select form-select-sm" id="batchScope">
+                                <option value="own">My pending uploads</option>
+                                <option value="all">All pending files I can process</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label for="batchLimit" class="form-label small mb-1">Count (1-20)</label>
+                            <input type="number" class="form-control form-control-sm" id="batchLimit" value="5" min="1" max="20">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="batchBackend" class="form-label small mb-1">Inference backend</label>
+                            <select class="form-select form-select-sm" id="batchBackend">
+                                <option value="auto">auto (automatic routing)</option>
+                                <option value="deepseek">External LLM (text only, ready)</option>
+                                <option value="local">local (LAN BAGEL optimized &middot; image understanding)</option>
+                                <option value="autodl" disabled>autodl (full edition &middot; reserved)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="form-check ms-1">
+                                <input class="form-check-input" type="checkbox" id="batchForceRecompute">
+                                <label class="form-check-label small" for="batchForceRecompute">Force recompute (no MD5 reuse)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap gap-2 mt-3">
+                        <button type="button" class="btn btn-warning text-dark" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
+                            <i class="fas fa-layer-group"></i> Submit batch
+                        </button>
+                        <span class="small text-muted">The earliest pending records within scope are selected automatically; completed tasks are <strong>auto-confirmed</strong> into pending review. Per-item status appears below.</span>
+                    </div>
+                    <div id="batchProgress" class="mt-2"></div>
+                </div>
+
+                <div id="algoResult" class="mt-3" style="min-height: 1.5em;"></div>
+                <div id="creditReuseTip" class="small text-success mt-2 d-none">
+                    <i class="fas fa-bolt"></i> When an identical file (same MD5) has already been processed, the historical result is reused automatically and <strong>no credits are consumed</strong>.
+                </div>
+                <div id="creditRecent" class="small text-muted mt-1"></div>
+                <div id="creditPricing" class="small text-muted mt-1"></div>
             </div>
-            <p class="small text-muted mb-0 mt-2">Manual: human review and transcription. Algorithm: automated pipelines (e.g. ASR, multimodal extraction).</p>
+            <div class="card-footer">
+                <span class="small text-muted"><strong>Note</strong>: Algorithm processing runs on external compute — autoDL rented GPUs (full BAGEL), LAN GPUs (optimized BAGEL), or the External LLM text API; the cloud itself runs no models. Image, audio and video tasks are routed automatically to BAGEL backends. Failed tasks retry automatically (up to 3 times); exhausted retries enter the dead-letter queue for administrators.</span>
+            </div>
         </div>
     </div>
 
-    <div id="algorithmProcessingPanel" class="d-none mb-4">
-        <div class="alert alert-info mb-0">
-            <strong>Algorithm mode</strong>: configure batch jobs or APIs on the server; this page focuses on manual task flow. Results can be searched under <em>Data Management</em>.
-        </div>
-    </div>
-
-    <div id="manualProcessingPanel">
-    <ul class="nav nav-tabs mb-4" id="processingTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="type1-tab" data-bs-toggle="tab" data-bs-target="#type1" type="button" role="tab">
-                Type 1 Tasks (Inspection)
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
-                Type 2 Tasks (Transcription)
-            </button>
-        </li>
-    </ul>
-    
-    <div class="tab-content" id="processingTabsContent">
-        <!-- Type 1 Tasks -->
-        <div class="tab-pane fade show active" id="type1" role="tabpanel">
+    <!-- Feedback #14: manual processing merged into a single panel — inspection/transcription tasks are claimed from one unified queue; the workspace switches automatically by task kind -->
+    <!-- Feedback #15: shown on the same page as algorithm processing (order-1 places it above) -->
+    <div id="manualProcessingPanel" class="order-1 mb-4">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Video Player</h5>
+                            <h5 class="card-title mb-0">Media Preview</h5>
                         </div>
                         <div class="card-body">
-                            <video id="videoPlayer1" class="w-100" controls>
+                            <div id="taskMetaBar" class="small mb-2 d-none flex-wrap gap-1 align-items-center"></div>
+                            <video id="videoPlayer2" class="w-100 d-none" controls>
                                 <source src="" type="video/webm">
                                 Your browser does not support the video tag.
                             </video>
+                            <img id="imagePreview2" class="w-100 d-none rounded border" alt="Image preview" style="max-height:70vh;object-fit:contain;background:#f6f7fb;">
+                            <div id="emptyHint2" class="text-center text-muted py-5">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                No pending tasks
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
+                    <!-- Inspection workspace (admins/super admins: shown when a pending inspection task is claimed) -->
+                    {% if current_user.role in ['admin', 'super_admin'] %}
+                    <div id="workInspectWrap" class="d-none">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Text Inspection</h5>
@@ -78,6 +172,15 @@
                                     <label for="comments" class="form-label">Comments</label>
                                     <textarea class="form-control" id="comments" rows="3"></textarea>
                                 </div>
+                                <!-- Feedback #8: subtitle timeline proofreading (shown for video/audio, hidden for images) -->
+                                <div class="mb-3 d-none" id="timelineBox1">
+                                    <label class="form-label d-block">Subtitle Timeline Proofreading</label>
+                                    <div class="small text-muted mb-2">If the data carries subtitles, proofread them on the timeline: each entry = start &rarr; end + text in <b>hh:mm:ss</b> boxes (auto-advance on two digits); press <b>Enter</b> in the text box to add the next entry. Leave empty to keep the timeline unchanged.</div>
+                                    <div id="timelineRows1"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow1">
+                                        <i class="fas fa-plus"></i> Add entry
+                                    </button>
+                                </div>
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-success" name="action" value="approve">
                                         <i class="fas fa-check"></i> Approve
@@ -85,77 +188,149 @@
                                     <button type="submit" class="btn btn-danger" name="action" value="reject">
                                         <i class="fas fa-times"></i> Reject
                                     </button>
+                                    <button type="button" class="btn btn-outline-primary ms-auto" onclick="skipCurrentTask()">
+                                        <i class="fas fa-forward"></i> Skip / Next
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Type 2 Tasks -->
-        <div class="tab-pane fade" id="type2" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Video Player</h5>
-                        </div>
-                        <div class="card-body">
-                            <video id="videoPlayer2" class="w-100" controls>
-                                <source src="" type="video/webm">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
+                    {% endif %}
+
+                    <!-- Transcription / image-description workspace (shown when a pending processing task is claimed) -->
+                    <div id="workTranscribeWrap" class="d-none">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Transcription</h5>
+                            <h5 class="card-title mb-0">Transcription / Image Description</h5>
                         </div>
                         <div class="card-body">
                             <form id="transcriptionForm">
-                                <div class="mb-3">
-                                    <label for="transcription" class="form-label">Enter Transcription</label>
-                                    <textarea class="form-control" id="transcription" rows="10"></textarea>
+                                <div id="tlEditArea">
+                                    <div class="mb-3" id="tlTimeBox2">
+                                        <label class="form-label d-block">Transcription timeline</label>
+                                        <div class="small text-muted mb-2">Each entry = start → end + text: enter time as <b>hh:mm:ss</b> in three small boxes — typing two digits auto-advances to the next box (no mouse needed); a new row's end time defaults to start +5s; click <i class="fas fa-clock"></i> to capture the player's position. Press <b>Enter</b> in the text box to add the next entry (its start follows the previous end).</div>
+                                        <div id="timelineRows"></div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow">
+                                            <i class="fas fa-plus"></i> Add entry
+                                        </button>
+                                        <!-- Feedback #10: Whisper AI transcription draft (audio/video, queued; video optionally keyframe summary / external LLM description) -->
+                                        <div class="border rounded p-2 mt-3" style="background:#f8f9fb;" id="aiTranscribeBox">
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
+                                                    <i class="fas fa-microphone-lines"></i> AI transcription draft (Whisper, queued)
+                                                </button>
+                                                <span class="small" id="aiTranscribeStatus"></span>
+                                            </div>
+                                            <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
+                                                <div class="form-check mb-0 small">
+                                                    <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
+                                                    <label class="form-check-label" for="chkWithKeyframes">Also have <b>BAGEL</b> describe keyframes and produce a video content summary (+GPU credits)</label>
+                                                </div>
+                                                <div class="form-check mb-0 small">
+                                                    <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
+                                                    <label class="form-check-label" for="chkWithLlmSummary">Then generate a more detailed video description with an <b>external LLM</b> (+more credits)</label>
+                                                </div>
+                                            </div>
+                                            <div class="small text-muted">Whisper runs on your LAN GPU machine; the task is queued and processed asynchronously, then the draft is filled into the timeline below automatically (<b>it is NOT auto-submitted</b> — review and edit before saving/submitting). Identical files (MD5) reuse past results for free; a clear message is shown if the GPU is offline or the tunnel is down.</div>
+                                            <div id="aiTranscribeSummary" class="d-none mt-2">
+                                                <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI video content summary (BAGEL keyframes)</div>
+                                                <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
+                                                <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> External LLM detailed video description</div>
+                                                <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Feedback #8: images have no timeline — describe the image content directly -->
+                                    <div class="mb-3 d-none" id="imageDescBox2">
+                                        <label class="form-label d-block" for="imageDesc2">Image description / transcription text</label>
+                                        <div class="small text-muted mb-2">Image tasks have no timeline. Describe the image content directly (scene, objects, text in the image, etc.); save a draft and submit for review. The <b>BAGEL multimodal model</b> can also generate a detailed description automatically — review and edit it before submitting.</div>
+                                        <!-- Feedback #9: one-click BAGEL image description (LAN optimized edition) + quick prompts -->
+                                        <div class="border rounded p-2 mb-2" style="background:#f8f9fb;">
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                                <span class="small text-muted">AI focus:</span>
+                                                <div class="btn-group btn-group-sm" role="group" id="imgPromptChips">
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindDetail" value="detail" checked>
+                                                    <label class="btn btn-outline-primary" for="imgKindDetail">Detailed</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindOcr" value="ocr">
+                                                    <label class="btn btn-outline-primary" for="imgKindOcr">Text (OCR)</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindPeople" value="people">
+                                                    <label class="btn btn-outline-primary" for="imgKindPeople">People</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindTags" value="tags">
+                                                    <label class="btn btn-outline-primary" for="imgKindTags">Tags</label>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiDescribe" onclick="aiDescribeImage()">
+                                                    <i class="fas fa-magic"></i> Generate description (BAGEL LAN edition)
+                                                </button>
+                                                <span class="small" id="aiDescribeStatus"></span>
+                                            </div>
+                                            <div class="small text-muted mt-1">Image understanding runs on your LAN GPU machine (a few seconds). If the model is offline or unreachable, an error is shown and you can retry later or fill in the description manually.</div>
+                                        </div>
+                                        <textarea class="form-control" id="imageDesc2" rows="8" placeholder="Describe the image content, or click the button above to let BAGEL generate it…"></textarea>
+                                    </div>
+                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                        <button type="submit" class="btn btn-primary" id="btnSaveDraft">
+                                            <i class="fas fa-save"></i> Save draft
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="btnSubmitTranscription">
+                                            <i class="fas fa-paper-plane"></i> Submit
+                                        </button>
+                                        <span id="saveToast" class="small text-success d-none"><i class="fas fa-check-circle"></i> <span class="toast-msg">Saved</span></span>
+                                    </div>
+                                    <div class="small text-muted mt-2">Save only stores a draft (auto-saved every minute) and stays editable; "Submit" sends it to the review queue.</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Save Transcription
-                                </button>
+                                <div id="submitProgress" class="alert alert-info d-none mb-0">
+                                    <div id="progressState" class="mb-2"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-warning me-2" id="btnWithdraw">
+                                        <i class="fas fa-undo"></i> Withdraw & edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary d-none" id="btnNextAfterSubmit">
+                                        <i class="fas fa-forward"></i> Pick next transcription task
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-function syncProcessMode() {
-    const manual = document.getElementById('modeManual').checked;
-    document.getElementById('manualProcessingPanel').classList.toggle('d-none', !manual);
-    document.getElementById('algorithmProcessingPanel').classList.toggle('d-none', manual);
-}
-document.getElementById('modeManual').addEventListener('change', syncProcessMode);
-document.getElementById('modeAlgorithm').addEventListener('change', syncProcessMode);
-syncProcessMode();
+// Feedback #15: manual and algorithm processing share one page; procMode switch removed
 
-// Type 1 Task Handling
-document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
+// f3: track the claimed recording_id per task type and send it back on submit
+const currentTaskIds = {};
+
+// Type 1 Task Handling (guarded: recorders have no inspection form on this page)
+const inspectionFormEl = document.getElementById('inspectionForm');
+if (inspectionFormEl) {
+inspectionFormEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     const action = e.submitter.value;
     const formData = {
         action: action,
+        recording_id: currentTaskIds[1] || null,
         corrections: document.getElementById('corrections').value,
         comments: document.getElementById('comments').value
     };
-    
+    // Feedback #8: submit proofread subtitle timeline with the inspection (empty = unchanged)
+    if (tlEditor1) {
+        const tlBox = document.getElementById('timelineRows1');
+        const hasContent = tlBox && Array.from(tlBox.querySelectorAll('input'))
+            .some(i => (i.value || '').trim() !== '');
+        if (hasContent) {
+            const tl1 = tlEditor1.collect(false);
+            if (!tl1) return;  // invalid timeline, alert already shown
+            formData.timeline = tl1.segments;
+        }
+    }
+
     try {
         const response = await fetch('/api/process/inspect', {
             method: 'POST',
@@ -164,76 +339,1044 @@ document.getElementById('inspectionForm').addEventListener('submit', async (e) =
             },
             body: JSON.stringify(formData)
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'Submission failed');
+
         alert(data.message || 'Inspection submitted successfully');
-        // Load next task
-        loadNextTask(1);
+        // Feedback #14: claim the next task from the unified queue; refresh the algorithm candidate list
+        delete currentTaskIds[1];
+        loadNextTask(false);
+        if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
     } catch (err) {
         console.error('Submission error:', err);
-        alert('Failed to submit inspection');
+        alert('Failed to submit inspection: ' + (err.message || ''));
     }
 });
+}
 
-// Type 2 Task Handling
-document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = {
-        transcription: document.getElementById('transcription').value
-    };
-    
-    try {
-        const response = await fetch('/api/process/transcribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+// ---------------- 时间轴编辑器（时:分:秒 三段输入，自动跳转） ----------------
+function createTimelineEditor(opts) {
+    const wrap = document.getElementById(opts.containerId);
+    const addBtn = opts.addBtnId ? document.getElementById(opts.addBtnId) : null;
+    let disabled = !!opts.disabled;
+    const getPlayer = () => (opts.getPlayer ? opts.getPlayer() : null);
+
+    function pad2(n) { return String(Math.max(0, parseInt(n, 10) || 0)).padStart(2, '0'); }
+    function hmsParts(sec) {
+        sec = Math.max(0, Math.round(Number(sec) || 0));
+        return { h: Math.floor(sec / 3600), m: Math.floor((sec % 3600) / 60), s: Math.floor(sec % 60) };
+    }
+    function setGroup(g, sec) {
+        const t = hmsParts(sec);
+        g.h.value = pad2(t.h); g.m.value = pad2(t.m); g.s.value = pad2(t.s);
+    }
+    function getGroup(g) {
+        const vals = [g.h.value, g.m.value, g.s.value].map(v => String(v).trim());
+        if (vals.every(v => v === '')) return null;              // 整组未填
+        if (vals.some(v => !/^\d{1,2}$/.test(v))) return NaN;   // 格式错
+        const h = +vals[0], m = +vals[1], s = +vals[2];
+        if (m > 59 || s > 59) return NaN;                        // 分/秒超限
+        return h * 3600 + m * 60 + s;
+    }
+    function timeInput(cls) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-control form-control-sm tl-time ' + cls;
+        inp.maxLength = 2;
+        inp.inputMode = 'numeric';
+        inp.style.width = '46px';
+        inp.style.textAlign = 'center';
+        inp.disabled = disabled;
+        return inp;
+    }
+    function clockBtn() {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm btn-outline-secondary tl-pick';
+        b.title = 'Capture player position';
+        b.disabled = disabled;
+        b.innerHTML = '<i class="fas fa-clock"></i>';
+        return b;
+    }
+    function addRow(startSec, endSec) {
+        startSec = startSec || 0;
+        const row = document.createElement('div');
+        row.className = 'timeline-row mb-2';
+        const timeLine = document.createElement('div');
+        timeLine.className = 'd-flex align-items-center gap-1 flex-wrap mb-1';
+        const sh = timeInput('tl-sh'), sm = timeInput('tl-sm'), ss = timeInput('tl-ss');
+        const eh = timeInput('tl-eh'), em = timeInput('tl-em'), es = timeInput('tl-es');
+        const pickS = clockBtn(), pickE = clockBtn();
+        const arrow = document.createElement('span');
+        arrow.className = 'mx-1 small text-muted';
+        arrow.textContent = '→';
+        const colon = () => { const c = document.createElement('span'); c.className = 'text-muted small'; c.textContent = ':'; return c; };
+        timeLine.append(sh, colon(), sm, colon(), ss, pickS, arrow, eh, colon(), em, colon(), es, pickE);
+
+        const bottom = document.createElement('div');
+        bottom.className = 'd-flex gap-2';
+        const text = document.createElement('input');
+        text.type = 'text';
+        text.className = 'form-control form-control-sm tl-text';
+        text.placeholder = 'Type the sentence; press Enter for the next entry';
+        text.disabled = disabled;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn btn-sm btn-outline-danger tl-del';
+        del.title = 'Remove entry';
+        del.disabled = disabled;
+        del.innerHTML = '<i class="fas fa-times"></i>';
+        bottom.append(text, del);
+        row.append(timeLine, bottom);
+        wrap.appendChild(row);
+
+        const startG = { h: sh, m: sm, s: ss };
+        const endG = { h: eh, m: em, s: es };
+        setGroup(startG, startSec);
+        setGroup(endG, (endSec !== null && endSec !== undefined) ? endSec : startSec + 5);
+
+        const chain = [sh, sm, ss, eh, em, es];
+        chain.forEach((inp, i) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 2);
+                if (opts.onDirty) opts.onDirty();
+                if (inp.value.length === 2) {
+                    if (i < chain.length - 1) chain[i + 1].focus();
+                    else text.focus();
+                }
+            });
+            inp.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    if (i < chain.length - 1) chain[i + 1].focus(); else text.focus();
+                } else if (ev.key === 'Backspace' && inp.value === '' && i > 0) {
+                    chain[i - 1].focus();
+                }
+            });
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
-        alert(data.message || 'Transcription saved successfully');
-        // Load next task
-        loadNextTask(2);
-    } catch (err) {
-        console.error('Submission error:', err);
-        alert('Failed to save transcription');
-    }
-});
-
-// Load next task based on type
-async function loadNextTask(type) {
-    try {
-        const response = await fetch(`/api/process/next-task?type=${type}`);
-        if (!response.ok) throw new Error('Failed to load next task');
-        
-        const data = await response.json();
-        if (data.task) {
-            const videoPlayer = document.getElementById(`videoPlayer${type}`);
-            videoPlayer.src = data.task.video_url;
-            
-            if (type === 1) {
-                document.getElementById('originalText').textContent = data.task.text;
-                document.getElementById('corrections').value = '';
-                document.getElementById('comments').value = '';
-            } else {
-                document.getElementById('transcription').value = '';
+        pickS.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(startG, p.currentTime); });
+        pickE.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(endG, p.currentTime); });
+        text.addEventListener('input', () => { if (opts.onDirty) opts.onDirty(); });
+        text.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                const end = getGroup(endG);
+                const st = getGroup(startG);
+                let nextStart = (end !== null && !isNaN(end)) ? end : ((st !== null && !isNaN(st)) ? st : 0);
+                const nr = addRow(nextStart, nextStart + 5);
+                nr.querySelector('.tl-text').focus();
             }
+        });
+        del.addEventListener('click', () => {
+            if (wrap.querySelectorAll('.timeline-row').length > 1) {
+                row.remove();
+            } else {
+                [sh, sm, ss, eh, em, es].forEach(i => i.value = '');
+                text.value = '';
+            }
+            if (opts.onDirty) opts.onDirty();
+        });
+        return row;
+    }
+
+    function reset(segments) {
+        wrap.innerHTML = '';
+        if (segments && segments.length) {
+            segments.forEach(seg => {
+                const r = addRow(seg.start, seg.end);
+                r.querySelector('.tl-text').value = seg.text || '';
+            });
         } else {
-            alert('No more tasks available');
+            addRow(0, 5);
         }
+    }
+    function collect(quiet) {
+        const rows = wrap.querySelectorAll('.timeline-row');
+        const segments = [];
+        const texts = [];
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const startG = { h: r.querySelector('.tl-sh'), m: r.querySelector('.tl-sm'), s: r.querySelector('.tl-ss') };
+            const endG = { h: r.querySelector('.tl-eh'), m: r.querySelector('.tl-em'), s: r.querySelector('.tl-es') };
+            const txt = r.querySelector('.tl-text').value.trim();
+            const start = getGroup(startG);
+            const end = getGroup(endG);
+            if (!txt && start === null && end === null) continue;  // 整行空 → 跳过
+            const fail = (msg) => { if (!quiet) alert(msg); return null; };
+            if (!txt) return fail('Entry ' + (i + 1) + ': please enter text (or clear the whole row to skip)');
+            if (start === null || isNaN(start)) return fail('Entry ' + (i + 1) + ': start time must be hh:mm:ss (2 digits each; mm/ss ≤ 59)');
+            if (end === null || isNaN(end)) return fail('Entry ' + (i + 1) + ': end time must be hh:mm:ss (2 digits each; mm/ss ≤ 59)');
+            if (end <= start) return fail('Entry ' + (i + 1) + ': end time must be later than start time');
+            segments.push({ start: start, end: end, text: txt });
+            texts.push(txt);
+        }
+        if (!segments.length) { if (!quiet) alert('Please enter at least one entry'); return null; }
+        return { segments: segments, text: texts.join('\n') };
+    }
+    function setEnabled(on) {
+        disabled = !on;
+        wrap.querySelectorAll('input, button').forEach(el => { el.disabled = !on; });
+        if (addBtn) addBtn.disabled = !on;
+    }
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const rows = wrap.querySelectorAll('.timeline-row');
+            let start = 0;
+            if (rows.length) {
+                const last = rows[rows.length - 1];
+                const end = getGroup({ h: last.querySelector('.tl-eh'), m: last.querySelector('.tl-em'), s: last.querySelector('.tl-es') });
+                if (end !== null && !isNaN(end)) start = end;
+            }
+            const nr = addRow(start, start + 5);
+            nr.querySelector('.tl-text').focus();
+        });
+    }
+    return { reset: reset, collect: collect, setEnabled: setEnabled, addRow: addRow };
+}
+
+// ---------------- 转录：时间轴编辑器 + 草稿/自动保存/提交/撤回 ----------------
+const tlEditor = createTimelineEditor({
+    containerId: 'timelineRows',
+    addBtnId: 'btnAddTimelineRow',
+    getPlayer: () => document.getElementById('videoPlayer2')
+});
+// Feedback #8: subtitle timeline proofreading editor for Type 1 (reviewer pages only)
+const tlEditor1 = document.getElementById('timelineRows1') ? createTimelineEditor({
+    containerId: 'timelineRows1',
+    addBtnId: 'btnAddTimelineRow1',
+    getPlayer: () => document.getElementById('videoPlayer2')
+}) : null;
+if (tlEditor1) tlEditor1.reset(null);
+let tlDirty = false;
+let aiTransTimer = null;  // Feedback #10: Whisper transcription task polling timer
+tlEditor.reset(null);
+// Feedback #8: current task modality (video/audio/image); image tasks use the description box
+const currentModality = {};
+function setType2ImageMode(isImage) {
+    document.getElementById('tlTimeBox2').classList.toggle('d-none', isImage);
+    document.getElementById('imageDescBox2').classList.toggle('d-none', !isImage);
+}
+// Feedback #10: reset the AI transcription card on task switch (video-only options; clear status/summaries)
+function resetAiTranscribeCard(modality) {
+    if (aiTransTimer) { clearInterval(aiTransTimer); aiTransTimer = null; }
+    const isVideo = modality === 'video';
+    const videoOpts = document.getElementById('aiTranscribeVideoOpts');
+    if (videoOpts) videoOpts.classList.toggle('d-none', !isVideo);
+    const st = document.getElementById('aiTranscribeStatus');
+    if (st) st.innerHTML = '';
+    const box = document.getElementById('aiTranscribeSummary');
+    if (box) box.classList.add('d-none');
+    const kf = document.getElementById('aiKfSummary');
+    if (kf) kf.textContent = '';
+    const llm = document.getElementById('aiLlmSummary');
+    if (llm) { llm.textContent = ''; llm.classList.add('d-none'); }
+    const llmT = document.getElementById('aiLlmTitle');
+    if (llmT) llmT.classList.add('d-none');
+    const c1 = document.getElementById('chkWithKeyframes');
+    if (c1) c1.checked = false;
+    const c2 = document.getElementById('chkWithLlmSummary');
+    if (c2) c2.checked = false;
+    const btn = document.getElementById('btnAiTranscribe');
+    if (btn) btn.disabled = false;
+}
+const imageDescEl = document.getElementById('imageDesc2');
+if (imageDescEl) imageDescEl.addEventListener('input', () => { tlDirty = true; });
+
+let tlSubmitted = false;
+let progressTimer = null;
+
+function nowHMS() {
+    const d = new Date();
+    return [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+}
+const saveToast = document.getElementById('saveToast');
+let toastHideTimer = null;
+function showSaveToast(msg) {
+    saveToast.querySelector('.toast-msg').textContent = msg;
+    saveToast.classList.remove('d-none');
+    clearTimeout(toastHideTimer);
+    // 持续 0.5 秒后自动消失
+    toastHideTimer = setTimeout(() => saveToast.classList.add('d-none'), 500);
+}
+// 鼠标/键盘有操作时"保存成功"立即消失
+['keydown', 'pointerdown'].forEach(ev =>
+    document.addEventListener(ev, () => saveToast.classList.add('d-none'), true));
+
+function markTlDirty() { tlDirty = true; }
+// 编辑器输入标记改动（onDirty 在工厂内回调）
+document.getElementById('timelineRows').addEventListener('input', markTlDirty);
+
+async function saveDraft(silent) {
+    if (!currentTaskIds[2]) { if (!silent) alert('Please claim a transcription task first'); return false; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        // Feedback #8: image tasks have no timeline — save the description text
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { if (!silent) alert('Please describe the image content'); return false; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'save' };
+    } else {
+        const tl = tlEditor.collect(silent);
+        if (!tl) return false;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'save' };
+    }
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || 'Save failed');
+        tlDirty = false;
+        showSaveToast((silent ? 'Auto-saved ' : 'Saved ') + nowHMS());
+        return true;
     } catch (err) {
-        console.error('Error loading next task:', err);
-        alert('Failed to load next task');
+        if (!silent) alert('Save failed: ' + (err.message || ''));
+        return false;
     }
 }
 
-// Initialize first tasks
-loadNextTask(1);
-loadNextTask(2);
+function setEditAreaVisible(on) {
+    document.getElementById('tlEditArea').classList.toggle('d-none', !on);
+    document.getElementById('submitProgress').classList.toggle('d-none', on);
+}
+function exitSubmittedState() {
+    tlSubmitted = false;
+    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+    setEditAreaVisible(true);
+    document.getElementById('btnNextAfterSubmit').classList.add('d-none');
+}
+function renderProgress(data) {
+    const box = document.getElementById('progressState');
+    const wd = document.getElementById('btnWithdraw');
+    const nx = document.getElementById('btnNextAfterSubmit');
+    let html = '';
+    let done = false;
+    if (data.state === 'waiting') {
+        html = '<i class="fas fa-hourglass-half text-info"></i> Submitted — waiting for a reviewer';
+    } else if (data.state === 'seen') {
+        html = '<i class="fas fa-eye text-primary"></i> Reviewer' + (data.auditor ? ' (' + data.auditor + ')' : '') + ' has opened the task and is processing it';
+    } else if (data.state === 'approved') {
+        html = '<i class="fas fa-check-circle text-success"></i> Approved — task completed';
+        done = true;
+    } else if (data.state === 'rejected') {
+        html = '<i class="fas fa-times-circle text-warning"></i> Sent back for fixes — it will return to the processing list';
+        done = true;
+    }
+    box.innerHTML = html;
+    wd.classList.toggle('d-none', !data.can_withdraw);
+    nx.classList.toggle('d-none', !done);
+}
+// Feedback #8: reset the Type 2 editing area by modality (images → description box; a/v → timeline editor)
+function resetType2Content(data) {
+    if (currentModality[2] === 'image') {
+        document.getElementById('imageDesc2').value = (data && data.text) || '';
+    } else {
+        tlEditor.reset((data && data.timeline) || null);
+    }
+    tlDirty = false;
+}
+async function pollProgress() {
+    const rid = currentTaskIds[2];
+    if (!rid || !tlSubmitted) return;
+    try {
+        const resp = await fetch('/api/process/submission-status/' + rid);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data.state === 'editing') { exitSubmittedState(); resetType2Content(data); return; }
+        renderProgress(data);
+        if (data.state === 'approved' || data.state === 'rejected') {
+            if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+        }
+    } catch (e) { /* 轮询静默 */ }
+}
+function enterSubmittedState() {
+    tlSubmitted = true;
+    tlDirty = false;
+    setEditAreaVisible(false);
+    pollProgress();
+    if (progressTimer) clearInterval(progressTimer);
+    progressTimer = setInterval(pollProgress, 8000);
+}
+
+document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    saveDraft(false);
+});
+document.getElementById('btnSubmitTranscription').addEventListener('click', async () => {
+    if (!currentTaskIds[2]) { alert('Please claim a transcription task first'); return; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { alert('Please describe the image content'); return; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'submit' };
+    } else {
+        const tl = tlEditor.collect();
+        if (!tl) return;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'submit' };
+    }
+    if (!confirm('Submitting sends the task to review; you can withdraw before a reviewer opens it. Submit now?')) return;
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || 'Submit failed');
+        enterSubmittedState();  // polling relies on currentTaskIds[2]; it is cleared when "Next" is clicked
+        if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
+    } catch (err) {
+        alert('Submit failed: ' + (err.message || ''));
+    }
+});
+document.getElementById('btnWithdraw').addEventListener('click', async () => {
+    const rid = currentTaskIds[2];
+    if (!rid) return;
+    try {
+        const resp = await fetch('/api/process/withdraw', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: rid })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || 'Withdraw failed');
+        exitSubmittedState();
+        resetType2Content(data);
+        showSaveToast('Withdrawn — you can keep editing');
+    } catch (err) {
+        alert('Withdraw failed: ' + (err.message || ''));
+    }
+});
+document.getElementById('btnNextAfterSubmit').addEventListener('click', () => {
+    delete currentTaskIds[2];
+    loadNextTask(false);
+    if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
+});
+
+// 每 1 分钟自动保存草稿（有未保存改动且未提交时）
+setInterval(() => {
+    if (tlSubmitted || !currentTaskIds[2] || !tlDirty) return;
+    saveDraft(true);
+}, 60000);
+
+// Feedback #14: manual processing merged into a single queue — inspection (kind=1)
+// and transcription/description (kind=2) tasks are claimed together; the single panel
+// switches workspace by the returned kind. silent=true (initial load): no alert on empty pool.
+// Tasks skipped in this session are tracked in skippedTaskIds and sent to the backend for exclusion + claim release.
+const skippedTaskIds = new Set();
+function skipCurrentTask() {
+    const rid = currentTaskIds[1] || currentTaskIds[2];
+    if (rid) skippedTaskIds.add(rid);
+    loadNextTask(false);
+}
+function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+        {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+const MODALITY_LABELS = {image: 'Image', video: 'Video', audio: 'Audio'};
+const SOURCE_LABELS = {crawl: 'Web crawl', record: 'Field recording', upload: 'Local upload'};
+
+function renderTaskMetaBar(t, kind) {
+    const bar = document.getElementById('taskMetaBar');
+    if (!bar) return;
+    const badges = [];
+    badges.push('<span class="badge bg-secondary">No.: ' + escapeHtml(t.task_no || ('#' + t.id)) + '</span>');
+    badges.push('<span class="badge bg-primary">' + (MODALITY_LABELS[t.modality] || 'Media') + '</span>');
+    if (t.source_channel) {
+        badges.push('<span class="badge bg-light text-dark border">' + (SOURCE_LABELS[t.source_channel] || escapeHtml(t.source_channel)) + '</span>');
+    }
+    if (t.is_own) {
+        badges.push('<span class="badge bg-success">My upload</span>');
+    } else {
+        badges.push('<span class="badge bg-info text-dark">Others\' upload'
+            + (t.uploader_name ? ' &middot; by ' + escapeHtml(t.uploader_name) : '') + '</span>');
+    }
+    badges.push(kind === 1
+        ? '<span class="badge bg-warning text-dark">To inspect</span>'
+        : '<span class="badge bg-dark">To transcribe/describe</span>');
+    bar.innerHTML = badges.join(' ');
+    bar.classList.remove('d-none');
+}
+
+async function loadNextTask(silent) {
+    try {
+        const skipQ = skippedTaskIds.size ? ('?skip=' + Array.from(skippedTaskIds).join(',')) : '';
+        const response = await fetch('/api/process/next-task-unified' + skipQ);
+        if (!response.ok) throw new Error('Failed to load next task');
+
+        const data = await response.json();
+        const videoPlayer = document.getElementById('videoPlayer2');
+        const imgPreview = document.getElementById('imagePreview2');
+        const hint = document.getElementById('emptyHint2');
+        const inspectWrap = document.getElementById('workInspectWrap');
+        const transWrap = document.getElementById('workTranscribeWrap');
+
+        if (data.task) {
+            const t = data.task;
+            const kind = t.kind === 1 ? 1 : 2;
+            currentTaskIds[kind] = t.id;
+            delete currentTaskIds[3 - kind];
+            const modality = t.modality || 'video';
+            currentModality[kind] = modality;
+            delete currentModality[3 - kind];
+            const isImage = modality === 'image';
+            // Image tasks render an <img> preview; audio/video use the player
+            if (isImage) {
+                try { videoPlayer.pause(); } catch (e) {}
+                videoPlayer.classList.add('d-none');
+                videoPlayer.removeAttribute('src');
+                imgPreview.src = t.video_url;
+                imgPreview.classList.remove('d-none');
+            } else {
+                imgPreview.classList.add('d-none');
+                imgPreview.removeAttribute('src');
+                videoPlayer.src = t.video_url;
+                videoPlayer.classList.remove('d-none');
+            }
+            hint.classList.add('d-none');
+            renderTaskMetaBar(t, kind);
+
+            if (kind === 1) {
+                // Inspection workspace (container exists on admin/super-admin pages only)
+                if (inspectWrap) inspectWrap.classList.remove('d-none');
+                transWrap.classList.add('d-none');
+                exitSubmittedState();  // stop any leftover submission polling from the transcription workspace
+                document.getElementById('originalText').textContent = t.text || '(no text content)';
+                document.getElementById('corrections').value = '';
+                document.getElementById('comments').value = '';
+                // Show the subtitle timeline proofreading area for video/audio; hide for images
+                const tlBox1 = document.getElementById('timelineBox1');
+                if (tlBox1) tlBox1.classList.toggle('d-none', isImage);
+                if (tlEditor1) tlEditor1.reset(isImage ? null : (t.timeline || null));
+            } else {
+                // Transcription / image description workspace
+                transWrap.classList.remove('d-none');
+                if (inspectWrap) inspectWrap.classList.add('d-none');
+                exitSubmittedState();
+                setType2ImageMode(isImage);
+                resetAiTranscribeCard(modality);
+                if (isImage) {
+                    document.getElementById('imageDesc2').value = t.text || '';
+                    tlEditor.reset(null);
+                } else {
+                    tlEditor.reset(t.timeline || null);
+                }
+                tlDirty = false;
+            }
+            return true;
+        } else {
+            // Empty pool: hide both workspaces and show the placeholder
+            delete currentTaskIds[1];
+            delete currentTaskIds[2];
+            delete currentModality[1];
+            delete currentModality[2];
+            try { videoPlayer.pause(); } catch (e) {}
+            videoPlayer.removeAttribute('src');
+            videoPlayer.load();
+            videoPlayer.classList.add('d-none');
+            imgPreview.classList.add('d-none');
+            imgPreview.removeAttribute('src');
+            hint.classList.remove('d-none');
+            const bar = document.getElementById('taskMetaBar');
+            if (bar) { bar.classList.add('d-none'); bar.innerHTML = ''; }
+            if (inspectWrap) inspectWrap.classList.add('d-none');
+            transWrap.classList.add('d-none');
+            const tlBox1 = document.getElementById('timelineBox1');
+            if (tlBox1) tlBox1.classList.add('d-none');
+            if (tlEditor1) tlEditor1.reset(null);
+            exitSubmittedState();
+            setType2ImageMode(false);
+            resetAiTranscribeCard('');
+            tlEditor.reset(null);
+            if (!silent) alert('All pending tasks have been processed');
+            return false;
+        }
+    } catch (err) {
+        console.error('Error loading next task:', err);
+        if (!silent) alert('Failed to load next task');
+        return false;
+    }
+}
+
+// Feedback #14: algorithm-task "Recording ID" dropdown — files the user is allowed to
+// process, grouped by "my uploads / others' uploads" with modality, source and uploader tags.
+async function loadAlgoCandidates() {
+    const sel = document.getElementById('algoRecordingId');
+    if (!sel || sel.tagName !== 'SELECT') return;
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">Loading&hellip;</option>';
+    const buildOption = (it) => {
+        const o = document.createElement('option');
+        o.value = it.id;
+        o.textContent = '#' + it.id + ' [' + it.modality_label_en + '][' + it.source_label_en + '] '
+            + String(it.filename || '').slice(0, 38)
+            + ' — by ' + it.uploader_name
+            + (it.status === 'pending_fix' ? ' (fix requested)' : '');
+        return o;
+    };
+    try {
+        const resp = await fetch('/api/process/algo-candidates?lang=en');
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || 'Load failed');
+        window._algoCandData = data;  // Feedback #16: batch mode reuses the same candidate data
+        sel.innerHTML = '';
+        const ph = document.createElement('option');
+        ph.value = '';
+        ph.textContent = 'Select a file to process…';
+        sel.appendChild(ph);
+        if (data.own && data.own.length) {
+            const g1 = document.createElement('optgroup');
+            g1.label = 'My uploads (' + data.own.length + ')';
+            data.own.forEach(it => g1.appendChild(buildOption(it)));
+            sel.appendChild(g1);
+        }
+        if (data.others && data.others.length) {
+            const g2 = document.createElement('optgroup');
+            g2.label = "Others' uploads (allowed, " + data.others.length + ')';
+            data.others.forEach(it => g2.appendChild(buildOption(it)));
+            sel.appendChild(g2);
+        }
+        if (!data.own.length && !data.others.length) {
+            const none = document.createElement('option');
+            none.disabled = true;
+            none.textContent = 'No pending files';
+            sel.appendChild(none);
+        }
+        if (prev) sel.value = prev;
+    } catch (e) {
+        sel.innerHTML = '';
+        const o = document.createElement('option');
+        o.value = '';
+        o.textContent = 'Failed to load candidates — click the refresh button';
+        sel.appendChild(o);
+    }
+}
+
+// Init: silently load the unified task queue and the algorithm candidate list
+loadNextTask(true);
+loadAlgoCandidates();
+
+// Feedback #8: internal backend name -> English display label (deepseek is presented as "External LLM")
+function backendLabelEN(b) {
+    return ({deepseek: 'External LLM', autodl: 'autoDL GPU', local: 'LAN GPU', cache: 'Cache reuse'})[b] || b || '-';
+}
+
+// ---------------- Compute credits (per-user metering) ----------------
+async function loadMyCredits() {
+    const balEl = document.getElementById('creditBalance');
+    try {
+        const resp = await fetch('/api/credits/me');
+        const data = await resp.json();
+        if (!resp.ok || data.error) {
+            balEl.textContent = 'Unavailable';
+            return;
+        }
+        balEl.textContent = data.balance + ' credits';
+        document.getElementById('creditEnabled').textContent =
+            data.enabled ? 'Credit control active' : 'Not controlled (no credits granted yet)';
+        const p = data.pricing || {};
+        document.getElementById('creditPricing').textContent =
+            'Pricing: External LLM ' + (p.deepseek_per_1k_tokens || '-') + ' credits/1k tokens; '
+            + 'autoDL ' + (p.autodl_base || '-') + '+' + (p.autodl_per_min || '-') + '/min; '
+            + 'LAN ' + (p.local_base || '-') + '+' + (p.local_per_min || '-') + '/min';
+        document.getElementById('creditReuseTip').classList.remove('d-none');
+        const recent = (data.recent || []).slice(0, 3).map(r => {
+            const st = r.status === 'reused' ? 'reuse free' : (r.status === 'failed' ? 'failed refunded' : ('-' + r.cost_credits + ' cr'));
+            return backendLabelEN(r.backend) + '(' + st + ')';
+        }).join('; ');
+        document.getElementById('creditRecent').textContent = recent ? 'Recent compute: ' + recent : '';
+    } catch (e) {
+        balEl.textContent = 'Unavailable';
+    }
+}
+loadMyCredits();
+
+// ---------------- Algorithm task submission (MD5 reuse / credit freeze / polling settlement) ----------------
+let algoPollTimer = null;
+function setAlgoResult(html, cls) {
+    const el = document.getElementById('algoResult');
+    el.className = 'mt-3 alert ' + (cls || 'alert-secondary');
+    el.innerHTML = html;
+}
+
+async function submitAlgorithmTask() {
+    const recording_id = parseInt(document.getElementById('algoRecordingId').value, 10);
+    if (!recording_id) {
+        setAlgoResult('Please pick a recording from the dropdown first.', 'alert-warning');
+        return;
+    }
+    const payload = {
+        recording_id: recording_id,
+        backend: document.getElementById('algoBackend').value,
+        force_recompute: document.getElementById('algoForceRecompute').checked,
+    };
+    document.getElementById('algoSubmitBtn').disabled = true;
+    setAlgoResult('Submitting…', 'alert-info');
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            setAlgoResult('<strong>Submission failed:</strong> ' + (data.error || 'unknown error')
+                + (resp.status === 429 ? '<br><span class="small">Insufficient credits or the external LLM quota has been reached; please contact an administrator.</span>' : ''),
+                'alert-danger');
+            return;
+        }
+        if (data.reused) {
+            setAlgoResult('✅ Identical file (MD5) hit: <strong>historical algorithm result reused, no credits consumed</strong>.', 'alert-success');
+            loadMyCredits();
+            return;
+        }
+        setAlgoResult('⏳ Task queued (backend: ' + backendLabelEN(data.backend) + ', task_id: ' + data.task_id + '); estimated credits frozen, waiting for processing…', 'alert-info');
+        pollAlgorithmTask(data.task_id);
+    } catch (e) {
+        setAlgoResult('Submission error: ' + e, 'alert-danger');
+    } finally {
+        document.getElementById('algoSubmitBtn').disabled = false;
+    }
+}
+
+function pollAlgorithmTask(taskId) {
+    if (algoPollTimer) clearInterval(algoPollTimer);
+    let n = 0;
+    algoPollTimer = setInterval(async () => {
+        n += 1;
+        try {
+            const resp = await fetch('/api/algorithm/bagel/status/' + taskId);
+            const data = await resp.json();
+            const t = data.task || {};
+            if (t.status === 'done' || t.status === 'completed') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('✅ Algorithm processing finished (backend: ' + backendLabelEN(t.backend_used || t.backend || '-') + '); actual credits settled. View the result in Data Management.', 'alert-success');
+                loadMyCredits();
+                loadAlgoCandidates();
+            } else if (t.status === 'failed' || t.status === 'dead') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('❌ Task ' + (t.status === 'dead' ? 'retries exhausted and moved to the dead-letter queue' : 'failed') + '; frozen credits refunded. Contact an administrator or retry later.', 'alert-danger');
+                loadMyCredits();
+                loadAlgoCandidates();
+            } else if (n > 60) {
+                clearInterval(algoPollTimer);
+                setAlgoResult('Task still processing (task_id: ' + taskId + '); refresh this page later; failures retry automatically.', 'alert-warning');
+            }
+        } catch (e) {
+            // transient polling errors do not interrupt
+        }
+    }, 5000);
+}
+
+// ---------------- Feedback #16: batch algorithm processing (up to 20 per batch; auto-confirm when done) ----------------
+function switchAlgoMode(mode) {
+    document.getElementById('algoModeSingle').classList.toggle('d-none', mode !== 'single');
+    document.getElementById('algoModeBatch').classList.toggle('d-none', mode !== 'batch');
+}
+
+let batchPollTimer = null;
+function batchRowHtml(rid, state, msg) {
+    const badges = {
+        queued:  '<span class="badge bg-info text-dark">Queued</span>',
+        running: '<span class="badge bg-primary"><i class="fas fa-circle-notch fa-spin me-1"></i>Processing</span>',
+        done:    '<span class="badge bg-success">Done · pending review</span>',
+        failed:  '<span class="badge bg-danger">Failed</span>',
+        error:   '<span class="badge bg-danger">Submit failed</span>'
+    };
+    return '<div class="d-flex align-items-center gap-2 py-1 border-bottom" data-rid="' + rid + '">'
+        + '<span class="badge bg-light text-dark border flex-shrink-0">#' + rid + '</span>'
+        + '<span class="flex-shrink-0">' + (badges[state] || '') + '</span>'
+        + '<span class="text-muted small flex-grow-1 text-truncate">' + escapeHtml(msg || '') + '</span></div>';
+}
+
+function batchSetRow(rid, state, msg) {
+    const box = document.getElementById('batchProgress');
+    const row = box && box.querySelector('[data-rid="' + rid + '"]');
+    if (row) row.outerHTML = batchRowHtml(rid, state, msg);
+}
+
+async function submitBatchAlgorithm() {
+    const limit = Math.max(1, Math.min(20, parseInt(document.getElementById('batchLimit').value, 10) || 5));
+    const scope = document.getElementById('batchScope').value;
+    let cand = window._algoCandData;
+    try {
+        const resp = await fetch('/api/process/algo-candidates?lang=en');
+        const data = await resp.json();
+        if (resp.ok) { cand = data; window._algoCandData = data; }
+    } catch (e) { /* use cached candidates */ }
+    if (!cand) { alert('Candidate data failed to load, please refresh the page and retry'); return; }
+    let pool = (cand.own || []).slice();
+    if (scope === 'all') pool = pool.concat(cand.others || []);
+    if (!pool.length) { alert('There are currently no pending files available for batch processing'); return; }
+    const ids = pool.slice(0, limit).map(x => x.id);
+    const payload = {
+        recording_ids: ids,
+        backend: document.getElementById('batchBackend').value,
+        force_recompute: document.getElementById('batchForceRecompute').checked
+    };
+    const btn = document.getElementById('batchSubmitBtn');
+    const box = document.getElementById('batchProgress');
+    btn.disabled = true;
+    box.innerHTML = '<div class="text-muted small"><i class="fas fa-circle-notch fa-spin"></i> Submitting ' + ids.length + ' tasks…</div>';
+    try {
+        const resp = await fetch('/api/process/algorithm-batch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            box.innerHTML = '<div class="alert alert-danger mb-0 py-2 small">Submit failed: ' + escapeHtml(data.error || 'unknown error') + '</div>';
+            return;
+        }
+        const items = data.items || [];
+        window._batchItems = items;
+        box.innerHTML = '<div class="small text-muted mb-1">Batch of ' + data.summary.total + ': queued '
+            + data.summary.queued + ' · MD5 reused ' + data.summary.reused + ' · failed ' + data.summary.failed + '</div>'
+            + items.map(it => batchRowHtml(it.recording_id, it.status === 'reused' ? 'queued' : it.status,
+                it.error || ('backend: ' + (it.backend || '-')))).join('');
+        loadMyCredits();
+        // Reused tasks are already complete: confirm immediately; queued tasks are polled.
+        items.forEach(it => { if (it.status === 'reused') autoConfirmBatchItem(it); });
+        if (items.some(i => i.status === 'queued')) startBatchPolling();
+    } catch (e) {
+        box.innerHTML = '<div class="alert alert-danger mb-0 py-2 small">Submission error: ' + escapeHtml(String(e)) + '</div>';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+async function autoConfirmBatchItem(it) {
+    batchSetRow(it.recording_id, 'running', 'Compute finished, auto-writing results…');
+    try {
+        const r = await fetch('/api/process/algorithm-confirm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: it.recording_id, task_id: it.task_id })
+        });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.success) {
+            batchSetRow(it.recording_id, 'done', 'Result written back automatically; status: pending review');
+            loadMyCredits();
+        } else {
+            batchSetRow(it.recording_id, 'done', 'Algorithm finished' + (j.error ? ' (' + j.error + ')' : '') + '; view it in Data Management');
+        }
+    } catch (e) {
+        batchSetRow(it.recording_id, 'done', 'Algorithm finished (auto-write error; view in Data Management)');
+    }
+}
+
+function startBatchPolling() {
+    if (batchPollTimer) clearInterval(batchPollTimer);
+    let n = 0;
+    batchPollTimer = setInterval(async () => {
+        n += 1;
+        const pending = (window._batchItems || []).filter(i => i.status === 'queued');
+        if (!pending.length) {
+            clearInterval(batchPollTimer);
+            loadAlgoCandidates();
+            return;
+        }
+        if (n > 60) {
+            clearInterval(batchPollTimer);
+            pending.forEach(i => batchSetRow(i.recording_id, 'running', 'Still processing; check Data Management later'));
+            loadAlgoCandidates();
+            return;
+        }
+        for (const it of pending) {
+            try {
+                const r = await fetch('/api/algorithm/bagel/status/' + it.task_id);
+                const d = await r.json();
+                const t = d.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    it.status = 'settled';
+                    autoConfirmBatchItem(it);
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    it.status = 'settled';
+                    batchSetRow(it.recording_id, 'failed',
+                        t.status === 'dead' ? 'Retries exhausted, moved to dead-letter queue; frozen credits refunded' : 'Task failed; frozen credits refunded');
+                    loadMyCredits();
+                }
+            } catch (e) { /* transient polling errors do not interrupt */ }
+        }
+    }, 5000);
+}
+
+// Prompts are kept in Chinese so BAGEL produces Chinese text for the business data; UI strings are English.
+const IMG_PROMPTS = {
+    detail: '你是 MAPS 多模态数据采集处理平台的图像理解助手。请仔细观察这张图片，用中文完整、客观地描述图片内容：画面主体、场景环境、人物的动作与表情、图片中出现的文字信息、以及时间地点等线索；按条理输出一段详细描述，不要遗漏关键信息，也不要杜撰图片中没有的内容。',
+    ocr: '请提取这张图片中出现的所有文字（OCR）：按文字在画面中的位置与阅读顺序逐字转录，保持原文内容、换行与标点；若图片中没有任何文字，请直接回答"图片中未检测到文字"。',
+    people: '请重点观察并描述图片中的人物：人数、性别与大致年龄、动作、表情、衣着、相对位置，以及他们正在进行的活动，用中文分条输出；若图中没有人物，请说明并描述画面主体。',
+    tags: '请用中文为这张图片生成 10-20 个内容标签（关键词），涵盖场景、物体、人物、动作、氛围等维度，用顿号"、"分隔输出，不要其他解释。'
+};
+const IMG_KIND_LABELS = { detail: 'detailed description', ocr: 'text extraction (OCR)', people: 'people description', tags: 'content tags' };
+let aiDescTimer = null;
+async function aiDescribeImage() {
+    const rid = currentTaskIds[2];
+    const statusEl = document.getElementById('aiDescribeStatus');
+    const btn = document.getElementById('btnAiDescribe');
+    if (!rid) { statusEl.innerHTML = '<span class="text-warning">Please claim an image task first</span>'; return; }
+    if (currentModality[2] !== 'image') { statusEl.innerHTML = '<span class="text-warning">BAGEL image description applies to image tasks only</span>'; return; }
+    const kind = (document.querySelector('input[name="imgPromptKind"]:checked') || {}).value || 'detail';
+    const cur = (document.getElementById('imageDesc2').value || '').trim();
+    if (cur && !confirm('The description box already has content. The AI result will be appended after it. Continue?')) return;
+
+    btn.disabled = true;
+    statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> Submitting to LAN BAGEL…</span>';
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: rid, backend: 'local', options: { prompt: IMG_PROMPTS[kind] || IMG_PROMPTS.detail } })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            statusEl.innerHTML = '<span class="text-danger">Submission failed: ' + (data.error || 'unknown error') + '</span>';
+            btn.disabled = false;
+            return;
+        }
+        statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> BAGEL is viewing and describing the image (a few to tens of seconds)…</span>';
+        if (aiDescTimer) clearInterval(aiDescTimer);
+        let n = 0;
+        aiDescTimer = setInterval(async () => {
+            n += 1;
+            try {
+                const sr = await fetch('/api/algorithm/bagel/status/' + data.task_id);
+                const sd = await sr.json();
+                const t = sd.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    clearInterval(aiDescTimer);
+                    const text = ((t.result || {}).content_text || '').trim();
+                    if (!text) { statusEl.innerHTML = '<span class="text-warning">The model returned empty content; please retry or fill in manually</span>'; }
+                    else {
+                        const ta = document.getElementById('imageDesc2');
+                        ta.value = cur ? (cur + '\n\n【AI ' + (IMG_KIND_LABELS[kind] || 'description') + '】\n' + text) : text;
+                        tlDirty = true;
+                        statusEl.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> BAGEL description generated (' + backendLabelEN(t.backend_used || t.backend || 'local') + '); edit it before saving/submitting</span>';
+                        saveDraft(true);  // auto-save as draft to avoid losing content on refresh
+                    }
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    clearInterval(aiDescTimer);
+                    statusEl.innerHTML = '<span class="text-danger">BAGEL processing failed' + (t.error ? ': ' + String(t.error).slice(0, 120) : ' (model offline or busy; retry later)') + '</span>';
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (n > 45) {
+                    clearInterval(aiDescTimer);
+                    statusEl.innerHTML = '<span class="text-warning">Still processing; check back later — the description is filled in automatically once ready</span>';
+                    btn.disabled = false;
+                }
+            } catch (e) { /* transient polling errors do not interrupt */ }
+        }, 4000);
+    } catch (e) {
+        statusEl.innerHTML = '<span class="text-danger">Submission error: ' + e + '</span>';
+        btn.disabled = false;
+    }
+}
+
+// ---------------- Feedback #10: Whisper AI transcription draft (audio/video queued; video optionally keyframe summary / external LLM description) ----------------
+async function aiTranscribe() {
+    const rid = currentTaskIds[2];
+    const statusEl = document.getElementById('aiTranscribeStatus');
+    const btn = document.getElementById('btnAiTranscribe');
+    if (!rid) { statusEl.innerHTML = '<span class="text-warning">Please pick an audio/video task first</span>'; return; }
+    const mod = currentModality[2];
+    if (mod !== 'video' && mod !== 'audio') {
+        statusEl.innerHTML = '<span class="text-warning">AI transcription applies to audio/video tasks (use AI image description for images)</span>';
+        return;
+    }
+    const withKeyframes = mod === 'video' && document.getElementById('chkWithKeyframes').checked;
+    const withLlm = mod === 'video' && document.getElementById('chkWithLlmSummary').checked;
+    // Confirm overwrite when the timeline already has content (collect(true) silently validates)
+    const existing = tlEditor.collect(true);
+    if (existing && existing.segments && existing.segments.length) {
+        if (!confirm('The timeline already has content. The AI transcription draft will replace it (save or submit first if needed). Continue?')) return;
+    }
+
+    btn.disabled = true;
+    document.getElementById('aiTranscribeSummary').classList.add('d-none');
+    statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> Submitting the transcription task to the queue…</span>';
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                recording_id: rid,
+                backend: 'local',
+                options: {
+                    task_kind: 'transcribe',
+                    with_keyframes: withKeyframes,
+                    with_llm_summary: withLlm
+                }
+            })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            statusEl.innerHTML = '<span class="text-danger">Submission failed: ' + (data.error || 'unknown error')
+                + (resp.status === 429 ? '<br><span class="small">Insufficient credits or external LLM quota reached; please contact the administrator.</span>' : '') + '</span>';
+            btn.disabled = false;
+            return;
+        }
+        statusEl.innerHTML = data.reused
+            ? '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> Identical file (MD5) hit — filling in the reused transcription draft…</span>'
+            : '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> Whisper transcription queued (backend: ' + backendLabelEN(data.backend) + '); GPU is processing — longer media takes longer…</span>';
+        if (aiTransTimer) clearInterval(aiTransTimer);
+        let n = 0;
+        aiTransTimer = setInterval(async () => {
+            n += 1;
+            try {
+                const sr = await fetch('/api/algorithm/bagel/status/' + data.task_id);
+                const sd = await sr.json();
+                const t = sd.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    clearInterval(aiTransTimer);
+                    const res = t.result || {};
+                    const segs = Array.isArray(res.timeline) ? res.timeline : [];
+                    const text = (res.content_text || '').trim();
+                    if (!segs.length && !text) {
+                        statusEl.innerHTML = '<span class="text-warning">Transcription result is empty (silent / no speech detected); please transcribe manually or retry</span>';
+                    } else {
+                        if (segs.length) tlEditor.reset(segs);
+                        tlDirty = true;
+                        // Video summary / external LLM description are displayed only (not persisted with the draft)
+                        if (res.video_summary || res.llm_summary) {
+                            document.getElementById('aiKfSummary').textContent = res.video_summary || '(no keyframe summary generated)';
+                            document.getElementById('aiTranscribeSummary').classList.remove('d-none');
+                            if (res.llm_summary) {
+                                document.getElementById('aiLlmSummary').textContent = res.llm_summary;
+                                document.getElementById('aiLlmSummary').classList.remove('d-none');
+                                document.getElementById('aiLlmTitle').classList.remove('d-none');
+                            }
+                        }
+                        const note = res.llm_summary_error ? '; external LLM description failed and was degraded (not billed)' : '';
+                        statusEl.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> Whisper draft generated ('
+                            + (segs.length || 'some') + ' segments, ' + backendLabelEN(t.backend_used || t.backend || 'local') + ')'
+                            + note + '. Review and edit it before saving/submitting</span>';
+                        saveDraft(true);  // auto-save as draft to avoid losing content on refresh
+                    }
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    clearInterval(aiTransTimer);
+                    statusEl.innerHTML = '<span class="text-danger">Transcription task '
+                        + (t.status === 'dead' ? 'retries exhausted, moved to dead-letter queue' : 'failed')
+                        + (t.error ? ': ' + String(t.error).slice(0, 160) : ' (GPU offline or busy; frozen credits refunded — retry later)') + '</span>';
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (n > 90) {  // 4s × 90 = 6 min; long videos may take longer
+                    clearInterval(aiTransTimer);
+                    statusEl.innerHTML = '<span class="text-warning">The task is still queued/processing (task_id: ' + data.task_id + '); refresh later — the draft is filled in automatically once ready</span>';
+                    btn.disabled = false;
+                }
+            } catch (e) { /* transient polling errors do not interrupt */ }
+        }, 4000);
+    } catch (e) {
+        statusEl.innerHTML = '<span class="text-danger">Submission error: ' + e + '</span>';
+        btn.disabled = false;
+    }
+}
 </script>
 {% endblock %} 

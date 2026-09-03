@@ -3,22 +3,20 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from datetime import datetime, timedelta
 
 from sqlalchemy import and_, or_
 
 from models import (
-    AuditMessage,
     db,
     InboxMessage,
-    MessageChannelConfig,
     MessageDeliveryLog,
     MessageTemplate,
     SystemAnnouncement,
     Task,
     TaskAssignment,
-    TaskMessage,
     User,
 )
 
@@ -36,18 +34,26 @@ def render_vars(template: str | None, variables: dict) -> str:
     return _PLACEHOLDER.sub(_sub, template)
 
 
-def get_or_create_channel_config() -> MessageChannelConfig:
-    c = db.session.get(MessageChannelConfig, 1)
-    if not c:
-        c = MessageChannelConfig(
-            id=1,
-            email_enabled=False,
-            sms_enabled=False,
-            email_roles_json=json.dumps([], ensure_ascii=False),
-        )
-        db.session.add(c)
-        db.session.flush()
-    return c
+def _env_flag(name: str) -> bool:
+    return os.environ.get(name, "0").strip().lower() in ("1", "true", "yes", "on")
+
+
+def get_or_create_channel_config():
+    """渠道开关（表精简：原 message_channel_config 单例表改为环境变量配置）。
+
+    支持的环境变量：
+      MSG_EMAIL_ENABLED=1   启用邮件投递桩（当前仅记录 skipped 审计，网关为扩展点）
+      MSG_SMS_ENABLED=1     启用短信投递桩
+      MSG_EMAIL_ROLES='["admin","super_admin"]'  允许接收邮件的角色
+    返回一个轻量配置对象，属性与旧 ORM 模型保持兼容。
+    """
+
+    class _ChannelConfig:
+        email_enabled = _env_flag("MSG_EMAIL_ENABLED")
+        sms_enabled = _env_flag("MSG_SMS_ENABLED")
+        email_roles_json = os.environ.get("MSG_EMAIL_ROLES", "[]")
+
+    return _ChannelConfig()
 
 
 def load_template(template_key: str) -> MessageTemplate | None:
@@ -348,6 +354,9 @@ def publish_announcement_fanout(announcement_id: int) -> int:
     ann = SystemAnnouncement.query.get(announcement_id)
     if not ann or not ann.is_active:
         return 0
+    if ann.published_at:
+        # f3：幂等——已发布公告重复发布不再重复扇出站内信；返回 -1 由端点提示
+        return -1
     now = datetime.utcnow()
     if ann.valid_from and ann.valid_from > now:
         return 0
@@ -444,21 +453,7 @@ def scan_task_deadline_warnings() -> dict:
     return {"warn_24h": count_24, "warn_12h": count_12}
 
 
-def legacy_task_message_mirror(recipient_ids: list[int], sender_id: int, task_id: int, title: str, body: str) -> None:
-    """兼容旧版 task_messages 表（可选同步）。"""
-    for rid in {int(x) for x in recipient_ids if x}:
-        db.session.add(
-            TaskMessage(
-                recipient_id=rid,
-                sender_id=sender_id or 0,
-                task_id=task_id,
-                title=title[:255],
-                body=body,
-            )
-        )
-
-
-# --- notify_task_users：统一走站内信中心 + 可选镜像 TaskMessage ---
+# --- notify_task_users：统一走站内信中心（表精简后旧 task_messages 表已退役，无需镜像）---
 def notify_task_users(
     recipient_ids,
     sender_id,
@@ -468,9 +463,8 @@ def notify_task_users(
     msg_type: str = "task_generic",
     priority: str = "medium",
     extra_variables: dict | None = None,
-    mirror_legacy_task_table: bool = True,
 ):
-    ids = emit_task_notification(
+    return emit_task_notification(
         recipient_ids,
         sender_id,
         task_id,
@@ -480,26 +474,3 @@ def notify_task_users(
         priority,
         extra_variables=extra_variables,
     )
-    if mirror_legacy_task_table:
-        sid = sender_id
-        if not sid:
-            t = Task.query.get(task_id)
-            sid = t.created_by if t and t.created_by else None
-        if sid:
-            legacy_title = title
-            legacy_body = body
-            task = Task.query.get(task_id)
-            if task:
-                tmpl = load_template(msg_type)
-                if tmpl:
-                    vars_ = task_variables(task, task_id, extra_variables)
-                    legacy_title = render_vars(tmpl.title_template, vars_)[:255]
-                    legacy_body = render_vars(tmpl.body_template, vars_)
-            legacy_task_message_mirror(
-                list({int(x) for x in recipient_ids if x}),
-                int(sid),
-                int(task_id),
-                legacy_title,
-                legacy_body,
-            )
-    return ids

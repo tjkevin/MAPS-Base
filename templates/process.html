@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_cn.html" %}
 
 {% block title %}数据处理 - MAPS{% endblock %}
 
@@ -11,48 +11,109 @@
             <div class="fw-semibold mb-2">处理方式</div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="procMode" id="modeManual" value="manual" checked>
-                <label class="form-check-label" for="modeManual">（1）手动处理</label>
+                <label class="form-check-label" for="modeManual">手动处理</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="procMode" id="modeAlgorithm" value="algorithm">
-                <label class="form-check-label" for="modeAlgorithm">（2）算法处理</label>
+                <label class="form-check-label" for="modeAlgorithm">算法处理</label>
             </div>
-            <p class="small text-muted mb-0 mt-2">手动处理：人工播放视频并检查/转写；算法处理：由系统自动或批处理流水线执行。</p>
+            <p class="small text-muted mb-0 mt-2">手动处理：人工播放视频并检查/转写；算法处理：由系统自动或批处理流水线执行（如 ASR、多模态特征抽取等）。</p>
         </div>
     </div>
 
     <div id="algorithmProcessingPanel" class="d-none mb-4">
-        <div class="alert alert-info mb-0"><strong>算法处理模式</strong>：请在后台配置批处理任务；结果可在「数据管理」中检索。</div>
+        <!-- 算力积分状态（按人计量：MD5 同文件复用免费；提交前冻结、完成后按实际结算） -->
+        <div class="card mb-3 border-warning">
+            <div class="card-body py-3">
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <span class="fw-semibold"><i class="fas fa-coins text-warning"></i> 我的算力积分：</span>
+                    <span id="creditBalance" class="badge bg-warning text-dark fs-6">加载中…</span>
+                    <span id="creditEnabled" class="badge bg-secondary"></span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadMyCredits()">刷新</button>
+                    <span class="small text-muted ms-auto" id="creditPricing"></span>
+                </div>
+                <div id="creditReuseTip" class="small text-success mt-2 d-none">
+                    <i class="fas fa-bolt"></i> 相同文件（MD5 一致）已完成算法处理时，自动复用历史结果，<strong>不消耗算力积分</strong>。
+                </div>
+                <div id="creditRecent" class="small text-muted mt-1"></div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header"><strong>提交算法处理任务</strong></div>
+            <div class="card-body">
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-3">
+                        <label for="algoRecordingId" class="form-label">录制数据 ID</label>
+                        <input type="number" class="form-control" id="algoRecordingId" placeholder="如 123" min="1">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="algoBackend" class="form-label">推理后端</label>
+                        <select class="form-select" id="algoBackend">
+                            <option value="auto">auto（自动路由）</option>
+                            <option value="deepseek">外部大模型（纯文本 · 已就绪，内置默认提示词）</option>
+                            <option value="local">local（局域网 BAGEL 优化版 · 图片理解）</option>
+                            <option value="autodl" disabled>autodl（autoDL BAGEL 满血版 · 预留待配置）</option>
+                        </select>
+                        <div class="form-text small">外部大模型算法处理/复核已内置默认提示词，可直接调用；局域网 BAGEL 优化版（NF4）支持图片理解，需管理员在任务管理-模型后端监控中确认其在线；音视频理解需 autoDL 满血版（待配置），auto 路由会自动切换。</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check ms-1">
+                            <input class="form-check-input" type="checkbox" id="algoForceRecompute">
+                            <label class="form-check-label small" for="algoForceRecompute">强制重算（不复用 MD5 结果）</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary w-100" id="algoSubmitBtn" onclick="submitAlgorithmTask()">
+                            <i class="fas fa-paper-plane"></i> 提交算法任务
+                        </button>
+                    </div>
+                </div>
+                <div id="algoResult" class="mt-3" style="min-height: 1.5em;"></div>
+            </div>
+        </div>
+
+        <div class="alert alert-info mb-0">
+            <strong>说明</strong>：算法处理由外部算力完成——autoDL 租用 GPU（BAGEL 满血版）、局域网 GPU（BAGEL 优化版）或外部大模型文本 API；云端本身不运行模型。图片、音视频等多模态理解任务自动路由至 BAGEL 后端。任务失败自动重试（最多 3 次），重试耗尽进入死信队列由管理员处理。
+        </div>
     </div>
 
     <div id="manualProcessingPanel">
     <ul class="nav nav-tabs mb-4" id="processingTabs" role="tablist">
+        {% if current_user.role in ['admin', 'super_admin'] %}
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="type1-tab" data-bs-toggle="tab" data-bs-target="#type1" type="button" role="tab">
                 类型1任务（检查）
             </button>
         </li>
+        {% endif %}
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
+            <button class="nav-link{% if current_user.role == 'recorder' %} active{% endif %}" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
                 类型2任务（转录）
             </button>
         </li>
     </ul>
-    
+
     <div class="tab-content" id="processingTabsContent">
-        <!-- Type 1 Tasks -->
+        <!-- Type 1 Tasks（检查池面向质检/管理员；采集处理人员仅见转录池） -->
+        {% if current_user.role in ['admin', 'super_admin'] %}
         <div class="tab-pane fade show active" id="type1" role="tabpanel">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">视频播放器</h5>
+                            <h5 class="card-title mb-0">媒体预览</h5>
                         </div>
                         <div class="card-body">
-                            <video id="videoPlayer1" class="w-100" controls>
+                            <video id="videoPlayer1" class="w-100 d-none" controls>
                                 <source src="" type="video/webm">
                                 您的浏览器不支持视频标签。
                             </video>
+                            <img id="imagePreview1" class="w-100 d-none rounded border" alt="图片预览" style="max-height:70vh;object-fit:contain;background:#f6f7fb;">
+                            <div id="emptyHint1" class="text-center text-muted py-5">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                暂无待检查任务
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,6 +137,15 @@
                                     <label for="comments" class="form-label">评论</label>
                                     <textarea class="form-control" id="comments" rows="3"></textarea>
                                 </div>
+                                <!-- 反馈#8：类型1检查支持字幕时间轴校对（抓取了字幕的视频/音频显示，图片隐藏） -->
+                                <div class="mb-3 d-none" id="timelineBox1">
+                                    <label class="form-label d-block">字幕时间轴校对</label>
+                                    <div class="small text-muted mb-2">若该数据带有字幕，可在此按时间轴校对：每条 = 起始时间 → 结束时间 + 文本，<b>时:分:秒</b> 三格依次输入、输满自动跳格；文本框敲<b>回车</b>新增下一条。留空则不修改时间轴。</div>
+                                    <div id="timelineRows1"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow1">
+                                        <i class="fas fa-plus"></i> 添加一条
+                                    </button>
+                                </div>
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-success" name="action" value="approve">
                                         <i class="fas fa-check"></i> 批准
@@ -90,20 +160,26 @@
                 </div>
             </div>
         </div>
-        
+        {% endif %}
+
         <!-- Type 2 Tasks -->
-        <div class="tab-pane fade" id="type2" role="tabpanel">
+        <div class="tab-pane fade{% if current_user.role == 'recorder' %} show active{% endif %}" id="type2" role="tabpanel">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">视频播放器</h5>
+                            <h5 class="card-title mb-0">媒体预览</h5>
                         </div>
                         <div class="card-body">
-                            <video id="videoPlayer2" class="w-100" controls>
+                            <video id="videoPlayer2" class="w-100 d-none" controls>
                                 <source src="" type="video/webm">
                                 您的浏览器不支持视频标签。
                             </video>
+                            <img id="imagePreview2" class="w-100 d-none rounded border" alt="图片预览" style="max-height:70vh;object-fit:contain;background:#f6f7fb;">
+                            <div id="emptyHint2" class="text-center text-muted py-5">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                暂无待转录任务
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,13 +191,41 @@
                         </div>
                         <div class="card-body">
                             <form id="transcriptionForm">
-                                <div class="mb-3">
-                                    <label for="transcription" class="form-label">输入转录</label>
-                                    <textarea class="form-control" id="transcription" rows="10"></textarea>
+                                <div id="tlEditArea">
+                                    <div class="mb-3" id="tlTimeBox2">
+                                        <label class="form-label d-block">转录时间轴</label>
+                                        <div class="small text-muted mb-2">每条 = 起始时间 → 结束时间 + 文本：时间按 <b>时:分:秒</b> 三个小格依次输入，输满两位自动跳到下一格（无需鼠标）；新行结束时间默认为起始 +5 秒；也可点 <i class="fas fa-clock"></i> 取播放器当前位置。文本框敲<b>回车</b>自动进入下一条（起始时间自动接上一条结束时间）。</div>
+                                        <div id="timelineRows"></div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow">
+                                            <i class="fas fa-plus"></i> 添加一条
+                                        </button>
+                                    </div>
+                                    <!-- 反馈#8：图片任务无时间轴，直接填写图片内容描述/转写文本 -->
+                                    <div class="mb-3 d-none" id="imageDescBox2">
+                                        <label class="form-label d-block" for="imageDesc2">图片内容描述 / 转写文本</label>
+                                        <div class="small text-muted mb-2">图片任务无时间轴，请直接描述图片内容（场景、物体、图中文字等）；保存为草稿后可提交审核，也可使用"算法处理"由 BAGEL 多模态模型自动理解。</div>
+                                        <textarea class="form-control" id="imageDesc2" rows="6" placeholder="请输入图片内容描述…"></textarea>
+                                    </div>
+                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                        <button type="submit" class="btn btn-primary" id="btnSaveDraft">
+                                            <i class="fas fa-save"></i> 保存转录
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="btnSubmitTranscription">
+                                            <i class="fas fa-paper-plane"></i> 提交
+                                        </button>
+                                        <span id="saveToast" class="small text-success d-none"><i class="fas fa-check-circle"></i> <span class="toast-msg">保存成功</span></span>
+                                    </div>
+                                    <div class="small text-muted mt-2">保存仅暂存草稿（每 1 分钟自动保存），可随时修改；点"提交"后才进入审核流程。</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> 保存转录
-                                </button>
+                                <div id="submitProgress" class="alert alert-info d-none mb-0">
+                                    <div id="progressState" class="mb-2"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-warning me-2" id="btnWithdraw">
+                                        <i class="fas fa-undo"></i> 撤回修改
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary d-none" id="btnNextAfterSubmit">
+                                        <i class="fas fa-forward"></i> 领取下一条转录任务
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -144,16 +248,33 @@ document.getElementById('modeManual').addEventListener('change', syncProcessMode
 document.getElementById('modeAlgorithm').addEventListener('change', syncProcessMode);
 syncProcessMode();
 
-// Type 1 Task Handling
-document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
+// f3：记录当前已领取任务的 recording_id，提交时回传，防止多人重复处理同一条
+const currentTaskIds = {};
+
+// Type 1 Task Handling（采集处理人员页面无此表单，需守卫）
+const inspectionFormEl = document.getElementById('inspectionForm');
+if (inspectionFormEl) {
+inspectionFormEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     const action = e.submitter.value;
     const formData = {
         action: action,
+        recording_id: currentTaskIds[1] || null,
         corrections: document.getElementById('corrections').value,
         comments: document.getElementById('comments').value
     };
-    
+    // 反馈#8：字幕时间轴校对结果随检查一并提交（整区为空则不带；有内容则严格校验）
+    if (tlEditor1) {
+        const tlBox = document.getElementById('timelineRows1');
+        const hasContent = tlBox && Array.from(tlBox.querySelectorAll('input'))
+            .some(i => (i.value || '').trim() !== '');
+        if (hasContent) {
+            const tl1 = tlEditor1.collect(false);
+            if (!tl1) return;  // 时间轴格式有误，已提示
+            formData.timeline = tl1.segments;
+        }
+    }
+
     try {
         const response = await fetch('/api/process/inspect', {
             method: 'POST',
@@ -162,76 +283,598 @@ document.getElementById('inspectionForm').addEventListener('submit', async (e) =
             },
             body: JSON.stringify(formData)
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'Submission failed');
+
         alert(data.message || '检查提交成功');
         // Load next task
         loadNextTask(1);
     } catch (err) {
         console.error('Submission error:', err);
-        alert('提交检查失败');
+        alert('提交检查失败：' + (err.message || ''));
     }
 });
+}
 
-// Type 2 Task Handling
-document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = {
-        transcription: document.getElementById('transcription').value
-    };
-    
-    try {
-        const response = await fetch('/api/process/transcribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+// ---------------- 时间轴编辑器（时:分:秒 三段输入，自动跳转） ----------------
+function createTimelineEditor(opts) {
+    const wrap = document.getElementById(opts.containerId);
+    const addBtn = opts.addBtnId ? document.getElementById(opts.addBtnId) : null;
+    let disabled = !!opts.disabled;
+    const getPlayer = () => (opts.getPlayer ? opts.getPlayer() : null);
+
+    function pad2(n) { return String(Math.max(0, parseInt(n, 10) || 0)).padStart(2, '0'); }
+    function hmsParts(sec) {
+        sec = Math.max(0, Math.round(Number(sec) || 0));
+        return { h: Math.floor(sec / 3600), m: Math.floor((sec % 3600) / 60), s: Math.floor(sec % 60) };
+    }
+    function setGroup(g, sec) {
+        const t = hmsParts(sec);
+        g.h.value = pad2(t.h); g.m.value = pad2(t.m); g.s.value = pad2(t.s);
+    }
+    function getGroup(g) {
+        const vals = [g.h.value, g.m.value, g.s.value].map(v => String(v).trim());
+        if (vals.every(v => v === '')) return null;              // 整组未填
+        if (vals.some(v => !/^\d{1,2}$/.test(v))) return NaN;   // 格式错
+        const h = +vals[0], m = +vals[1], s = +vals[2];
+        if (m > 59 || s > 59) return NaN;                        // 分/秒超限
+        return h * 3600 + m * 60 + s;
+    }
+    function timeInput(cls) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-control form-control-sm tl-time ' + cls;
+        inp.maxLength = 2;
+        inp.inputMode = 'numeric';
+        inp.style.width = '46px';
+        inp.style.textAlign = 'center';
+        inp.disabled = disabled;
+        return inp;
+    }
+    function clockBtn() {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm btn-outline-secondary tl-pick';
+        b.title = '取播放器当前位置';
+        b.disabled = disabled;
+        b.innerHTML = '<i class="fas fa-clock"></i>';
+        return b;
+    }
+    function addRow(startSec, endSec) {
+        startSec = startSec || 0;
+        const row = document.createElement('div');
+        row.className = 'timeline-row mb-2';
+        const timeLine = document.createElement('div');
+        timeLine.className = 'd-flex align-items-center gap-1 flex-wrap mb-1';
+        const sh = timeInput('tl-sh'), sm = timeInput('tl-sm'), ss = timeInput('tl-ss');
+        const eh = timeInput('tl-eh'), em = timeInput('tl-em'), es = timeInput('tl-es');
+        const pickS = clockBtn(), pickE = clockBtn();
+        const arrow = document.createElement('span');
+        arrow.className = 'mx-1 small text-muted';
+        arrow.textContent = '→';
+        const colon = () => { const c = document.createElement('span'); c.className = 'text-muted small'; c.textContent = ':'; return c; };
+        timeLine.append(sh, colon(), sm, colon(), ss, pickS, arrow, eh, colon(), em, colon(), es, pickE);
+
+        const bottom = document.createElement('div');
+        bottom.className = 'd-flex gap-2';
+        const text = document.createElement('input');
+        text.type = 'text';
+        text.className = 'form-control form-control-sm tl-text';
+        text.placeholder = '输入本句文本，回车自动进入下一条';
+        text.disabled = disabled;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn btn-sm btn-outline-danger tl-del';
+        del.title = '删除本条';
+        del.disabled = disabled;
+        del.innerHTML = '<i class="fas fa-times"></i>';
+        bottom.append(text, del);
+        row.append(timeLine, bottom);
+        wrap.appendChild(row);
+
+        const startG = { h: sh, m: sm, s: ss };
+        const endG = { h: eh, m: em, s: es };
+        setGroup(startG, startSec);
+        setGroup(endG, (endSec !== null && endSec !== undefined) ? endSec : startSec + 5);
+
+        const chain = [sh, sm, ss, eh, em, es];
+        chain.forEach((inp, i) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 2);
+                if (opts.onDirty) opts.onDirty();
+                if (inp.value.length === 2) {
+                    if (i < chain.length - 1) chain[i + 1].focus();
+                    else text.focus();
+                }
+            });
+            inp.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    if (i < chain.length - 1) chain[i + 1].focus(); else text.focus();
+                } else if (ev.key === 'Backspace' && inp.value === '' && i > 0) {
+                    chain[i - 1].focus();
+                }
+            });
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
-        alert(data.message || '转录保存成功');
-        // Load next task
-        loadNextTask(2);
-    } catch (err) {
-        console.error('Submission error:', err);
-        alert('保存转录失败');
-    }
-});
-
-// Load next task based on type
-async function loadNextTask(type) {
-    try {
-        const response = await fetch(`/api/process/next-task?type=${type}`);
-        if (!response.ok) throw new Error('Failed to load next task');
-        
-        const data = await response.json();
-        if (data.task) {
-            const videoPlayer = document.getElementById(`videoPlayer${type}`);
-            videoPlayer.src = data.task.video_url;
-            
-            if (type === 1) {
-                document.getElementById('originalText').textContent = data.task.text;
-                document.getElementById('corrections').value = '';
-                document.getElementById('comments').value = '';
-            } else {
-                document.getElementById('transcription').value = '';
+        pickS.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(startG, p.currentTime); });
+        pickE.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(endG, p.currentTime); });
+        text.addEventListener('input', () => { if (opts.onDirty) opts.onDirty(); });
+        text.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                const end = getGroup(endG);
+                const st = getGroup(startG);
+                let nextStart = (end !== null && !isNaN(end)) ? end : ((st !== null && !isNaN(st)) ? st : 0);
+                const nr = addRow(nextStart, nextStart + 5);
+                nr.querySelector('.tl-text').focus();
             }
+        });
+        del.addEventListener('click', () => {
+            if (wrap.querySelectorAll('.timeline-row').length > 1) {
+                row.remove();
+            } else {
+                [sh, sm, ss, eh, em, es].forEach(i => i.value = '');
+                text.value = '';
+            }
+            if (opts.onDirty) opts.onDirty();
+        });
+        return row;
+    }
+
+    function reset(segments) {
+        wrap.innerHTML = '';
+        if (segments && segments.length) {
+            segments.forEach(seg => {
+                const r = addRow(seg.start, seg.end);
+                r.querySelector('.tl-text').value = seg.text || '';
+            });
         } else {
-            alert('没有更多可用任务');
+            addRow(0, 5);
         }
+    }
+    function collect(quiet) {
+        const rows = wrap.querySelectorAll('.timeline-row');
+        const segments = [];
+        const texts = [];
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const startG = { h: r.querySelector('.tl-sh'), m: r.querySelector('.tl-sm'), s: r.querySelector('.tl-ss') };
+            const endG = { h: r.querySelector('.tl-eh'), m: r.querySelector('.tl-em'), s: r.querySelector('.tl-es') };
+            const txt = r.querySelector('.tl-text').value.trim();
+            const start = getGroup(startG);
+            const end = getGroup(endG);
+            if (!txt && start === null && end === null) continue;  // 整行空 → 跳过
+            const fail = (msg) => { if (!quiet) alert(msg); return null; };
+            if (!txt) return fail('第 ' + (i + 1) + ' 条：请输入文本（或清空整行跳过）');
+            if (start === null || isNaN(start)) return fail('第 ' + (i + 1) + ' 条：起始时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end === null || isNaN(end)) return fail('第 ' + (i + 1) + ' 条：结束时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end <= start) return fail('第 ' + (i + 1) + ' 条：结束时间必须晚于起始时间');
+            segments.push({ start: start, end: end, text: txt });
+            texts.push(txt);
+        }
+        if (!segments.length) { if (!quiet) alert('请至少输入一条内容'); return null; }
+        return { segments: segments, text: texts.join('\n') };
+    }
+    function setEnabled(on) {
+        disabled = !on;
+        wrap.querySelectorAll('input, button').forEach(el => { el.disabled = !on; });
+        if (addBtn) addBtn.disabled = !on;
+    }
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const rows = wrap.querySelectorAll('.timeline-row');
+            let start = 0;
+            if (rows.length) {
+                const last = rows[rows.length - 1];
+                const end = getGroup({ h: last.querySelector('.tl-eh'), m: last.querySelector('.tl-em'), s: last.querySelector('.tl-es') });
+                if (end !== null && !isNaN(end)) start = end;
+            }
+            const nr = addRow(start, start + 5);
+            nr.querySelector('.tl-text').focus();
+        });
+    }
+    return { reset: reset, collect: collect, setEnabled: setEnabled, addRow: addRow };
+}
+
+// ---------------- 转录：时间轴编辑器 + 草稿/自动保存/提交/撤回 ----------------
+const tlEditor = createTimelineEditor({
+    containerId: 'timelineRows',
+    addBtnId: 'btnAddTimelineRow',
+    getPlayer: () => document.getElementById('videoPlayer2')
+});
+// 反馈#8：类型1（检查）面板的字幕时间轴校对编辑器（仅审核员页面存在该容器）
+const tlEditor1 = document.getElementById('timelineRows1') ? createTimelineEditor({
+    containerId: 'timelineRows1',
+    addBtnId: 'btnAddTimelineRow1',
+    getPlayer: () => document.getElementById('videoPlayer1')
+}) : null;
+if (tlEditor1) tlEditor1.reset(null);
+let tlDirty = false;
+tlEditor.reset(null);
+// 反馈#8：当前任务模态（video/audio/image），图片任务转录走描述文本框
+const currentModality = {};
+function setType2ImageMode(isImage) {
+    document.getElementById('tlTimeBox2').classList.toggle('d-none', isImage);
+    document.getElementById('imageDescBox2').classList.toggle('d-none', !isImage);
+}
+const imageDescEl = document.getElementById('imageDesc2');
+if (imageDescEl) imageDescEl.addEventListener('input', () => { tlDirty = true; });
+
+let tlSubmitted = false;
+let progressTimer = null;
+
+function nowHMS() {
+    const d = new Date();
+    return [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+}
+const saveToast = document.getElementById('saveToast');
+let toastHideTimer = null;
+function showSaveToast(msg) {
+    saveToast.querySelector('.toast-msg').textContent = msg;
+    saveToast.classList.remove('d-none');
+    clearTimeout(toastHideTimer);
+    // 持续 0.5 秒后自动消失
+    toastHideTimer = setTimeout(() => saveToast.classList.add('d-none'), 500);
+}
+// 鼠标/键盘有操作时"保存成功"立即消失
+['keydown', 'pointerdown'].forEach(ev =>
+    document.addEventListener(ev, () => saveToast.classList.add('d-none'), true));
+
+function markTlDirty() { tlDirty = true; }
+// 编辑器输入标记改动（onDirty 在工厂内回调）
+document.getElementById('timelineRows').addEventListener('input', markTlDirty);
+
+async function saveDraft(silent) {
+    if (!currentTaskIds[2]) { if (!silent) alert('请先领取转录任务'); return false; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        // 反馈#8：图片任务无时间轴，直接保存描述文本
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { if (!silent) alert('请填写图片内容描述'); return false; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'save' };
+    } else {
+        const tl = tlEditor.collect(silent);
+        if (!tl) return false;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'save' };
+    }
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '保存失败');
+        tlDirty = false;
+        showSaveToast((silent ? '已自动保存 ' : '保存成功 ') + nowHMS());
+        return true;
     } catch (err) {
-        console.error('Error loading next task:', err);
-        alert('加载下一个任务失败');
+        if (!silent) alert('保存失败：' + (err.message || ''));
+        return false;
     }
 }
 
-// Initialize first tasks
-loadNextTask(1);
-loadNextTask(2);
+function setEditAreaVisible(on) {
+    document.getElementById('tlEditArea').classList.toggle('d-none', !on);
+    document.getElementById('submitProgress').classList.toggle('d-none', on);
+}
+function exitSubmittedState() {
+    tlSubmitted = false;
+    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+    setEditAreaVisible(true);
+    document.getElementById('btnNextAfterSubmit').classList.add('d-none');
+}
+function renderProgress(data) {
+    const box = document.getElementById('progressState');
+    const wd = document.getElementById('btnWithdraw');
+    const nx = document.getElementById('btnNextAfterSubmit');
+    let html = '';
+    let done = false;
+    if (data.state === 'waiting') {
+        html = '<i class="fas fa-hourglass-half text-info"></i> 已提交，等待审核员查看';
+    } else if (data.state === 'seen') {
+        html = '<i class="fas fa-eye text-primary"></i> 审核员' + (data.auditor ? '（' + data.auditor + '）' : '') + '已查看，正在处理';
+    } else if (data.state === 'approved') {
+        html = '<i class="fas fa-check-circle text-success"></i> 审核已通过，任务完成';
+        done = true;
+    } else if (data.state === 'rejected') {
+        html = '<i class="fas fa-times-circle text-warning"></i> 审核未通过/已打回，任务将退回处理列表';
+        done = true;
+    }
+    box.innerHTML = html;
+    wd.classList.toggle('d-none', !data.can_withdraw);
+    nx.classList.toggle('d-none', !done);
+}
+// 反馈#8：按模态重置类型2编辑区（图片→描述文本框；音视频→时间轴编辑器）
+function resetType2Content(data) {
+    if (currentModality[2] === 'image') {
+        document.getElementById('imageDesc2').value = (data && data.text) || '';
+    } else {
+        tlEditor.reset((data && data.timeline) || null);
+    }
+    tlDirty = false;
+}
+async function pollProgress() {
+    const rid = currentTaskIds[2];
+    if (!rid || !tlSubmitted) return;
+    try {
+        const resp = await fetch('/api/process/submission-status/' + rid);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data.state === 'editing') { exitSubmittedState(); resetType2Content(data); return; }
+        renderProgress(data);
+        if (data.state === 'approved' || data.state === 'rejected') {
+            if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+        }
+    } catch (e) { /* 轮询静默 */ }
+}
+function enterSubmittedState() {
+    tlSubmitted = true;
+    tlDirty = false;
+    setEditAreaVisible(false);
+    pollProgress();
+    if (progressTimer) clearInterval(progressTimer);
+    progressTimer = setInterval(pollProgress, 8000);
+}
+
+document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    saveDraft(false);
+});
+document.getElementById('btnSubmitTranscription').addEventListener('click', async () => {
+    if (!currentTaskIds[2]) { alert('请先领取转录任务'); return; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { alert('请填写图片内容描述'); return; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'submit' };
+    } else {
+        const tl = tlEditor.collect();
+        if (!tl) return;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'submit' };
+    }
+    if (!confirm('提交后进入待审核状态；审核员查看前您仍可撤回修改。确认提交？')) return;
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '提交失败');
+        enterSubmittedState();
+    } catch (err) {
+        alert('提交失败：' + (err.message || ''));
+    }
+});
+document.getElementById('btnWithdraw').addEventListener('click', async () => {
+    const rid = currentTaskIds[2];
+    if (!rid) return;
+    try {
+        const resp = await fetch('/api/process/withdraw', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: rid })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '撤回失败');
+        exitSubmittedState();
+        resetType2Content(data);
+        showSaveToast('已撤回，可继续修改');
+    } catch (err) {
+        alert('撤回失败：' + (err.message || ''));
+    }
+});
+document.getElementById('btnNextAfterSubmit').addEventListener('click', async () => {
+    await loadNextTask(2);
+});
+
+// 每 1 分钟自动保存草稿（有未保存改动且未提交时）
+setInterval(() => {
+    if (tlSubmitted || !currentTaskIds[2] || !tlDirty) return;
+    saveDraft(true);
+}, 60000);
+
+// Load next task based on type
+// silent=true（页面初始化）：空池不弹 alert，仅在播放器区显示占位
+async function loadNextTask(type, silent) {
+    const label = type === 1 ? '检查' : '转录';
+    try {
+        const response = await fetch(`/api/process/next-task?type=${type}`);
+        if (!response.ok) throw new Error('Failed to load next task');
+
+        const data = await response.json();
+        const videoPlayer = document.getElementById(`videoPlayer${type}`);
+        const imgPreview = document.getElementById(`imagePreview${type}`);
+        const hint = document.getElementById(`emptyHint${type}`);
+        if (data.task) {
+            currentTaskIds[type] = data.task.id;
+            const modality = data.task.modality || 'video';
+            currentModality[type] = modality;
+            const isImage = modality === 'image';
+            // 反馈#8：图片任务显示 <img> 预览；音频/视频走播放器
+            if (isImage) {
+                try { videoPlayer.pause(); } catch (e) {}
+                videoPlayer.classList.add('d-none');
+                if (imgPreview) { imgPreview.src = data.task.video_url; imgPreview.classList.remove('d-none'); }
+            } else {
+                if (imgPreview) { imgPreview.classList.add('d-none'); imgPreview.removeAttribute('src'); }
+                videoPlayer.src = data.task.video_url;
+                videoPlayer.classList.remove('d-none');
+            }
+            if (hint) hint.classList.add('d-none');
+
+            if (type === 1) {
+                document.getElementById('originalText').textContent = data.task.text || '（无文本内容）';
+                document.getElementById('corrections').value = '';
+                document.getElementById('comments').value = '';
+                // 反馈#8：视频/音频任务显示字幕时间轴校对区并回填；图片任务隐藏
+                const tlBox1 = document.getElementById('timelineBox1');
+                if (tlBox1) tlBox1.classList.toggle('d-none', isImage);
+                if (tlEditor1) tlEditor1.reset(isImage ? null : (data.task.timeline || null));
+            } else {
+                exitSubmittedState();
+                setType2ImageMode(isImage);
+                if (isImage) {
+                    document.getElementById('imageDesc2').value = data.task.text || '';
+                    tlEditor.reset(null);
+                } else {
+                    tlEditor.reset(data.task.timeline || null);
+                }
+                tlDirty = false;
+            }
+            return true;
+        } else {
+            delete currentTaskIds[type];
+            delete currentModality[type];
+            try { videoPlayer.pause(); } catch (e) {}
+            videoPlayer.removeAttribute('src');
+            videoPlayer.load();
+            videoPlayer.classList.add('d-none');
+            if (imgPreview) { imgPreview.classList.add('d-none'); imgPreview.removeAttribute('src'); }
+            if (hint) hint.classList.remove('d-none');
+            if (type === 1) {
+                const tlBox1 = document.getElementById('timelineBox1');
+                if (tlBox1) tlBox1.classList.add('d-none');
+                if (tlEditor1) tlEditor1.reset(null);
+            } else {
+                exitSubmittedState();
+                setType2ImageMode(false);
+                tlEditor.reset(null);
+            }
+            if (!silent) alert(`类型${type}（${label}）任务已全部处理完`);
+            return false;
+        }
+    } catch (err) {
+        console.error('Error loading next task:', err);
+        if (!silent) alert('加载下一个任务失败');
+        return false;
+    }
+}
+
+// 初始化：静默加载任务池；默认 Tab 无任务而另一池有任务时自动切换
+// 反馈#7：检查池（type1）仅管理员/超管可见，采集处理人员（recorder）只加载转录池
+const CAN_REVIEW_TASKS = {{ 'true' if current_user.role in ['admin', 'super_admin'] else 'false' }};
+(async function initTasks() {
+    const has1 = CAN_REVIEW_TASKS ? await loadNextTask(1, true) : false;
+    const has2 = await loadNextTask(2, true);
+    if (!has1 && has2) {
+        const tab = document.getElementById('type2-tab');
+        if (tab && window.bootstrap && bootstrap.Tab) {
+            bootstrap.Tab.getOrCreateInstance(tab).show();
+        }
+    }
+})();
+
+// 反馈#8：后端内部名 → 中文展示名（deepseek 统一表述为"外部大模型"）
+function backendLabelCN(b) {
+    return ({deepseek: '外部大模型', autodl: 'autoDL GPU', local: '局域网 GPU', cache: '缓存复用'})[b] || b || '-';
+}
+
+// ---------------- 算力积分（按人计量） ----------------
+async function loadMyCredits() {
+    const balEl = document.getElementById('creditBalance');
+    try {
+        const resp = await fetch('/api/credits/me');
+        const data = await resp.json();
+        if (!resp.ok || data.error) {
+            balEl.textContent = '暂不可用';
+            return;
+        }
+        balEl.textContent = data.balance + ' 积分';
+        document.getElementById('creditEnabled').textContent =
+            data.enabled ? '积分管控已生效' : '暂未管控（管理员未发放积分）';
+        const p = data.pricing || {};
+        document.getElementById('creditPricing').textContent =
+            '计价：外部大模型 ' + (p.deepseek_per_1k_tokens || '-') + ' 积分/千token；'
+            + 'autoDL ' + (p.autodl_base || '-') + '+' + (p.autodl_per_min || '-') + '/分钟；'
+            + '局域网 ' + (p.local_base || '-') + '+' + (p.local_per_min || '-') + '/分钟';
+        document.getElementById('creditReuseTip').classList.remove('d-none');
+        const recent = (data.recent || []).slice(0, 3).map(r => {
+            const st = r.status === 'reused' ? '复用免费' : (r.status === 'failed' ? '失败已退' : ('-' + r.cost_credits + '分'));
+            return backendLabelCN(r.backend) + '(' + st + ')';
+        }).join('；');
+        document.getElementById('creditRecent').textContent = recent ? '近期算力：' + recent : '';
+    } catch (e) {
+        balEl.textContent = '暂不可用';
+    }
+}
+loadMyCredits();
+
+// ---------------- 算法任务提交（MD5 复用 / 积分冻结 / 轮询结算） ----------------
+let algoPollTimer = null;
+function setAlgoResult(html, cls) {
+    const el = document.getElementById('algoResult');
+    el.className = 'mt-3 alert ' + (cls || 'alert-secondary');
+    el.innerHTML = html;
+}
+
+async function submitAlgorithmTask() {
+    const recording_id = parseInt(document.getElementById('algoRecordingId').value, 10);
+    if (!recording_id) {
+        setAlgoResult('请先填写录制数据 ID。', 'alert-warning');
+        return;
+    }
+    const payload = {
+        recording_id: recording_id,
+        backend: document.getElementById('algoBackend').value,
+        force_recompute: document.getElementById('algoForceRecompute').checked,
+    };
+    document.getElementById('algoSubmitBtn').disabled = true;
+    setAlgoResult('提交中…', 'alert-info');
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            setAlgoResult('<strong>提交失败：</strong>' + (data.error || '未知错误')
+                + (resp.status === 429 ? '<br><span class="small">积分不足或外部大模型配额已达上限，请联系管理员。</span>' : ''),
+                'alert-danger');
+            return;
+        }
+        if (data.reused) {
+            setAlgoResult('✅ 命中相同文件（MD5），<strong>已复用历史算法结果，未消耗算力积分</strong>。', 'alert-success');
+            loadMyCredits();
+            return;
+        }
+        setAlgoResult('⏳ 任务已入队（后端：' + backendLabelCN(data.backend) + '，task_id：' + data.task_id + '），已按预估冻结积分，等待处理…', 'alert-info');
+        pollAlgorithmTask(data.task_id);
+    } catch (e) {
+        setAlgoResult('提交异常：' + e, 'alert-danger');
+    } finally {
+        document.getElementById('algoSubmitBtn').disabled = false;
+    }
+}
+
+function pollAlgorithmTask(taskId) {
+    if (algoPollTimer) clearInterval(algoPollTimer);
+    let n = 0;
+    algoPollTimer = setInterval(async () => {
+        n += 1;
+        try {
+            const resp = await fetch('/api/algorithm/bagel/status/' + taskId);
+            const data = await resp.json();
+            const t = data.task || {};
+            if (t.status === 'done' || t.status === 'completed') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('✅ 算法处理完成（后端：' + backendLabelCN(t.backend_used || t.backend || '-') + '），实际消耗积分已结算，可在数据管理中查看结果。', 'alert-success');
+                loadMyCredits();
+            } else if (t.status === 'failed' || t.status === 'dead') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('❌ 任务' + (t.status === 'dead' ? '重试耗尽进入死信队列' : '失败') + '，冻结积分已退还，请联系管理员或稍后重试。', 'alert-danger');
+                loadMyCredits();
+            } else if (n > 60) {
+                clearInterval(algoPollTimer);
+                setAlgoResult('任务仍在处理中（task_id：' + taskId + '），可稍后在本页刷新查看；失败会自动重试。', 'alert-warning');
+            }
+        } catch (e) {
+            // 轮询临时失败不打断
+        }
+    }, 5000);
+}
 </script>
 {% endblock %} 

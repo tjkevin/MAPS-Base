@@ -7,7 +7,7 @@
 
 import pymysql
 from app import app, db
-from models import User, Recording, Task, TaskAssignment, Inspection
+from models import User, Recording, Task, TaskAssignment
 
 def create_database():
     """创建MySQL数据库"""

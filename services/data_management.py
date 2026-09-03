@@ -15,7 +15,7 @@ from flask import jsonify, Response, send_file, request, after_this_request
 from flask_login import current_user
 from sqlalchemy import or_, and_, func, desc as sdesc, asc as sasc
 
-from models import db, User, Recording, Task, AcquisitionMetadata, ProcessingResult, AuditLog
+from models import db, User, Recording, Task, ProcessingResult, AuditLog
 from models import FilterTemplate, DataSet, DataSetItem
 
 
@@ -74,17 +74,15 @@ def latest_audit_for_recording(recording_id):
 
 
 def serialize_recording_row(recording, meta=None):
-    if meta is False:
-        meta = None
-    elif meta is None:
-        meta = AcquisitionMetadata.query.filter_by(recording_id=recording.id).first()
+    """序列化录制行（表精简后采集元数据已并入 recordings，meta 参数仅为兼容旧调用保留）。"""
     pr = latest_processing_result(recording.id)
     al = latest_audit_for_recording(recording.id)
-    uploader = User.query.get(meta.uploader_id) if meta and meta.uploader_id else User.query.get(recording.recorded_by)
+    uploader_id = recording.uploader_id or recording.recorded_by
+    uploader = User.query.get(uploader_id) if uploader_id else None
     processor = User.query.get(pr.processor_id) if pr else None
     auditor = User.query.get(al.auditor_id) if al else None
-    ft = meta.file_type if meta else detect_file_type(recording.filename)
-    sz = int(meta.file_size) if meta and meta.file_size is not None else 0
+    ft = recording.file_type or detect_file_type(recording.filename)
+    sz = int(recording.file_size) if recording.file_size is not None else 0
     if not sz and recording.file_path and os.path.exists(recording.file_path):
         sz = os.path.getsize(recording.file_path)
     timeline = []
@@ -94,20 +92,25 @@ def serialize_recording_row(recording, meta=None):
         except (json.JSONDecodeError, TypeError):
             timeline = []
     st = recording.status or ''
+    deleted_by_user = User.query.get(recording.deleted_by) if getattr(recording, 'deleted_by', None) else None
+    deleted_at = getattr(recording, 'deleted_at', None)
+    days_remaining = None
+    if deleted_at:
+        days_remaining = max(0, 30 - (datetime.utcnow() - deleted_at).days)
     return {
         'id': recording.id,
         'filename': recording.filename,
         'file_type': ft,
         'status': st,
         'status_label': STATUS_LABEL_CN.get(st, st or '—'),
-        'task_no': meta.task_no if meta else '',
-        'file_md5': meta.file_md5 if meta else '',
-        'uploader_id': meta.uploader_id if meta else recording.recorded_by,
+        'task_no': recording.acquisition_task_no or '',
+        'file_md5': recording.file_md5 or '',
+        'uploader_id': uploader_id,
         'uploader_username': uploader.username if uploader else '',
         'processor_username': processor.username if processor else '',
         'auditor_username': auditor.username if auditor else '',
         'created_at': recording.created_at.isoformat() if recording.created_at else None,
-        'uploaded_at': meta.uploaded_at.isoformat() if meta and meta.uploaded_at else None,
+        'uploaded_at': recording.created_at.isoformat() if recording.created_at else None,
         'last_processed_at': pr.processed_at.isoformat() if pr and pr.processed_at else None,
         'last_audit_at': al.created_at.isoformat() if al and al.created_at else None,
         'text_content': (recording.text_content or '')[:400],
@@ -118,6 +121,11 @@ def serialize_recording_row(recording, meta=None):
         'has_subtitle': bool(recording.subtitle_content or recording.subtitle_srt_path),
         'timeline_preview': timeline[:30],
         'invalidated_at': recording.invalidated_at.isoformat() if getattr(recording, 'invalidated_at', None) else None,
+        # 反馈#6：审核备注 + 垃圾箱字段
+        'review_remark': getattr(recording, 'review_remark', None) or '',
+        'deleted_at': deleted_at.isoformat() if deleted_at else None,
+        'deleted_by_username': deleted_by_user.username if deleted_by_user else '',
+        'days_remaining': days_remaining,
     }
 
 
@@ -151,7 +159,7 @@ def manage_records_base_query(args):
     )
 
     q = (
-        Recording.query.outerjoin(AcquisitionMetadata, AcquisitionMetadata.recording_id == Recording.id)
+        Recording.query
         .outerjoin(latest_pr_sq, latest_pr_sq.c.rid == Recording.id)
         .outerjoin(latest_al_sq, latest_al_sq.c.rid == Recording.id)
     )
@@ -163,6 +171,12 @@ def manage_records_base_query(args):
     if str(args.get('invalid_only', '')).lower() in ('1', 'true', 'yes'):
         q = q.filter(Recording.status == 'invalid')
 
+    # 反馈#6：垃圾箱视图（trash_only=1 仅看垃圾箱；默认排除垃圾箱中的文件）
+    if str(args.get('trash_only', '')).lower() in ('1', 'true', 'yes'):
+        q = q.filter(Recording.deleted_at.isnot(None))
+    else:
+        q = q.filter(Recording.deleted_at.is_(None))
+
     statuses = args.get('statuses') or args.get('status')
     if statuses:
         parts = [s.strip() for s in str(statuses).split(',') if s.strip()]
@@ -172,25 +186,25 @@ def manage_records_base_query(args):
     ftype = (args.get('file_type') or '').strip().lower()
     if ftype == 'video':
         ext_conds = [Recording.filename.ilike(f'%.{e}') for e in ('mp4', 'webm', 'avi', 'mov', 'mkv', 'flv')]
-        q = q.filter(or_(AcquisitionMetadata.file_type == 'video', *ext_conds))
+        q = q.filter(or_(Recording.file_type == 'video', *ext_conds))
     elif ftype == 'audio':
         ext_conds = [Recording.filename.ilike(f'%.{e}') for e in ('mp3', 'wav', 'flac', 'm4a')]
-        q = q.filter(or_(AcquisitionMetadata.file_type == 'audio', *ext_conds))
+        q = q.filter(or_(Recording.file_type == 'audio', *ext_conds))
     elif ftype == 'image':
         ext_conds = [Recording.filename.ilike(f'%.{e}') for e in ('jpg', 'jpeg', 'png', 'webp', 'gif')]
-        q = q.filter(or_(AcquisitionMetadata.file_type == 'image', *ext_conds))
+        q = q.filter(or_(Recording.file_type == 'image', *ext_conds))
 
     tn = (args.get('task_no') or '').strip()
     if tn:
-        q = q.filter(AcquisitionMetadata.task_no == tn)
+        q = q.filter(Recording.acquisition_task_no == tn)
 
     md5v = (args.get('md5') or '').strip().lower()
     if md5v:
-        q = q.filter(AcquisitionMetadata.file_md5 == md5v)
+        q = q.filter(Recording.file_md5 == md5v)
 
     uid = _int_arg(args, 'uploader_id')
     if uid:
-        q = q.filter(AcquisitionMetadata.uploader_id == uid)
+        q = q.filter(or_(Recording.uploader_id == uid, Recording.recorded_by == uid))
 
     pid = _int_arg(args, 'processor_id')
     if pid:
@@ -202,7 +216,7 @@ def manage_records_base_query(args):
         sub = db.session.query(AuditLog.recording_id).filter(AuditLog.auditor_id == aid).distinct()
         q = q.filter(Recording.id.in_(sub))
 
-    upload_col = func.coalesce(AcquisitionMetadata.uploaded_at, Recording.created_at)
+    upload_col = Recording.created_at
     uf = _parse_dt(args.get('upload_from'))
     ut = _parse_dt(args.get('upload_to'))
     if uf:
@@ -235,7 +249,7 @@ def manage_records_base_query(args):
     elif sort_by == 'status':
         col = Recording.status
     elif sort_by == 'task_no':
-        col = AcquisitionMetadata.task_no
+        col = Recording.acquisition_task_no
     elif sort_by == 'uploaded_at':
         col = upload_col
     else:
@@ -263,10 +277,10 @@ def build_export_rows(recordings, fields):
     default_fields = ['filename', 'status', 'text_content', 'created_at']
     all_fields = set(fields) if fields else set(default_fields)
     for r in recordings:
-        meta = AcquisitionMetadata.query.filter_by(recording_id=r.id).first()
         pr = latest_processing_result(r.id)
         al = latest_audit_for_recording(r.id)
-        uploader = User.query.get(meta.uploader_id) if meta and meta.uploader_id else User.query.get(r.recorded_by)
+        uploader_id = r.uploader_id or r.recorded_by
+        uploader = User.query.get(uploader_id) if uploader_id else None
         processor = User.query.get(pr.processor_id) if pr else None
         auditor = User.query.get(al.auditor_id) if al else None
         row = {}
@@ -289,20 +303,28 @@ def build_export_rows(recordings, fields):
         if 'auditor_username' in all_fields:
             row['auditor_username'] = auditor.username if auditor else ''
         if 'file_md5' in all_fields:
-            row['file_md5'] = meta.file_md5 if meta else ''
+            row['file_md5'] = r.file_md5 or ''
         if 'task_no' in all_fields:
-            row['task_no'] = meta.task_no if meta else ''
+            row['task_no'] = r.acquisition_task_no or ''
         if 'file_size' in all_fields:
-            sz = int(meta.file_size) if meta and meta.file_size else 0
+            sz = int(r.file_size) if r.file_size else 0
             if not sz and r.file_path and os.path.exists(r.file_path):
                 sz = os.path.getsize(r.file_path)
             row['file_size'] = sz
         if 'file_path' in all_fields:
             row['file_path'] = r.file_path or ''
         if 'file_type' in all_fields:
-            row['file_type'] = meta.file_type if meta else detect_file_type(r.filename)
+            row['file_type'] = r.file_type or detect_file_type(r.filename)
         rows.append(row)
     return rows
+
+
+def _csv_sanitize(value):
+    """f2 安全：防止 CSV 公式注入——以 = + - @ TAB CR 开头的单元格前置单引号，
+    Excel/WPS 打开时按文本处理，不会执行公式。"""
+    if isinstance(value, str) and value and value[0] in ('=', '+', '-', '@', '\t', '\r'):
+        return "'" + value
+    return value
 
 
 def export_as_response(rows, export_format, filename_prefix):
@@ -317,12 +339,19 @@ def export_as_response(rows, export_format, filename_prefix):
         )
     if not rows:
         fieldnames = ['filename', 'status', 'text_content', 'created_at']
+        safe_rows = []
     else:
-        fieldnames = list(rows[0].keys())
+        # 合并所有行的键，避免字段缺失导致列错位；同时对单元格做公式注入转义
+        fieldnames = []
+        for row in rows:
+            for k in row.keys():
+                if k not in fieldnames:
+                    fieldnames.append(k)
+        safe_rows = [{k: _csv_sanitize(v) for k, v in row.items()} for row in rows]
     buf = StringIO()
     writer = csv.DictWriter(buf, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
-    writer.writerows(rows)
+    writer.writerows(safe_rows)
     return Response(
         '\ufeff' + buf.getvalue(),
         mimetype='text/csv; charset=utf-8',
@@ -331,7 +360,8 @@ def export_as_response(rows, export_format, filename_prefix):
 
 
 def _dash_enrich_enabled() -> bool:
-    return os.environ.get('MAPS_DASHBOARD_ENRICH', '1').strip().lower() not in ('0', 'false', 'no', 'off')
+    # f3：仪表板外部增强（假数据/演示数据）默认关闭，需显式设置 MAPS_DASHBOARD_ENRICH=1 才开启
+    return os.environ.get('MAPS_DASHBOARD_ENRICH', '0').strip().lower() in ('1', 'true', 'yes', 'on')
 
 
 def _blend_num(real: float, preset: float, scale: float) -> int:
@@ -529,86 +559,62 @@ def compute_dashboard_stats():
     week0 = today0 - timedelta(days=7)
     month0 = today0 - timedelta(days=30)
 
-    total = Recording.query.filter(or_(Recording.status != 'invalid', Recording.status.is_(None))).count()
-    total_all = Recording.query.count()
-
-    # 按元数据 file_type + 扩展名粗算无元数据条目
-    n_video = Recording.query.outerjoin(AcquisitionMetadata, AcquisitionMetadata.recording_id == Recording.id).filter(
+    # 反馈#6：有效记录 = 非无效 且 不在垃圾箱中
+    valid_rec = and_(
         or_(Recording.status != 'invalid', Recording.status.is_(None)),
-        or_(AcquisitionMetadata.file_type == 'video', Recording.filename.ilike('%.mp4')),
+        Recording.deleted_at.is_(None),
+    )
+    total = Recording.query.filter(valid_rec).count()
+    total_all = Recording.query.count()
+    n_video = Recording.query.filter(
+        valid_rec,
+        or_(Recording.file_type == 'video', Recording.filename.ilike('%.mp4')),
     ).count()
-    n_audio = (
-        Recording.query.outerjoin(AcquisitionMetadata, AcquisitionMetadata.recording_id == Recording.id)
-        .filter(
-            or_(Recording.status != 'invalid', Recording.status.is_(None)),
-            or_(AcquisitionMetadata.file_type == 'audio', Recording.filename.ilike('%.mp3')),
-        )
-        .count()
-    )
-    n_image = (
-        Recording.query.outerjoin(AcquisitionMetadata, AcquisitionMetadata.recording_id == Recording.id)
-        .filter(
-            or_(Recording.status != 'invalid', Recording.status.is_(None)),
-            or_(AcquisitionMetadata.file_type == 'image', Recording.filename.ilike('%.jpg')),
-        )
-        .count()
-    )
+    n_audio = Recording.query.filter(
+        valid_rec,
+        or_(Recording.file_type == 'audio', Recording.filename.ilike('%.mp3')),
+    ).count()
+    n_image = Recording.query.filter(
+        valid_rec,
+        or_(Recording.file_type == 'image', Recording.filename.ilike('%.jpg')),
+    ).count()
 
-    pending_review = Recording.query.filter_by(status='pending_review').count()
-    pending = Recording.query.filter_by(status='pending').count()
-    approved = Recording.query.filter_by(status='approved').count()
-    pending_fix = Recording.query.filter_by(status='pending_fix').count()
-    rejected = Recording.query.filter_by(status='rejected').count()
-    processing = Recording.query.filter_by(status='processing').count()
-    completed = Recording.query.filter_by(status='completed').count()
-    invalid_cnt = Recording.query.filter_by(status='invalid').count()
+    pending_review = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='pending_review').count()
+    pending = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='pending').count()
+    approved = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='approved').count()
+    pending_fix = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='pending_fix').count()
+    rejected = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='rejected').count()
+    processing = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='processing').count()
+    completed = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='completed').count()
+    invalid_cnt = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='invalid').count()
 
     datasets_cnt = DataSet.query.count()
     dataset_items_cnt = DataSetItem.query.count()
 
-    valid_rec = or_(Recording.status != 'invalid', Recording.status.is_(None))
     total_bytes = (
-        db.session.query(func.coalesce(func.sum(AcquisitionMetadata.file_size), 0))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
+        db.session.query(func.coalesce(func.sum(Recording.file_size), 0))
         .filter(valid_rec)
         .scalar()
     )
     total_bytes = int(total_bytes or 0)
 
     unique_uploaders = (
-        db.session.query(func.count(func.distinct(AcquisitionMetadata.uploader_id)))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
-        .filter(valid_rec)
+        db.session.query(func.count(func.distinct(Recording.uploader_id)))
+        .filter(valid_rec, Recording.uploader_id.isnot(None))
         .scalar()
     ) or 0
 
     channel_rows = (
-        db.session.query(AcquisitionMetadata.source_channel, func.count(AcquisitionMetadata.id))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
+        db.session.query(Recording.source_channel, func.count(Recording.id))
         .filter(valid_rec)
-        .group_by(AcquisitionMetadata.source_channel)
+        .group_by(Recording.source_channel)
         .all()
     )
     acquisition_channels = {str(ch or 'unknown'): n for ch, n in channel_rows}
 
-    meta_pending = (
-        db.session.query(func.count(AcquisitionMetadata.id))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
-        .filter(valid_rec, AcquisitionMetadata.audit_status == 'pending')
-        .scalar()
-    ) or 0
-    meta_pass = (
-        db.session.query(func.count(AcquisitionMetadata.id))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
-        .filter(valid_rec, AcquisitionMetadata.audit_status == 'pass')
-        .scalar()
-    ) or 0
-    meta_pending_fix = (
-        db.session.query(func.count(AcquisitionMetadata.id))
-        .join(Recording, Recording.id == AcquisitionMetadata.recording_id)
-        .filter(valid_rec, AcquisitionMetadata.audit_status == 'pending_fix')
-        .scalar()
-    ) or 0
+    meta_pending = Recording.query.filter(valid_rec, Recording.acquisition_audit_status == 'pending').count()
+    meta_pass = Recording.query.filter(valid_rec, Recording.acquisition_audit_status == 'pass').count()
+    meta_pending_fix = Recording.query.filter(valid_rec, Recording.acquisition_audit_status == 'pending_fix').count()
 
     audit_actions_7d = AuditLog.query.filter(AuditLog.created_at >= week0).count()
     audit_actions_month = AuditLog.query.filter(AuditLog.created_at >= month0).count()
@@ -644,14 +650,14 @@ def compute_dashboard_stats():
 
     # 平均处理时长（有处理结果的）：created -> last processed
     durations = []
-    for r in Recording.query.filter(or_(Recording.status != 'invalid', Recording.status.is_(None))).limit(500).all():
+    for r in Recording.query.filter(valid_rec).limit(500).all():
         pr = latest_processing_result(r.id)
         if pr and r.created_at and pr.processed_at:
             durations.append((pr.processed_at - r.created_at).total_seconds())
     avg_proc_sec = sum(durations) / len(durations) if durations else 0
 
-    audited = Recording.query.filter(Recording.status.in_(('approved', 'pending_fix'))).count()
-    passed = Recording.query.filter_by(status='approved').count()
+    audited = Recording.query.filter(Recording.deleted_at.is_(None)).filter(Recording.status.in_(('approved', 'pending_fix'))).count()
+    passed = Recording.query.filter(Recording.deleted_at.is_(None)).filter_by(status='approved').count()
     pass_rate = (passed / audited * 100) if audited else 0.0
 
     auditor_rows = (
@@ -765,7 +771,7 @@ def create_batch_zip(recording_ids):
     with zipfile.ZipFile(zpath, 'w', zipfile.ZIP_DEFLATED) as zf:
         for rid in recording_ids:
             r = Recording.query.get(rid)
-            if not r or r.status == 'invalid':
+            if not r or r.status == 'invalid' or getattr(r, 'deleted_at', None):
                 continue
             if r.file_path and os.path.isfile(r.file_path):
                 zf.write(r.file_path, arcname=r.filename or f'recording_{rid}')

@@ -3,63 +3,156 @@
 {% block title %}数据处理 - MAPS{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">数据处理</h1>
+<div class="container-fluid d-flex flex-column">
+    <h1 class="mb-3">数据处理</h1>
 
-    <div class="card mb-3 border-primary">
-        <div class="card-body py-3">
-            <div class="fw-semibold mb-2">处理方式</div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="procMode" id="modeManual" value="manual" checked>
-                <label class="form-check-label" for="modeManual">（1）手动处理</label>
+    <!-- 反馈#16：手动处理与算法处理融合为一页——人工队列工作区在下方；
+         算法处理收敛为一张卡片，内部「单条提交 / 批量处理」切换，不再用 ①② 大区块分隔 -->
+    <p class="text-muted small mb-3"><i class="fas fa-circle-info me-1"></i>
+        在下方工作区领取任务进行人工处理（系统按任务类型自动切换「文本检查 / 转录 / 图片描述」）；
+        也可使用算法处理，由外部算力自动转写与多模态理解（按算力积分计量，相同文件 MD5 复用免费）。
+    </p>
+
+    <div id="algorithmProcessingPanel" class="order-2 mb-4">
+        <div class="card border-warning">
+            <div class="card-header d-flex align-items-center flex-wrap gap-2">
+                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> 算法处理（外部算力）</strong>
+                <span class="ms-auto d-flex align-items-center flex-wrap gap-2 small">
+                    <i class="fas fa-coins text-warning"></i>
+                    <span>我的算力积分</span>
+                    <span id="creditBalance" class="badge bg-warning text-dark">加载中…</span>
+                    <span id="creditEnabled" class="badge bg-secondary"></span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary py-0" onclick="loadMyCredits()">刷新</button>
+                </span>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="procMode" id="modeAlgorithm" value="algorithm">
-                <label class="form-check-label" for="modeAlgorithm">（2）算法处理</label>
+            <div class="card-body">
+                <!-- 反馈#16：单条 / 批量 模式切换 -->
+                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="算法处理模式">
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeSingleRadio" value="single" checked onchange="switchAlgoMode('single')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeSingleRadio"><i class="fas fa-paper-plane me-1"></i>单条提交</label>
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeBatchRadio" value="batch" onchange="switchAlgoMode('batch')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeBatchRadio"><i class="fas fa-layer-group me-1"></i>批量处理</label>
+                </div>
+
+                <!-- 单条提交 -->
+                <div id="algoModeSingle">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-4">
+                            <label for="algoRecordingId" class="form-label">录制数据（下拉选择）</label>
+                            <div class="input-group">
+                                <select class="form-select" id="algoRecordingId">
+                                    <option value="">加载中…</option>
+                                </select>
+                                <button type="button" class="btn btn-outline-secondary" onclick="loadAlgoCandidates()" title="刷新候选列表">
+                                    <i class="fas fa-rotate"></i>
+                                </button>
+                            </div>
+                            <div class="form-text small">列表为您有权限处理的待处理文件，按「本人采集 / 他人采集」分组标注模态与来源。</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="algoBackend" class="form-label">推理后端</label>
+                            <select class="form-select" id="algoBackend">
+                                <option value="auto">auto（自动路由）</option>
+                                <option value="deepseek">外部大模型（纯文本 · 已就绪，内置默认提示词）</option>
+                                <option value="local">local（局域网 BAGEL 优化版 · 图片理解）</option>
+                                <option value="autodl" disabled>autodl（autoDL BAGEL 满血版 · 预留待配置）</option>
+                            </select>
+                            <div class="form-text small">外部大模型算法处理/复核已内置默认提示词，可直接调用；局域网 BAGEL 优化版（NF4）支持图片理解，需管理员在任务管理-模型后端监控中确认其在线；音视频理解需 autoDL 满血版（待配置），auto 路由会自动切换。</div>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <div class="form-check ms-1">
+                                <input class="form-check-input" type="checkbox" id="algoForceRecompute">
+                                <label class="form-check-label small" for="algoForceRecompute">强制重算（不复用 MD5）</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <button type="button" class="btn btn-primary w-100" id="algoSubmitBtn" onclick="submitAlgorithmTask()">
+                                <i class="fas fa-paper-plane"></i> 提交
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 反馈#16：批量处理 -->
+                <div id="algoModeBatch" class="d-none">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-3 col-6">
+                            <label for="batchScope" class="form-label small mb-1">处理范围</label>
+                            <select class="form-select form-select-sm" id="batchScope">
+                                <option value="own">本人采集的待处理数据</option>
+                                <option value="all">全部我有权限处理的数据</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <label for="batchLimit" class="form-label small mb-1">数量（1-20）</label>
+                            <input type="number" class="form-control form-control-sm" id="batchLimit" value="5" min="1" max="20">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="batchBackend" class="form-label small mb-1">推理后端</label>
+                            <select class="form-select form-select-sm" id="batchBackend">
+                                <option value="auto">auto（自动路由）</option>
+                                <option value="deepseek">外部大模型（纯文本 · 已就绪）</option>
+                                <option value="local">local（局域网 BAGEL 优化版 · 图片理解）</option>
+                                <option value="autodl" disabled>autodl（满血版 · 预留待配置）</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="form-check ms-1">
+                                <input class="form-check-input" type="checkbox" id="batchForceRecompute">
+                                <label class="form-check-label small" for="batchForceRecompute">强制重算（不复用 MD5）</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap gap-2 mt-3">
+                        <button type="button" class="btn btn-warning text-dark" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
+                            <i class="fas fa-layer-group"></i> 批量提交算法任务
+                        </button>
+                        <span class="small text-muted">自动选取范围内最早的待处理记录；任务完成后<strong>自动确认写回</strong>并进入待审核，每条状态见下方进度列表。</span>
+                    </div>
+                    <div id="batchProgress" class="mt-2"></div>
+                </div>
+
+                <div id="algoResult" class="mt-3" style="min-height: 1.5em;"></div>
+                <div id="creditReuseTip" class="small text-success mt-2 d-none">
+                    <i class="fas fa-bolt"></i> 相同文件（MD5 一致）已完成算法处理时，自动复用历史结果，<strong>不消耗算力积分</strong>。
+                </div>
+                <div id="creditRecent" class="small text-muted mt-1"></div>
+                <div id="creditPricing" class="small text-muted mt-1"></div>
             </div>
-            <p class="small text-muted mb-0 mt-2">手动处理：人工播放视频并检查/转写；算法处理：由系统自动或批处理流水线执行（如 ASR、多模态特征抽取等）。</p>
+            <div class="card-footer">
+                <span class="small text-muted"><strong>说明</strong>：算法处理由外部算力完成——autoDL 租用 GPU（BAGEL 满血版）、局域网 GPU（BAGEL 优化版）或外部大模型文本 API；云端本身不运行模型。图片、音视频等多模态理解任务自动路由至 BAGEL 后端。任务失败自动重试（最多 3 次），重试耗尽进入死信队列由管理员处理。</span>
+            </div>
         </div>
     </div>
 
-    <div id="algorithmProcessingPanel" class="d-none mb-4">
-        <div class="alert alert-info mb-0">
-            <strong>算法处理模式</strong>：请在后台配置批处理任务或调用相应 API；本页当前以手动任务流为主，算法结果回写后可在「数据管理」中检索。
-        </div>
-    </div>
-
-    <div id="manualProcessingPanel">
-    <ul class="nav nav-tabs mb-4" id="processingTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="type1-tab" data-bs-toggle="tab" data-bs-target="#type1" type="button" role="tab">
-                类型1任务（检查）
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="type2-tab" data-bs-toggle="tab" data-bs-target="#type2" type="button" role="tab">
-                类型2任务（转录）
-            </button>
-        </li>
-    </ul>
-    
-    <div class="tab-content" id="processingTabsContent">
-        <!-- Type 1 Tasks -->
-        <div class="tab-pane fade show active" id="type1" role="tabpanel">
+    <!-- 反馈#14：手动处理合并为单一面板——检查/转录任务在同一队列领取，按任务类型自动切换工作区 -->
+    <!-- 反馈#15：与算法处理同页展示（order-1 排在算法处理之前） -->
+    <div id="manualProcessingPanel" class="order-1 mb-4">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">视频播放器</h5>
+                            <h5 class="card-title mb-0">媒体预览</h5>
                         </div>
                         <div class="card-body">
-                            <video id="videoPlayer1" class="w-100" controls>
+                            <div id="taskMetaBar" class="small mb-2 d-none flex-wrap gap-1 align-items-center"></div>
+                            <video id="videoPlayer2" class="w-100 d-none" controls>
                                 <source src="" type="video/webm">
                                 您的浏览器不支持视频标签。
                             </video>
+                            <img id="imagePreview2" class="w-100 d-none rounded border" alt="图片预览" style="max-height:70vh;object-fit:contain;background:#f6f7fb;">
+                            <div id="emptyHint2" class="text-center text-muted py-5">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                暂无待处理任务
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
+                    <!-- 检查工作区（审核员：领取到待检查任务时显示） -->
+                    {% if current_user.role in ['admin', 'super_admin'] %}
+                    <div id="workInspectWrap" class="d-none">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title mb-0">文本检查</h5>
@@ -78,6 +171,15 @@
                                     <label for="comments" class="form-label">评论</label>
                                     <textarea class="form-control" id="comments" rows="3"></textarea>
                                 </div>
+                                <!-- 反馈#8：检查支持字幕时间轴校对（抓取了字幕的视频/音频显示，图片隐藏） -->
+                                <div class="mb-3 d-none" id="timelineBox1">
+                                    <label class="form-label d-block">字幕时间轴校对</label>
+                                    <div class="small text-muted mb-2">若该数据带有字幕，可在此按时间轴校对：每条 = 起始时间 → 结束时间 + 文本，<b>时:分:秒</b> 三格依次输入、输满自动跳格；文本框敲<b>回车</b>新增下一条。留空则不修改时间轴。</div>
+                                    <div id="timelineRows1"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow1">
+                                        <i class="fas fa-plus"></i> 添加一条
+                                    </button>
+                                </div>
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-success" name="action" value="approve">
                                         <i class="fas fa-check"></i> 批准
@@ -85,77 +187,149 @@
                                     <button type="submit" class="btn btn-danger" name="action" value="reject">
                                         <i class="fas fa-times"></i> 拒绝
                                     </button>
+                                    <button type="button" class="btn btn-outline-primary ms-auto" onclick="skipCurrentTask()">
+                                        <i class="fas fa-forward"></i> 跳过/下一条
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Type 2 Tasks -->
-        <div class="tab-pane fade" id="type2" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">视频播放器</h5>
-                        </div>
-                        <div class="card-body">
-                            <video id="videoPlayer2" class="w-100" controls>
-                                <source src="" type="video/webm">
-                                您的浏览器不支持视频标签。
-                            </video>
-                        </div>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
+                    {% endif %}
+
+                    <!-- 转录/描述工作区（领取到待处理任务时显示） -->
+                    <div id="workTranscribeWrap" class="d-none">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">转录</h5>
+                            <h5 class="card-title mb-0">转录 / 图片描述</h5>
                         </div>
                         <div class="card-body">
                             <form id="transcriptionForm">
-                                <div class="mb-3">
-                                    <label for="transcription" class="form-label">输入转录</label>
-                                    <textarea class="form-control" id="transcription" rows="10"></textarea>
+                                <div id="tlEditArea">
+                                    <div class="mb-3" id="tlTimeBox2">
+                                        <label class="form-label d-block">转录时间轴</label>
+                                        <div class="small text-muted mb-2">每条 = 起始时间 → 结束时间 + 文本：时间按 <b>时:分:秒</b> 三个小格依次输入，输满两位自动跳到下一格（无需鼠标）；新行结束时间默认为起始 +5 秒；也可点 <i class="fas fa-clock"></i> 取播放器当前位置。文本框敲<b>回车</b>自动进入下一条（起始时间自动接上一条结束时间）。</div>
+                                        <div id="timelineRows"></div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow">
+                                            <i class="fas fa-plus"></i> 添加一条
+                                        </button>
+                                        <!-- 反馈#10：Whisper AI 转写草稿（音/视频入队；视频可选关键帧简述/外部大模型详述） -->
+                                        <div class="border rounded p-2 mt-3" style="background:#f8f9fb;" id="aiTranscribeBox">
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
+                                                    <i class="fas fa-microphone-lines"></i> AI 转写草稿（Whisper，入队）
+                                                </button>
+                                                <span class="small" id="aiTranscribeStatus"></span>
+                                            </div>
+                                            <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
+                                                <div class="form-check mb-0 small">
+                                                    <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
+                                                    <label class="form-check-label" for="chkWithKeyframes">同时用 <b>BAGEL</b> 描述关键帧，生成视频内容简述（+GPU 积分）</label>
+                                                </div>
+                                                <div class="form-check mb-0 small">
+                                                    <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
+                                                    <label class="form-check-label" for="chkWithLlmSummary">再用<b>外部大模型</b>生成更详细的视频描述（+更多积分）</label>
+                                                </div>
+                                            </div>
+                                            <div class="small text-muted">Whisper 在您的局域网 GPU 电脑上运行，任务进入队列异步处理，完成后自动按时间轴填入下方草稿（<b>不会自动提交审核</b>，请人工校对后保存/提交）；相同文件（MD5）自动复用历史结果免积分；GPU 未开机/隧道未连通时会明确提示。</div>
+                                            <div id="aiTranscribeSummary" class="d-none mt-2">
+                                                <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI 视频内容简述（BAGEL 关键帧）</div>
+                                                <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
+                                                <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> 外部大模型详细视频描述</div>
+                                                <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 反馈#8：图片任务无时间轴，直接填写图片内容描述/转写文本 -->
+                                    <div class="mb-3 d-none" id="imageDescBox2">
+                                        <label class="form-label d-block" for="imageDesc2">图片内容描述 / 转写文本</label>
+                                        <div class="small text-muted mb-2">图片任务无时间轴，请直接描述图片内容（场景、物体、图中文字等）；保存为草稿后可提交审核。也可由 <b>BAGEL 多模态模型</b>自动生成详细描述，生成后可人工修改再提交。</div>
+                                        <!-- 反馈#9：BAGEL 一键图片描述（局域网优化版）+ 快捷提示词 -->
+                                        <div class="border rounded p-2 mb-2" style="background:#f8f9fb;">
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                                <span class="small text-muted">AI 描述重点：</span>
+                                                <div class="btn-group btn-group-sm" role="group" id="imgPromptChips">
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindDetail" value="detail" checked>
+                                                    <label class="btn btn-outline-primary" for="imgKindDetail">详细描述</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindOcr" value="ocr">
+                                                    <label class="btn btn-outline-primary" for="imgKindOcr">提取图中文字</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindPeople" value="people">
+                                                    <label class="btn btn-outline-primary" for="imgKindPeople">人物动作表情</label>
+                                                    <input type="radio" class="btn-check" name="imgPromptKind" id="imgKindTags" value="tags">
+                                                    <label class="btn btn-outline-primary" for="imgKindTags">内容标签</label>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiDescribe" onclick="aiDescribeImage()">
+                                                    <i class="fas fa-magic"></i> AI 生成描述（BAGEL 局域网优化版）
+                                                </button>
+                                                <span class="small" id="aiDescribeStatus"></span>
+                                            </div>
+                                            <div class="small text-muted mt-1">图片理解在您的局域网 GPU 电脑上完成（约数秒）；模型未开机/未连通时会提示失败，可稍后重试或手工填写。</div>
+                                        </div>
+                                        <textarea class="form-control" id="imageDesc2" rows="8" placeholder="请输入图片内容描述，或点击上方按钮由 BAGEL 自动生成…"></textarea>
+                                    </div>
+                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                        <button type="submit" class="btn btn-primary" id="btnSaveDraft">
+                                            <i class="fas fa-save"></i> 保存转录
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="btnSubmitTranscription">
+                                            <i class="fas fa-paper-plane"></i> 提交
+                                        </button>
+                                        <span id="saveToast" class="small text-success d-none"><i class="fas fa-check-circle"></i> <span class="toast-msg">保存成功</span></span>
+                                    </div>
+                                    <div class="small text-muted mt-2">保存仅暂存草稿（每 1 分钟自动保存），可随时修改；点"提交"后才进入审核流程。</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> 保存转录
-                                </button>
+                                <div id="submitProgress" class="alert alert-info d-none mb-0">
+                                    <div id="progressState" class="mb-2"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-warning me-2" id="btnWithdraw">
+                                        <i class="fas fa-undo"></i> 撤回修改
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary d-none" id="btnNextAfterSubmit">
+                                        <i class="fas fa-forward"></i> 领取下一条转录任务
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-function syncProcessMode() {
-    const manual = document.getElementById('modeManual').checked;
-    document.getElementById('manualProcessingPanel').classList.toggle('d-none', !manual);
-    document.getElementById('algorithmProcessingPanel').classList.toggle('d-none', manual);
-}
-document.getElementById('modeManual').addEventListener('change', syncProcessMode);
-document.getElementById('modeAlgorithm').addEventListener('change', syncProcessMode);
-syncProcessMode();
+// 反馈#15：手动处理与算法处理同页展示，不再需要 procMode 切换逻辑
 
-// Type 1 Task Handling
-document.getElementById('inspectionForm').addEventListener('submit', async (e) => {
+// f3：记录当前已领取任务的 recording_id，提交时回传，防止多人重复处理同一条
+const currentTaskIds = {};
+
+// Type 1 Task Handling（采集处理人员页面无此表单，需守卫）
+const inspectionFormEl = document.getElementById('inspectionForm');
+if (inspectionFormEl) {
+inspectionFormEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     const action = e.submitter.value;
     const formData = {
         action: action,
+        recording_id: currentTaskIds[1] || null,
         corrections: document.getElementById('corrections').value,
         comments: document.getElementById('comments').value
     };
-    
+    // 反馈#8：字幕时间轴校对结果随检查一并提交（整区为空则不带；有内容则严格校验）
+    if (tlEditor1) {
+        const tlBox = document.getElementById('timelineRows1');
+        const hasContent = tlBox && Array.from(tlBox.querySelectorAll('input'))
+            .some(i => (i.value || '').trim() !== '');
+        if (hasContent) {
+            const tl1 = tlEditor1.collect(false);
+            if (!tl1) return;  // 时间轴格式有误，已提示
+            formData.timeline = tl1.segments;
+        }
+    }
+
     try {
         const response = await fetch('/api/process/inspect', {
             method: 'POST',
@@ -164,76 +338,1042 @@ document.getElementById('inspectionForm').addEventListener('submit', async (e) =
             },
             body: JSON.stringify(formData)
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'Submission failed');
+
         alert(data.message || '检查提交成功');
-        // Load next task
-        loadNextTask(1);
+        // 反馈#14：统一队列领取下一条；同时刷新算法候选下拉
+        delete currentTaskIds[1];
+        loadNextTask(false);
+        if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
     } catch (err) {
         console.error('Submission error:', err);
-        alert('提交检查失败');
+        alert('提交检查失败：' + (err.message || ''));
     }
 });
+}
 
-// Type 2 Task Handling
-document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = {
-        transcription: document.getElementById('transcription').value
-    };
-    
-    try {
-        const response = await fetch('/api/process/transcribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+// ---------------- 时间轴编辑器（时:分:秒 三段输入，自动跳转） ----------------
+function createTimelineEditor(opts) {
+    const wrap = document.getElementById(opts.containerId);
+    const addBtn = opts.addBtnId ? document.getElementById(opts.addBtnId) : null;
+    let disabled = !!opts.disabled;
+    const getPlayer = () => (opts.getPlayer ? opts.getPlayer() : null);
+
+    function pad2(n) { return String(Math.max(0, parseInt(n, 10) || 0)).padStart(2, '0'); }
+    function hmsParts(sec) {
+        sec = Math.max(0, Math.round(Number(sec) || 0));
+        return { h: Math.floor(sec / 3600), m: Math.floor((sec % 3600) / 60), s: Math.floor(sec % 60) };
+    }
+    function setGroup(g, sec) {
+        const t = hmsParts(sec);
+        g.h.value = pad2(t.h); g.m.value = pad2(t.m); g.s.value = pad2(t.s);
+    }
+    function getGroup(g) {
+        const vals = [g.h.value, g.m.value, g.s.value].map(v => String(v).trim());
+        if (vals.every(v => v === '')) return null;              // 整组未填
+        if (vals.some(v => !/^\d{1,2}$/.test(v))) return NaN;   // 格式错
+        const h = +vals[0], m = +vals[1], s = +vals[2];
+        if (m > 59 || s > 59) return NaN;                        // 分/秒超限
+        return h * 3600 + m * 60 + s;
+    }
+    function timeInput(cls) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-control form-control-sm tl-time ' + cls;
+        inp.maxLength = 2;
+        inp.inputMode = 'numeric';
+        inp.style.width = '46px';
+        inp.style.textAlign = 'center';
+        inp.disabled = disabled;
+        return inp;
+    }
+    function clockBtn() {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm btn-outline-secondary tl-pick';
+        b.title = '取播放器当前位置';
+        b.disabled = disabled;
+        b.innerHTML = '<i class="fas fa-clock"></i>';
+        return b;
+    }
+    function addRow(startSec, endSec) {
+        startSec = startSec || 0;
+        const row = document.createElement('div');
+        row.className = 'timeline-row mb-2';
+        const timeLine = document.createElement('div');
+        timeLine.className = 'd-flex align-items-center gap-1 flex-wrap mb-1';
+        const sh = timeInput('tl-sh'), sm = timeInput('tl-sm'), ss = timeInput('tl-ss');
+        const eh = timeInput('tl-eh'), em = timeInput('tl-em'), es = timeInput('tl-es');
+        const pickS = clockBtn(), pickE = clockBtn();
+        const arrow = document.createElement('span');
+        arrow.className = 'mx-1 small text-muted';
+        arrow.textContent = '→';
+        const colon = () => { const c = document.createElement('span'); c.className = 'text-muted small'; c.textContent = ':'; return c; };
+        timeLine.append(sh, colon(), sm, colon(), ss, pickS, arrow, eh, colon(), em, colon(), es, pickE);
+
+        const bottom = document.createElement('div');
+        bottom.className = 'd-flex gap-2';
+        const text = document.createElement('input');
+        text.type = 'text';
+        text.className = 'form-control form-control-sm tl-text';
+        text.placeholder = '输入本句文本，回车自动进入下一条';
+        text.disabled = disabled;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn btn-sm btn-outline-danger tl-del';
+        del.title = '删除本条';
+        del.disabled = disabled;
+        del.innerHTML = '<i class="fas fa-times"></i>';
+        bottom.append(text, del);
+        row.append(timeLine, bottom);
+        wrap.appendChild(row);
+
+        const startG = { h: sh, m: sm, s: ss };
+        const endG = { h: eh, m: em, s: es };
+        setGroup(startG, startSec);
+        setGroup(endG, (endSec !== null && endSec !== undefined) ? endSec : startSec + 5);
+
+        const chain = [sh, sm, ss, eh, em, es];
+        chain.forEach((inp, i) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 2);
+                if (opts.onDirty) opts.onDirty();
+                if (inp.value.length === 2) {
+                    if (i < chain.length - 1) chain[i + 1].focus();
+                    else text.focus();
+                }
+            });
+            inp.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    if (i < chain.length - 1) chain[i + 1].focus(); else text.focus();
+                } else if (ev.key === 'Backspace' && inp.value === '' && i > 0) {
+                    chain[i - 1].focus();
+                }
+            });
         });
-        
-        if (!response.ok) throw new Error('Submission failed');
-        
-        const data = await response.json();
-        alert(data.message || '转录保存成功');
-        // Load next task
-        loadNextTask(2);
-    } catch (err) {
-        console.error('Submission error:', err);
-        alert('保存转录失败');
-    }
-});
-
-// Load next task based on type
-async function loadNextTask(type) {
-    try {
-        const response = await fetch(`/api/process/next-task?type=${type}`);
-        if (!response.ok) throw new Error('Failed to load next task');
-        
-        const data = await response.json();
-        if (data.task) {
-            const videoPlayer = document.getElementById(`videoPlayer${type}`);
-            videoPlayer.src = data.task.video_url;
-            
-            if (type === 1) {
-                document.getElementById('originalText').textContent = data.task.text;
-                document.getElementById('corrections').value = '';
-                document.getElementById('comments').value = '';
-            } else {
-                document.getElementById('transcription').value = '';
+        pickS.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(startG, p.currentTime); });
+        pickE.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(endG, p.currentTime); });
+        text.addEventListener('input', () => { if (opts.onDirty) opts.onDirty(); });
+        text.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                const end = getGroup(endG);
+                const st = getGroup(startG);
+                let nextStart = (end !== null && !isNaN(end)) ? end : ((st !== null && !isNaN(st)) ? st : 0);
+                const nr = addRow(nextStart, nextStart + 5);
+                nr.querySelector('.tl-text').focus();
             }
+        });
+        del.addEventListener('click', () => {
+            if (wrap.querySelectorAll('.timeline-row').length > 1) {
+                row.remove();
+            } else {
+                [sh, sm, ss, eh, em, es].forEach(i => i.value = '');
+                text.value = '';
+            }
+            if (opts.onDirty) opts.onDirty();
+        });
+        return row;
+    }
+
+    function reset(segments) {
+        wrap.innerHTML = '';
+        if (segments && segments.length) {
+            segments.forEach(seg => {
+                const r = addRow(seg.start, seg.end);
+                r.querySelector('.tl-text').value = seg.text || '';
+            });
         } else {
-            alert('没有更多可用任务');
+            addRow(0, 5);
         }
+    }
+    function collect(quiet) {
+        const rows = wrap.querySelectorAll('.timeline-row');
+        const segments = [];
+        const texts = [];
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const startG = { h: r.querySelector('.tl-sh'), m: r.querySelector('.tl-sm'), s: r.querySelector('.tl-ss') };
+            const endG = { h: r.querySelector('.tl-eh'), m: r.querySelector('.tl-em'), s: r.querySelector('.tl-es') };
+            const txt = r.querySelector('.tl-text').value.trim();
+            const start = getGroup(startG);
+            const end = getGroup(endG);
+            if (!txt && start === null && end === null) continue;  // 整行空 → 跳过
+            const fail = (msg) => { if (!quiet) alert(msg); return null; };
+            if (!txt) return fail('第 ' + (i + 1) + ' 条：请输入文本（或清空整行跳过）');
+            if (start === null || isNaN(start)) return fail('第 ' + (i + 1) + ' 条：起始时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end === null || isNaN(end)) return fail('第 ' + (i + 1) + ' 条：结束时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end <= start) return fail('第 ' + (i + 1) + ' 条：结束时间必须晚于起始时间');
+            segments.push({ start: start, end: end, text: txt });
+            texts.push(txt);
+        }
+        if (!segments.length) { if (!quiet) alert('请至少输入一条内容'); return null; }
+        return { segments: segments, text: texts.join('\n') };
+    }
+    function setEnabled(on) {
+        disabled = !on;
+        wrap.querySelectorAll('input, button').forEach(el => { el.disabled = !on; });
+        if (addBtn) addBtn.disabled = !on;
+    }
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const rows = wrap.querySelectorAll('.timeline-row');
+            let start = 0;
+            if (rows.length) {
+                const last = rows[rows.length - 1];
+                const end = getGroup({ h: last.querySelector('.tl-eh'), m: last.querySelector('.tl-em'), s: last.querySelector('.tl-es') });
+                if (end !== null && !isNaN(end)) start = end;
+            }
+            const nr = addRow(start, start + 5);
+            nr.querySelector('.tl-text').focus();
+        });
+    }
+    return { reset: reset, collect: collect, setEnabled: setEnabled, addRow: addRow };
+}
+
+// ---------------- 转录：时间轴编辑器 + 草稿/自动保存/提交/撤回 ----------------
+const tlEditor = createTimelineEditor({
+    containerId: 'timelineRows',
+    addBtnId: 'btnAddTimelineRow',
+    getPlayer: () => document.getElementById('videoPlayer2')
+});
+// 反馈#8：类型1（检查）面板的字幕时间轴校对编辑器（仅审核员页面存在该容器）
+const tlEditor1 = document.getElementById('timelineRows1') ? createTimelineEditor({
+    containerId: 'timelineRows1',
+    addBtnId: 'btnAddTimelineRow1',
+    getPlayer: () => document.getElementById('videoPlayer2')
+}) : null;
+if (tlEditor1) tlEditor1.reset(null);
+let tlDirty = false;
+let aiTransTimer = null;  // 反馈#10：Whisper 转写任务轮询定时器
+tlEditor.reset(null);
+// 反馈#8：当前任务模态（video/audio/image），图片任务转录走描述文本框
+const currentModality = {};
+function setType2ImageMode(isImage) {
+    document.getElementById('tlTimeBox2').classList.toggle('d-none', isImage);
+    document.getElementById('imageDescBox2').classList.toggle('d-none', !isImage);
+}
+// 反馈#10：切换任务时重置 AI 转写卡（仅视频显示关键帧/外部大模型选项；清空状态与简述）
+function resetAiTranscribeCard(modality) {
+    if (aiTransTimer) { clearInterval(aiTransTimer); aiTransTimer = null; }
+    const isVideo = modality === 'video';
+    const videoOpts = document.getElementById('aiTranscribeVideoOpts');
+    if (videoOpts) videoOpts.classList.toggle('d-none', !isVideo);
+    const st = document.getElementById('aiTranscribeStatus');
+    if (st) st.innerHTML = '';
+    const box = document.getElementById('aiTranscribeSummary');
+    if (box) box.classList.add('d-none');
+    const kf = document.getElementById('aiKfSummary');
+    if (kf) kf.textContent = '';
+    const llm = document.getElementById('aiLlmSummary');
+    if (llm) { llm.textContent = ''; llm.classList.add('d-none'); }
+    const llmT = document.getElementById('aiLlmTitle');
+    if (llmT) llmT.classList.add('d-none');
+    const c1 = document.getElementById('chkWithKeyframes');
+    if (c1) c1.checked = false;
+    const c2 = document.getElementById('chkWithLlmSummary');
+    if (c2) c2.checked = false;
+    const btn = document.getElementById('btnAiTranscribe');
+    if (btn) btn.disabled = false;
+}
+const imageDescEl = document.getElementById('imageDesc2');
+if (imageDescEl) imageDescEl.addEventListener('input', () => { tlDirty = true; });
+
+let tlSubmitted = false;
+let progressTimer = null;
+
+function nowHMS() {
+    const d = new Date();
+    return [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+}
+const saveToast = document.getElementById('saveToast');
+let toastHideTimer = null;
+function showSaveToast(msg) {
+    saveToast.querySelector('.toast-msg').textContent = msg;
+    saveToast.classList.remove('d-none');
+    clearTimeout(toastHideTimer);
+    // 持续 0.5 秒后自动消失
+    toastHideTimer = setTimeout(() => saveToast.classList.add('d-none'), 500);
+}
+// 鼠标/键盘有操作时"保存成功"立即消失
+['keydown', 'pointerdown'].forEach(ev =>
+    document.addEventListener(ev, () => saveToast.classList.add('d-none'), true));
+
+function markTlDirty() { tlDirty = true; }
+// 编辑器输入标记改动（onDirty 在工厂内回调）
+document.getElementById('timelineRows').addEventListener('input', markTlDirty);
+
+async function saveDraft(silent) {
+    if (!currentTaskIds[2]) { if (!silent) alert('请先领取转录任务'); return false; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        // 反馈#8：图片任务无时间轴，直接保存描述文本
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { if (!silent) alert('请填写图片内容描述'); return false; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'save' };
+    } else {
+        const tl = tlEditor.collect(silent);
+        if (!tl) return false;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'save' };
+    }
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '保存失败');
+        tlDirty = false;
+        showSaveToast((silent ? '已自动保存 ' : '保存成功 ') + nowHMS());
+        return true;
     } catch (err) {
-        console.error('Error loading next task:', err);
-        alert('加载下一个任务失败');
+        if (!silent) alert('保存失败：' + (err.message || ''));
+        return false;
     }
 }
 
-// Initialize first tasks
-loadNextTask(1);
-loadNextTask(2);
+function setEditAreaVisible(on) {
+    document.getElementById('tlEditArea').classList.toggle('d-none', !on);
+    document.getElementById('submitProgress').classList.toggle('d-none', on);
+}
+function exitSubmittedState() {
+    tlSubmitted = false;
+    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+    setEditAreaVisible(true);
+    document.getElementById('btnNextAfterSubmit').classList.add('d-none');
+}
+function renderProgress(data) {
+    const box = document.getElementById('progressState');
+    const wd = document.getElementById('btnWithdraw');
+    const nx = document.getElementById('btnNextAfterSubmit');
+    let html = '';
+    let done = false;
+    if (data.state === 'waiting') {
+        html = '<i class="fas fa-hourglass-half text-info"></i> 已提交，等待审核员查看';
+    } else if (data.state === 'seen') {
+        html = '<i class="fas fa-eye text-primary"></i> 审核员' + (data.auditor ? '（' + data.auditor + '）' : '') + '已查看，正在处理';
+    } else if (data.state === 'approved') {
+        html = '<i class="fas fa-check-circle text-success"></i> 审核已通过，任务完成';
+        done = true;
+    } else if (data.state === 'rejected') {
+        html = '<i class="fas fa-times-circle text-warning"></i> 审核未通过/已打回，任务将退回处理列表';
+        done = true;
+    }
+    box.innerHTML = html;
+    wd.classList.toggle('d-none', !data.can_withdraw);
+    nx.classList.toggle('d-none', !done);
+}
+// 反馈#8：按模态重置类型2编辑区（图片→描述文本框；音视频→时间轴编辑器）
+function resetType2Content(data) {
+    if (currentModality[2] === 'image') {
+        document.getElementById('imageDesc2').value = (data && data.text) || '';
+    } else {
+        tlEditor.reset((data && data.timeline) || null);
+    }
+    tlDirty = false;
+}
+async function pollProgress() {
+    const rid = currentTaskIds[2];
+    if (!rid || !tlSubmitted) return;
+    try {
+        const resp = await fetch('/api/process/submission-status/' + rid);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data.state === 'editing') { exitSubmittedState(); resetType2Content(data); return; }
+        renderProgress(data);
+        if (data.state === 'approved' || data.state === 'rejected') {
+            if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+        }
+    } catch (e) { /* 轮询静默 */ }
+}
+function enterSubmittedState() {
+    tlSubmitted = true;
+    tlDirty = false;
+    setEditAreaVisible(false);
+    pollProgress();
+    if (progressTimer) clearInterval(progressTimer);
+    progressTimer = setInterval(pollProgress, 8000);
+}
+
+document.getElementById('transcriptionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    saveDraft(false);
+});
+document.getElementById('btnSubmitTranscription').addEventListener('click', async () => {
+    if (!currentTaskIds[2]) { alert('请先领取转录任务'); return; }
+    let payload;
+    if (currentModality[2] === 'image') {
+        const txt = (document.getElementById('imageDesc2').value || '').trim();
+        if (!txt) { alert('请填写图片内容描述'); return; }
+        payload = { recording_id: currentTaskIds[2], transcription: txt, timeline: [], action: 'submit' };
+    } else {
+        const tl = tlEditor.collect();
+        if (!tl) return;
+        payload = { recording_id: currentTaskIds[2], transcription: tl.text, timeline: tl.segments, action: 'submit' };
+    }
+    if (!confirm('提交后进入待审核状态；审核员查看前您仍可撤回修改。确认提交？')) return;
+    try {
+        const resp = await fetch('/api/process/transcribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '提交失败');
+        enterSubmittedState();  // 注意：轮询依赖 currentTaskIds[2]，点"下一条"时才清除
+        if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
+    } catch (err) {
+        alert('提交失败：' + (err.message || ''));
+    }
+});
+document.getElementById('btnWithdraw').addEventListener('click', async () => {
+    const rid = currentTaskIds[2];
+    if (!rid) return;
+    try {
+        const resp = await fetch('/api/process/withdraw', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: rid })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || '撤回失败');
+        exitSubmittedState();
+        resetType2Content(data);
+        showSaveToast('已撤回，可继续修改');
+    } catch (err) {
+        alert('撤回失败：' + (err.message || ''));
+    }
+});
+document.getElementById('btnNextAfterSubmit').addEventListener('click', () => {
+    delete currentTaskIds[2];
+    loadNextTask(false);
+    if (typeof loadAlgoCandidates === 'function') loadAlgoCandidates();
+});
+
+// 每 1 分钟自动保存草稿（有未保存改动且未提交时）
+setInterval(() => {
+    if (tlSubmitted || !currentTaskIds[2] || !tlDirty) return;
+    saveDraft(true);
+}, 60000);
+
+// 反馈#14：手动处理合并为单一队列——检查（kind=1）/转录描述（kind=2）任务合流领取，
+// 单面板按返回 kind 自动切换工作区；silent=true（页面初始化）时空池不弹 alert。
+// 会话内"跳过"的任务记入 skippedTaskIds，随请求传后端排除并释放领取锁。
+const skippedTaskIds = new Set();
+function skipCurrentTask() {
+    const rid = currentTaskIds[1] || currentTaskIds[2];
+    if (rid) skippedTaskIds.add(rid);
+    loadNextTask(false);
+}
+function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+        {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+const MODALITY_LABELS = {image: '图片', video: '视频', audio: '音频'};
+const SOURCE_LABELS = {crawl: '互联网采集', record: '现场录制', upload: '本地上传'};
+
+function renderTaskMetaBar(t, kind) {
+    const bar = document.getElementById('taskMetaBar');
+    if (!bar) return;
+    const badges = [];
+    badges.push('<span class="badge bg-secondary">编号：' + escapeHtml(t.task_no || ('#' + t.id)) + '</span>');
+    badges.push('<span class="badge bg-primary">' + (MODALITY_LABELS[t.modality] || '媒体') + '</span>');
+    if (t.source_channel) {
+        badges.push('<span class="badge bg-light text-dark border">' + (SOURCE_LABELS[t.source_channel] || escapeHtml(t.source_channel)) + '</span>');
+    }
+    if (t.is_own) {
+        badges.push('<span class="badge bg-success">本人采集</span>');
+    } else {
+        badges.push('<span class="badge bg-info text-dark">他人采集'
+            + (t.uploader_name ? '·采集人：' + escapeHtml(t.uploader_name) : '') + '</span>');
+    }
+    badges.push(kind === 1
+        ? '<span class="badge bg-warning text-dark">待检查</span>'
+        : '<span class="badge bg-dark">待转录/描述</span>');
+    bar.innerHTML = badges.join(' ');
+    bar.classList.remove('d-none');
+}
+
+async function loadNextTask(silent) {
+    try {
+        const skipQ = skippedTaskIds.size ? ('?skip=' + Array.from(skippedTaskIds).join(',')) : '';
+        const response = await fetch('/api/process/next-task-unified' + skipQ);
+        if (!response.ok) throw new Error('Failed to load next task');
+
+        const data = await response.json();
+        const videoPlayer = document.getElementById('videoPlayer2');
+        const imgPreview = document.getElementById('imagePreview2');
+        const hint = document.getElementById('emptyHint2');
+        const inspectWrap = document.getElementById('workInspectWrap');
+        const transWrap = document.getElementById('workTranscribeWrap');
+
+        if (data.task) {
+            const t = data.task;
+            const kind = t.kind === 1 ? 1 : 2;
+            currentTaskIds[kind] = t.id;
+            delete currentTaskIds[3 - kind];
+            const modality = t.modality || 'video';
+            currentModality[kind] = modality;
+            delete currentModality[3 - kind];
+            const isImage = modality === 'image';
+            // 图片任务显示 <img> 预览；音频/视频走播放器
+            if (isImage) {
+                try { videoPlayer.pause(); } catch (e) {}
+                videoPlayer.classList.add('d-none');
+                videoPlayer.removeAttribute('src');
+                imgPreview.src = t.video_url;
+                imgPreview.classList.remove('d-none');
+            } else {
+                imgPreview.classList.add('d-none');
+                imgPreview.removeAttribute('src');
+                videoPlayer.src = t.video_url;
+                videoPlayer.classList.remove('d-none');
+            }
+            hint.classList.add('d-none');
+            renderTaskMetaBar(t, kind);
+
+            if (kind === 1) {
+                // 检查工作区（仅管理员/超管页面存在该容器）
+                if (inspectWrap) inspectWrap.classList.remove('d-none');
+                transWrap.classList.add('d-none');
+                exitSubmittedState();  // 停掉转录区可能残留的提交轮询
+                document.getElementById('originalText').textContent = t.text || '（无文本内容）';
+                document.getElementById('corrections').value = '';
+                document.getElementById('comments').value = '';
+                // 视频/音频任务显示字幕时间轴校对区并回填；图片任务隐藏
+                const tlBox1 = document.getElementById('timelineBox1');
+                if (tlBox1) tlBox1.classList.toggle('d-none', isImage);
+                if (tlEditor1) tlEditor1.reset(isImage ? null : (t.timeline || null));
+            } else {
+                // 转录/图片描述工作区
+                transWrap.classList.remove('d-none');
+                if (inspectWrap) inspectWrap.classList.add('d-none');
+                exitSubmittedState();
+                setType2ImageMode(isImage);
+                resetAiTranscribeCard(modality);
+                if (isImage) {
+                    document.getElementById('imageDesc2').value = t.text || '';
+                    tlEditor.reset(null);
+                } else {
+                    tlEditor.reset(t.timeline || null);
+                }
+                tlDirty = false;
+            }
+            return true;
+        } else {
+            // 空池：隐藏两个工作区，显示占位
+            delete currentTaskIds[1];
+            delete currentTaskIds[2];
+            delete currentModality[1];
+            delete currentModality[2];
+            try { videoPlayer.pause(); } catch (e) {}
+            videoPlayer.removeAttribute('src');
+            videoPlayer.load();
+            videoPlayer.classList.add('d-none');
+            imgPreview.classList.add('d-none');
+            imgPreview.removeAttribute('src');
+            hint.classList.remove('d-none');
+            const bar = document.getElementById('taskMetaBar');
+            if (bar) { bar.classList.add('d-none'); bar.innerHTML = ''; }
+            if (inspectWrap) inspectWrap.classList.add('d-none');
+            transWrap.classList.add('d-none');
+            const tlBox1 = document.getElementById('timelineBox1');
+            if (tlBox1) tlBox1.classList.add('d-none');
+            if (tlEditor1) tlEditor1.reset(null);
+            exitSubmittedState();
+            setType2ImageMode(false);
+            resetAiTranscribeCard('');
+            tlEditor.reset(null);
+            if (!silent) alert('待处理任务已全部处理完');
+            return false;
+        }
+    } catch (err) {
+        console.error('Error loading next task:', err);
+        if (!silent) alert('加载下一个任务失败');
+        return false;
+    }
+}
+
+// 反馈#14：算法处理"录制数据 ID"下拉候选——本人有权限处理的待处理文件，
+// 按「本人采集 / 他人采集」分组，标注模态、来源、采集人。
+async function loadAlgoCandidates() {
+    const sel = document.getElementById('algoRecordingId');
+    if (!sel || sel.tagName !== 'SELECT') return;
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">加载中…</option>';
+    const buildOption = (it) => {
+        const o = document.createElement('option');
+        o.value = it.id;
+        o.textContent = '#' + it.id + ' [' + it.modality_label + '][' + it.source_label + '] '
+            + String(it.filename || '').slice(0, 38)
+            + ' — 采集人：' + it.uploader_name
+            + (it.status === 'pending_fix' ? '（待修正）' : '');
+        return o;
+    };
+    try {
+        const resp = await fetch('/api/process/algo-candidates');
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || '加载失败');
+        window._algoCandData = data;  // 反馈#16：批量处理复用同一份候选数据
+        sel.innerHTML = '';
+        const ph = document.createElement('option');
+        ph.value = '';
+        ph.textContent = '请选择待处理文件…';
+        sel.appendChild(ph);
+        if (data.own && data.own.length) {
+            const g1 = document.createElement('optgroup');
+            g1.label = '本人采集（' + data.own.length + '）';
+            data.own.forEach(it => g1.appendChild(buildOption(it)));
+            sel.appendChild(g1);
+        }
+        if (data.others && data.others.length) {
+            const g2 = document.createElement('optgroup');
+            g2.label = '他人采集·有权限处理（' + data.others.length + '）';
+            data.others.forEach(it => g2.appendChild(buildOption(it)));
+            sel.appendChild(g2);
+        }
+        if (!data.own.length && !data.others.length) {
+            const none = document.createElement('option');
+            none.disabled = true;
+            none.textContent = '暂无待处理文件';
+            sel.appendChild(none);
+        }
+        if (prev) sel.value = prev;
+    } catch (e) {
+        sel.innerHTML = '';
+        const o = document.createElement('option');
+        o.value = '';
+        o.textContent = '候选列表加载失败，点右侧按钮重试';
+        sel.appendChild(o);
+    }
+}
+
+// 初始化：静默加载统一任务队列 + 算法候选下拉
+loadNextTask(true);
+loadAlgoCandidates();
+
+// 反馈#8：后端内部名 → 中文展示名（deepseek 统一表述为"外部大模型"）
+function backendLabelCN(b) {
+    return ({deepseek: '外部大模型', autodl: 'autoDL GPU', local: '局域网 GPU', cache: '缓存复用'})[b] || b || '-';
+}
+
+// ---------------- 算力积分（按人计量） ----------------
+async function loadMyCredits() {
+    const balEl = document.getElementById('creditBalance');
+    try {
+        const resp = await fetch('/api/credits/me');
+        const data = await resp.json();
+        if (!resp.ok || data.error) {
+            balEl.textContent = '暂不可用';
+            return;
+        }
+        balEl.textContent = data.balance + ' 积分';
+        document.getElementById('creditEnabled').textContent =
+            data.enabled ? '积分管控已生效' : '暂未管控（管理员未发放积分）';
+        const p = data.pricing || {};
+        document.getElementById('creditPricing').textContent =
+            '计价：外部大模型 ' + (p.deepseek_per_1k_tokens || '-') + ' 积分/千token；'
+            + 'autoDL ' + (p.autodl_base || '-') + '+' + (p.autodl_per_min || '-') + '/分钟；'
+            + '局域网 ' + (p.local_base || '-') + '+' + (p.local_per_min || '-') + '/分钟';
+        document.getElementById('creditReuseTip').classList.remove('d-none');
+        const recent = (data.recent || []).slice(0, 3).map(r => {
+            const st = r.status === 'reused' ? '复用免费' : (r.status === 'failed' ? '失败已退' : ('-' + r.cost_credits + '分'));
+            return backendLabelCN(r.backend) + '(' + st + ')';
+        }).join('；');
+        document.getElementById('creditRecent').textContent = recent ? '近期算力：' + recent : '';
+    } catch (e) {
+        balEl.textContent = '暂不可用';
+    }
+}
+loadMyCredits();
+
+// ---------------- 算法任务提交（MD5 复用 / 积分冻结 / 轮询结算） ----------------
+let algoPollTimer = null;
+function setAlgoResult(html, cls) {
+    const el = document.getElementById('algoResult');
+    el.className = 'mt-3 alert ' + (cls || 'alert-secondary');
+    el.innerHTML = html;
+}
+
+async function submitAlgorithmTask() {
+    const recording_id = parseInt(document.getElementById('algoRecordingId').value, 10);
+    if (!recording_id) {
+        setAlgoResult('请先在下拉列表中选择待处理的录制数据。', 'alert-warning');
+        return;
+    }
+    const payload = {
+        recording_id: recording_id,
+        backend: document.getElementById('algoBackend').value,
+        force_recompute: document.getElementById('algoForceRecompute').checked,
+    };
+    document.getElementById('algoSubmitBtn').disabled = true;
+    setAlgoResult('提交中…', 'alert-info');
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            setAlgoResult('<strong>提交失败：</strong>' + (data.error || '未知错误')
+                + (resp.status === 429 ? '<br><span class="small">积分不足或外部大模型配额已达上限，请联系管理员。</span>' : ''),
+                'alert-danger');
+            return;
+        }
+        if (data.reused) {
+            setAlgoResult('✅ 命中相同文件（MD5），<strong>已复用历史算法结果，未消耗算力积分</strong>。', 'alert-success');
+            loadMyCredits();
+            return;
+        }
+        setAlgoResult('⏳ 任务已入队（后端：' + backendLabelCN(data.backend) + '，task_id：' + data.task_id + '），已按预估冻结积分，等待处理…', 'alert-info');
+        pollAlgorithmTask(data.task_id);
+    } catch (e) {
+        setAlgoResult('提交异常：' + e, 'alert-danger');
+    } finally {
+        document.getElementById('algoSubmitBtn').disabled = false;
+    }
+}
+
+function pollAlgorithmTask(taskId) {
+    if (algoPollTimer) clearInterval(algoPollTimer);
+    let n = 0;
+    algoPollTimer = setInterval(async () => {
+        n += 1;
+        try {
+            const resp = await fetch('/api/algorithm/bagel/status/' + taskId);
+            const data = await resp.json();
+            const t = data.task || {};
+            if (t.status === 'done' || t.status === 'completed') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('✅ 算法处理完成（后端：' + backendLabelCN(t.backend_used || t.backend || '-') + '），实际消耗积分已结算，可在数据管理中查看结果。', 'alert-success');
+                loadMyCredits();
+                loadAlgoCandidates();
+            } else if (t.status === 'failed' || t.status === 'dead') {
+                clearInterval(algoPollTimer);
+                setAlgoResult('❌ 任务' + (t.status === 'dead' ? '重试耗尽进入死信队列' : '失败') + '，冻结积分已退还，请联系管理员或稍后重试。', 'alert-danger');
+                loadMyCredits();
+                loadAlgoCandidates();
+            } else if (n > 60) {
+                clearInterval(algoPollTimer);
+                setAlgoResult('任务仍在处理中（task_id：' + taskId + '），可稍后在本页刷新查看；失败会自动重试。', 'alert-warning');
+            }
+        } catch (e) {
+            // 轮询临时失败不打断
+        }
+    }, 5000);
+}
+
+// ---------------- 反馈#16：批量算法处理（单批 ≤20 条；轮询完成后自动确认写回） ----------------
+function switchAlgoMode(mode) {
+    document.getElementById('algoModeSingle').classList.toggle('d-none', mode !== 'single');
+    document.getElementById('algoModeBatch').classList.toggle('d-none', mode !== 'batch');
+}
+
+let batchPollTimer = null;
+function batchRowHtml(rid, state, msg) {
+    const badges = {
+        queued:  '<span class="badge bg-info text-dark">排队中</span>',
+        running: '<span class="badge bg-primary"><i class="fas fa-circle-notch fa-spin me-1"></i>处理中</span>',
+        done:    '<span class="badge bg-success">已完成·待审核</span>',
+        failed:  '<span class="badge bg-danger">失败</span>',
+        error:   '<span class="badge bg-danger">提交失败</span>'
+    };
+    return '<div class="d-flex align-items-center gap-2 py-1 border-bottom" data-rid="' + rid + '">'
+        + '<span class="badge bg-light text-dark border flex-shrink-0">#' + rid + '</span>'
+        + '<span class="flex-shrink-0">' + (badges[state] || '') + '</span>'
+        + '<span class="text-muted small flex-grow-1 text-truncate">' + escapeHtml(msg || '') + '</span></div>';
+}
+
+function batchSetRow(rid, state, msg) {
+    const box = document.getElementById('batchProgress');
+    const row = box && box.querySelector('[data-rid="' + rid + '"]');
+    if (row) row.outerHTML = batchRowHtml(rid, state, msg);
+}
+
+async function submitBatchAlgorithm() {
+    const limit = Math.max(1, Math.min(20, parseInt(document.getElementById('batchLimit').value, 10) || 5));
+    const scope = document.getElementById('batchScope').value;
+    let cand = window._algoCandData;
+    try {
+        const resp = await fetch('/api/process/algo-candidates');
+        const data = await resp.json();
+        if (resp.ok) { cand = data; window._algoCandData = data; }
+    } catch (e) { /* 用缓存候选 */ }
+    if (!cand) { alert('候选数据加载失败，请刷新页面后重试'); return; }
+    let pool = (cand.own || []).slice();
+    if (scope === 'all') pool = pool.concat(cand.others || []);
+    if (!pool.length) { alert('当前没有可批量处理的待处理数据'); return; }
+    const ids = pool.slice(0, limit).map(x => x.id);
+    const payload = {
+        recording_ids: ids,
+        backend: document.getElementById('batchBackend').value,
+        force_recompute: document.getElementById('batchForceRecompute').checked
+    };
+    const btn = document.getElementById('batchSubmitBtn');
+    const box = document.getElementById('batchProgress');
+    btn.disabled = true;
+    box.innerHTML = '<div class="text-muted small"><i class="fas fa-circle-notch fa-spin"></i> 正在提交 ' + ids.length + ' 条任务…</div>';
+    try {
+        const resp = await fetch('/api/process/algorithm-batch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            box.innerHTML = '<div class="alert alert-danger mb-0 py-2 small">提交失败：' + escapeHtml(data.error || '未知错误') + '</div>';
+            return;
+        }
+        const items = data.items || [];
+        window._batchItems = items;
+        box.innerHTML = '<div class="small text-muted mb-1">本批 ' + data.summary.total + ' 条：排队 '
+            + data.summary.queued + ' · MD5 复用 ' + data.summary.reused + ' · 失败 ' + data.summary.failed + '</div>'
+            + items.map(it => batchRowHtml(it.recording_id, it.status === 'reused' ? 'queued' : it.status,
+                it.error || ('后端：' + (it.backend || '-')))).join('');
+        loadMyCredits();
+        // MD5 复用任务已直接完成，立即自动确认写回；排队任务进入轮询
+        items.forEach(it => { if (it.status === 'reused') autoConfirmBatchItem(it); });
+        if (items.some(i => i.status === 'queued')) startBatchPolling();
+    } catch (e) {
+        box.innerHTML = '<div class="alert alert-danger mb-0 py-2 small">提交异常：' + escapeHtml(String(e)) + '</div>';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+async function autoConfirmBatchItem(it) {
+    batchSetRow(it.recording_id, 'running', '算力处理完成，正在自动写回…');
+    try {
+        const r = await fetch('/api/process/algorithm-confirm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: it.recording_id, task_id: it.task_id })
+        });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.success) {
+            batchSetRow(it.recording_id, 'done', '结果已自动写回，状态变更为待审核');
+            loadMyCredits();
+        } else {
+            batchSetRow(it.recording_id, 'done', '算法已完成' + (j.error ? '（' + j.error + '）' : '') + '，可在数据管理中查看');
+        }
+    } catch (e) {
+        batchSetRow(it.recording_id, 'done', '算法已完成（自动写回异常，可在数据管理中查看）');
+    }
+}
+
+function startBatchPolling() {
+    if (batchPollTimer) clearInterval(batchPollTimer);
+    let n = 0;
+    batchPollTimer = setInterval(async () => {
+        n += 1;
+        const pending = (window._batchItems || []).filter(i => i.status === 'queued');
+        if (!pending.length) {
+            clearInterval(batchPollTimer);
+            loadAlgoCandidates();
+            return;
+        }
+        if (n > 60) {
+            clearInterval(batchPollTimer);
+            pending.forEach(i => batchSetRow(i.recording_id, 'running', '仍在处理中，可稍后刷新数据管理查看'));
+            loadAlgoCandidates();
+            return;
+        }
+        for (const it of pending) {
+            try {
+                const r = await fetch('/api/algorithm/bagel/status/' + it.task_id);
+                const d = await r.json();
+                const t = d.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    it.status = 'settled';
+                    autoConfirmBatchItem(it);
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    it.status = 'settled';
+                    batchSetRow(it.recording_id, 'failed',
+                        t.status === 'dead' ? '重试耗尽进入死信队列，冻结积分已退还' : '任务失败，冻结积分已退还');
+                    loadMyCredits();
+                }
+            } catch (e) { /* 轮询临时失败不打断 */ }
+        }
+    }, 5000);
+}
+
+// ---------------- 反馈#9：图片工作区内一键 BAGEL 详细描述 ----------------
+const IMG_PROMPTS = {
+    detail: '你是 MAPS 多模态数据采集处理平台的图像理解助手。请仔细观察这张图片，用中文完整、客观地描述图片内容：画面主体、场景环境、人物的动作与表情、图片中出现的文字信息、以及时间地点等线索；按条理输出一段详细描述，不要遗漏关键信息，也不要杜撰图片中没有的内容。',
+    ocr: '请提取这张图片中出现的所有文字（OCR）：按文字在画面中的位置与阅读顺序逐字转录，保持原文内容、换行与标点；若图片中没有任何文字，请直接回答"图片中未检测到文字"。',
+    people: '请重点观察并描述图片中的人物：人数、性别与大致年龄、动作、表情、衣着、相对位置，以及他们正在进行的活动，用中文分条输出；若图中没有人物，请说明并描述画面主体。',
+    tags: '请用中文为这张图片生成 10-20 个内容标签（关键词），涵盖场景、物体、人物、动作、氛围等维度，用顿号"、"分隔输出，不要其他解释。'
+};
+let aiDescTimer = null;
+async function aiDescribeImage() {
+    const rid = currentTaskIds[2];
+    const statusEl = document.getElementById('aiDescribeStatus');
+    const btn = document.getElementById('btnAiDescribe');
+    if (!rid) { statusEl.innerHTML = '<span class="text-warning">请先领取一条图片任务</span>'; return; }
+    if (currentModality[2] !== 'image') { statusEl.innerHTML = '<span class="text-warning">BAGEL 图片描述仅适用于图片任务</span>'; return; }
+    const kind = (document.querySelector('input[name="imgPromptKind"]:checked') || {}).value || 'detail';
+    const cur = (document.getElementById('imageDesc2').value || '').trim();
+    if (cur && !confirm('描述框中已有内容，AI 结果将追加到现有内容之后，是否继续？')) return;
+
+    btn.disabled = true;
+    statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> 正在提交到局域网 BAGEL…</span>';
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: rid, backend: 'local', options: { prompt: IMG_PROMPTS[kind] || IMG_PROMPTS.detail } })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            statusEl.innerHTML = '<span class="text-danger">提交失败：' + (data.error || '未知错误') + '</span>';
+            btn.disabled = false;
+            return;
+        }
+        statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> BAGEL 正在看图描述（数秒~数十秒）…</span>';
+        if (aiDescTimer) clearInterval(aiDescTimer);
+        let n = 0;
+        aiDescTimer = setInterval(async () => {
+            n += 1;
+            try {
+                const sr = await fetch('/api/algorithm/bagel/status/' + data.task_id);
+                const sd = await sr.json();
+                const t = sd.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    clearInterval(aiDescTimer);
+                    const text = ((t.result || {}).content_text || '').trim();
+                    if (!text) { statusEl.innerHTML = '<span class="text-warning">模型返回为空，请重试或手工填写</span>'; }
+                    else {
+                        const ta = document.getElementById('imageDesc2');
+                        ta.value = cur ? (cur + '\n\n【AI ' + ({detail:'详细描述',ocr:'文字提取',people:'人物描述',tags:'内容标签'}[kind] || '描述') + '】\n' + text) : text;
+                        tlDirty = true;
+                        statusEl.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> BAGEL 描述已生成（' + backendLabelCN(t.backend_used || t.backend || 'local') + '），可修改后保存/提交</span>';
+                        saveDraft(true);  // 自动存为草稿，避免刷新丢失
+                    }
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    clearInterval(aiDescTimer);
+                    statusEl.innerHTML = '<span class="text-danger">BAGEL 处理失败' + (t.error ? '：' + String(t.error).slice(0, 120) : '（模型未连通或繁忙，可稍后重试）') + '</span>';
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (n > 45) {
+                    clearInterval(aiDescTimer);
+                    statusEl.innerHTML = '<span class="text-warning">仍在处理中，可稍后查看；描述生成后会自动填入</span>';
+                    btn.disabled = false;
+                }
+            } catch (e) { /* 轮询临时失败不打断 */ }
+        }, 4000);
+    } catch (e) {
+        statusEl.innerHTML = '<span class="text-danger">提交异常：' + e + '</span>';
+        btn.disabled = false;
+    }
+}
+
+// ---------------- 反馈#10：Whisper AI 转写草稿（音/视频入队；视频可选关键帧简述/外部大模型详述） ----------------
+async function aiTranscribe() {
+    const rid = currentTaskIds[2];
+    const statusEl = document.getElementById('aiTranscribeStatus');
+    const btn = document.getElementById('btnAiTranscribe');
+    if (!rid) { statusEl.innerHTML = '<span class="text-warning">请先领取一条音/视频任务</span>'; return; }
+    const mod = currentModality[2];
+    if (mod !== 'video' && mod !== 'audio') {
+        statusEl.innerHTML = '<span class="text-warning">AI 转写仅适用于音频/视频任务（图片请用图片 AI 描述）</span>';
+        return;
+    }
+    const withKeyframes = mod === 'video' && document.getElementById('chkWithKeyframes').checked;
+    const withLlm = mod === 'video' && document.getElementById('chkWithLlmSummary').checked;
+    // 时间轴已有内容时确认覆盖（collect(true) 静默校验：有内容返回对象，空/未填返回 null）
+    const existing = tlEditor.collect(true);
+    if (existing && existing.segments && existing.segments.length) {
+        if (!confirm('时间轴中已有内容，AI 转写草稿将替换现有时间轴（建议先保存或提交），是否继续？')) return;
+    }
+
+    btn.disabled = true;
+    document.getElementById('aiTranscribeSummary').classList.add('d-none');
+    statusEl.innerHTML = '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> 正在提交转写任务到队列…</span>';
+    try {
+        const resp = await fetch('/api/process/algorithm-submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                recording_id: rid,
+                backend: 'local',
+                options: {
+                    task_kind: 'transcribe',
+                    with_keyframes: withKeyframes,
+                    with_llm_summary: withLlm
+                }
+            })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+            statusEl.innerHTML = '<span class="text-danger">提交失败：' + (data.error || '未知错误')
+                + (resp.status === 429 ? '<br><span class="small">积分不足或外部大模型配额已达上限，请联系管理员。</span>' : '') + '</span>';
+            btn.disabled = false;
+            return;
+        }
+        statusEl.innerHTML = data.reused
+            ? '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> 命中相同文件（MD5）复用，正在填入历史转写草稿…</span>'
+            : '<span class="text-muted"><i class="fas fa-circle-notch fa-spin"></i> Whisper 转写任务已入队（后端：' + backendLabelCN(data.backend) + '），GPU 处理中，素材越长耗时越久…</span>';
+        if (aiTransTimer) clearInterval(aiTransTimer);
+        let n = 0;
+        aiTransTimer = setInterval(async () => {
+            n += 1;
+            try {
+                const sr = await fetch('/api/algorithm/bagel/status/' + data.task_id);
+                const sd = await sr.json();
+                const t = sd.task || {};
+                if (t.status === 'done' || t.status === 'completed') {
+                    clearInterval(aiTransTimer);
+                    const res = t.result || {};
+                    const segs = Array.isArray(res.timeline) ? res.timeline : [];
+                    const text = (res.content_text || '').trim();
+                    if (!segs.length && !text) {
+                        statusEl.innerHTML = '<span class="text-warning">转写结果为空（可能为静音/无人声片段），请手工转写或重试</span>';
+                    } else {
+                        if (segs.length) tlEditor.reset(segs);
+                        tlDirty = true;
+                        // 视频简述 / 外部大模型详述展示（仅展示，不随草稿持久化）
+                        if (res.video_summary || res.llm_summary) {
+                            document.getElementById('aiKfSummary').textContent = res.video_summary || '（未生成关键帧简述）';
+                            document.getElementById('aiTranscribeSummary').classList.remove('d-none');
+                            if (res.llm_summary) {
+                                document.getElementById('aiLlmSummary').textContent = res.llm_summary;
+                                document.getElementById('aiLlmSummary').classList.remove('d-none');
+                                document.getElementById('aiLlmTitle').classList.remove('d-none');
+                            }
+                        }
+                        const note = res.llm_summary_error ? '；外部大模型详述失败已降级（不计该部分积分）' : '';
+                        statusEl.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> Whisper 转写草稿已生成（'
+                            + (segs.length || '若干') + ' 段，' + backendLabelCN(t.backend_used || t.backend || 'local') + '）'
+                            + note + '，请人工校对后保存/提交</span>';
+                        saveDraft(true);  // 自动存为草稿，避免刷新丢失
+                    }
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (t.status === 'failed' || t.status === 'dead') {
+                    clearInterval(aiTransTimer);
+                    statusEl.innerHTML = '<span class="text-danger">转写任务'
+                        + (t.status === 'dead' ? '重试耗尽进入死信队列' : '失败')
+                        + (t.error ? '：' + String(t.error).slice(0, 160) : '（GPU 未连通或繁忙，冻结积分已退还，可稍后重试）') + '</span>';
+                    btn.disabled = false;
+                    loadMyCredits();
+                } else if (n > 90) {  // 4s × 90 = 6 分钟，长视频转写可能超过
+                    clearInterval(aiTransTimer);
+                    statusEl.innerHTML = '<span class="text-warning">任务仍在队列中处理（task_id：' + data.task_id + '），可稍后刷新页面；草稿生成后会自动填入</span>';
+                    btn.disabled = false;
+                }
+            } catch (e) { /* 轮询临时失败不打断 */ }
+        }, 4000);
+    } catch (e) {
+        statusEl.innerHTML = '<span class="text-danger">提交异常：' + e + '</span>';
+        btn.disabled = false;
+    }
+}
 </script>
 {% endblock %} 

@@ -14,6 +14,7 @@
             <div class="card"><div class="card-body">
                 <div class="row g-3">
                     <div class="col-md-4"><label class="form-label">Username</label><input class="form-control" id="pf_username" disabled></div>
+                    <div class="col-md-4"><label class="form-label">Nickname (shown first, optional)</label><input class="form-control" id="pf_nickname" maxlength="80" placeholder="e.g. GR, Alex"></div>
                     <div class="col-md-4"><label class="form-label">Full name</label><input class="form-control" id="pf_full_name"></div>
                     <div class="col-md-4"><label class="form-label">Department</label><input class="form-control" id="pf_department" disabled></div>
                     <div class="col-md-4"><label class="form-label">Email</label><input class="form-control" id="pf_email" type="email"></div>
@@ -54,6 +55,7 @@ async function loadProfile() {
     if (!r.ok) return;
     const u = await r.json();
     document.getElementById('pf_username').value = u.username || '';
+    document.getElementById('pf_nickname').value = u.nickname || '';
     document.getElementById('pf_full_name').value = u.full_name || '';
     document.getElementById('pf_department').value = u.department || '';
     document.getElementById('pf_email').value = u.email || '';
@@ -66,6 +68,7 @@ async function saveProfile() {
         email: document.getElementById('pf_email').value,
         phone: document.getElementById('pf_phone').value,
         full_name: document.getElementById('pf_full_name').value,
+        nickname: document.getElementById('pf_nickname').value.trim(),
     };
     const r = await fetch('/api/profile/me', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const j = await r.json().catch(() => ({}));
@@ -78,7 +81,12 @@ async function changePwd() {
     };
     const r = await fetch('/api/profile/change-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const j = await r.json().catch(() => ({}));
-    if (r.ok) { alert('Password updated. Please sign in again.'); window.location.href = '/logout'; }
+    if (r.ok) {
+        alert('Password updated. Please sign in again.');
+        const t = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        fetch('/logout', { method: 'POST', headers: { 'X-CSRF-Token': t } })
+            .finally(() => { window.location.href = '/login'; });
+    }
     else alert(j.error || 'Failed');
 }
 async function loadLogs() {

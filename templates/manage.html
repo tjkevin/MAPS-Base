@@ -1,416 +1,697 @@
-{% extends "base.html" %}
+{% extends "base_cn.html" %}
 
 {% block title %}数据管理 - MAPS{% endblock %}
+{% block page_title %}数据管理{% endblock %}
+{% block page_subtitle %}全维度检索、预览、导出、自定义数据集与逻辑删除{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">数据管理</h1>
-    
-    <div class="row">
-        <div class="col-md-12 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">导出数据集</h5>
-                </div>
-                <div class="card-body">
-                    <form id="exportForm" class="row g-3">
-                        <div class="col-md-4">
-                            <label for="dataType" class="form-label">数据类型</label>
-                            <select class="form-select" id="dataType" required>
-                                <option value="">选择...</option>
-                                <option value="all">所有数据</option>
-                                <option value="video">仅视频</option>
-                                <option value="audio">仅音频</option>
-                                <option value="text">仅文本</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="format" class="form-label">导出格式</label>
-                            <select class="form-select" id="format" required>
-                                <option value="">选择...</option>
-                                <option value="csv">CSV</option>
-                                <option value="json">JSON</option>
-                                <option value="zip">ZIP（包含媒体文件）</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="submit" class="btn btn-primary d-block">
-                                <i class="fas fa-download"></i> 导出数据集
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="container-fluid">
+    <!-- 筛选区 -->
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span>组合筛选</span>
+            <div class="d-flex flex-wrap gap-2">
+                <select class="form-select form-select-sm" style="width:auto" id="tplSelect">
+                    <option value="">加载常用模板…</option>
+                </select>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSaveTpl">保存为模板</button>
             </div>
         </div>
+        <div class="card-body row g-2 small">
+            <div class="col-md-2">
+                <label class="form-label">状态（多选逗号分隔）</label>
+                <input type="text" class="form-control" id="f_statuses" placeholder="如 pending_review,approved">
+                </div>
+            <div class="col-md-2">
+                <label class="form-label">文件类型</label>
+                <select class="form-select" id="f_file_type">
+                    <option value="">全部</option>
+                    <option value="video">视频</option>
+                    <option value="audio">音频</option>
+                    <option value="image">图片</option>
+                            </select>
+                        </div>
+            <div class="col-md-2">
+                <label class="form-label">上传时间起</label>
+                <input type="date" class="form-control" id="f_upload_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">上传时间止</label>
+                <input type="date" class="form-control" id="f_upload_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理时间起</label>
+                <input type="date" class="form-control" id="f_process_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理时间止</label>
+                <input type="date" class="form-control" id="f_process_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核时间起</label>
+                <input type="date" class="form-control" id="f_audit_from">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核时间止</label>
+                <input type="date" class="form-control" id="f_audit_to">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">上传账号</label>
+                <select class="form-select" id="f_uploader_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">处理账号</label>
+                <select class="form-select" id="f_processor_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">审核账号</label>
+                <select class="form-select" id="f_auditor_id"><option value="">全部</option></select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">任务编号</label>
+                <input type="text" class="form-control" id="f_task_no" placeholder="精准">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">MD5</label>
+                <input type="text" class="form-control" id="f_md5" placeholder="32位">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="f_include_invalid">
+                    <label class="form-check-label" for="f_include_invalid">含无效数据</label>
+                        </div>
+                        </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="f_invalid_only">
+                    <label class="form-check-label" for="f_invalid_only">仅无效</label>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <button type="button" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> 查询</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnReset">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3 g-2">
+        <div class="col-auto">
+            <label class="form-label small mb-0">每页</label>
+            <select class="form-select form-select-sm" id="perPage" style="width:5rem">
+                <option>10</option>
+                <option selected>20</option>
+                <option>50</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="form-label small mb-0">排序字段</label>
+            <select class="form-select form-select-sm" id="sortBy" style="width:8rem">
+                <option value="created_at">创建时间</option>
+                <option value="filename">文件名</option>
+                <option value="status">状态</option>
+                <option value="task_no">任务编号</option>
+                <option value="uploaded_at">上传时间</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="form-label small mb-0">顺序</label>
+            <select class="form-select form-select-sm" id="sortOrder" style="width:5rem">
+                <option value="desc">降序</option>
+                <option value="asc">升序</option>
+            </select>
+        </div>
+        <div class="col-auto ms-auto d-flex gap-2 flex-wrap">
+            <button class="btn btn-success btn-sm" id="btnBatchDl" disabled><i class="fas fa-file-archive"></i> 批量下载 ZIP</button>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddDataset" disabled>加入数据集</button>
+            <button class="btn btn-outline-warning btn-sm" id="btnBatchTrash" disabled><i class="fas fa-trash"></i> 移入垃圾箱</button>
+            <button class="btn btn-outline-success btn-sm" id="btnBatchRestore" disabled style="display:none"><i class="fas fa-undo"></i> 批量恢复</button>
+            <button class="btn btn-outline-danger btn-sm" id="btnBatchPurge" disabled style="display:none"><i class="fas fa-trash-alt"></i> 批量彻底删除</button>
+            <button class="btn btn-outline-dark btn-sm" id="btnExportV2">导出当前筛选(JSON/CSV)</button>
+            </div>
+        </div>
+
+    <!-- 反馈#6：全部文件 / 垃圾箱 视图切换 -->
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        <div class="btn-group btn-group-sm" role="group" aria-label="视图切换">
+            <button type="button" class="btn btn-primary" id="viewNormal"><i class="fas fa-folder-open"></i> 全部文件</button>
+            <button type="button" class="btn btn-outline-secondary" id="viewTrash"><i class="fas fa-trash"></i> 垃圾箱</button>
+        </div>
+        <span class="text-muted small" id="trashHint" style="display:none"><i class="fas fa-info-circle"></i> 垃圾箱内文件保留 30 天，到期自动彻底删除；期间可恢复，或由管理员彻底删除。</span>
+    </div>
         
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">数据概览</h5>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-outline-primary" onclick="filterData('all')">全部</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="filterData('completed')">已完成</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="filterData('pending')">待处理</button>
+    <!-- 自定义数据集 -->
+    <div class="card mb-3">
+        <div class="card-header">自定义数据集</div>
+        <div class="card-body row g-2">
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="ds_name" placeholder="数据集名称">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="ds_ver" placeholder="版本 V1.0" value="V1.0">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="ds_desc" placeholder="业务描述">
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" id="btnCreateDs">新建数据集</button>
+                <select class="form-select mt-2" id="dsSelect"><option value="">选择已有数据集…</option></select>
                     </div>
                 </div>
-                <div class="card-body">
+    </div>
+
                     <div class="table-responsive">
-                        <table class="table table-striped">
+        <table class="table table-striped table-hover table-sm align-middle">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                    <th><input type="checkbox" id="chkAll"></th>
+                                    <th>数据编号</th>
                                     <th>文件名</th>
                                     <th>类型</th>
-                                    <th>时长</th>
-                                    <th>大小</th>
                                     <th>状态</th>
-                                    <th>字幕</th>
-                                    <th>创建者</th>
-                                    <th>创建时间</th>
+                    <th>MD5</th>
+                    <th>上传账号</th>
+                    <th>处理账号</th>
+                    <th>上传时间</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody id="dataList">
-                                <!-- Data will be populated here -->
-                            </tbody>
+            <tbody id="dataList"></tbody>
                         </table>
-                    </div>
-                    
-                    <nav aria-label="页面导航" class="mt-4">
-                        <ul class="pagination justify-content-center" id="pagination">
-                            <!-- Pagination will be populated here -->
-                        </ul>
-                    </nav>
+    </div>
+    <nav class="mt-3">
+        <ul class="pagination justify-content-center flex-wrap" id="pagination"></ul>
+        <p class="text-center text-muted small" id="pageInfo"></p>
+    </nav>
+</div>
+
+<!-- 预览 -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">内容预览</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-2" id="previewMedia"></div>
+                <div class="mb-2">
+                    <label class="form-label">播放倍速</label>
+                    <select id="playbackRate" class="form-select form-select-sm" style="max-width:10rem">
+                        <option value="0.5">0.5x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+                <h6>转写 / 描述</h6>
+                <pre class="bg-light p-2 small" id="previewText" style="white-space:pre-wrap;max-height:200px;overflow:auto"></pre>
+                <h6>备注说明 <small class="text-muted">（审核员备注）</small></h6>
+                <pre class="bg-light p-2 small" id="previewRemark" style="white-space:pre-wrap;max-height:120px;overflow:auto"></pre>
+                <h6>时间轴</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered"><thead><tr><th>开始</th><th>结束</th><th>文本</th></tr></thead><tbody id="previewTimeline"></tbody></table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Preview Modal -->
-<div class="modal fade" id="previewModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+<!-- 导出字段 -->
+<div class="modal fade" id="exportModal" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">数据预览</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="previewContent">
-                    <!-- Preview content will be populated here -->
-                </div>
+            <div class="modal-header"><h5 class="modal-title">导出字段</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body" id="exportFields"></div>
+            <div class="modal-footer">
+                <select class="form-select w-auto d-inline-block" id="exportFmt"><option value="json">JSON</option><option value="csv">CSV</option></select>
+                <button class="btn btn-primary" id="btnDoExport">下载</button>
             </div>
         </div>
     </div>
+</div>
+
+<div id="batchProgress" class="position-fixed bottom-0 end-0 p-3" style="display:none;z-index:1080">
+    <div class="card shadow"><div class="card-body"><span id="batchProgressText">打包中…</span></div></div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-let currentFilter = 'all';
+const ROLE = "{{ current_user.role }}";
+const SEED_TABLE_ROWS = false;
+// 反馈#6：垃圾箱视图（false=全部文件；true=垃圾箱）
+let trashView = false;
+const IS_SYS_ADMIN = (ROLE === 'admin' || ROLE === 'super_admin');
+const SEED_MANAGE = [
+    ['高架车流夜间_4k_0211.mp4', 'video', 'pending_review', 'TK-2026-0211-045', '刘景涛', '马文博', '2026-02-01 09:12'],
+    ['访谈室收音_双轨_48k.wav', 'audio', 'approved', 'TK-2026-0212-112', '陈若瑜', '周若彤', '2026-02-02 14:33'],
+    ['园区南门_三机位_合成.mp4', 'video', 'processing', 'TK-2026-0213-078', '赵启明', '韩东旭', '2026-02-03 10:05'],
+    ['手术示教_脱敏版_v2.mp4', 'video', 'pending_review', 'TK-2026-0214-156', '孙雅楠', '高雨桐', '2026-02-04 16:40'],
+    ['古籍扫描_卷九_600dpi.tif', 'image', 'approved', 'TK-2026-0215-033', '周文渊', '谢琳', '2026-02-05 11:18'],
+    ['车载对话_噪声场景_12.mp4', 'video', 'processing', 'TK-2026-0216-201', '吴思齐', '郑浩然', '2026-02-06 08:52'],
+    ['法庭卷宗_电子附件_07.pdf', 'image', 'pending_review', 'TK-2026-0217-089', '林婉清', '马文博', '2026-02-07 13:27'],
+    ['温室延时_番茄_第2周.mp4', 'video', 'approved', 'TK-2026-0218-064', '徐景行', '周若彤', '2026-02-08 15:09'],
+    ['地铁换乘_客流统计.mp4', 'video', 'processing', 'TK-2026-0219-177', '黄嘉怡', '韩东旭', '2026-02-09 09:44'],
+    ['急诊环境音_降噪前.wav', 'audio', 'pending_review', 'TK-2026-0220-092', '何语桐', '高雨桐', '2026-02-10 12:01'],
+    ['无人机测绘_C区_raw.mp4', 'video', 'approved', 'TK-2026-0221-128', '邓子墨', '谢琳', '2026-02-11 17:33'],
+    ['新闻播报_提词器侧拍.mp4', 'video', 'processing', 'TK-2026-0222-055', '冯梓涵', '郑浩然', '2026-02-12 10:16'],
+    ['港口吊机_夜视_01.mp4', 'video', 'pending_review', 'TK-2026-0223-188', '董文博', '马文博', '2026-02-13 14:58'],
+    ['儿童康复_示范课_全景.mp4', 'video', 'approved', 'TK-2026-0224-041', '蒋心怡', '周若彤', '2026-02-14 09:21'],
+    ['跨江大桥_车流_长镜头.mp4', 'video', 'processing', 'TK-2026-0225-163', '许承泽', '韩东旭', '2026-02-15 16:07'],
+    ['遥感地块_勾画_overlay.png', 'image', 'pending_review', 'TK-2026-0226-074', '沈佳宁', '高雨桐', '2026-02-16 11:42'],
+    ['护理查房_手持_下午.mp4', 'video', 'approved', 'TK-2026-0227-119', '曾宇航', '谢琳', '2026-02-17 08:35'],
+    ['体育场广角_决赛加时.mp4', 'video', 'processing', 'TK-2026-0228-096', '叶舒扬', '郑浩然', '2026-02-18 13:19']
+];
+const SEED_STATUS_LABEL = {
+    pending_review: ['待审核', 'warning'],
+    approved: ['已通过', 'success'],
+    processing: ['处理中', 'primary']
+};
+function seedManageRows() {
+    if (!SEED_TABLE_ROWS) return '';
+    let html = '';
+    SEED_MANAGE.forEach((row, i) => {
+        const [fn, ftype, st, tno, up, proc, dt] = row;
+        const [lab, bcls] = SEED_STATUS_LABEL[st] || [st, 'secondary'];
+        const id = -(i + 1);
+        html += `<tr>
+            <td></td>
+            <td><small class="font-monospace">${escapeHtml(tno)}</small><br><span class="text-muted" style="font-size:.72em">ID: ${id}</span></td>
+            <td>${escapeHtml(fn)}</td>
+            <td>${ftype}</td>
+            <td><span class="badge bg-${bcls}">${lab}</span></td>
+            <td><span class="text-muted small">—</span></td>
+            <td>${escapeHtml(up)}</td>
+            <td>${escapeHtml(proc)}</td>
+            <td><small>${dt}</small></td>
+            <td><span class="text-muted small">—</span></td>
+        </tr>`;
+    });
+    return html;
+}
 let currentPage = 1;
+let sortBy = 'created_at';
+let sortOrder = 'desc';
 
-function formatDuration(duration) {
-    if (!duration) return '00:00:00';
-    if (typeof duration === 'string') return duration;
-    if (typeof duration === 'number') {
-        const hours = Math.floor(duration / 3600);
-        const minutes = Math.floor((duration % 3600) / 60);
-        const seconds = duration % 60;
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-    return '00:00:00';
+const FIELD_OPTS = [
+    ['filename','文件名'],['status','状态'],['text_content','文本'],['created_at','创建时间'],
+    ['uploader_username','上传账号'],['processor_username','处理账号'],['auditor_username','审核账号'],
+    ['file_md5','MD5'],['task_no','任务编号'],['file_size','文件大小'],['file_path','存储路径'],['file_type','类型'],['id','ID']
+];
+
+function buildQueryParams(page) {
+    const p = new URLSearchParams();
+    p.set('page', page || 1);
+    p.set('per_page', document.getElementById('perPage').value);
+    p.set('sort_by', document.getElementById('sortBy').value);
+    p.set('sort_order', document.getElementById('sortOrder').value);
+    const st = document.getElementById('f_statuses').value.trim();
+    if (st) p.set('statuses', st);
+    const ft = document.getElementById('f_file_type').value;
+    if (ft) p.set('file_type', ft);
+    ['upload_from','upload_to','process_from','process_to','audit_from','audit_to'].forEach(k => {
+        const el = document.getElementById('f_' + k);
+        if (el && el.value) p.set(k, el.value);
+    });
+    ['uploader_id','processor_id','auditor_id'].forEach(k => {
+        const v = document.getElementById('f_' + k).value;
+        if (v) p.set(k, v);
+    });
+    const tn = document.getElementById('f_task_no').value.trim();
+    if (tn) p.set('task_no', tn);
+    const md5 = document.getElementById('f_md5').value.trim();
+    if (md5) p.set('md5', md5);
+    if (document.getElementById('f_include_invalid').checked) p.set('include_invalid', 'true');
+    if (document.getElementById('f_invalid_only').checked) p.set('invalid_only', 'true');
+    if (trashView) p.set('trash_only', 'true');
+    return p;
 }
 
-async function loadData(filter = 'all', page = 1) {
-    // 更新当前状态
-    currentFilter = filter;
-    currentPage = page;
-    
-    try {
-        console.log(`Loading data: filter=${filter}, page=${page}`);
-        const response = await fetch(`/api/manage/data?filter=${filter}&page=${page}`, {
-            method: 'GET',
-            credentials: 'same-origin', // 包含cookies
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+function filtersObject() {
+    const o = {};
+    const p = buildQueryParams(1);
+    for (const [k, v] of p.entries()) {
+        if (!['page', 'per_page', 'sort_by', 'sort_order'].includes(k)) o[k] = v;
+    }
+    return o;
+}
+
+async function loadUsers() {
+    const res = await fetch('/api/manage/users-options');
+    const data = await res.json();
+    const sel = ['f_uploader_id','f_processor_id','f_auditor_id'];
+    sel.forEach(id => {
+        const s = document.getElementById(id);
+        data.items.forEach(u => {
+            const o = document.createElement('option');
+            o.value = u.id; o.textContent = u.username + ' (' + u.role + ')';
+            s.appendChild(o);
         });
-        console.log('Response status:', response.status);
-        
-        if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('请先登录系统');
-            }
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        console.log('Received data:', data);
-        
-        // 检查返回的数据结构
-        if (!data) {
-            throw new Error('No data received');
-        }
-        
-        // 确保items存在，如果不存在则使用空数组
-        const items = data.items || [];
-        console.log(`Found ${items.length} items`);
-        
-        const dataList = document.getElementById('dataList');
-        if (!dataList) {
-            console.error('Data list element not found');
-            return;
-        }
-        
-        if (items.length === 0) {
-            dataList.innerHTML = `
-                <tr>
-                    <td colspan="10" class="text-center text-muted">
-                        <i class="fas fa-info-circle"></i>
-                        暂无数据
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-        
-        dataList.innerHTML = items.map(item => `
-            <tr>
-                <td>${item.id || ''}</td>
-                <td>${item.filename || ''}</td>
-                <td>${item.type || ''}</td>
-                <td>${formatDuration(item.duration)}</td>
-                <td>${item.file_size || 'Unknown'}</td>
-                <td>
-                    <span class="badge bg-${item.status === 'completed' ? 'success' : 'warning'}">
-                        ${item.status === 'completed' ? '已完成' : '待处理'}
-                    </span>
-                </td>
-                <td>
-                    <span class="badge bg-${item.has_subtitle ? 'info' : 'secondary'}">
-                        ${item.has_subtitle ? '有字幕' : '无字幕'}
-                    </span>
-                </td>
-                <td>${item.created_by || 'Unknown'}</td>
-                <td>${item.created_at ? new Date(item.created_at).toLocaleString() : ''}</td>
-                <td>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-outline-primary" onclick="previewData(${item.id})">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-outline-success" onclick="downloadData(${item.id})">
-                            <i class="fas fa-download"></i>
-                        </button>
-                        <button class="btn btn-outline-danger" onclick="deleteData(${item.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-        
-        // Update pagination
-        const pagination = document.getElementById('pagination');
-        if (pagination && data.total && data.per_page) {
-            const totalPages = Math.ceil(data.total / data.per_page);
-            
-            pagination.innerHTML = `
-                <li class="page-item ${page === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="loadData('${filter}', ${page - 1})">上一页</a>
-                </li>
-                ${Array.from({length: totalPages}, (_, i) => i + 1).map(p => `
-                    <li class="page-item ${p === page ? 'active' : ''}">
-                        <a class="page-link" href="#" onclick="loadData('${filter}', ${p})">${p}</a>
-                    </li>
-                `).join('')}
-                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
-                    <a class="page-link" href="#" onclick="loadData('${filter}', ${page + 1})">下一页</a>
-                </li>
-            `;
-        }
-    } catch (err) {
-        console.error('Error loading data:', err);
-        // 显示友好的错误信息
-        const dataList = document.getElementById('dataList');
-        if (dataList) {
-            dataList.innerHTML = `
-                <tr>
-                    <td colspan="10" class="text-center text-danger">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        数据加载失败: ${err.message}
-                    </td>
-                </tr>
-            `;
-        }
-    }
-}
-
-function filterData(filter) {
-    currentFilter = filter;
-    currentPage = 1;
-    loadData(filter, 1);
-}
-
-async function previewData(id) {
-    try {
-        const response = await fetch(`/api/manage/preview/${id}`, {
-            method: 'GET',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) throw new Error('Failed to load preview');
-        
-        const data = await response.json();
-        const previewContent = document.getElementById('previewContent');
-        
-        if (data.type === 'video') {
-            previewContent.innerHTML = `
-                <video class="w-100" controls>
-                    <source src="${data.url}" type="video/webm">
-                    您的浏览器不支持视频标签。
-                </video>
-            `;
-        } else if (data.type === 'audio') {
-            previewContent.innerHTML = `
-                <audio class="w-100" controls>
-                    <source src="${data.url}" type="audio/wav">
-                    您的浏览器不支持音频标签。
-                </audio>
-            `;
-        } else {
-            previewContent.innerHTML = `
-                <pre class="bg-light p-3">${data.content}</pre>
-            `;
-        }
-        
-        const modal = new bootstrap.Modal(document.getElementById('previewModal'));
-        modal.show();
-    } catch (err) {
-        console.error('Error loading preview:', err);
-        // 只在控制台显示错误，不弹出alert
-        console.log('预览加载失败');
-    }
-}
-
-async function downloadData(id) {
-    try {
-        const response = await fetch(`/api/manage/download/${id}`, {
-            method: 'GET',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) throw new Error('Failed to download');
-        
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `data_${id}`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        a.remove();
-    } catch (err) {
-        console.error('Error downloading:', err);
-        // 只在控制台显示错误，不弹出alert
-        console.log('下载失败');
-    }
-}
-
-async function deleteData(id) {
-    if (!confirm('您确定要删除这些数据吗？')) return;
-    
-    try {
-        const response = await fetch(`/api/manage/recording/${id}`, {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (!response.ok) throw new Error('Failed to delete');
-        
-        loadData(currentFilter, currentPage);
-    } catch (err) {
-        console.error('Error deleting:', err);
-        // 只在控制台显示错误，不弹出alert
-        console.log('删除失败');
-    }
-}
-
-// 设置导出表单事件监听器
-const exportForm = document.getElementById('exportForm');
-if (exportForm) {
-    exportForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = {
-            dataType: document.getElementById('dataType').value,
-            format: document.getElementById('format').value
-        };
-        
-        try {
-            const response = await fetch('/api/manage/export', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            if (!response.ok) throw new Error('Export failed');
-            
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `dataset_${formData.dataType}_${new Date().toISOString().split('T')[0]}.${formData.format}`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            a.remove();
-        } catch (err) {
-            console.error('Export error:', err);
-            // 只在控制台显示错误，不弹出alert
-            console.log('导出失败');
-        }
     });
 }
 
-// Initialize data loading
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing data loading...');
-    
-    // 确保所有元素都已加载
-    setTimeout(() => {
-        console.log('Starting data load...');
-        loadData();
-    }, 100);
+async function loadTemplates() {
+    const res = await fetch('/api/manage/filter-templates');
+    const data = await res.json();
+    const sel = document.getElementById('tplSelect');
+    sel.innerHTML = '<option value="">加载常用模板…</option>';
+    (data.items || []).forEach(t => {
+        const o = document.createElement('option');
+        o.value = t.id;
+        o.textContent = t.name;
+        o.dataset.criteria = JSON.stringify(t.criteria);
+        sel.appendChild(o);
+    });
+}
+
+document.getElementById('tplSelect').addEventListener('change', function() {
+    const opt = this.selectedOptions[0];
+    if (!opt || !opt.dataset.criteria) return;
+    const c = JSON.parse(opt.dataset.criteria);
+    Object.keys(c).forEach(k => {
+        const node = document.getElementById('f_' + k);
+        if (!node) return;
+        if (node.type === 'checkbox') node.checked = (c[k] === 'true' || c[k] === true);
+        else node.value = c[k];
+    });
 });
 
-function showErrorMessage(message) {
-    const dataList = document.getElementById('dataList');
-    if (dataList) {
-        dataList.innerHTML = `
-            <tr>
-                <td colspan="10" class="text-center text-danger">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ${message}
-                </td>
-            </tr>
-        `;
+document.getElementById('btnSaveTpl').addEventListener('click', async () => {
+    const name = prompt('模板名称');
+    if (!name) return;
+    const criteria = filtersObject();
+    const res = await fetch('/api/manage/filter-templates', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, criteria }) });
+    if (res.ok) { alert('已保存'); loadTemplates(); }
+    else alert('保存失败');
+});
+
+async function loadDatasets() {
+    const res = await fetch('/api/manage/datasets');
+    const data = await res.json();
+    const sel = document.getElementById('dsSelect');
+    sel.innerHTML = '<option value="">选择已有数据集…</option>';
+    (data.items || []).forEach(d => {
+        const o = document.createElement('option');
+        o.value = d.id;
+        o.textContent = d.name + ' ' + d.version_label + ' (' + d.item_count + ')';
+        sel.appendChild(o);
+    });
+}
+
+document.getElementById('btnCreateDs').addEventListener('click', async () => {
+    const name = document.getElementById('ds_name').value.trim();
+    if (!name) { alert('填写名称'); return; }
+    const res = await fetch('/api/manage/datasets', { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ name, version: document.getElementById('ds_ver').value, description: document.getElementById('ds_desc').value }) });
+    const j = await res.json();
+    if (res.ok) { alert('创建成功 id=' + j.id); loadDatasets(); }
+    else alert(j.error || '失败');
+});
+
+async function loadData(page) {
+    currentPage = page || 1;
+    const p = buildQueryParams(currentPage);
+    const res = await fetch('/api/manage/data?' + p.toString());
+    const data = await res.json();
+    if (!res.ok) { document.getElementById('dataList').innerHTML = '<tr><td colspan="10" class="text-danger">加载失败</td></tr>'; return; }
+    const tbody = document.getElementById('dataList');
+    const demoRows = seedManageRows();
+    const realRows = (data.items || []).map(item => {
+        const remarkIcon = item.review_remark
+            ? ` <i class="fas fa-sticky-note text-info" title="备注说明：${escapeHtml(item.review_remark)}"></i>` : '';
+        const timeCell = trashView
+            ? `<small class="text-muted">删于 ${(item.deleted_at || '').replace('T', ' ').slice(0, 16)}<br>操作：${escapeHtml(item.deleted_by_username || '—')}<br><span class="text-danger">剩余 ${item.days_remaining == null ? '?' : item.days_remaining} 天自动清除</span></small>`
+            : `<small>${item.uploaded_at || item.created_at || ''}</small>`;
+        const statusCell = trashView
+            ? `<span class="badge bg-secondary">${item.status_label || item.status}</span> <span class="badge bg-dark">垃圾箱</span>`
+            : `<span class="badge bg-secondary">${item.status_label || item.status}</span>`;
+        const actions = trashView
+            ? `<div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})" title="预览"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline-success" onclick="restoreRec(${item.id})" title="恢复到文件列表"><i class="fas fa-undo"></i></button>
+                ${IS_SYS_ADMIN ? `<button class="btn btn-outline-danger" onclick="purgeRec(${item.id})" title="彻底删除（不可恢复）"><i class="fas fa-trash-alt"></i></button>` : ''}
+               </div>`
+            : `<div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-primary" onclick="previewDetail(${item.id})" title="预览"><i class="fas fa-eye"></i></button>
+                <a class="btn btn-outline-success" href="/api/manage/download/${item.id}" title="下载"><i class="fas fa-download"></i></a>
+                <button class="btn btn-outline-warning" onclick="trashRec(${item.id})" title="移入垃圾箱（保留30天）"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-outline-danger" onclick="invalidateRec(${item.id})" title="标记无效"><i class="fas fa-ban"></i></button>
+               </div>`;
+        // 反馈#8：数据编号采用时间戳式采集编号（COLLECT-YYYYMMDDHHMMSS-XXXXXXXX），下方灰显数据库 ID
+        const dataNo = item.task_no
+            ? `<small class="font-monospace">${escapeHtml(item.task_no)}</small><br><span class="text-muted" style="font-size:.72em">ID: ${item.id}</span>`
+            : `<span class="font-monospace">#${item.id}</span>`;
+        const md5 = item.file_md5 || '';
+        const md5Cell = md5
+            ? `<small class="font-monospace text-primary" style="cursor:pointer" title="点击复制完整 MD5" onclick="copyMd5('${md5}')">${md5.slice(0, 12)}…</small>`
+            : '<span class="text-muted small">—</span>';
+        return `<tr>
+                <td><input type="checkbox" class="row-chk" value="${item.id}"></td>
+                <td>${dataNo}</td>
+                <td>${escapeHtml(item.filename)}${remarkIcon}</td>
+                <td>${item.file_type}</td>
+                <td>${statusCell}</td>
+                <td>${md5Cell}</td>
+                <td>${escapeHtml(item.uploader_username)}</td>
+                <td>${escapeHtml(item.processor_username || '')}</td>
+                <td>${timeCell}</td>
+                <td>${actions}</td>
+            </tr>`;
+    }).join('');
+    const emptyText = trashView ? '垃圾箱为空（已过保留期的文件会被自动彻底删除）' : '暂无数据';
+    if (demoRows || realRows) tbody.innerHTML = demoRows + realRows;
+    else tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted">${emptyText}</td></tr>`;
+    const totalPages = data.total_pages || 1;
+    const pg = document.getElementById('pagination');
+    pg.innerHTML = `
+        <li class="page-item ${currentPage<=1?'disabled':''}"><a class="page-link" href="#" data-p="${currentPage-1}">上一页</a></li>
+        <li class="page-item disabled"><span class="page-link">${currentPage} / ${totalPages}</span></li>
+        <li class="page-item ${currentPage>=totalPages?'disabled':''}"><a class="page-link" href="#" data-p="${currentPage+1}">下一页</a></li>`;
+    pg.querySelectorAll('a.page-link').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const np = +a.dataset.p; if (np>=1 && np<=totalPages) loadData(np); }));
+    document.getElementById('pageInfo').textContent = `共 ${data.total} 条，每页 ${data.per_page} 条`;
+    updateBatchButtons();
+}
+
+// 反馈#8：点击 MD5 单元格复制完整值
+function copyMd5(md5) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md5).then(
+            () => alert('MD5 已复制：\n' + md5),
+            () => prompt('复制此 MD5：', md5)
+        );
+    } else {
+        prompt('复制此 MD5：', md5);
     }
 }
+function escapeHtml(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+}
+
+function selectedIds() {
+    return Array.from(document.querySelectorAll('.row-chk:checked')).map(c => +c.value);
+}
+
+function updateBatchButtons() {
+    const n = selectedIds().length;
+    document.getElementById('btnBatchDl').disabled = n === 0;
+    document.getElementById('btnAddDataset').disabled = n === 0;
+    document.getElementById('btnBatchTrash').disabled = n === 0;
+    document.getElementById('btnBatchRestore').disabled = n === 0;
+    document.getElementById('btnBatchPurge').disabled = n === 0;
+}
+
+// ---- 反馈#6：垃圾箱 / 恢复 / 彻底删除 ----
+function setTrashView(on) {
+    trashView = !!on;
+    document.getElementById('viewNormal').className = trashView ? 'btn btn-outline-secondary' : 'btn btn-primary';
+    document.getElementById('viewTrash').className = trashView ? 'btn btn-primary' : 'btn btn-outline-secondary';
+    document.getElementById('trashHint').style.display = trashView ? '' : 'none';
+    // 正常视图按钮
+    ['btnBatchDl', 'btnAddDataset', 'btnBatchTrash', 'btnExportV2'].forEach(id => {
+        document.getElementById(id).style.display = trashView ? 'none' : '';
+    });
+    // 垃圾箱视图按钮
+    document.getElementById('btnBatchRestore').style.display = trashView ? '' : 'none';
+    document.getElementById('btnBatchPurge').style.display = (trashView && IS_SYS_ADMIN) ? '' : 'none';
+    document.getElementById('chkAll').checked = false;
+    loadData(1);
+}
+
+async function trashRec(id) {
+    if (!confirm('确定将该文件移入垃圾箱？\n文件将保留 30 天，期间可在「垃圾箱」中恢复；到期后自动彻底删除。')) return;
+    const res = await fetch('/api/manage/trash/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已移入垃圾箱'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function restoreRec(id) {
+    const res = await fetch('/api/manage/restore/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已恢复'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function purgeRec(id) {
+    if (!confirm('彻底删除后不可恢复！确定要彻底删除该文件吗？')) return;
+    if (!confirm('请再次确认：将永久删除该文件及其媒体文件、处理结果与审核记录。')) return;
+    const res = await fetch('/api/manage/purge/' + id, { method: 'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已彻底删除'); loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+async function batchAction(url, confirmMsg) {
+    const ids = selectedIds();
+    if (!ids.length) return;
+    if (confirmMsg && !confirm(confirmMsg)) return;
+    const res = await fetch(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids })
+    });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '操作完成'); document.getElementById('chkAll').checked = false; loadData(currentPage); }
+    else alert(j.error || '操作失败');
+}
+
+document.getElementById('viewNormal').addEventListener('click', () => setTrashView(false));
+document.getElementById('viewTrash').addEventListener('click', () => setTrashView(true));
+document.getElementById('btnBatchTrash').addEventListener('click', () =>
+    batchAction('/api/manage/trash', `确定将选中的 ${selectedIds().length} 个文件移入垃圾箱？\n保留 30 天，可在垃圾箱中恢复。`));
+document.getElementById('btnBatchRestore').addEventListener('click', () =>
+    batchAction('/api/manage/restore', `确定恢复选中的 ${selectedIds().length} 个文件？`));
+document.getElementById('btnBatchPurge').addEventListener('click', () =>
+    batchAction('/api/manage/purge', `彻底删除不可恢复！确定彻底删除选中的 ${selectedIds().length} 个文件吗？`));
+
+document.getElementById('chkAll').addEventListener('change', function() {
+    document.querySelectorAll('.row-chk').forEach(c => { c.checked = this.checked; });
+    updateBatchButtons();
+});
+document.getElementById('dataList').addEventListener('change', e => { if (e.target.classList.contains('row-chk')) updateBatchButtons(); });
+
+document.getElementById('btnSearch').addEventListener('click', () => loadData(1));
+document.getElementById('btnReset').addEventListener('click', () => {
+    document.querySelectorAll('[id^="f_"]').forEach(el => { if (el.type==='checkbox') el.checked=false; else el.value=''; });
+    loadData(1);
+});
+
+document.getElementById('perPage').addEventListener('change', () => loadData(1));
+document.getElementById('sortBy').addEventListener('change', () => loadData(1));
+document.getElementById('sortOrder').addEventListener('change', () => loadData(1));
+
+async function previewDetail(id) {
+    const res = await fetch('/api/manage/preview-detail/' + id);
+    const d = await res.json();
+    const wrap = document.getElementById('previewMedia');
+    wrap.innerHTML = '';
+    if (d.media_url && d.modality === 'video') {
+        wrap.innerHTML = `<video id="pvVideo" class="w-100" controls src="${d.media_url}"></video>`;
+    } else if (d.media_url && d.modality === 'audio') {
+        wrap.innerHTML = `<audio id="pvAudio" class="w-100" controls src="${d.media_url}"></audio>`;
+    } else if (d.media_url && d.modality === 'image') {
+        wrap.innerHTML = `<img src="${d.media_url}" class="img-fluid" style="max-height:70vh;cursor:zoom-in" onclick="window.open(this.src)"/>`;
+        } else {
+        wrap.innerHTML = '<div class="text-muted">无媒体或文件缺失</div>';
+    }
+    document.getElementById('previewText').textContent = d.text_full || '';
+    document.getElementById('previewRemark').textContent = d.review_remark || '（无）';
+    const tb = document.getElementById('previewTimeline');
+    tb.innerHTML = '';
+    (d.timeline || []).forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${t.start}</td><td>${t.end}</td><td>${escapeHtml(t.text||'')}</td>`;
+        tb.appendChild(tr);
+    });
+    const rateSel = document.getElementById('playbackRate');
+    rateSel.onchange = () => {
+        const r = parseFloat(rateSel.value);
+        const v = document.getElementById('pvVideo');
+        const a = document.getElementById('pvAudio');
+        if (v) v.playbackRate = r;
+        if (a) a.playbackRate = r;
+    };
+    new bootstrap.Modal(document.getElementById('previewModal')).show();
+}
+
+async function invalidateRec(id) {
+    if (!confirm('确定将本条标记为「无效」？（逻辑删除，文件保留）')) return;
+    if (!confirm('请再次确认：此操作仅管理员/审核员可执行。')) return;
+    const res = await fetch('/api/manage/invalidate/' + id, { method:'POST' });
+    const j = await res.json();
+    if (res.ok) { alert(j.message || '已标记'); loadData(currentPage); }
+    else alert(j.error || '失败');
+}
+
+document.getElementById('btnBatchDl').addEventListener('click', async () => {
+    const ids = selectedIds();
+    if (!ids.length) return;
+    document.getElementById('batchProgress').style.display = 'block';
+    document.getElementById('batchProgressText').textContent = '正在打包，请稍候…';
+    try {
+        const res = await fetch('/api/manage/batch-download', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ ids })
+        });
+        if (!res.ok) throw new Error('batch failed');
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'batch_export.zip';
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (e) { alert('批量下载失败'); }
+    document.getElementById('batchProgress').style.display = 'none';
+});
+
+document.getElementById('btnAddDataset').addEventListener('click', async () => {
+    const dsid = document.getElementById('dsSelect').value;
+    if (!dsid) { alert('请选择数据集'); return; }
+    const ids = selectedIds();
+    const res = await fetch('/api/manage/datasets/' + dsid + '/items', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ recording_ids: ids })
+    });
+    if (res.ok) { alert('已加入'); loadDatasets(); }
+    else alert('失败');
+});
+
+document.getElementById('btnExportV2').addEventListener('click', () => {
+    const box = document.getElementById('exportFields');
+    box.innerHTML = FIELD_OPTS.map(([k,v]) => `<div class="form-check"><input class="form-check-input ex-field" type="checkbox" value="${k}" id="ex_${k}" ${['filename','status','text_content','created_at'].includes(k)?'checked':''}><label class="form-check-label" for="ex_${k}">${v}</label></div>`).join('');
+    new bootstrap.Modal(document.getElementById('exportModal')).show();
+});
+
+document.getElementById('btnDoExport').addEventListener('click', async () => {
+    const fields = Array.from(document.querySelectorAll('.ex-field:checked')).map(c => c.value);
+    if (!fields.length) { alert('至少选一列'); return; }
+    const fmt = document.getElementById('exportFmt').value;
+    const body = { format: fmt, scope: 'filter', filters: filtersObject(), fields };
+    const res = await fetch('/api/manage/export-v2', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if (!res.ok) { alert('导出失败'); return; }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+    a.download = 'export.' + (fmt === 'csv' ? 'csv' : 'json');
+        a.click();
+    URL.revokeObjectURL(url);
+    bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+});
+
+function applyUrlParams() {
+    const u = new URLSearchParams(window.location.search);
+    if (u.get('statuses')) document.getElementById('f_statuses').value = u.get('statuses');
+    if (u.get('file_type')) document.getElementById('f_file_type').value = u.get('file_type');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyUrlParams();
+    loadUsers();
+    loadTemplates();
+    loadDatasets();
+    loadData(1);
+});
 </script>
 {% endblock %} 

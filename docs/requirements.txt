@@ -1,28 +1,30 @@
+# ========== MAPS 云端核心依赖（Web + Worker 镜像使用）==========
+# 仅包含业务运行所需的轻量依赖；模型推理依赖见 requirements-models.txt
+# （torch/whisper 等在 autoDL / 局域网 GPU 机器上安装，云端不装）
+# 全部锁定精确版本，保证镜像可复现构建；升级需在测试环境验证后再改
 Flask==3.0.0
 Flask-SQLAlchemy==3.1.1
 Flask-Login==0.6.3
-Werkzeug==3.0.1
+# Werkzeug 3.0.6：修复 3.0.1 已知安全问题，与 Flask 3.0.x 兼容
+Werkzeug==3.0.6
 # 生产WSGI服务器（Windows/Linux跨平台）
 waitress==2.1.2
-# Flask debug 热重载需要（与 Werkzeug 3 配套）；Anaconda 自带旧版 watchdog 会报 EVENT_TYPE_OPENED 缺失
-watchdog>=4.0.0
-SQLAlchemy>=2.0.23
+SQLAlchemy==2.0.36
 python-dotenv==1.0.0
-requests==2.31.0
-redis>=5.0.7
-# MySQL driver (optional if using DATABASE_URL with mysql+pymysql)
-PyMySQL>=1.1.0
-cryptography>=42.0.0
-# ASR / optional heavy stack - Python 3.12 compatible versions
-# torch 2.4.1 CPU稳定版（Windows DLL加载正常，2.13+有DLL问题）
-openai-whisper>=20231117
-torch==2.4.1
-torchaudio==2.4.1
-soundfile>=0.12.1
-pydub>=0.25.1
-librosa>=0.10.1
-numpy>=1.26.0
-scipy>=1.11.4
-tiktoken>=0.5.0
+# requests 2.32.3：修复 2.31.x 证书校验相关安全问题
+requests==2.32.3
+redis==5.2.1
+# MySQL driver (DATABASE_URL with mysql+pymysql)
+PyMySQL==1.1.1
+cryptography==44.0.0
 # 文档生成
-python-docx>=0.8.11
+python-docx==1.1.2
+# 反馈#8：互联网批量采集（多站点视频：B站/抖音/优酷/爱奇艺/YouTube 等 1000+ 站点）
+# 纯 Python 包，核心依赖 requests（已列）；无 ffmpeg 时自动取预合并单文件，不做转码合并
+yt-dlp==2026.8.19
+# 反馈#8续：局域网 BAGEL（NF4）图片理解——原图 base64 超过 28MB 时等比压缩（JPEG q88），
+# 适配 bagel_api.py 的 40MB 请求体上限；纯 wheel 安装，云端无 GPU 依赖
+Pillow==10.4.0
+# 注：watchdog 仅本地开发时 Flask debug 热重载需要；
+# 生产以 waitress 运行（FLASK_ENV=production），不安装 watchdog。
+# 本地调试如需自动重载：pip install watchdog==4.0.2

@@ -47,12 +47,56 @@
                     </div>
                     <label class="form-label">转写 / 描述文本</label>
                     <textarea class="form-control mb-2" id="auditText" rows="6" readonly></textarea>
-                    <label class="form-label">时间轴（与关键内容对应，可核对起止时间）</label>
-                    <div class="table-responsive">
-                        <table class="table table-sm table-bordered" id="timelineTable">
-                            <thead><tr><th>开始(s)</th><th>结束(s)</th><th>文本</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
+                    <label class="form-label" id="auditTimelineLabel">时间轴（时:分:秒；勾选下方"直接修改模式"后可修正）</label>
+                    <div id="auditTimelineRows" class="mb-2"></div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary mb-3" id="btnAuditAddRow" disabled>
+                        <i class="fas fa-plus"></i> 添加一条
+                    </button>
+                    <div class="small text-muted mb-3" id="auditImageHint" style="display:none;">
+                        <i class="fas fa-image"></i> 图片数据无时间轴：请直接在上方「转写 / 描述文本」中核对或修正图片描述内容。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3" id="recheckCard">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-robot"></i> 算法复核（AI 辅助）</span>
+                    <span class="badge bg-info text-dark">外部大模型 已可用</span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 align-items-end mb-2">
+                        <div class="col-md-5">
+                            <label class="form-label small mb-1">复核算法后端</label>
+                            <select class="form-select form-select-sm" id="recheckBackend">
+                                <option value="deepseek" selected>外部大模型（云端 API · 已配置可用）</option>
+                                <option value="autodl" disabled>autoDL GPU（满血版·接口待配置预留）</option>
+                                <option value="local" disabled>局域网 GPU（优化版·接口待配置预留）</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small mb-1">附加关注（可选）</label>
+                            <input type="text" class="form-control form-control-sm" id="recheckExtra" placeholder="如：重点核对专业术语 / 数字 / 人名">
+                        </div>
+                        <div class="col-md-3 d-grid">
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="btnRecheck"><i class="fas fa-magic"></i> 发起算法复核</button>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">已内置默认复核提示词：AI 对转写/描述文本与时间轴做合规性、准确性校验，输出「通过 / 建议修订 / 建议打回」、问题清单与参考修正文本。<strong>复核结果仅供参考，不会改变审核状态</strong>，最终判定由审核员做出。</p>
+                    <div id="recheckResult" style="display:none;">
+                        <hr>
+                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                            <span class="fw-semibold">AI 判定：</span>
+                            <span class="badge" id="recheckVerdict">—</span>
+                            <span class="small text-muted" id="recheckConfidence"></span>
+                            <span class="small text-muted ms-auto" id="recheckCost"></span>
+                        </div>
+                        <div id="recheckSummary" class="small text-muted mb-2"></div>
+                        <div id="recheckIssues" class="mb-2"></div>
+                        <div id="recheckCorrectedWrap" style="display:none;">
+                            <label class="form-label small mb-1">参考修正文本</label>
+                            <textarea class="form-control form-control-sm mb-2" id="recheckCorrected" rows="5" readonly></textarea>
+                            <button type="button" class="btn btn-sm btn-outline-success" id="btnAdoptCorrected"><i class="fas fa-check-double"></i> 采纳为修正文本（填入上方并开启直接修改）</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,22 +105,24 @@
                 <div class="card-header">审核操作</div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">审核意见（打回时必填；通过 / 自行修正可选）</label>
-                        <textarea class="form-control" id="auditComments" rows="3" placeholder="打回时请写明可执行意见，如某时间段转写错误、某场景描述不符等"></textarea>
+                        <label class="form-label">审核意见（打回时必填；通过 / 直接修改可选）</label>
+                        <textarea class="form-control" id="auditComments" rows="2" placeholder="打回时请写明可执行意见，如某时间段转写错误、某场景描述不符等"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">备注说明（可选，随文件保存，数据管理中可见）</label>
+                        <textarea class="form-control" id="auditRemark" rows="2" placeholder="对该文件的备注，如音画质量、特殊场景、复用建议等"></textarea>
                     </div>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <button type="button" class="btn btn-success" id="btnPass"><i class="fas fa-check"></i> 审核通过</button>
                         <button type="button" class="btn btn-warning" id="btnReject"><i class="fas fa-undo"></i> 打回修正</button>
+                        <button type="button" class="btn btn-primary" id="btnSelfFix"><i class="fas fa-edit"></i> 直接修改并通过</button>
+                        <button type="button" class="btn btn-outline-danger" id="btnInvalid"><i class="fas fa-ban"></i> 标记无效（逻辑删除）</button>
                     </div>
-                    <hr/>
-                    <h6 class="text-muted">自行处理（小问题时可直接修正后自动通过）</h6>
-                    <p class="small text-muted">取消只读后可编辑全文；时间轴以 JSON 数组保存，格式：[{&quot;start&quot;:0,&quot;end&quot;:5,&quot;text&quot;:&quot;...&quot;}]</p>
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" id="unlockEdit">
-                        <label class="form-check-label" for="unlockEdit">允许编辑转写/描述与时间轴 JSON</label>
+                        <label class="form-check-label" for="unlockEdit">直接修改模式：允许编辑上方转写文本与时间轴（小问题可直接修正后点"直接修改并通过"）</label>
                     </div>
-                    <textarea class="form-control font-monospace small mb-2" id="auditTimelineJson" rows="5" readonly></textarea>
-                    <button type="button" class="btn btn-primary" id="btnSelfFix"><i class="fas fa-edit"></i> 保存修正并通过</button>
+                    <p class="small text-muted mb-0">时间轴按 时:分:秒 三格依次输入，输满两位自动跳转；文本框回车新增下一条。</p>
                 </div>
             </div>
 
@@ -94,48 +140,8 @@
 {% block scripts %}
 <script>
 let currentId = null;
-
-/** 队列展示补充条目（仅前端列表，点击不会请求详情） */
-const AUDIT_QUEUE_SEED = [
-    ['夜景高架_行车记录_A17.mp4', 'TK-2026-0208-112', 'kR7mP2xQ9', 'mL3nQ8vR2'],
-    ['方言访谈_第三轮_剪辑版.mp4', 'TK-2026-0210-088', 'nB4vL8wZ1', 'bY6tH1wZ4'],
-    ['手术室器械清点_脱敏样片.mp4', 'TK-2026-0211-076', 'tX3jH6cM5', 'cV9xK2pN7'],
-    ['地铁月台_行为分析原始_04.mp4', 'TK-2026-0212-203', 'wY9dF2sK4', 'dF4jR8wM1'],
-    ['温室番茄生长_延时_7d.mp4', 'TK-2026-0213-045', 'zQ1uN7gV8', 'eH6sT3qL5'],
-    ['零售收银_双路同步_0221.mp4', 'TK-2026-0214-167', 'aU5iE3rT6', 'gY2nV9bC8'],
-    ['法庭示证_卷宗扫描件_卷3.pdf', 'TK-2026-0215-091', 'oP2sD9fG1', 'mL3nQ8vR2'],
-    ['工业质检_双目相机_批次C.mp4', 'TK-2026-0216-134', 'hJ8kW4xC7', 'bY6tH1wZ4'],
-    ['体育场广角_赛事第四节.mp4', 'TK-2026-0217-055', 'kR7mP2xQ9', 'cV9xK2pN7'],
-    ['会议室全景_导出_h265.mp4', 'TK-2026-0218-189', 'nB4vL8wZ1', 'dF4jR8wM1'],
-    ['工厂夜班_机器人视角_03.mp4', 'TK-2026-0219-072', 'tX3jH6cM5', 'eH6sT3qL5'],
-    ['护理站巡检_手持_上午场.mp4', 'TK-2026-0220-128', 'wY9dF2sK4', 'gY2nV9bC8'],
-    ['户外雨天_HDR_测试片.mp4', 'TK-2026-0221-044', 'zQ1uN7gV8', 'mL3nQ8vR2'],
-    ['跨江大桥_车流统计_4K.mp4', 'TK-2026-0222-201', 'aU5iE3rT6', 'bY6tH1wZ4'],
-    ['校园安防_南门多机位_合成.mp4', 'TK-2026-0223-099', 'oP2sD9fG1', 'cV9xK2pN7'],
-    ['播客访谈_音频轨_48khz.wav', 'TK-2026-0224-156', 'hJ8kW4xC7', 'dF4jR8wM1'],
-    ['遥感地块_标注草图_overlay.png', 'TK-2026-0225-033', 'kR7mP2xQ9', 'eH6sT3qL5'],
-    ['急诊分诊_环境音_降噪前.mp4', 'TK-2026-0226-178', 'nB4vL8wZ1', 'gY2nV9bC8'],
-    ['无人机测绘_街区C_raw.mp4', 'TK-2026-0227-065', 'tX3jH6cM5', 'mL3nQ8vR2'],
-    ['新闻播报_提词器侧拍.mp4', 'TK-2026-0228-142', 'wY9dF2sK4', 'bY6tH1wZ4'],
-    ['儿童康复训练_示范课.mp4', 'TK-2026-0301-087', 'zQ1uN7gV8', 'cV9xK2pN7'],
-    ['港口装卸_吊机视角_夜拍.mp4', 'TK-2026-0302-214', 'aU5iE3rT6', 'dF4jR8wM1'],
-    ['古籍扫描_第12册_高清.tif', 'TK-2026-0303-051', 'oP2sD9fG1', 'eH6sT3qL5'],
-    ['车载对话_噪声场景_样本7.mp4', 'TK-2026-0304-193', 'hJ8kW4xC7', 'gY2nV9bC8']
-];
-
-function appendSeedAuditQueueItems(ul) {
-    if (!ul) return;
-    const baseId = 910200;
-    AUDIT_QUEUE_SEED.forEach((row, i) => {
-        const [fn, tk, up, pr] = row;
-        const li = document.createElement('li');
-        li.className = 'list-group-item small';
-        li.style.cursor = 'default';
-        li.innerHTML = `<div class="fw-semibold text-truncate" title="${fn.replace(/"/g, '&quot;')}">${fn.replace(/</g, '&lt;')}</div>` +
-            `<div class="text-muted mt-1"><span class="me-2">#${baseId + i}</span>${tk} · 上传账号 ${up} · 处理账号 ${pr}</div>`;
-        ul.appendChild(li);
-    });
-}
+let currentModality = 'video';  // 反馈#8：图片任务无时间轴
+const MODALITY_CN = { video: '视频', audio: '音频', image: '图片' };
 
 function setComplianceBadges(c) {
     const bf = document.getElementById('badgeFile');
@@ -163,30 +169,217 @@ function renderMedia(t) {
     }
 }
 
-function renderTimeline(rows) {
-    const tb = document.querySelector('#timelineTable tbody');
-    tb.innerHTML = '';
-    (rows || []).forEach(r => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.start ?? ''}</td><td>${r.end ?? ''}</td><td>${(r.text || '').replace(/</g,'&lt;')}</td>`;
-        tb.appendChild(tr);
-    });
-    try {
-        document.getElementById('auditTimelineJson').value = JSON.stringify(rows || [], null, 2);
-    } catch (e) {
-        document.getElementById('auditTimelineJson').value = '[]';
+// ---------------- 时间轴编辑器（时:分:秒 三段输入，自动跳转） ----------------
+function createTimelineEditor(opts) {
+    const wrap = document.getElementById(opts.containerId);
+    const addBtn = opts.addBtnId ? document.getElementById(opts.addBtnId) : null;
+    let disabled = !!opts.disabled;
+    const getPlayer = () => (opts.getPlayer ? opts.getPlayer() : null);
+
+    function pad2(n) { return String(Math.max(0, parseInt(n, 10) || 0)).padStart(2, '0'); }
+    function hmsParts(sec) {
+        sec = Math.max(0, Math.round(Number(sec) || 0));
+        return { h: Math.floor(sec / 3600), m: Math.floor((sec % 3600) / 60), s: Math.floor(sec % 60) };
     }
+    function setGroup(g, sec) {
+        const t = hmsParts(sec);
+        g.h.value = pad2(t.h); g.m.value = pad2(t.m); g.s.value = pad2(t.s);
+    }
+    function getGroup(g) {
+        const vals = [g.h.value, g.m.value, g.s.value].map(v => String(v).trim());
+        if (vals.every(v => v === '')) return null;              // 整组未填
+        if (vals.some(v => !/^\d{1,2}$/.test(v))) return NaN;   // 格式错
+        const h = +vals[0], m = +vals[1], s = +vals[2];
+        if (m > 59 || s > 59) return NaN;                        // 分/秒超限
+        return h * 3600 + m * 60 + s;
+    }
+    function timeInput(cls) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-control form-control-sm tl-time ' + cls;
+        inp.maxLength = 2;
+        inp.inputMode = 'numeric';
+        inp.style.width = '46px';
+        inp.style.textAlign = 'center';
+        inp.disabled = disabled;
+        return inp;
+    }
+    function clockBtn() {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm btn-outline-secondary tl-pick';
+        b.title = '取播放器当前位置';
+        b.disabled = disabled;
+        b.innerHTML = '<i class="fas fa-clock"></i>';
+        return b;
+    }
+    function addRow(startSec, endSec) {
+        startSec = startSec || 0;
+        const row = document.createElement('div');
+        row.className = 'timeline-row mb-2';
+        const timeLine = document.createElement('div');
+        timeLine.className = 'd-flex align-items-center gap-1 flex-wrap mb-1';
+        const sh = timeInput('tl-sh'), sm = timeInput('tl-sm'), ss = timeInput('tl-ss');
+        const eh = timeInput('tl-eh'), em = timeInput('tl-em'), es = timeInput('tl-es');
+        const pickS = clockBtn(), pickE = clockBtn();
+        const arrow = document.createElement('span');
+        arrow.className = 'mx-1 small text-muted';
+        arrow.textContent = '→';
+        const colon = () => { const c = document.createElement('span'); c.className = 'text-muted small'; c.textContent = ':'; return c; };
+        timeLine.append(sh, colon(), sm, colon(), ss, pickS, arrow, eh, colon(), em, colon(), es, pickE);
+
+        const bottom = document.createElement('div');
+        bottom.className = 'd-flex gap-2';
+        const text = document.createElement('input');
+        text.type = 'text';
+        text.className = 'form-control form-control-sm tl-text';
+        text.placeholder = '输入本句文本，回车自动进入下一条';
+        text.disabled = disabled;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn btn-sm btn-outline-danger tl-del';
+        del.title = '删除本条';
+        del.disabled = disabled;
+        del.innerHTML = '<i class="fas fa-times"></i>';
+        bottom.append(text, del);
+        row.append(timeLine, bottom);
+        wrap.appendChild(row);
+
+        const startG = { h: sh, m: sm, s: ss };
+        const endG = { h: eh, m: em, s: es };
+        setGroup(startG, startSec);
+        setGroup(endG, (endSec !== null && endSec !== undefined) ? endSec : startSec + 5);
+
+        const chain = [sh, sm, ss, eh, em, es];
+        chain.forEach((inp, i) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 2);
+                if (opts.onDirty) opts.onDirty();
+                if (inp.value.length === 2) {
+                    if (i < chain.length - 1) chain[i + 1].focus();
+                    else text.focus();
+                }
+            });
+            inp.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    if (i < chain.length - 1) chain[i + 1].focus(); else text.focus();
+                } else if (ev.key === 'Backspace' && inp.value === '' && i > 0) {
+                    chain[i - 1].focus();
+                }
+            });
+        });
+        pickS.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(startG, p.currentTime); });
+        pickE.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(endG, p.currentTime); });
+        text.addEventListener('input', () => { if (opts.onDirty) opts.onDirty(); });
+        text.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                const end = getGroup(endG);
+                const st = getGroup(startG);
+                let nextStart = (end !== null && !isNaN(end)) ? end : ((st !== null && !isNaN(st)) ? st : 0);
+                const nr = addRow(nextStart, nextStart + 5);
+                nr.querySelector('.tl-text').focus();
+            }
+        });
+        del.addEventListener('click', () => {
+            if (wrap.querySelectorAll('.timeline-row').length > 1) {
+                row.remove();
+            } else {
+                [sh, sm, ss, eh, em, es].forEach(i => i.value = '');
+                text.value = '';
+            }
+            if (opts.onDirty) opts.onDirty();
+        });
+        return row;
+    }
+
+    function reset(segments) {
+        wrap.innerHTML = '';
+        if (segments && segments.length) {
+            segments.forEach(seg => {
+                const r = addRow(seg.start, seg.end);
+                r.querySelector('.tl-text').value = seg.text || '';
+            });
+        } else {
+            addRow(0, 5);
+        }
+    }
+    function collect(quiet) {
+        const rows = wrap.querySelectorAll('.timeline-row');
+        const segments = [];
+        const texts = [];
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const startG = { h: r.querySelector('.tl-sh'), m: r.querySelector('.tl-sm'), s: r.querySelector('.tl-ss') };
+            const endG = { h: r.querySelector('.tl-eh'), m: r.querySelector('.tl-em'), s: r.querySelector('.tl-es') };
+            const txt = r.querySelector('.tl-text').value.trim();
+            const start = getGroup(startG);
+            const end = getGroup(endG);
+            if (!txt && start === null && end === null) continue;  // 整行空 → 跳过
+            const fail = (msg) => { if (!quiet) alert(msg); return null; };
+            if (!txt) return fail('第 ' + (i + 1) + ' 条：请输入文本（或清空整行跳过）');
+            if (start === null || isNaN(start)) return fail('第 ' + (i + 1) + ' 条：起始时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end === null || isNaN(end)) return fail('第 ' + (i + 1) + ' 条：结束时间需按 时:分:秒 填写（两位数字，分、秒不超过 59）');
+            if (end <= start) return fail('第 ' + (i + 1) + ' 条：结束时间必须晚于起始时间');
+            segments.push({ start: start, end: end, text: txt });
+            texts.push(txt);
+        }
+        if (!segments.length) { if (!quiet) alert('请至少输入一条内容'); return null; }
+        return { segments: segments, text: texts.join('\n') };
+    }
+    function setEnabled(on) {
+        disabled = !on;
+        wrap.querySelectorAll('input, button').forEach(el => { el.disabled = !on; });
+        if (addBtn) addBtn.disabled = !on;
+    }
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const rows = wrap.querySelectorAll('.timeline-row');
+            let start = 0;
+            if (rows.length) {
+                const last = rows[rows.length - 1];
+                const end = getGroup({ h: last.querySelector('.tl-eh'), m: last.querySelector('.tl-em'), s: last.querySelector('.tl-es') });
+                if (end !== null && !isNaN(end)) start = end;
+            }
+            const nr = addRow(start, start + 5);
+            nr.querySelector('.tl-text').focus();
+        });
+    }
+    return { reset: reset, collect: collect, setEnabled: setEnabled, addRow: addRow };
+}
+
+const auditTlEditor = createTimelineEditor({
+    containerId: 'auditTimelineRows',
+    addBtnId: 'btnAuditAddRow',
+    getPlayer: () => document.querySelector('#mediaWrap video, #mediaWrap audio'),
+    disabled: true
+});
+function renderTimeline(rows) {
+    auditTlEditor.reset(rows || []);
+    auditTlEditor.setEnabled(document.getElementById('unlockEdit').checked);
+}
+
+function resetRecheckUI() {
+    const box = document.getElementById('recheckResult');
+    if (box) box.style.display = 'none';
+    const btn = document.getElementById('btnRecheck');
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> 发起算法复核'; }
 }
 
 function applyTask(t) {
+    resetRecheckUI();
     if (!t) {
         currentId = null;
         document.getElementById('currentRecordingId').textContent = '—';
+        document.getElementById('auditRemark').value = '';
+        document.getElementById('auditComments').value = '';
         return;
     }
     currentId = t.recording_id;
+    currentModality = t.modality || 'video';
     document.getElementById('currentRecordingId').textContent = 'ID: ' + t.recording_id;
-    document.getElementById('badgeModality').textContent = t.modality || 'unknown';
+    document.getElementById('badgeModality').textContent = MODALITY_CN[currentModality] || (t.modality || 'unknown');
     setComplianceBadges(t.compliance || {});
     document.getElementById('metaTaskMd5').textContent =
         (t.compliance && t.compliance.task_no ? '任务编号: ' + t.compliance.task_no : '—') +
@@ -197,7 +390,15 @@ function applyTask(t) {
     document.getElementById('metaPeople').textContent = `来源: ${src} | 上传账号: ${up} | 处理账号: ${pr}`;
     renderMedia(t);
     document.getElementById('auditText').value = t.text_content || '';
+    document.getElementById('auditRemark').value = t.review_remark || '';
     renderTimeline(t.timeline);
+    // 反馈#8：图片任务无时间轴，隐藏时间轴编辑区并禁用；视频/音频正常显示
+    const isImage = currentModality === 'image';
+    document.getElementById('auditTimelineLabel').style.display = isImage ? 'none' : '';
+    document.getElementById('auditTimelineRows').style.display = isImage ? 'none' : '';
+    document.getElementById('btnAuditAddRow').style.display = isImage ? 'none' : '';
+    document.getElementById('auditImageHint').style.display = isImage ? '' : 'none';
+    if (isImage) auditTlEditor.setEnabled(false);
     document.getElementById('auditLogList').innerHTML = '';
     loadLogs(t.recording_id);
 }
@@ -216,19 +417,57 @@ async function loadLogs(rid) {
     });
 }
 
+// 反馈#9 需求2：待审核队列展示数据类型/格式/大小/时长/来源等基本信息
+function humanSize(bytes) {
+    const n = Number(bytes);
+    if (!n || n <= 0) return '';
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    if (n < 1024 * 1024 * 1024) return (n / 1024 / 1024).toFixed(1) + ' MB';
+    return (n / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+}
+function fmtDuration(sec) {
+    const n = Number(sec);
+    if (!n || n <= 0) return '';
+    const s = Math.round(n);
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+    return (h ? h + ':' : '') + String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+}
+const AUD_MODALITY_LABEL = { video: '视频', audio: '音频', image: '图片', unknown: '未知类型' };
+const AUD_MODALITY_BADGE = { video: 'bg-danger', audio: 'bg-warning text-dark', image: 'bg-info text-dark', unknown: 'bg-secondary' };
+const AUD_SOURCE_LABEL = { upload: '本地上传', record: '现场录制', crawl: '互联网采集' };
+
 async function refreshPendingList() {
     const res = await fetch('/api/audit/pending-list');
     const data = await res.json();
     const ul = document.getElementById('pendingList');
     ul.innerHTML = '';
-    appendSeedAuditQueueItems(ul);
-    (data.items || []).forEach(it => {
+    const items = data.items || [];
+    if (!items.length) {
+        const li = document.createElement('li');
+        li.className = 'list-group-item text-muted small text-center';
+        li.textContent = '暂无待审核任务';
+        ul.appendChild(li);
+        return;
+    }
+    items.forEach(it => {
         const li = document.createElement('li');
         li.className = 'list-group-item list-group-item-action';
         const upload = (it.uploader_username || '—').replace(/</g, '&lt;');
         const proc = (it.processor_username || '—').replace(/</g, '&lt;');
-        li.innerHTML = `<div class="fw-semibold text-truncate">${(it.filename || '').replace(/</g, '&lt;')}</div>` +
-            `<div class="text-muted small mt-1">#${it.id} ${it.task_no || '—'} · 上传账号 ${upload} · 处理账号 ${proc}</div>`;
+        const when = it.created_at ? it.created_at.replace('T', ' ').slice(0, 16) : '';
+        const mod = it.modality || it.file_type || 'unknown';
+        const badge = `<span class="badge ${AUD_MODALITY_BADGE[mod] || 'bg-secondary'} me-1">${AUD_MODALITY_LABEL[mod] || mod}</span>`;
+        const meta = [];
+        if (it.file_ext) meta.push('格式 ' + it.file_ext.replace(/</g, '&lt;'));
+        const sz = humanSize(it.file_size);
+        if (sz) meta.push('大小 ' + sz);
+        const dur = fmtDuration(it.duration);
+        if (dur) meta.push('时长 ' + dur);
+        if (it.source_channel) meta.push('来源 ' + (AUD_SOURCE_LABEL[it.source_channel] || it.source_channel));
+        li.innerHTML = `<div class="fw-semibold text-truncate">${badge}${(it.filename || '').replace(/</g, '&lt;')}</div>` +
+            (meta.length ? `<div class="small mt-1 text-body-secondary">${meta.join(' · ')}</div>` : '') +
+            `<div class="text-muted small mt-1">#${it.id} ${when} · ${(it.task_no || '—').replace(/</g, '&lt;')} · 上传 ${upload} · 处理 ${proc}</div>`;
         li.addEventListener('click', () => loadDetail(it.id));
         ul.appendChild(li);
     });
@@ -259,12 +498,17 @@ document.getElementById('btnRefreshList').addEventListener('click', refreshPendi
 
 document.getElementById('btnPass').addEventListener('click', async () => {
     if (!currentId) { alert('请先选择任务'); return; }
-    const body = { recording_id: currentId, comments: document.getElementById('auditComments').value };
+    const body = {
+        recording_id: currentId,
+        comments: document.getElementById('auditComments').value,
+        review_remark: document.getElementById('auditRemark').value
+    };
     const res = await fetch('/api/audit/pass', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || '失败'); return; }
     alert(data.message);
     currentId = null;
+    document.getElementById('auditComments').value = '';
     refreshPendingList();
 });
 
@@ -272,39 +516,154 @@ document.getElementById('btnReject').addEventListener('click', async () => {
     if (!currentId) { alert('请先选择任务'); return; }
     const comments = document.getElementById('auditComments').value.trim();
     if (!comments) { alert('打回时请填写审核意见'); return; }
-    const res = await fetch('/api/audit/reject-return', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recording_id: currentId, comments }) });
+    const res = await fetch('/api/audit/reject-return', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+        recording_id: currentId,
+        comments,
+        review_remark: document.getElementById('auditRemark').value
+    }) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || '失败'); return; }
     alert(data.message);
     currentId = null;
+    document.getElementById('auditComments').value = '';
     refreshPendingList();
 });
 
 document.getElementById('unlockEdit').addEventListener('change', (e) => {
     const on = e.target.checked;
     document.getElementById('auditText').readOnly = !on;
-    document.getElementById('auditTimelineJson').readOnly = !on;
+    auditTlEditor.setEnabled(on);
 });
 
 document.getElementById('btnSelfFix').addEventListener('click', async () => {
     if (!currentId) { alert('请先选择任务'); return; }
-    let timeline;
-    try {
-        timeline = JSON.parse(document.getElementById('auditTimelineJson').value || '[]');
-    } catch (err) {
-        alert('时间轴 JSON 格式错误');
-        return;
+    if (!document.getElementById('unlockEdit').checked) { alert('请先勾选"直接修改模式"，再修改转写文本或时间轴'); return; }
+    // 反馈#8：图片任务无时间轴，直接取描述文本；视频/音频走时间轴收集
+    let contentText, timelineSegs;
+    if (currentModality === 'image') {
+        contentText = document.getElementById('auditText').value.trim();
+        if (!contentText) { alert('请填写图片描述文本'); return; }
+        timelineSegs = [];
+    } else {
+        const tl = auditTlEditor.collect();
+        if (!tl) return;
+        contentText = tl.text;
+        timelineSegs = tl.segments;
     }
     const body = {
         recording_id: currentId,
-        content_text: document.getElementById('auditText').value,
-        timeline,
-        comments: document.getElementById('auditComments').value
+        content_text: contentText,
+        timeline: timelineSegs,
+        comments: document.getElementById('auditComments').value,
+        review_remark: document.getElementById('auditRemark').value
     };
     const res = await fetch('/api/audit/self-fix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || '失败'); return; }
     alert(data.message);
+    currentId = null;
+    document.getElementById('auditComments').value = '';
+    document.getElementById('unlockEdit').checked = false;
+    document.getElementById('auditText').readOnly = true;
+    auditTlEditor.setEnabled(false);
+    refreshPendingList();
+});
+
+// ---------------- 反馈#7：算法复核（DeepSeek 同步） ----------------
+const RECHECK_VERDICT = {
+    pass:   { text: '通过', cls: 'bg-success' },
+    revise: { text: '建议修订', cls: 'bg-warning text-dark' },
+    reject: { text: '建议打回', cls: 'bg-danger' }
+};
+
+document.getElementById('btnRecheck').addEventListener('click', async () => {
+    if (!currentId) { alert('请先选择待审核任务'); return; }
+    const backend = document.getElementById('recheckBackend').value;
+    const extra = document.getElementById('recheckExtra').value;
+    const btn = document.getElementById('btnRecheck');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 复核中…';
+    try {
+        const res = await fetch('/api/audit/algorithm-recheck', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: currentId, backend: backend, prompt_extra: extra })
+        });
+        const data = await res.json();
+        if (!res.ok) { alert(data.error || '算法复核失败'); return; }
+        renderRecheckResult(data);
+    } catch (e) {
+        alert('算法复核请求异常：' + e);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-magic"></i> 重新发起复核';
+    }
+});
+
+function renderRecheckResult(d) {
+    const box = document.getElementById('recheckResult');
+    box.style.display = 'block';
+    const v = RECHECK_VERDICT[d.verdict] || { text: d.verdict || '—', cls: 'bg-secondary' };
+    const vd = document.getElementById('recheckVerdict');
+    vd.className = 'badge ' + v.cls;
+    vd.textContent = v.text;
+    const conf = (d.confidence === null || d.confidence === undefined) ? '' : Number(d.confidence);
+    document.getElementById('recheckConfidence').textContent =
+        (d.confidence !== null && d.confidence !== undefined) ? ('置信度 ' + (conf * 100).toFixed(0) + '%') : '';
+    document.getElementById('recheckCost').textContent =
+        'tokens ' + (Math.round(d.tokens_used || 0)) + ' · 耗 ' + (d.cost_credits || 0) + ' 积分';
+    document.getElementById('recheckSummary').textContent = d.summary ? ('AI 说明：' + d.summary) : '';
+
+    const issues = d.issues || [];
+    const iw = document.getElementById('recheckIssues');
+    iw.innerHTML = '';
+    if (!issues.length) {
+        iw.innerHTML = '<div class="small text-success">未发现明显问题。</div>';
+    } else {
+        const tbl = document.createElement('table');
+        tbl.className = 'table table-sm table-bordered small mb-0';
+        tbl.innerHTML = '<thead><tr><th style="width:90px;">类型</th><th style="width:120px;">位置</th><th>问题描述</th><th>修改建议</th></tr></thead>';
+        const tb = document.createElement('tbody');
+        issues.forEach(it => {
+            const tr = document.createElement('tr');
+            const esc = s => String(s == null ? '' : s).replace(/</g, '&lt;');
+            tr.innerHTML = `<td>${esc(it.type)}</td><td>${esc(it.location)}</td><td>${esc(it.description)}</td><td>${esc(it.suggestion)}</td>`;
+            tb.appendChild(tr);
+        });
+        tbl.appendChild(tb);
+        iw.appendChild(tbl);
+    }
+
+    const cw = document.getElementById('recheckCorrectedWrap');
+    if (d.corrected_text && d.corrected_text.trim()) {
+        cw.style.display = 'block';
+        document.getElementById('recheckCorrected').value = d.corrected_text;
+    } else {
+        cw.style.display = 'none';
+        document.getElementById('recheckCorrected').value = '';
+    }
+}
+
+document.getElementById('btnAdoptCorrected').addEventListener('click', () => {
+    const txt = document.getElementById('recheckCorrected').value;
+    if (!txt) { alert('暂无参考修正文本'); return; }
+    document.getElementById('auditText').value = txt;
+    const unlock = document.getElementById('unlockEdit');
+    if (!unlock.checked) {
+        unlock.checked = true;
+        unlock.dispatchEvent(new Event('change'));
+    }
+    document.getElementById('auditText').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    alert('已填入参考修正文本并开启直接修改模式，请核对内容（图片为描述文本、音视频为文本与时间轴）后点「直接修改并通过」。');
+});
+
+// 标记无效（逻辑删除）：仅系统管理员与质检审核人员（后端已按角色校验），二次确认
+document.getElementById('btnInvalid').addEventListener('click', async () => {
+    if (!currentId) { alert('请先选择待审核任务'); return; }
+    if (!confirm('确认将该条数据标记为「无效」（逻辑删除，物理文件保留，可在数据管理中追溯）？')) return;
+    const res = await fetch('/api/manage/invalidate/' + currentId, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || '标记失败'); return; }
+    alert(data.message || '已标记为无效');
     currentId = null;
     refreshPendingList();
 });

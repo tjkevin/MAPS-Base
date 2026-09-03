@@ -97,7 +97,8 @@ def validate_task_config(task):
 
 
 def can_create_task(user):
-    return user.role in ('admin', 'super_admin', 'recorder')
+    # 反馈#7 权限矩阵：任务创建与发布仅系统管理员/超级管理员（任务发起人），采集人员无发布权
+    return user.role in ('admin', 'super_admin')
 
 
 def is_task_creator_or_admin(user, task):
@@ -105,8 +106,18 @@ def is_task_creator_or_admin(user, task):
 
 
 def eligible_users_for_category(category):
+    # f3：过滤停用/注销/已过期账号，避免向僵尸账号分配/派发任务
     role = CATEGORY_ROLE.get(category, 'recorder')
-    return User.query.filter_by(role=role).all()
+    now = datetime.utcnow()
+    return (
+        User.query.filter(
+            User.role == role,
+            User.is_active.is_(True),
+            User.is_locked_account.is_(False),
+            or_(User.account_valid_until.is_(None), User.account_valid_until > now),
+        )
+        .all()
+    )
 
 
 def auto_assign(task, creator_id):
@@ -133,6 +144,9 @@ def auto_assign(task, creator_id):
     base = task.required_count // n
     rem = task.required_count - base * n
     for i, u in enumerate(users_sorted[:n]):
+        # f3：唯一约束兜底防护，跳过已有分配记录的用户
+        if TaskAssignment.query.filter_by(task_id=task.id, user_id=u.id).first():
+            continue
         tq = base + (1 if i < rem else 0)
         if tq <= 0:
             continue

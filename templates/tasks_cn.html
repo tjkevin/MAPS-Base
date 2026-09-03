@@ -8,11 +8,35 @@
 <div class="container-fluid">
     <h1 class="mb-4 d-none d-md-block">任务管理</h1>
 
+    <!-- 反馈#8：一级子页——任务与统计 / 模型后端与队列监控 -->
+    <ul class="nav nav-tabs mb-3" id="taskMainTabs" role="tablist">
+        {% if current_user.role in ['admin', 'super_admin'] %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
+                <i class="fas fa-paper-plane"></i> 任务发起
+            </button>
+        </li>
+        {% endif %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
+                <i class="fas fa-tasks"></i> 任务与统计
+            </button>
+        </li>
+        {% if current_user.role in ['admin', 'super_admin'] %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mainTabMonitor" data-pane="paneMonitor" type="button" role="tab">
+                <i class="fas fa-microchip"></i> 模型后端与队列监控
+            </button>
+        </li>
+        {% endif %}
+    </ul>
+
+    <div id="paneTasks">
     <div class="card mb-4">
         <div class="card-header">流程任务（工作流）</div>
         <div class="card-body">
-            <p class="small text-muted">管理员/采集员可创建草稿并发布；公海模式对应角色可申领；执行人上报进度达标后提交复核；审核员复核；发起人评分；管理员归档。</p>
-            {% if current_user.role in ['admin', 'recorder'] %}
+            <p class="small text-muted">系统管理员/超级管理员可创建草稿并发布（反馈#7：采集员无任务发布权）；公海模式对应角色可申领；执行人上报进度达标后提交复核；审核员复核；发起人评分；管理员归档。</p>
+            {% if current_user.role in ['admin', 'super_admin'] %}
             <div class="row g-2 mb-3 border-bottom pb-3">
                 <div class="col-md-2"><input class="form-control form-control-sm" id="wf_title" placeholder="任务名称"></div>
                 <div class="col-md-2">
@@ -56,6 +80,58 @@
             <div class="mt-2 small" id="wfDetail"></div>
         </div>
     </div>
+
+    <!-- 反馈#9 需求3b：管理员/超管在办数据总览（处理中/待修正/待审核的数据内容） -->
+    {% if current_user.role in ['admin', 'super_admin'] %}
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">在办数据总览 <small class="text-muted">数据处理/审核流水线</small></h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnIpRefresh"><i class="fas fa-sync"></i> 刷新</button>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-3" id="ipTiles">
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0" id="ipCntPending">–</div><div class="small text-muted">待处理</div></div></div>
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0 text-danger" id="ipCntFix">–</div><div class="small text-muted">打回待修正</div></div></div>
+                <div class="col"><div class="border rounded py-2"><div class="h5 mb-0 text-warning" id="ipCntReview">–</div><div class="small text-muted">待审核</div></div></div>
+            </div>
+            <div class="table-responsive" style="max-height:360px;overflow-y:auto;">
+                <table class="table table-sm table-striped align-middle">
+                    <thead style="position:sticky;top:0;background:#fff;">
+                    <tr><th>数据ID</th><th>文件名</th><th>类型</th><th>状态</th><th>上传人</th><th>处理人</th><th>审核查看</th><th>采集任务号</th><th>时间</th></tr>
+                    </thead>
+                    <tbody id="ipBody"><tr><td colspan="9" class="text-muted text-center">加载中…</td></tr></tbody>
+                </table>
+            </div>
+            <div class="small text-muted mt-1">说明：「处理人」优先显示当前持锁处理人（领取锁 15 分钟续期），无持锁时显示最近处理结果提交人；「审核查看」显示最近打开该条待审数据的审核员。</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 反馈#6：算力消耗统计（按角色区分：管理员看全平台，普通人员仅看本人） -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">算力消耗统计 <small class="text-muted" id="csScopeLabel"></small></h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnCsRefresh"><i class="fas fa-sync"></i> 刷新</button>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-3" id="csTiles"></div>
+            <div class="row">
+                <div class="col-md-5">
+                    <h6>按推理后端（近 30 天）</h6>
+                    <table class="table table-sm table-striped align-middle">
+                        <thead><tr><th>后端</th><th class="text-end">消耗积分</th><th class="text-end">调用次数</th></tr></thead>
+                        <tbody id="csBackendBody"><tr><td colspan="3" class="text-muted text-center">加载中…</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="col-md-7">
+                    <h6>近 30 天消耗趋势（积分/天）</h6>
+                    <div id="csTrend" class="d-flex align-items-end gap-1" style="height:120px;"></div>
+                    <div class="d-flex justify-content-between small text-muted mt-1"><span>30 天前</span><span>今天</span></div>
+                </div>
+            </div>
+            <div class="mt-3" id="csExtraWrap"></div>
+        </div>
+    </div>
     
     <div class="row">
         <div class="col-md-12 mb-4">
@@ -82,19 +158,35 @@
                     </form>
                     
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3 col-6">
                             <div class="card bg-light">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">总视频数</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-video"></i> 总视频数</h6>
                                     <h2 id="totalVideos">0</h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3 col-6">
                             <div class="card bg-light">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">总时长</h6>
-                                    <h2 id="totalDuration">0:00:00</h2>
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-headphones"></i> 总音频数</h6>
+                                    <h2 id="totalAudios">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-image"></i> 总图片数</h6>
+                                    <h2 id="totalImages">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-clock"></i> 音视频总时长</h6>
+                                    <h2 class="fs-4" id="totalDuration">0:00:00</h2>
                                 </div>
                             </div>
                         </div>
@@ -144,8 +236,10 @@
                             <thead>
                                 <tr>
                                     <th>账号</th>
-                                    <th>录制视频数</th>
-                                    <th>总时长</th>
+                                    <th>视频数</th>
+                                    <th>音频数</th>
+                                    <th>图片数</th>
+                                    <th>音视频总时长</th>
                                     <th>完成任务数</th>
                                     <th>补偿状态</th>
                                 </tr>
@@ -159,12 +253,285 @@
             </div>
         </div>
     </div>
+    </div><!-- /paneTasks -->
+
+    {% if current_user.role in ['admin', 'super_admin'] %}
+    <div id="paneMonitor" class="d-none">
+        <!-- 二级子页：队列监控总览 / 外部大模型接口配置（仅超管） -->
+        <ul class="nav nav-pills mb-3" id="monitorSubTabs">
+            <li class="nav-item">
+                <button class="nav-link active" id="subTabOverview" data-subpane="subOverview" type="button">
+                    <i class="fas fa-heart-pulse"></i> 队列监控总览
+                </button>
+            </li>
+            {% if current_user.role == 'super_admin' %}
+            <li class="nav-item">
+                <button class="nav-link" id="subTabLlm" data-subpane="subLlmConfig" type="button">
+                    <i class="fas fa-key"></i> 外部大模型接口配置
+                </button>
+            </li>
+            {% endif %}
+        </ul>
+
+        <!-- ========== 二级子页 A：队列监控总览 ========== -->
+        <div id="subOverview">
+            <div class="card mb-3 border-info">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-microchip text-info"></i> 模型后端状态</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadModelQuota()"><i class="fas fa-sync"></i> 刷新</button>
+                    <button class="btn btn-sm btn-outline-danger" type="button" onclick="recoverStuck()"><i class="fas fa-ambulance"></i> 扫描卡死任务</button>
+                    <button class="btn btn-sm btn-outline-dark" type="button" onclick="loadDeadTasks()"><i class="fas fa-skull"></i> 死信队列</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2" id="modelStatusRow">
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="gpuAutodlBox">autoDL 满血版：加载中…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="gpuLocalBox">局域网优化版：加载中…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="llmBox" style="cursor:pointer">外部大模型：加载中…</div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 small h-100" id="workerBox">Worker：加载中…</div></div>
+                    </div>
+                    <div class="small text-muted mt-2">
+                        图片/音视频理解任务由 BAGEL 后端执行（autoDL 满血版 / 局域网优化版，自动故障切换）；纯文本任务路由到外部大模型。
+                        {% if current_user.role == 'super_admin' %}
+                        点击「外部大模型」状态框或上方「外部大模型接口配置」子页可管理 API Key。
+                        {% endif %}
+                    </div>
+                    <div id="deadTasksBox" class="mt-3 d-none">
+                        <div class="fw-semibold small mb-1">死信任务（重试 3 次仍失败，可手动重投）</div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead><tr><th>任务ID</th><th>后端</th><th>数据ID</th><th>失败原因</th><th>时间</th><th>操作</th></tr></thead>
+                                <tbody id="deadTaskList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 反馈#8：队列实时监控（在跑数/进度/所用模型，5 秒自动刷新） -->
+            <div class="card mb-3 border-primary">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-list-check text-primary"></i> 队列实时监控</span>
+                    <span class="badge bg-success" id="liveAutoBadge"><i class="fas fa-circle-notch fa-spin"></i> 5 秒自动刷新</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadQueueLive()"><i class="fas fa-sync"></i> 立即刷新</button>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center g-2 mb-3" id="queueCountTiles"></div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-bolt text-primary"></i> 进行中任务（可查看所用模型与执行进度）</div>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>任务</th><th>数据文件</th><th>类型</th><th>所用模型</th><th>执行节点</th><th>进度</th><th>已耗时</th><th>提交人</th><th>预估积分</th></tr></thead>
+                            <tbody id="liveRunningBody"><tr><td colspan="9" class="text-muted small text-center">加载中…</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-hourglass-half text-secondary"></i> 排队中任务</div>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>排队顺位</th><th>任务</th><th>数据文件</th><th>类型</th><th>路由后端</th><th>提交人</th><th>已等待</th></tr></thead>
+                            <tbody id="liveQueuedBody"><tr><td colspan="7" class="text-muted small text-center">加载中…</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fw-semibold small mb-1"><i class="fas fa-rotate text-warning"></i> 延迟重试等待中</div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead><tr><th>任务</th><th>数据文件</th><th>已尝试</th><th>下次执行</th><th>最近错误</th></tr></thead>
+                            <tbody id="liveRetryBody"><tr><td colspan="5" class="text-muted small text-center">加载中…</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 外部大模型流量与算力消耗统计（由用户管理迁入） -->
+            <div class="card mb-3 border-success">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-chart-line text-success"></i> 外部大模型流量与算力消耗统计</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadLlmUsage()"><i class="fas fa-sync"></i> 刷新</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">总调用次数</div><div class="fs-5 fw-bold" id="llmTotCalls">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">失败次数</div><div class="fs-5 fw-bold text-danger" id="llmTotFailed">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">累计 tokens</div><div class="fs-5 fw-bold" id="llmTotTokens">0</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">累计消耗积分</div><div class="fs-5 fw-bold" id="llmTotCredits">0</div></div></div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="fw-semibold small mb-1">近 30 天 tokens 趋势</div>
+                            <div id="llmDailyTrend" class="small text-muted">暂无数据</div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="fw-semibold small mb-1">按人统计（算法处理 + 审核复核）</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead><tr><th>账号</th><th>调用</th><th>tokens</th><th>积分</th></tr></thead>
+                                    <tbody id="llmByUser"><tr><td colspan="4" class="text-muted small">加载中…</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /subOverview -->
+
+        <!-- ========== 二级子页 B：外部大模型接口配置（仅超级管理员） ========== -->
+        {% if current_user.role == 'super_admin' %}
+        <div id="subLlmConfig" class="d-none">
+            <div class="card mb-3 border-danger">
+                <div class="card-header d-flex flex-wrap align-items-center gap-2">
+                    <span><i class="fas fa-key text-danger"></i> 外部大模型接口配置（系统核心配置 · 仅超级管理员）</span>
+                    <span class="badge bg-secondary" id="llmConfiguredBadge">—</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="switchSubPane('subOverview')"><i class="fas fa-arrow-left"></i> 返回队列监控</button>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-3">
+                            <label class="form-label small mb-1">外部大模型服务商</label>
+                            <select class="form-select form-select-sm" id="llmProvider">
+                                <option value="deepseek" selected>DeepSeek（当前可用）</option>
+                                <option value="qwen" disabled>通义千问 Qwen（预留，即将支持）</option>
+                                <option value="zhipu" disabled>智谱 GLM（预留，即将支持）</option>
+                                <option value="kimi" disabled>Moonshot Kimi（预留，即将支持）</option>
+                                <option value="openai_compat" disabled>OpenAI 兼容接口（预留，即将支持）</option>
+                            </select>
+                            <div class="form-text">外部大模型用于纯文本理解与复核。当前仅 DeepSeek 服务商已接入、可直接使用；其他服务商为预留位，填入接口信息后即可启用。</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small mb-1">API Key（输入 sk-…；留空保存则不修改）</label>
+                            <input type="password" class="form-control form-control-sm" id="llmApiKey" autocomplete="off" placeholder="粘贴外部大模型 API Key">
+                            <div class="form-text">当前：<span id="llmApiKeyMasked" class="text-monospace">—</span></div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small mb-1">Base URL</label>
+                            <input type="text" class="form-control form-control-sm" id="llmBaseUrl" placeholder="https://api.deepseek.com">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">模型</label>
+                            <input type="text" class="form-control form-control-sm" id="llmModel" placeholder="deepseek-chat">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">日 token 上限</label>
+                            <input type="number" class="form-control form-control-sm" id="llmDaily" min="0" placeholder="0=不限">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-1">月 token 上限</label>
+                            <input type="number" class="form-control form-control-sm" id="llmMonthly" min="0" placeholder="0=不限">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-2 align-items-center">
+                        <button class="btn btn-sm btn-danger" type="button" onclick="saveLlmConfig()"><i class="fas fa-save"></i> 保存配置</button>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="clearLlmKey()"><i class="fas fa-eraser"></i> 清空 API Key</button>
+                        <span class="small text-muted">保存后即时生效并持久化；外部大模型为纯文本接口，图片/音视频理解自动路由至 BAGEL GPU 后端（autoDL / 局域网）。</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /subLlmConfig -->
+        {% endif %}
+    </div><!-- /paneMonitor -->
+
+    <!-- 反馈#12：任务发起（有权限者=系统管理员/超级管理员，可指定完成人） -->
+    <div id="paneInitiate" class="d-none">
+        <div class="card mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-paper-plane me-1"></i> 发起新任务
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">由系统管理员/超级管理员发起采集、处理或审核类任务；可<b>指定完成人</b>（手动分配）、发布到<b>公海</b>由对应角色申领，或交由系统<b>自动均衡分配</b>。发布后任务进入工作流，完成人会收到站内消息通知。</p>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label small fw-bold">任务名称 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="ti_title" maxlength="255" placeholder="例如：2026 年秋季非遗口述史采集（第一期）">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold">目标数量 <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control form-control-sm" id="ti_count" value="10" min="1" max="9999">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold">优先级</label>
+                        <select class="form-select form-select-sm" id="ti_priority">
+                            <option value="high">高</option>
+                            <option value="medium" selected>中</option>
+                            <option value="low">低</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">任务类别 <span class="text-danger">*</span></label>
+                        <select class="form-select form-select-sm" id="ti_category">
+                            <option value="collect">采集任务（采集人员）</option>
+                            <option value="process" selected>处理任务（采集/处理人员）</option>
+                            <option value="audit">审核任务（质检审核人员）</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">分配方式</label>
+                        <select class="form-select form-select-sm" id="ti_assign">
+                            <option value="manual" selected>指定完成人（手动分配）</option>
+                            <option value="pool">公海申领（符合角色者自行申领）</option>
+                            <option value="auto">自动均衡（按在办任务量分派）</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">开始日期</label>
+                        <input type="date" class="form-control form-control-sm" id="ti_start">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">截止日期 <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control form-control-sm" id="ti_end">
+                    </div>
+                    <div class="col-12" id="tiAssigneeWrap">
+                        <label class="form-label small fw-bold">指定完成人（勾选，目标数量将在所选人员间均分）</label>
+                        <div class="border rounded p-2" style="max-height:170px;overflow-y:auto;background:#f8f9fc;" id="tiAssigneeBox">
+                            <span class="small text-muted">加载中…</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-none" id="tiMaxClaimWrap">
+                        <label class="form-label small fw-bold">每人最多申领数量</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_maxclaim" value="1" min="1" max="999">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">验收标准（可选）</label>
+                        <textarea class="form-control form-control-sm" id="ti_accept" rows="2" maxlength="1000" placeholder="例如：每条音频需完成全文转写并经审核员复核通过；图片需附带拍摄时间与地点说明。"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">任务描述（可选）</label>
+                        <textarea class="form-control form-control-sm" id="ti_desc" rows="3" maxlength="2000" placeholder="任务背景、内容要求、注意事项等。"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnTiSubmit"><i class="fas fa-paper-plane me-1"></i>发起并发布</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnTiReset">清空重填</button>
+                    <span class="small" id="tiHint"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">我发起的任务</h5>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnTiRefresh"><i class="fas fa-sync"></i> 刷新</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped align-middle">
+                        <thead><tr><th>编号</th><th>任务名称</th><th>类别</th><th>分配方式</th><th>状态</th><th>进度</th><th>截止</th></tr></thead>
+                        <tbody id="tiMineBody"><tr><td colspan="7" class="text-muted text-center">加载中…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- /paneInitiate -->
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-const SEED_TASK_TABLES = true;
+// f2 安全：HTML 转义，防止用户名/任务标题等字段存储型 XSS
+function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+// f3：关闭硬编码演示种子行，统计页只展示真实数据
+const SEED_TASK_TABLES = false;
 const WF_SEED = [
     ['WF-2026-0210-088', '华东路口多机位标注批次', '处理', 'pool', 'pending_claim', '待申领', 'secondary', 0, 0, 80, '2026-04-18'],
     ['WF-2026-0211-042', '夜间高架车流采集复核', '采集', 'manual', 'pending_execute', '执行中', 'primary', 62, 31, 50, '2026-03-22'],
@@ -223,16 +590,18 @@ function seedStatTaskRows() {
         </tr>`).join('');
 }
 const PERF_SEED = [
-    ['kR7mP2xQ9', 112, 4140, 9, true], ['nB4vL8wZ1', 87, 3025, 7, true], ['tX3jH6cM5', 64, 2280, 5, false],
-    ['wY9dF2sK4', 143, 5105, 11, true], ['zQ1uN7gV8', 51, 1890, 4, false], ['aU5iE3rT6', 96, 3600, 8, true],
-    ['oP2sD9fG1', 78, 2755, 6, true], ['hJ8kW4xC7', 121, 4420, 10, false], ['mL3nQ8vR2', 69, 2415, 5, true],
-    ['bY6tH1wZ4', 105, 3885, 9, true], ['cV9xK2pN7', 58, 2100, 4, false], ['dF4jR8wM1', 134, 4890, 10, true]
+    ['kR7mP2xQ9', 112, 14, 31, 4140, 9, true], ['nB4vL8wZ1', 87, 9, 22, 3025, 7, true], ['tX3jH6cM5', 64, 6, 12, 2280, 5, false],
+    ['wY9dF2sK4', 143, 18, 40, 5105, 11, true], ['zQ1uN7gV8', 51, 4, 9, 1890, 4, false], ['aU5iE3rT6', 96, 11, 27, 3600, 8, true],
+    ['oP2sD9fG1', 78, 8, 18, 2755, 6, true], ['hJ8kW4xC7', 121, 15, 33, 4420, 10, false], ['mL3nQ8vR2', 69, 7, 15, 2415, 5, true],
+    ['bY6tH1wZ4', 105, 12, 26, 3885, 9, true], ['cV9xK2pN7', 58, 5, 10, 2100, 4, false], ['dF4jR8wM1', 134, 16, 38, 4890, 10, true]
 ];
 function seedUserPerfRows() {
     if (!SEED_TASK_TABLES) return '';
-    return PERF_SEED.map(([name, v, d, tc, earned]) => `<tr>
+    return PERF_SEED.map(([name, v, a, i, d, tc, earned]) => `<tr>
             <td>${name}</td>
             <td>${v}</td>
+            <td>${a}</td>
+            <td>${i}</td>
             <td>${formatDuration(d)}</td>
             <td>${tc}</td>
             <td><span class="badge bg-${earned ? 'success' : 'warning'}">${earned ? '已获得' : '待处理'}</span></td>
@@ -252,6 +621,8 @@ async function loadTaskStatistics(startDate, endDate) {
         
         const data = await response.json();
         document.getElementById('totalVideos').textContent = data.total_videos;
+        document.getElementById('totalAudios').textContent = data.total_audios ?? 0;
+        document.getElementById('totalImages').textContent = data.total_images ?? 0;
         document.getElementById('totalDuration').textContent = formatDuration(data.total_duration);
         
         // Update task list
@@ -265,14 +636,14 @@ async function loadTaskStatistics(startDate, endDate) {
             const label = task.workflow_label || st;
             return `<tr>
                 <td>${task.id}</td>
-                <td>${task.title}</td>
-                <td>${task.task_category || ('类型' + task.task_type)}</td>
+                <td>${escapeHtml(task.title)}</td>
+                <td>${escapeHtml(task.task_category || ('类型' + task.task_type))}</td>
                 <td>${req}</td>
                 <td>${done}</td>
                 <td><div class="progress"><div class="progress-bar" style="width:${pct}%">${pct}%</div></div></td>
                 <td>${task.start_date ? new Date(task.start_date).toLocaleDateString() : ''}</td>
                 <td>${task.end_date ? new Date(task.end_date).toLocaleDateString() : ''}</td>
-                <td><span class="badge bg-${badge}">${label}</span></td>
+                <td><span class="badge bg-${badge}">${escapeHtml(label)}</span></td>
             </tr>`;
         }).join('');
         taskList.innerHTML = seedStatTaskRows() + realTaskRows;
@@ -281,8 +652,10 @@ async function loadTaskStatistics(startDate, endDate) {
         const userPerformance = document.getElementById('userPerformance');
         const realPerf = (data.user_performance || []).map(user => `
             <tr>
-                <td>${user.username}</td>
+                <td>${escapeHtml(user.nickname || user.username)}<div class="text-muted small">${escapeHtml(user.username)}</div></td>
                 <td>${user.videos_recorded}</td>
+                <td>${user.audios_recorded ?? 0}</td>
+                <td>${user.images_recorded ?? 0}</td>
                 <td>${formatDuration(user.total_duration)}</td>
                 <td>${user.tasks_completed}</td>
                 <td>
@@ -315,9 +688,77 @@ document.getElementById('startDate').value = firstDay;
 document.getElementById('endDate').value = lastDay;
 loadTaskStatistics(firstDay, lastDay);
 
+// —— 反馈#6：算力消耗统计（管理员看全平台，普通人员仅看本人）——
+const CS_BACKEND_LABEL = {
+    autodl: 'AutoDL 云端 GPU',
+    local: '局域网 GPU',
+    deepseek: '外部大模型 API',
+    cache: '缓存复用',
+    unknown: '未知'
+};
+function csBackendLabel(b) { return CS_BACKEND_LABEL[b] || (b || '未知'); }
+function csTile(label, value, color) {
+    return `<div class="col-6 col-md-3 mb-2"><div class="card bg-light h-100"><div class="card-body py-2">
+        <h6 class="card-subtitle mb-1 text-muted small">${label}</h6>
+        <h4 class="mb-0 text-${color || 'dark'}">${value}</h4></div></div></div>`;
+}
+async function loadComputeStats() {
+    try {
+        const res = await fetch('/api/tasks/compute-stats');
+        const d = await res.json();
+        if (!res.ok || !d.success) { return; }
+        const isAdmin = (d.scope === 'all');
+        document.getElementById('csScopeLabel').textContent = isAdmin ? '（全平台视角 · 管理员）' : '（我的算力 · 仅本人数据）';
+        let tiles;
+        if (isAdmin) {
+            tiles = csTile('累计消耗积分', d.total_credits, 'danger')
+                + csTile('累计发放积分', d.granted_total, 'success')
+                + csTile('成功调用次数', d.total_calls, 'primary')
+                + csTile('缓存命中 / 失败', d.cache_hits + ' / ' + d.failed_calls, 'warning');
+        } else {
+            tiles = csTile('我的积分余额', (d.balance == null ? '—' : d.balance), 'success')
+                + csTile('我的累计消耗', d.total_credits, 'danger')
+                + csTile('成功调用次数', d.total_calls, 'primary')
+                + csTile('缓存命中 / 失败', d.cache_hits + ' / ' + d.failed_calls, 'warning');
+        }
+        document.getElementById('csTiles').innerHTML = tiles;
+        const bb = document.getElementById('csBackendBody');
+        bb.innerHTML = (d.by_backend || []).length
+            ? d.by_backend.map(r => `<tr><td>${csBackendLabel(r.backend)}</td><td class="text-end">${r.credits}</td><td class="text-end">${r.calls}</td></tr>`).join('')
+            : '<tr><td colspan="3" class="text-muted text-center">近 30 天暂无消耗</td></tr>';
+        const trend = d.trend || [];
+        const maxC = Math.max(1, ...trend.map(t => t.credits));
+        document.getElementById('csTrend').innerHTML = trend.map(t => {
+            const h = Math.round(t.credits / maxC * 100);
+            return `<div class="flex-grow-1 d-flex flex-column justify-content-end" style="min-width:2px" title="${t.date}：${t.credits} 积分 / ${t.calls} 次">
+                <div class="bg-primary rounded-top" style="height:${t.credits ? Math.max(h, 4) : 0}%"></div></div>`;
+        }).join('');
+        const wrap = document.getElementById('csExtraWrap');
+        if (isAdmin) {
+            const rows = (d.by_user || []).map(u => `<tr><td>${escapeHtml(u.nickname || u.username)}${u.nickname ? '<div class="text-muted small">' + escapeHtml(u.username) + '</div>' : ''}</td><td>${escapeHtml(u.role || '')}</td><td class="text-end">${u.credits}</td><td class="text-end">${u.calls}</td></tr>`).join('');
+            wrap.innerHTML = `<h6>按人员消耗（全部时段，按积分降序）</h6>
+                <div class="table-responsive"><table class="table table-sm table-striped align-middle">
+                <thead><tr><th>账号</th><th>角色</th><th class="text-end">消耗积分</th><th class="text-end">调用次数</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="4" class="text-muted text-center">暂无消耗记录</td></tr>'}</tbody></table></div>`;
+        } else {
+            const rows = (d.recent || []).map(r => `<tr><td><small>${(r.created_at || '').replace('T', ' ').slice(0, 16)}</small></td><td>${csBackendLabel(r.backend)}</td><td>${escapeHtml(r.modality || '—')}</td><td class="text-end">${r.cost_credits}</td><td><span class="badge bg-${r.status === 'success' ? 'success' : (r.status === 'reused' ? 'info' : 'danger')}">${r.status}</span></td></tr>`).join('');
+            wrap.innerHTML = `<h6>我的近期算力流水</h6>
+                <div class="table-responsive"><table class="table table-sm table-striped align-middle">
+                <thead><tr><th>时间</th><th>后端</th><th>类型</th><th class="text-end">积分</th><th>状态</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="5" class="text-muted text-center">暂无流水</td></tr>'}</tbody></table></div>`;
+        }
+    } catch (err) {
+        console.error('compute stats error:', err);
+    }
+}
+document.getElementById('btnCsRefresh').addEventListener('click', loadComputeStats);
+
 // —— 工作流 API ——
 const WF_ROLE = "{{ current_user.role }}";
 const WF_UID = {{ current_user.id }};
+// 反馈#7：超级管理员兼具系统管理员全部权限
+const WF_IS_ADMIN = (WF_ROLE === 'admin' || WF_ROLE === 'super_admin');
+const WF_IS_REVIEWER = (WF_ROLE === 'inspector' || WF_ROLE === 'admin' || WF_ROLE === 'super_admin');
 function wfBadge(ws) {
     if (ws === 'completed' || ws === 'archived') return 'success';
     if (ws === 'pending_review' || ws === 'pending_score') return 'warning';
@@ -333,7 +774,7 @@ async function loadWf(scope) {
     const wfDemo = seedWfRows();
     const wfReal = (data.items || []).map(t => {
         const pct = t.progress_percent || 0;
-        return `<tr>
+        return `<tr id="wfRow_${t.id}">
             <td><small>${t.task_no || t.id}</small></td>
             <td>${t.title}</td>
             <td>${t.task_category}</td>
@@ -346,14 +787,34 @@ async function loadWf(scope) {
                 ${t.assign_mode==='pool' && t.workflow_status==='pending_claim' ? `<button class="btn btn-sm btn-link p-0" onclick="wfClaim(${t.id})">申领</button>` : ''}
                 ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfProg(${t.id})">+进度</button>` : ''}
                 ${(t.workflow_status==='pending_execute'||t.workflow_status==='pending_fix') ? `<button class="btn btn-sm btn-link p-0" onclick="wfSubRev(${t.id})">提交复核</button>` : ''}
-                ${(WF_ROLE==='inspector'||WF_ROLE==='admin') && t.workflow_status==='pending_review' ? `<button class="btn btn-sm btn-link p-0" onclick="wfRev(${t.id},true)">通过</button><button class="btn btn-sm btn-link p-0 text-danger" onclick="wfRev(${t.id},false)">打回</button>` : ''}
-                ${(WF_ROLE==='admin' || t.created_by == WF_UID) && t.workflow_status==='pending_score' ? `<button class="btn btn-sm btn-link p-0" onclick="wfScore(${t.id})">评分</button>` : ''}
-                ${WF_ROLE==='admin' && t.workflow_status==='completed' ? `<button class="btn btn-sm btn-link p-0" onclick="wfArch(${t.id})">归档</button>` : ''}
+                ${WF_IS_REVIEWER && t.workflow_status==='pending_review' ? `<button class="btn btn-sm btn-link p-0" onclick="wfRev(${t.id},true)">通过</button><button class="btn btn-sm btn-link p-0 text-danger" onclick="wfRev(${t.id},false)">打回</button>` : ''}
+                ${(WF_IS_ADMIN || t.created_by == WF_UID) && t.workflow_status==='pending_score' ? `<button class="btn btn-sm btn-link p-0" onclick="wfScore(${t.id})">评分</button>` : ''}
+                ${WF_IS_ADMIN && t.workflow_status==='completed' ? `<button class="btn btn-sm btn-link p-0" onclick="wfArch(${t.id})">归档</button>` : ''}
             </td>
         </tr>`;
     }).join('');
     if (wfDemo || wfReal) tb.innerHTML = wfDemo + wfReal;
     else tb.innerHTML = '<tr><td colspan="8" class="text-muted">暂无</td></tr>';
+    applyWfHighlight();
+}
+
+// 反馈#9 需求3a：消息中心跳转 ?highlight=<task_id> —— 定位、高亮、滚动到对应任务行
+let wfHighlightId = null;
+function applyWfHighlight() {
+    if (!wfHighlightId) return false;
+    const row = document.getElementById('wfRow_' + wfHighlightId);
+    if (!row) return false;
+    row.classList.add('table-warning');
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const cell = row.querySelector('td');
+    if (cell) {
+        const mark = document.createElement('span');
+        mark.className = 'badge bg-danger ms-1';
+        mark.textContent = '来自消息';
+        cell.appendChild(mark);
+    }
+    wfHighlightId = null;
+    return true;
 }
 async function wfDetail(id) {
     const res = await fetch('/api/workflow/tasks/' + id);
@@ -405,6 +866,46 @@ async function wfArch(id) {
 document.getElementById('btnWfList')?.addEventListener('click', () => loadWf('all'));
 document.getElementById('btnWfMine')?.addEventListener('click', () => loadWf('mine'));
 document.getElementById('btnWfPool')?.addEventListener('click', () => loadWf('pool'));
+
+// ================= 反馈#9 需求3b：在办数据总览（管理员/超管） =================
+const IP_STATUS_LABEL = { pending: '待处理', pending_fix: '打回待修正', pending_review: '待审核' };
+const IP_STATUS_BADGE = { pending: 'bg-secondary', pending_fix: 'bg-danger', pending_review: 'bg-warning text-dark' };
+const IP_MOD_LABEL = { video: '视频', audio: '音频', image: '图片', unknown: '未知' };
+function ipEscape(s) { return String(s == null ? '' : s).replace(/</g, '&lt;'); }
+async function loadInProgressOverview() {
+    const tb = document.getElementById('ipBody');
+    if (!tb) return;
+    try {
+        const res = await fetch('/api/admin/recordings/in-progress');
+        const data = await res.json();
+        if (!res.ok) { tb.innerHTML = '<tr><td colspan="9" class="text-danger text-center">加载失败：' + ipEscape(data.error) + '</td></tr>'; return; }
+        const c = data.counts || {};
+        document.getElementById('ipCntPending').textContent = c.pending || 0;
+        document.getElementById('ipCntFix').textContent = c.pending_fix || 0;
+        document.getElementById('ipCntReview').textContent = c.pending_review || 0;
+        const items = data.items || [];
+        if (!items.length) { tb.innerHTML = '<tr><td colspan="9" class="text-muted text-center">当前没有在办数据</td></tr>'; return; }
+        tb.innerHTML = items.map(it => {
+            const proc = it.claim_owner ? ('<b>' + ipEscape(it.claim_owner) + '</b><br><small class="text-muted">持锁处理中</small>')
+                : (it.processor ? ipEscape(it.processor) : '—');
+            const when = it.created_at ? String(it.created_at).replace('T', ' ').slice(0, 16) : '';
+            return `<tr>
+                <td><small>#${it.id}</small></td>
+                <td style="max-width:220px;"><small class="d-inline-block text-truncate" style="max-width:220px;">${ipEscape(it.filename)}</small></td>
+                <td><span class="badge bg-info text-dark">${IP_MOD_LABEL[it.modality] || it.modality || '未知'}</span></td>
+                <td><span class="badge ${IP_STATUS_BADGE[it.status] || 'bg-secondary'}">${IP_STATUS_LABEL[it.status] || it.status}</span></td>
+                <td><small>${ipEscape(it.uploader || '—')}</small></td>
+                <td><small>${proc}</small></td>
+                <td><small>${it.status === 'pending_review' ? ipEscape(it.reviewer || '尚未查看') : '—'}</small></td>
+                <td><small>${ipEscape(it.task_no || '—')}</small></td>
+                <td><small class="text-muted">${when}</small></td>
+            </tr>`;
+        }).join('');
+    } catch (e) {
+        tb.innerHTML = '<tr><td colspan="9" class="text-danger text-center">加载异常：' + ipEscape(e.message) + '</td></tr>';
+    }
+}
+document.getElementById('btnIpRefresh')?.addEventListener('click', loadInProgressOverview);
 document.getElementById('btnWfCreate')?.addEventListener('click', async () => {
     const end = document.getElementById('wf_end').value;
     const body = {
@@ -429,6 +930,544 @@ document.getElementById('btnWfCreate')?.addEventListener('click', async () => {
     alert(pj.success ? '已创建并发布' : ('草稿已建，发布失败: ' + (pj.error || '')));
     loadWf('all');
 });
-document.addEventListener('DOMContentLoaded', () => { loadWf('all'); });
+// ================= 反馈#8：模型后端与队列监控子页（由用户管理迁入） =================
+const MON_IS_SUPER = {{ 'true' if current_user.role == 'super_admin' else 'false' }};
+const MON_ROLE_LABEL = { super_admin: '超级管理员', admin: '系统管理员', recorder: '采集与处理', inspector: '质检审核' };
+
+function monBackendLabel(b) {
+    return ({ deepseek: '外部大模型', autodl: 'autoDL GPU（满血版）', local: '局域网 GPU（优化版）', cache: '缓存复用' })[b]
+        || (b === 'auto' ? '自动路由' : (b || '自动路由'));
+}
+function monModalityLabel(m) {
+    return ({ video: '<span class="badge bg-primary">视频</span>', audio: '<span class="badge bg-success">音频</span>', image: '<span class="badge bg-warning text-dark">图片</span>' })[m]
+        || (m ? escapeHtml(m) : '-');
+}
+function fmtElapsed(sec) {
+    if (sec == null) return '-';
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    if (sec < 60) return sec + ' 秒';
+    const m = Math.floor(sec / 60), s = sec % 60;
+    if (m < 60) return m + ' 分 ' + s + ' 秒';
+    return Math.floor(m / 60) + ' 小时 ' + (m % 60) + ' 分';
+}
+function shortId(id, n) { return String(id || '').slice(0, n || 8); }
+
+function switchMainPane(id) {
+    document.querySelectorAll('#taskMainTabs .nav-link').forEach(b => b.classList.toggle('active', b.dataset.pane === id));
+    document.getElementById('paneTasks').classList.toggle('d-none', id !== 'paneTasks');
+    const mon = document.getElementById('paneMonitor');
+    if (mon) mon.classList.toggle('d-none', id !== 'paneMonitor');
+    const ini = document.getElementById('paneInitiate');
+    if (ini) ini.classList.toggle('d-none', id !== 'paneInitiate');
+    if (id === 'paneMonitor' && mon) {
+        loadModelQuota();
+        loadQueueLive();
+        loadLlmUsage();
+        if (MON_IS_SUPER) loadLlmConfig();
+    }
+    if (id === 'paneInitiate' && ini) {
+        loadEligibleAssignees();
+        loadMyInitiated();
+    }
+}
+function switchSubPane(id) {
+    document.querySelectorAll('#monitorSubTabs .nav-link').forEach(b => b.classList.toggle('active', b.dataset.subpane === id));
+    document.getElementById('subOverview').classList.toggle('d-none', id !== 'subOverview');
+    const cfg = document.getElementById('subLlmConfig');
+    if (cfg) cfg.classList.toggle('d-none', id !== 'subLlmConfig');
+    if (id === 'subLlmConfig') loadLlmConfig();
+}
+document.querySelectorAll('#taskMainTabs .nav-link').forEach(b => b.addEventListener('click', () => switchMainPane(b.dataset.pane)));
+document.querySelectorAll('#monitorSubTabs .nav-link').forEach(b => b.addEventListener('click', () => switchSubPane(b.dataset.subpane)));
+
+// ---------------- 反馈#12/#13：任务发起 ----------------
+// 反馈#13 修复：下列函数必须在 <script> 顶层声明。此前函数包在 if(paneInitiate){...}
+// 块内，块级函数声明对块外的 switchMainPane 不可见（浏览器报
+// ReferenceError: loadEligibleAssignees is not defined），导致"指定完成人"与
+// "我发起的任务"一直停在"加载中"。非管理员页面无对应元素，各函数首行安全返回。
+function tiEl(id) { return document.getElementById(id); }
+
+function tiSetHint(kind, text) {
+    const tiHint = tiEl('tiHint');
+    if (!tiHint) return;
+    tiHint.textContent = text || '';
+    tiHint.className = 'small ' + (kind === 'ok' ? 'text-success' : kind === 'bad' ? 'text-danger' : 'text-muted');
+}
+function tiApplyAssignUi() {
+    const tiAssign = tiEl('ti_assign');
+    if (!tiAssign) return;
+    const mode = tiAssign.value;
+    const wrapAssignee = tiEl('tiAssigneeWrap');
+    const wrapMaxClaim = tiEl('tiMaxClaimWrap');
+    if (wrapAssignee) wrapAssignee.classList.toggle('d-none', mode !== 'manual');
+    if (wrapMaxClaim) wrapMaxClaim.classList.toggle('d-none', mode !== 'pool');
+}
+
+async function loadEligibleAssignees() {
+    const tiCat = tiEl('ti_category');
+    const box = tiEl('tiAssigneeBox');
+    if (!tiCat || !box) return;
+    const cat = tiCat.value;
+    box.innerHTML = '<span class="small text-muted">加载中…</span>';
+    try {
+        const r = await fetch('/api/tasks/eligible-users?category=' + encodeURIComponent(cat));
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        if (!j.users.length) {
+            box.innerHTML = '<span class="small text-danger">该类别下当前没有可用账号（需启用、未注销、未过期），请先在用户管理中创建。</span>';
+            return;
+        }
+        box.innerHTML = j.users.map(u =>
+            '<div class="form-check mb-1"><input class="form-check-input ti-assignee" type="checkbox" value="' + u.id + '" id="tiu_' + u.id + '">'
+            + '<label class="form-check-label small" for="tiu_' + u.id + '">'
+            + escapeHtml(u.nickname || u.username) + ' <span class="text-muted">(' + escapeHtml(u.username) + (u.department ? ' · ' + escapeHtml(u.department) : '') + ')</span>'
+            + '</label></div>').join('');
+    } catch (e) {
+        box.innerHTML = '<span class="small text-danger">可选人员加载失败：' + escapeHtml(e.message) + '</span>';
+    }
+}
+
+function tiIsoDate(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function tiInitDates() {
+    const startEl = tiEl('ti_start');
+    const endEl = tiEl('ti_end');
+    if (!startEl || !endEl) return;
+    const now = new Date();
+    const end = new Date(now.getTime() + 7 * 86400000);
+    if (!startEl.value) startEl.value = tiIsoDate(now);
+    if (!endEl.value) endEl.value = tiIsoDate(end);
+}
+
+function tiResetForm() {
+    ['ti_title', 'ti_accept', 'ti_desc'].forEach(id => { const el = tiEl(id); if (el) el.value = ''; });
+    const cnt = tiEl('ti_count'); if (cnt) cnt.value = 10;
+    const mc = tiEl('ti_maxclaim'); if (mc) mc.value = 1;
+    const asg = tiEl('ti_assign'); if (asg) asg.value = 'manual';
+    const cat = tiEl('ti_category'); if (cat) cat.value = 'process';
+    tiInitDates();
+    tiSetHint('muted', '');
+    tiApplyAssignUi();
+    loadEligibleAssignees();
+}
+
+async function tiSubmitTask() {
+    const titleEl = tiEl('ti_title');
+    const title = titleEl ? titleEl.value.trim() : '';
+    if (!title) { alert('请填写任务名称'); return; }
+    const count = parseInt((tiEl('ti_count') || {}).value, 10);
+    if (!count || count < 1) { alert('目标数量须为正整数'); return; }
+    const startDate = (tiEl('ti_start') || {}).value || '';
+    const endDate = (tiEl('ti_end') || {}).value || '';
+    if (!endDate) { alert('请选择截止日期'); return; }
+    const mode = (tiEl('ti_assign') || {}).value || 'manual';
+    const userIds = Array.from(document.querySelectorAll('.ti-assignee:checked')).map(cb => parseInt(cb.value, 10));
+    if (mode === 'manual' && !userIds.length) { alert('指定完成人模式下请至少勾选 1 名完成人'); return; }
+
+    const body = {
+        title: title,
+        description: (tiEl('ti_desc') || {}).value ? tiEl('ti_desc').value.trim() : '',
+        acceptance_criteria: (tiEl('ti_accept') || {}).value ? tiEl('ti_accept').value.trim() : '',
+        required_count: count,
+        priority: (tiEl('ti_priority') || {}).value || 'medium',
+        task_category: (tiEl('ti_category') || {}).value || 'process',
+        assign_mode: mode,
+        max_claim_per_user: Math.max(1, parseInt((tiEl('ti_maxclaim') || {}).value, 10) || 1),
+        start_date: startDate ? startDate + 'T00:00:00' : undefined,
+        end_date: endDate + 'T23:59:59',
+    };
+    const btn = tiEl('btnTiSubmit');
+    if (btn) btn.disabled = true;
+    tiSetHint('muted', '正在发起…');
+    try {
+        // 第一步：创建任务草稿
+        const r1 = await fetch('/api/workflow/tasks', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        });
+        const j1 = await r1.json();
+        if (!r1.ok || !j1.success) throw new Error(j1.error || '创建失败');
+        // 第二步：发布（manual 带 user_ids；pool / auto 由后端处理）
+        const r2 = await fetch('/api/workflow/tasks/' + j1.id + '/publish', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_ids: userIds })
+        });
+        const j2 = await r2.json();
+        if (!r2.ok || !j2.success) throw new Error(j2.error || '发布失败');
+        tiSetHint('ok', '任务已发起并发布（编号 ' + (j1.task_no || j1.id) + '），完成人已收到站内消息通知。');
+        alert('任务发起成功！\n编号：' + (j1.task_no || j1.id) + '\n可在「任务与统计」中查看进度。');
+        const t = tiEl('ti_title'); if (t) t.value = '';
+        const d = tiEl('ti_desc'); if (d) d.value = '';
+        const a = tiEl('ti_accept'); if (a) a.value = '';
+        loadMyInitiated();
+    } catch (e) {
+        tiSetHint('bad', '发起失败：' + e.message);
+        alert('任务发起失败：' + e.message);
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+async function loadMyInitiated() {
+    const body = tiEl('tiMineBody');
+    if (!body) return;
+    try {
+        const r = await fetch('/api/workflow/tasks?scope=all&limit=50');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const items = (j.items || []).filter(t => t.created_by === {{ current_user.id }});
+        if (!items.length) {
+            body.innerHTML = '<tr><td colspan="7" class="text-muted text-center">暂无已发起任务</td></tr>';
+            return;
+        }
+        const catLabel = { collect: '采集', process: '处理', audit: '审核' };
+        const modeLabel = { manual: '指定完成人', pool: '公海申领', auto: '自动均衡' };
+        body.innerHTML = items.map(t =>
+            '<tr><td class="font-monospace small">' + escapeHtml(t.task_no || ('#' + t.id)) + '</td>'
+            + '<td>' + escapeHtml(t.title) + '</td>'
+            + '<td>' + (catLabel[t.task_category] || escapeHtml(t.task_category || '-')) + '</td>'
+            + '<td>' + (modeLabel[t.assign_mode] || escapeHtml(t.assign_mode || '-')) + '</td>'
+            + '<td><span class="badge bg-info text-dark">' + escapeHtml(t.workflow_label || t.workflow_status || '-') + '</span></td>'
+            + '<td>' + (t.completed_count || 0) + ' / ' + (t.required_count || 0) + '</td>'
+            + '<td class="small">' + escapeHtml((t.end_date || '').slice(0, 10)) + '</td></tr>').join('');
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="7" class="text-danger text-center">加载失败：' + escapeHtml(e.message) + '</td></tr>';
+    }
+}
+// 仅管理员面板存在时绑定事件与初始化（非管理员页面无这些元素）
+if (document.getElementById('paneInitiate')) {
+    tiEl('ti_assign').addEventListener('change', tiApplyAssignUi);
+    tiEl('ti_category').addEventListener('change', loadEligibleAssignees);
+    tiEl('btnTiReset').addEventListener('click', tiResetForm);
+    tiEl('btnTiSubmit').addEventListener('click', tiSubmitTask);
+    tiEl('btnTiRefresh').addEventListener('click', () => { loadEligibleAssignees(); loadMyInitiated(); });
+    tiInitDates();
+    tiApplyAssignUi();
+}
+
+// ---------------- 后端状态 ----------------
+function gpuBoxHtml(key, info) {
+    if (!info.configured) return key + '：<span class="badge bg-secondary">未配置</span>';
+    const badge = info.healthy
+        ? '<span class="badge bg-success">健康</span>'
+        : '<span class="badge bg-danger">不可用（将自动 failover）</span>';
+    return key + '：' + badge + '<div class="text-muted mt-1">' + (info.health_detail || info.detail || '') + '</div>';
+}
+
+async function loadModelQuota() {
+    const box = document.getElementById('workerBox');
+    if (!box) return;
+    try {
+        const r = await fetch('/api/admin/model/quota');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const g = j.gpu_backends || {};
+        if (g.autodl) document.getElementById('gpuAutodlBox').innerHTML = gpuBoxHtml('autoDL 满血版（BAGEL）', g.autodl);
+        if (g.local) document.getElementById('gpuLocalBox').innerHTML = gpuBoxHtml('局域网优化版（BAGEL）', g.local);
+        const q = j.quota || {};
+        const dailyLimit = q.daily_limit || 0;
+        const monthlyLimit = q.monthly_limit || 0;
+        const withinLimit = (!dailyLimit || (q.daily_used || 0) < dailyLimit)
+            && (!monthlyLimit || (q.monthly_used || 0) < monthlyLimit);
+        const fmtLimit = v => (v ? Number(v).toLocaleString() : '不限');
+        const llmBox = document.getElementById('llmBox');
+        const llmHtml = j.deepseek_configured
+            ? ('外部大模型（' + j.deepseek_model + '）：<span class="badge ' + (withinLimit ? 'bg-success' : 'bg-danger') + '">'
+               + (withinLimit ? '配额内' : '已达上限') + '</span>'
+               + '<div class="text-muted mt-1">今日 ' + (q.daily_used ?? 0) + ' / ' + fmtLimit(dailyLimit)
+               + ' token；本月 ' + (q.monthly_used ?? 0) + ' / ' + fmtLimit(monthlyLimit) + ' token</div>')
+            : '外部大模型：<span class="badge bg-secondary">未配置 API Key</span>';
+        llmBox.innerHTML = llmHtml + (MON_IS_SUPER
+            ? '<div class="mt-1 text-primary"><i class="fas fa-key"></i> 点击进入「外部大模型接口配置」</div>' : '');
+        if (MON_IS_SUPER) llmBox.onclick = () => switchSubPane('subLlmConfig');
+        else llmBox.onclick = null;
+        const workers = j.workers || [];
+        const online = workers.length;
+        const workerDetail = workers.map(w =>
+            escapeHtml(w.host || w.worker_id || 'worker') + '（心跳 ' + (w.seen_at ? w.seen_at.replace('T', ' ').slice(0, 19) : '-') + '）'
+        ).join('；');
+        box.innerHTML =
+            'Worker 在线：<span class="badge ' + (online ? 'bg-success' : 'bg-danger') + '">' + online + '</span> 台'
+            + '；死信 <span class="badge ' + (j.dead_task_count ? 'bg-danger' : 'bg-secondary') + '">' + j.dead_task_count + '</span>'
+            + '<div class="text-muted mt-1">默认后端：' + monBackendLabel(j.default_backend) + ' / 默认 GPU：' + monBackendLabel(j.default_gpu_backend)
+            + (workerDetail ? '<br>在线节点：' + workerDetail : '<br>当前无在线 worker（云端任务将排队等待 autoDL/局域网 worker 上线）') + '</div>';
+    } catch (e) {
+        box.textContent = '加载失败：' + e.message;
+    }
+}
+
+// ---------------- 队列实时监控（反馈#8 新端点） ----------------
+async function loadQueueLive() {
+    const body = document.getElementById('liveRunningBody');
+    if (!body) return;
+    const pm = document.getElementById('paneMonitor');
+    if (pm && pm.classList.contains('d-none')) return;
+    try {
+        const r = await fetch('/api/admin/queue/live');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        const c = j.counts || {};
+        const depths = j.depths || {};
+        const workers = j.workers || [];
+        const tiles = [
+            ['排队中', c.queued ?? 0, 'secondary', 'fa-hourglass-half'],
+            ['进行中', c.running ?? 0, 'primary', 'fa-bolt'],
+            ['延迟重试', c.retry_wait ?? 0, 'warning', 'fa-rotate'],
+            ['已完成（近期）', c.done ?? 0, 'success', 'fa-check'],
+            ['失败', c.failed ?? 0, 'danger', 'fa-xmark'],
+            ['死信', depths.dead_list ?? 0, 'dark', 'fa-skull'],
+            ['在线 Worker', workers.length, 'info', 'fa-server']
+        ];
+        document.getElementById('queueCountTiles').innerHTML = tiles.map(([label, val, color, icon]) =>
+            `<div class="col-6 col-md-3 mb-2"><div class="card border-${color} h-100"><div class="card-body py-2 text-center">
+            <div class="small text-muted"><i class="fas ${icon}"></i> ${label}</div>
+            <h4 class="mb-0 text-${color}">${val}</h4></div></div></div>`).join('');
+
+        const runs = j.running || [];
+        body.innerHTML = runs.length ? runs.map(t => `
+            <tr>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('数据 #' + (t.recording_id || '-')))}<div class="text-muted small">数据ID: ${t.recording_id || '-'}</div></td>
+                <td>${monModalityLabel(t.modality)}</td>
+                <td><span class="badge bg-info text-dark">${monBackendLabel(t.backend_selected)}</span></td>
+                <td>${escapeHtml(t.worker_host || '-')}<div class="text-muted small font-monospace">${t.worker_id ? 'worker:' + shortId(t.worker_id) : ''}</div></td>
+                <td style="min-width:150px"><div class="progress" style="height:8px"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%"></div></div><small class="text-muted">模型推理/处理中${t.attempts > 1 ? ' · 第 ' + t.attempts + ' 次尝试' : ''}</small></td>
+                <td><small>${fmtElapsed(t.elapsed_seconds)}</small></td>
+                <td>${escapeHtml(t.submitted_by_name || t.submitted_by || '-')}</td>
+                <td>${(t.est_cost !== '' && t.est_cost != null) ? (t.est_cost + ' 积分') : '-'}</td>
+            </tr>`).join('')
+            : '<tr><td colspan="9" class="text-muted small text-center">当前没有进行中的任务</td></tr>';
+
+        const qb = document.getElementById('liveQueuedBody');
+        const qs = j.queued || [];
+        qb.innerHTML = qs.length ? qs.map(t => `
+            <tr>
+                <td><span class="badge bg-secondary">#${t.queue_position}</span></td>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('数据 #' + (t.recording_id || '-')))}</td>
+                <td>${monModalityLabel(t.modality)}</td>
+                <td><span class="badge bg-light text-dark border">${monBackendLabel(t.backend_selected)}</span></td>
+                <td>${escapeHtml(t.submitted_by_name || t.submitted_by || '-')}</td>
+                <td><small>${fmtElapsed(t.elapsed_seconds)}</small></td>
+            </tr>`).join('')
+            : '<tr><td colspan="7" class="text-muted small text-center">排队为空，算力充足</td></tr>';
+
+        const rtb = document.getElementById('liveRetryBody');
+        const rw = j.retry_wait || [];
+        rtb.innerHTML = rw.length ? rw.map(t => `
+            <tr>
+                <td><small class="font-monospace">${shortId(t.task_id)}</small></td>
+                <td>${escapeHtml(t.filename || ('数据 #' + (t.recording_id || '-')))}</td>
+                <td>${t.attempts} 次</td>
+                <td><small>${t.wait_left_seconds != null ? ('约 ' + fmtElapsed(t.wait_left_seconds) + ' 后自动重试') : '-'}</small></td>
+                <td class="small text-danger" style="max-width:360px">${escapeHtml(t.error || '-')}</td>
+            </tr>`).join('')
+            : '<tr><td colspan="5" class="text-muted small text-center">暂无等待重试的任务</td></tr>';
+    } catch (e) {
+        body.innerHTML = '<tr><td colspan="9" class="text-danger small text-center">队列状态加载失败：' + escapeHtml(e.message) + '</td></tr>';
+    }
+}
+setInterval(() => {
+    const pm = document.getElementById('paneMonitor');
+    if (!pm || pm.classList.contains('d-none')) return;
+    const cfg = document.getElementById('subLlmConfig');
+    if (cfg && !cfg.classList.contains('d-none')) return;
+    loadQueueLive();
+}, 5000);
+
+// ---------------- 死信队列 / 卡死恢复（由用户管理迁入） ----------------
+async function loadDeadTasks() {
+    try {
+        const r = await fetch('/api/admin/model/dead-tasks');
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const box = document.getElementById('deadTasksBox');
+        const list = document.getElementById('deadTaskList');
+        box.classList.remove('d-none');
+        const tasks = j.dead_tasks || [];
+        if (!tasks.length) {
+            list.innerHTML = '<tr><td colspan="6" class="text-muted small">死信队列为空</td></tr>';
+            return;
+        }
+        list.innerHTML = tasks.map(t => {
+            const msg = t.msg || {};
+            const payload = msg.payload || {};
+            const tid = msg.task_id || '';
+            const deadAt = (t.dead_at || '').replace('T', ' ').slice(0, 19) || '-';
+            return '<tr><td class="small font-monospace">' + shortId(tid) + '</td><td>' + monBackendLabel(payload.backend)
+                + '</td><td>' + (payload.recording_id || '-')
+                + '<div class="text-muted small">' + escapeHtml(payload.filename || '') + '</div></td>'
+                + '<td class="small text-danger" style="max-width:320px">' + escapeHtml(t.error || '-')
+                + '<div class="text-muted">已重试 ' + (t.attempts ?? 0) + ' 次</div></td>'
+                + '<td class="small">' + deadAt + '</td>'
+                + '<td><button class="btn btn-sm btn-outline-primary" onclick="requeueDead(\'' + tid + '\')">重投</button></td></tr>';
+        }).join('');
+    } catch (e) {
+        alert('加载死信队列失败：' + e.message);
+    }
+}
+
+async function requeueDead(taskId) {
+    try {
+        const r = await fetch('/api/admin/model/dead-tasks/' + encodeURIComponent(taskId) + '/requeue', { method: 'POST' });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('已重新投回队列');
+        loadDeadTasks();
+        loadModelQuota();
+        loadQueueLive();
+    } catch (e) {
+        alert('重投失败：' + e.message);
+    }
+}
+
+async function recoverStuck() {
+    if (!confirm('扫描卡死任务：排队超时未消费的将重投；运行超时无心跳的将判失败并退还积分。继续？')) return;
+    try {
+        const r = await fetch('/api/admin/model/recover-stuck', { method: 'POST' });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        alert('恢复完成：重投 ' + (j.requeued || []).length + ' 个，判失败退款 ' + (j.marked_failed || []).length + ' 个');
+        loadModelQuota();
+        loadQueueLive();
+    } catch (e) {
+        alert('操作失败：' + e.message);
+    }
+}
+
+// ---------------- 外部大模型接口配置（原 DeepSeek 配置，仅超管） ----------------
+async function loadLlmConfig() {
+    const badge = document.getElementById('llmConfiguredBadge');
+    if (!badge) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/config');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        badge.textContent = j.configured ? '已配置 Key' : '未配置 Key';
+        badge.className = 'badge ' + (j.configured ? 'bg-success' : 'bg-secondary');
+        const q = j.quota || {};
+        const fmtLimit = v => (v ? Number(v).toLocaleString() : '不限');
+        document.getElementById('llmApiKeyMasked').innerHTML =
+            (j.api_key_masked || '（未配置）')
+            + '<div class="text-muted">今日已用 ' + Number(q.daily_used || 0).toLocaleString() + ' / ' + fmtLimit(q.daily_limit)
+            + ' token；本月已用 ' + Number(q.monthly_used || 0).toLocaleString() + ' / ' + fmtLimit(q.monthly_limit) + ' token</div>';
+        document.getElementById('llmBaseUrl').value = j.base_url || '';
+        document.getElementById('llmModel').value = j.model || '';
+        document.getElementById('llmDaily').value = j.daily_token_limit || 0;
+        document.getElementById('llmMonthly').value = j.monthly_token_limit || 0;
+    } catch (e) {
+        badge.textContent = '加载失败';
+        badge.className = 'badge bg-danger';
+    }
+}
+
+async function saveLlmConfig() {
+    const body = {
+        base_url: document.getElementById('llmBaseUrl').value.trim(),
+        model: document.getElementById('llmModel').value.trim(),
+        daily_token_limit: parseInt(document.getElementById('llmDaily').value || '0', 10) || 0,
+        monthly_token_limit: parseInt(document.getElementById('llmMonthly').value || '0', 10) || 0
+    };
+    const key = document.getElementById('llmApiKey').value.trim();
+    if (key) body.api_key = key;
+    try {
+        const r = await fetch('/api/admin/deepseek/config', {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('外部大模型配置已保存并即时生效');
+        document.getElementById('llmApiKey').value = '';
+        loadLlmConfig();
+        loadLlmUsage();
+        loadModelQuota();
+    } catch (e) {
+        alert('保存失败：' + e.message);
+    }
+}
+
+async function clearLlmKey() {
+    if (!confirm('确认清空外部大模型 API Key？清空后算法处理/复核将无法调用外部大模型，直到重新填入。')) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/config', {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ clear_api_key: true })
+        });
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        alert('API Key 已清空');
+        document.getElementById('llmApiKey').value = '';
+        loadLlmConfig();
+        loadModelQuota();
+    } catch (e) {
+        alert('操作失败：' + e.message);
+    }
+}
+
+// ---------------- 外部大模型流量统计（由用户管理迁入） ----------------
+async function loadLlmUsage() {
+    if (!document.getElementById('llmTotCalls')) return;
+    try {
+        const r = await fetch('/api/admin/deepseek/usage');
+        const j = await r.json();
+        if (!r.ok || !j.success) throw new Error(j.error || 'fail');
+        const t = j.totals || {};
+        document.getElementById('llmTotCalls').textContent = t.calls ?? 0;
+        document.getElementById('llmTotFailed').textContent = t.failed ?? 0;
+        document.getElementById('llmTotTokens').textContent = Number(t.tokens || 0).toLocaleString();
+        document.getElementById('llmTotCredits').textContent = t.credits ?? 0;
+        const daily = j.daily || [];
+        const trend = document.getElementById('llmDailyTrend');
+        if (!daily.length) {
+            trend.innerHTML = '<span class="text-muted">近 30 天暂无调用</span>';
+        } else {
+            const maxTok = Math.max.apply(null, daily.map(d => d.tokens || 0).concat([1]));
+            trend.innerHTML = daily.map(d => {
+                const pct = Math.max(2, Math.round((d.tokens || 0) / maxTok * 100));
+                return '<div class="d-flex align-items-center gap-2 mb-1" title="' + d.date + '：'
+                    + Number(d.tokens || 0).toLocaleString() + ' tokens，' + (d.calls || 0) + ' 次调用">'
+                    + '<span class="text-muted" style="width:44px;flex:0 0 auto;">' + d.date.slice(5) + '</span>'
+                    + '<div class="progress flex-grow-1" style="height:14px;min-width:60px;"><div class="progress-bar bg-success" style="width:' + pct + '%"></div></div>'
+                    + '<span class="text-muted" style="width:76px;flex:0 0 auto;text-align:right;">' + Number(d.tokens || 0).toLocaleString() + '</span></div>';
+            }).join('');
+        }
+        const users = j.by_user || [];
+        const ub = document.getElementById('llmByUser');
+        if (!users.length) {
+            ub.innerHTML = '<tr><td colspan="4" class="text-muted small">暂无使用记录</td></tr>';
+        } else {
+            ub.innerHTML = users.map(u => '<tr><td>' + escapeHtml(u.nickname || u.username)
+                + (u.nickname ? '<div class="text-muted small">' + escapeHtml(u.username) + ' · ' : '<div class="text-muted small">')
+                + (MON_ROLE_LABEL[u.role] || u.role || '') + '</div></td>'
+                + '<td>' + (u.calls || 0)
+                + (u.failed ? ' <span class="text-danger small">(' + u.failed + ' 失败)</span>' : '') + '</td>'
+                + '<td>' + Number(u.tokens || 0).toLocaleString() + '</td>'
+                + '<td>' + (u.credits || 0) + '</td></tr>').join('');
+        }
+    } catch (e) {
+        const trend = document.getElementById('llmDailyTrend');
+        if (trend) trend.innerHTML = '<span class="text-danger">加载失败：' + escapeHtml(e.message) + '</span>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 反馈#9 需求3a：支持 /tasks?highlight=<task_id> 从消息中心定位任务
+    const hl = parseInt(new URLSearchParams(location.search).get('highlight') || '', 10);
+    if (hl) {
+        wfHighlightId = hl;
+        switchMainPane('paneTasks');
+        await loadWf(WF_IS_ADMIN ? 'all' : 'mine');
+        if (wfHighlightId) await loadWf('pool');  // 尚未申领的公海任务在公海列表
+        if (wfHighlightId) {  // 两个列表都没有：直接尝试打开详情
+            wfDetail(hl);
+            wfHighlightId = null;
+        }
+    } else {
+        loadWf('all');
+    }
+    loadComputeStats();
+    // 反馈#9 需求3b：管理员在办数据总览
+    if (WF_IS_ADMIN) loadInProgressOverview();
+});
 </script>
-{% endblock %} 
+{% endblock %}

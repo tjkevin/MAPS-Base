@@ -47,12 +47,56 @@
                     </div>
                     <label class="form-label">Transcript / description</label>
                     <textarea class="form-control mb-2" id="auditText" rows="6" readonly></textarea>
-                    <label class="form-label">Timeline</label>
-                    <div class="table-responsive">
-                        <table class="table table-sm table-bordered" id="timelineTable">
-                            <thead><tr><th>Start(s)</th><th>End(s)</th><th>Text</th></tr></thead>
-                            <tbody></tbody>
-                        </table>
+                    <label class="form-label" id="auditTimelineLabel">Timeline (hh:mm:ss; check "Direct-fix mode" below to correct)</label>
+                    <div id="auditTimelineRows" class="mb-2"></div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary mb-3" id="btnAuditAddRow" disabled>
+                        <i class="fas fa-plus"></i> Add entry
+                    </button>
+                    <div class="small text-muted mb-3" id="auditImageHint" style="display:none;">
+                        <i class="fas fa-image"></i> Images have no timeline: review or correct the image description directly in the "Transcript / description" box above.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3" id="recheckCard">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-robot"></i> Algorithm re-check (AI assisted)</span>
+                    <span class="badge bg-info text-dark">External LLM available</span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 align-items-end mb-2">
+                        <div class="col-md-5">
+                            <label class="form-label small mb-1">Algorithm backend</label>
+                            <select class="form-select form-select-sm" id="recheckBackend">
+                                <option value="deepseek" selected>External LLM (cloud API, ready)</option>
+                                <option value="autodl" disabled>autoDL GPU (full model · interface reserved)</option>
+                                <option value="local" disabled>LAN GPU (optimized · interface reserved)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small mb-1">Extra focus (optional)</label>
+                            <input type="text" class="form-control form-control-sm" id="recheckExtra" placeholder="e.g. focus on terms / numbers / names">
+                        </div>
+                        <div class="col-md-3 d-grid">
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="btnRecheck"><i class="fas fa-magic"></i> Run re-check</button>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">A built-in default prompt checks the transcript/description and timeline for compliance and accuracy, returning a verdict (pass / revise / reject), an issue list and a suggested corrected text. <strong>The result is advisory only and does not change the audit status</strong>; the reviewer makes the final decision.</p>
+                    <div id="recheckResult" style="display:none;">
+                        <hr>
+                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                            <span class="fw-semibold">AI verdict:</span>
+                            <span class="badge" id="recheckVerdict">—</span>
+                            <span class="small text-muted" id="recheckConfidence"></span>
+                            <span class="small text-muted ms-auto" id="recheckCost"></span>
+                        </div>
+                        <div id="recheckSummary" class="small text-muted mb-2"></div>
+                        <div id="recheckIssues" class="mb-2"></div>
+                        <div id="recheckCorrectedWrap" style="display:none;">
+                            <label class="form-label small mb-1">Suggested corrected text</label>
+                            <textarea class="form-control form-control-sm mb-2" id="recheckCorrected" rows="5" readonly></textarea>
+                            <button type="button" class="btn btn-sm btn-outline-success" id="btnAdoptCorrected"><i class="fas fa-check-double"></i> Adopt as corrected text (fills above & enables direct-fix)</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,21 +105,24 @@
                 <div class="card-header">Actions</div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Comments (required for reject)</label>
-                        <textarea class="form-control" id="auditComments" rows="3"></textarea>
+                        <label class="form-label">Review comments (required for send-back)</label>
+                        <textarea class="form-control" id="auditComments" rows="2" placeholder="For send-back, give actionable comments, e.g. wrong transcript at 00:12, scene mismatch, etc."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">File note (optional; saved with the file, visible in Data Management)</label>
+                        <textarea class="form-control" id="auditRemark" rows="2" placeholder="Notes about this file, e.g. A/V quality, special scene, reuse suggestions"></textarea>
                     </div>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <button type="button" class="btn btn-success" id="btnPass"><i class="fas fa-check"></i> Approve</button>
                         <button type="button" class="btn btn-warning" id="btnReject"><i class="fas fa-undo"></i> Send back</button>
+                        <button type="button" class="btn btn-primary" id="btnSelfFix"><i class="fas fa-edit"></i> Fix directly &amp; approve</button>
+                        <button type="button" class="btn btn-outline-danger" id="btnInvalid"><i class="fas fa-ban"></i> Mark invalid (logical delete)</button>
                     </div>
-                    <hr/>
-                    <h6 class="text-muted">Reviewer self-fix</h6>
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" id="unlockEdit">
-                        <label class="form-check-label" for="unlockEdit">Unlock text & timeline JSON</label>
+                        <label class="form-check-label" for="unlockEdit">Direct-fix mode: unlock the transcript &amp; timeline above (for minor issues, fix and click "Fix directly &amp; approve")</label>
                     </div>
-                    <textarea class="form-control font-monospace small mb-2" id="auditTimelineJson" rows="5" readonly></textarea>
-                    <button type="button" class="btn btn-primary" id="btnSelfFix"><i class="fas fa-edit"></i> Save fix & approve</button>
+                    <p class="small text-muted mb-0">Timeline: hh:mm:ss boxes auto-advance when filled; Enter in the text box adds the next entry.</p>
                 </div>
             </div>
 
@@ -92,46 +139,10 @@
 
 {% block scripts %}
 <script>
-const AUDIT_QUEUE_SEED = [
-    ['night_highway_dashcam_A17.mp4', 'TK-2026-0208-112', 'kR7mP2xQ9', 'mL3nQ8vR2'],
-    ['dialect_interview_round3_cut.mp4', 'TK-2026-0210-088', 'nB4vL8wZ1', 'bY6tH1wZ4'],
-    ['or_inventory_deidentified_clip.mp4', 'TK-2026-0211-076', 'tX3jH6cM5', 'cV9xK2pN7'],
-    ['metro_platform_behavior_04.mp4', 'TK-2026-0212-203', 'wY9dF2sK4', 'dF4jR8wM1'],
-    ['greenhouse_timelapse_7d.mp4', 'TK-2026-0213-045', 'zQ1uN7gV8', 'eH6sT3qL5'],
-    ['retail_dual_stream_0221.mp4', 'TK-2026-0214-167', 'aU5iE3rT6', 'gY2nV9bC8'],
-    ['court_exhibit_vol3_scan.pdf', 'TK-2026-0215-091', 'oP2sD9fG1', 'mL3nQ8vR2'],
-    ['factory_qc_stereo_batchC.mp4', 'TK-2026-0216-134', 'hJ8kW4xC7', 'bY6tH1wZ4'],
-    ['stadium_wide_Q4.mp4', 'TK-2026-0217-055', 'kR7mP2xQ9', 'cV9xK2pN7'],
-    ['boardroom_pano_export_h265.mp4', 'TK-2026-0218-189', 'nB4vL8wZ1', 'dF4jR8wM1'],
-    ['night_shift_robot_cam_03.mp4', 'TK-2026-0219-072', 'tX3jH6cM5', 'eH6sT3qL5'],
-    ['nursing_rounds_handheld_am.mp4', 'TK-2026-0220-128', 'wY9dF2sK4', 'gY2nV9bC8'],
-    ['outdoor_rain_hdr_test.mp4', 'TK-2026-0221-044', 'zQ1uN7gV8', 'mL3nQ8vR2'],
-    ['bridge_traffic_4k_sample.mp4', 'TK-2026-0222-201', 'aU5iE3rT6', 'bY6tH1wZ4'],
-    ['campus_security_south_gate.mp4', 'TK-2026-0223-099', 'oP2sD9fG1', 'cV9xK2pN7'],
-    ['podcast_episode_audio_48k.wav', 'TK-2026-0224-156', 'hJ8kW4xC7', 'dF4jR8wM1'],
-    ['sat_patch_sketch_overlay.png', 'TK-2026-0225-033', 'kR7mP2xQ9', 'eH6sT3qL5'],
-    ['er_ambient_pre_denoise.mp4', 'TK-2026-0226-178', 'nB4vL8wZ1', 'gY2nV9bC8'],
-    ['uav_survey_blockC_raw.mp4', 'TK-2026-0227-065', 'tX3jH6cM5', 'mL3nQ8vR2'],
-    ['news_anchor_sidecam.mp4', 'TK-2026-0228-142', 'wY9dF2sK4', 'bY6tH1wZ4'],
-    ['pediatric_rehab_session.mp4', 'TK-2026-0301-087', 'zQ1uN7gV8', 'cV9xK2pN7'],
-    ['port_crane_night_take.mp4', 'TK-2026-0302-214', 'aU5iE3rT6', 'dF4jR8wM1'],
-    ['manuscript_vol12_scan.tif', 'TK-2026-0303-051', 'oP2sD9fG1', 'eH6sT3qL5'],
-    ['in_car_dialog_noise_07.mp4', 'TK-2026-0304-193', 'hJ8kW4xC7', 'gY2nV9bC8']
-];
-function appendSeedAuditQueueItems(ul) {
-    if (!ul) return;
-    const baseId = 910200;
-    AUDIT_QUEUE_SEED.forEach((row, i) => {
-        const [fn, tk, up, pr] = row;
-        const li = document.createElement('li');
-        li.className = 'list-group-item small';
-        li.style.cursor = 'default';
-        li.innerHTML = `<div class="fw-semibold text-truncate" title="${fn.replace(/"/g, '&quot;')}">${fn.replace(/</g, '&lt;')}</div>` +
-            `<div class="text-muted mt-1"><span class="me-2">#${baseId + i}</span>${tk} · Uploader account ${up} · Processor account ${pr}</div>`;
-        ul.appendChild(li);
-    });
-}
 let currentId = null;
+let currentModality = 'video';  // Feedback #8: images have no timeline
+const MODALITY_EN = { video: 'Video', audio: 'Audio', image: 'Image' };
+
 function setComplianceBadges(c) {
     const bf = document.getElementById('badgeFile');
     const bm = document.getElementById('badgeMeta');
@@ -149,22 +160,216 @@ function renderMedia(t) {
     else if (mod === 'video') w.innerHTML = `<video class="w-100" controls src="${t.media_url}"></video>`;
     else w.innerHTML = `<img class="img-fluid" src="${t.media_url}" alt="preview"/>`;
 }
-function renderTimeline(rows) {
-    const tb = document.querySelector('#timelineTable tbody');
-    tb.innerHTML = '';
-    (rows || []).forEach(r => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.start ?? ''}</td><td>${r.end ?? ''}</td><td>${(r.text || '').replace(/</g,'&lt;')}</td>`;
-        tb.appendChild(tr);
-    });
-    try { document.getElementById('auditTimelineJson').value = JSON.stringify(rows || [], null, 2); }
-    catch (e) { document.getElementById('auditTimelineJson').value = '[]'; }
+// ---------------- 时间轴编辑器（时:分:秒 三段输入，自动跳转） ----------------
+function createTimelineEditor(opts) {
+    const wrap = document.getElementById(opts.containerId);
+    const addBtn = opts.addBtnId ? document.getElementById(opts.addBtnId) : null;
+    let disabled = !!opts.disabled;
+    const getPlayer = () => (opts.getPlayer ? opts.getPlayer() : null);
+
+    function pad2(n) { return String(Math.max(0, parseInt(n, 10) || 0)).padStart(2, '0'); }
+    function hmsParts(sec) {
+        sec = Math.max(0, Math.round(Number(sec) || 0));
+        return { h: Math.floor(sec / 3600), m: Math.floor((sec % 3600) / 60), s: Math.floor(sec % 60) };
+    }
+    function setGroup(g, sec) {
+        const t = hmsParts(sec);
+        g.h.value = pad2(t.h); g.m.value = pad2(t.m); g.s.value = pad2(t.s);
+    }
+    function getGroup(g) {
+        const vals = [g.h.value, g.m.value, g.s.value].map(v => String(v).trim());
+        if (vals.every(v => v === '')) return null;              // 整组未填
+        if (vals.some(v => !/^\d{1,2}$/.test(v))) return NaN;   // 格式错
+        const h = +vals[0], m = +vals[1], s = +vals[2];
+        if (m > 59 || s > 59) return NaN;                        // 分/秒超限
+        return h * 3600 + m * 60 + s;
+    }
+    function timeInput(cls) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-control form-control-sm tl-time ' + cls;
+        inp.maxLength = 2;
+        inp.inputMode = 'numeric';
+        inp.style.width = '46px';
+        inp.style.textAlign = 'center';
+        inp.disabled = disabled;
+        return inp;
+    }
+    function clockBtn() {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm btn-outline-secondary tl-pick';
+        b.title = 'Capture player position';
+        b.disabled = disabled;
+        b.innerHTML = '<i class="fas fa-clock"></i>';
+        return b;
+    }
+    function addRow(startSec, endSec) {
+        startSec = startSec || 0;
+        const row = document.createElement('div');
+        row.className = 'timeline-row mb-2';
+        const timeLine = document.createElement('div');
+        timeLine.className = 'd-flex align-items-center gap-1 flex-wrap mb-1';
+        const sh = timeInput('tl-sh'), sm = timeInput('tl-sm'), ss = timeInput('tl-ss');
+        const eh = timeInput('tl-eh'), em = timeInput('tl-em'), es = timeInput('tl-es');
+        const pickS = clockBtn(), pickE = clockBtn();
+        const arrow = document.createElement('span');
+        arrow.className = 'mx-1 small text-muted';
+        arrow.textContent = '→';
+        const colon = () => { const c = document.createElement('span'); c.className = 'text-muted small'; c.textContent = ':'; return c; };
+        timeLine.append(sh, colon(), sm, colon(), ss, pickS, arrow, eh, colon(), em, colon(), es, pickE);
+
+        const bottom = document.createElement('div');
+        bottom.className = 'd-flex gap-2';
+        const text = document.createElement('input');
+        text.type = 'text';
+        text.className = 'form-control form-control-sm tl-text';
+        text.placeholder = 'Type the sentence; press Enter for the next entry';
+        text.disabled = disabled;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn btn-sm btn-outline-danger tl-del';
+        del.title = 'Remove entry';
+        del.disabled = disabled;
+        del.innerHTML = '<i class="fas fa-times"></i>';
+        bottom.append(text, del);
+        row.append(timeLine, bottom);
+        wrap.appendChild(row);
+
+        const startG = { h: sh, m: sm, s: ss };
+        const endG = { h: eh, m: em, s: es };
+        setGroup(startG, startSec);
+        setGroup(endG, (endSec !== null && endSec !== undefined) ? endSec : startSec + 5);
+
+        const chain = [sh, sm, ss, eh, em, es];
+        chain.forEach((inp, i) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 2);
+                if (opts.onDirty) opts.onDirty();
+                if (inp.value.length === 2) {
+                    if (i < chain.length - 1) chain[i + 1].focus();
+                    else text.focus();
+                }
+            });
+            inp.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    if (i < chain.length - 1) chain[i + 1].focus(); else text.focus();
+                } else if (ev.key === 'Backspace' && inp.value === '' && i > 0) {
+                    chain[i - 1].focus();
+                }
+            });
+        });
+        pickS.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(startG, p.currentTime); });
+        pickE.addEventListener('click', () => { const p = getPlayer(); if (p && isFinite(p.currentTime)) setGroup(endG, p.currentTime); });
+        text.addEventListener('input', () => { if (opts.onDirty) opts.onDirty(); });
+        text.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                const end = getGroup(endG);
+                const st = getGroup(startG);
+                let nextStart = (end !== null && !isNaN(end)) ? end : ((st !== null && !isNaN(st)) ? st : 0);
+                const nr = addRow(nextStart, nextStart + 5);
+                nr.querySelector('.tl-text').focus();
+            }
+        });
+        del.addEventListener('click', () => {
+            if (wrap.querySelectorAll('.timeline-row').length > 1) {
+                row.remove();
+            } else {
+                [sh, sm, ss, eh, em, es].forEach(i => i.value = '');
+                text.value = '';
+            }
+            if (opts.onDirty) opts.onDirty();
+        });
+        return row;
+    }
+
+    function reset(segments) {
+        wrap.innerHTML = '';
+        if (segments && segments.length) {
+            segments.forEach(seg => {
+                const r = addRow(seg.start, seg.end);
+                r.querySelector('.tl-text').value = seg.text || '';
+            });
+        } else {
+            addRow(0, 5);
+        }
+    }
+    function collect(quiet) {
+        const rows = wrap.querySelectorAll('.timeline-row');
+        const segments = [];
+        const texts = [];
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const startG = { h: r.querySelector('.tl-sh'), m: r.querySelector('.tl-sm'), s: r.querySelector('.tl-ss') };
+            const endG = { h: r.querySelector('.tl-eh'), m: r.querySelector('.tl-em'), s: r.querySelector('.tl-es') };
+            const txt = r.querySelector('.tl-text').value.trim();
+            const start = getGroup(startG);
+            const end = getGroup(endG);
+            if (!txt && start === null && end === null) continue;  // 整行空 → 跳过
+            const fail = (msg) => { if (!quiet) alert(msg); return null; };
+            if (!txt) return fail('Entry ' + (i + 1) + ': please enter text (or clear the whole row to skip)');
+            if (start === null || isNaN(start)) return fail('Entry ' + (i + 1) + ': start time must be hh:mm:ss (2 digits each; mm/ss ≤ 59)');
+            if (end === null || isNaN(end)) return fail('Entry ' + (i + 1) + ': end time must be hh:mm:ss (2 digits each; mm/ss ≤ 59)');
+            if (end <= start) return fail('Entry ' + (i + 1) + ': end time must be later than start time');
+            segments.push({ start: start, end: end, text: txt });
+            texts.push(txt);
+        }
+        if (!segments.length) { if (!quiet) alert('Please enter at least one entry'); return null; }
+        return { segments: segments, text: texts.join('\n') };
+    }
+    function setEnabled(on) {
+        disabled = !on;
+        wrap.querySelectorAll('input, button').forEach(el => { el.disabled = !on; });
+        if (addBtn) addBtn.disabled = !on;
+    }
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const rows = wrap.querySelectorAll('.timeline-row');
+            let start = 0;
+            if (rows.length) {
+                const last = rows[rows.length - 1];
+                const end = getGroup({ h: last.querySelector('.tl-eh'), m: last.querySelector('.tl-em'), s: last.querySelector('.tl-es') });
+                if (end !== null && !isNaN(end)) start = end;
+            }
+            const nr = addRow(start, start + 5);
+            nr.querySelector('.tl-text').focus();
+        });
+    }
+    return { reset: reset, collect: collect, setEnabled: setEnabled, addRow: addRow };
 }
+
+const auditTlEditor = createTimelineEditor({
+    containerId: 'auditTimelineRows',
+    addBtnId: 'btnAuditAddRow',
+    getPlayer: () => document.querySelector('#mediaWrap video, #mediaWrap audio'),
+    disabled: true
+});
+function renderTimeline(rows) {
+    auditTlEditor.reset(rows || []);
+    auditTlEditor.setEnabled(document.getElementById('unlockEdit').checked);
+}
+function resetRecheckUI() {
+    const box = document.getElementById('recheckResult');
+    if (box) box.style.display = 'none';
+    const btn = document.getElementById('btnRecheck');
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> Run re-check'; }
+}
+
 function applyTask(t) {
-    if (!t) { currentId = null; document.getElementById('currentRecordingId').textContent = '—'; return; }
+    resetRecheckUI();
+    if (!t) {
+        currentId = null;
+        document.getElementById('currentRecordingId').textContent = '—';
+        document.getElementById('auditRemark').value = '';
+        document.getElementById('auditComments').value = '';
+        return;
+    }
     currentId = t.recording_id;
+    currentModality = t.modality || 'video';
     document.getElementById('currentRecordingId').textContent = 'ID: ' + t.recording_id;
-    document.getElementById('badgeModality').textContent = t.modality || 'unknown';
+    document.getElementById('badgeModality').textContent = MODALITY_EN[currentModality] || (t.modality || 'unknown');
     setComplianceBadges(t.compliance || {});
     document.getElementById('metaTaskMd5').textContent =
         (t.compliance && t.compliance.task_no ? 'Task: ' + t.compliance.task_no : '—') +
@@ -175,7 +380,15 @@ function applyTask(t) {
     document.getElementById('metaPeople').textContent = `Source: ${src} | Uploader account: ${up} | Processor account: ${pr}`;
     renderMedia(t);
     document.getElementById('auditText').value = t.text_content || '';
+    document.getElementById('auditRemark').value = t.review_remark || '';
     renderTimeline(t.timeline);
+    // Feedback #8: image tasks have no timeline — hide and disable the timeline editor
+    const isImage = currentModality === 'image';
+    document.getElementById('auditTimelineLabel').style.display = isImage ? 'none' : '';
+    document.getElementById('auditTimelineRows').style.display = isImage ? 'none' : '';
+    document.getElementById('btnAuditAddRow').style.display = isImage ? 'none' : '';
+    document.getElementById('auditImageHint').style.display = isImage ? '' : 'none';
+    if (isImage) auditTlEditor.setEnabled(false);
     document.getElementById('auditLogList').innerHTML = '';
     loadLogs(t.recording_id);
 }
@@ -192,19 +405,57 @@ async function loadLogs(rid) {
         ul.appendChild(li);
     });
 }
+// Feedback #9 req.2: pending review list shows data type/format/size/duration/source basics
+function humanSize(bytes) {
+    const n = Number(bytes);
+    if (!n || n <= 0) return '';
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    if (n < 1024 * 1024 * 1024) return (n / 1024 / 1024).toFixed(1) + ' MB';
+    return (n / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+}
+function fmtDuration(sec) {
+    const n = Number(sec);
+    if (!n || n <= 0) return '';
+    const s = Math.round(n);
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+    return (h ? h + ':' : '') + String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+}
+const AUD_MODALITY_LABEL = { video: 'Video', audio: 'Audio', image: 'Image', unknown: 'Unknown' };
+const AUD_MODALITY_BADGE = { video: 'bg-danger', audio: 'bg-warning text-dark', image: 'bg-info text-dark', unknown: 'bg-secondary' };
+const AUD_SOURCE_LABEL = { upload: 'Local upload', record: 'Live recording', crawl: 'Web collection' };
+
 async function refreshPendingList() {
     const res = await fetch('/api/audit/pending-list');
     const data = await res.json();
     const ul = document.getElementById('pendingList');
     ul.innerHTML = '';
-    appendSeedAuditQueueItems(ul);
-    (data.items || []).forEach(it => {
+    const items = data.items || [];
+    if (!items.length) {
+        const li = document.createElement('li');
+        li.className = 'list-group-item text-muted small text-center';
+        li.textContent = 'No pending tasks';
+        ul.appendChild(li);
+        return;
+    }
+    items.forEach(it => {
         const li = document.createElement('li');
         li.className = 'list-group-item list-group-item-action';
         const upload = (it.uploader_username || '—').replace(/</g, '&lt;');
         const proc = (it.processor_username || '—').replace(/</g, '&lt;');
-        li.innerHTML = `<div class="fw-semibold text-truncate">${(it.filename || '').replace(/</g, '&lt;')}</div>` +
-            `<div class="text-muted small mt-1">#${it.id} ${it.task_no || '—'} · Uploader account ${upload} · Processor account ${proc}</div>`;
+        const when = it.created_at ? it.created_at.replace('T', ' ').slice(0, 16) : '';
+        const mod = it.modality || it.file_type || 'unknown';
+        const badge = `<span class="badge ${AUD_MODALITY_BADGE[mod] || 'bg-secondary'} me-1">${AUD_MODALITY_LABEL[mod] || mod}</span>`;
+        const meta = [];
+        if (it.file_ext) meta.push('Format ' + it.file_ext.replace(/</g, '&lt;'));
+        const sz = humanSize(it.file_size);
+        if (sz) meta.push('Size ' + sz);
+        const dur = fmtDuration(it.duration);
+        if (dur) meta.push('Duration ' + dur);
+        if (it.source_channel) meta.push('Source ' + (AUD_SOURCE_LABEL[it.source_channel] || it.source_channel));
+        li.innerHTML = `<div class="fw-semibold text-truncate">${badge}${(it.filename || '').replace(/</g, '&lt;')}</div>` +
+            (meta.length ? `<div class="small mt-1 text-body-secondary">${meta.join(' · ')}</div>` : '') +
+            `<div class="text-muted small mt-1">#${it.id} ${when} · ${(it.task_no || '—').replace(/</g, '&lt;')} · Uploader ${upload} · Processor ${proc}</div>`;
         li.addEventListener('click', () => loadDetail(it.id));
         ul.appendChild(li);
     });
@@ -224,46 +475,174 @@ document.getElementById('btnLoadNext').addEventListener('click', async () => {
 });
 document.getElementById('btnRefreshList').addEventListener('click', refreshPendingList);
 document.getElementById('btnPass').addEventListener('click', async () => {
-    if (!currentId) { alert('Select a task'); return; }
-    const res = await fetch('/api/audit/pass', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recording_id: currentId, comments: document.getElementById('auditComments').value }) });
+    if (!currentId) { alert('Select a task first'); return; }
+    const body = {
+        recording_id: currentId,
+        comments: document.getElementById('auditComments').value,
+        review_remark: document.getElementById('auditRemark').value
+    };
+    const res = await fetch('/api/audit/pass', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || 'Failed'); return; }
     alert(data.message);
     currentId = null;
+    document.getElementById('auditComments').value = '';
     refreshPendingList();
 });
 document.getElementById('btnReject').addEventListener('click', async () => {
-    if (!currentId) { alert('Select a task'); return; }
+    if (!currentId) { alert('Select a task first'); return; }
     const comments = document.getElementById('auditComments').value.trim();
-    if (!comments) { alert('Comments required'); return; }
-    const res = await fetch('/api/audit/reject-return', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recording_id: currentId, comments }) });
+    if (!comments) { alert('Comments are required to return a task'); return; }
+    const res = await fetch('/api/audit/reject-return', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+        recording_id: currentId,
+        comments,
+        review_remark: document.getElementById('auditRemark').value
+    }) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || 'Failed'); return; }
     alert(data.message);
     currentId = null;
+    document.getElementById('auditComments').value = '';
     refreshPendingList();
 });
 document.getElementById('unlockEdit').addEventListener('change', (e) => {
-    document.getElementById('auditText').readOnly = !e.target.checked;
-    document.getElementById('auditTimelineJson').readOnly = !e.target.checked;
+    const on = e.target.checked;
+    document.getElementById('auditText').readOnly = !on;
+    auditTlEditor.setEnabled(on);
 });
 document.getElementById('btnSelfFix').addEventListener('click', async () => {
-    if (!currentId) { alert('Select a task'); return; }
-    let timeline;
-    try { timeline = JSON.parse(document.getElementById('auditTimelineJson').value || '[]'); }
-    catch (err) { alert('Invalid JSON'); return; }
-    const res = await fetch('/api/audit/self-fix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+    if (!currentId) { alert('Select a task first'); return; }
+    if (!document.getElementById('unlockEdit').checked) { alert('Please check "Direct-fix mode" before editing the text or timeline'); return; }
+    // Feedback #8: images have no timeline — use the description text directly; video/audio use the timeline editor
+    let contentText, timelineSegs;
+    if (currentModality === 'image') {
+        contentText = document.getElementById('auditText').value.trim();
+        if (!contentText) { alert('Please enter the image description text'); return; }
+        timelineSegs = [];
+    } else {
+        const tl = auditTlEditor.collect();
+        if (!tl) return;
+        contentText = tl.text;
+        timelineSegs = tl.segments;
+    }
+    const body = {
         recording_id: currentId,
-        content_text: document.getElementById('auditText').value,
-        timeline,
-        comments: document.getElementById('auditComments').value
-    })});
+        content_text: contentText,
+        timeline: timelineSegs,
+        comments: document.getElementById('auditComments').value,
+        review_remark: document.getElementById('auditRemark').value
+    };
+    const res = await fetch('/api/audit/self-fix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok) { alert(data.error || 'Failed'); return; }
     alert(data.message);
     currentId = null;
+    document.getElementById('auditComments').value = '';
+    document.getElementById('unlockEdit').checked = false;
+    document.getElementById('auditText').readOnly = true;
+    auditTlEditor.setEnabled(false);
     refreshPendingList();
 });
+
+// ---------------- Feedback #7: algorithm re-check (DeepSeek, synchronous) ----------------
+const RECHECK_VERDICT = {
+    pass:   { text: 'Pass', cls: 'bg-success' },
+    revise: { text: 'Revise', cls: 'bg-warning text-dark' },
+    reject: { text: 'Reject', cls: 'bg-danger' }
+};
+
+document.getElementById('btnRecheck').addEventListener('click', async () => {
+    if (!currentId) { alert('Select a pending task first'); return; }
+    const backend = document.getElementById('recheckBackend').value;
+    const extra = document.getElementById('recheckExtra').value;
+    const btn = document.getElementById('btnRecheck');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Checking…';
+    try {
+        const res = await fetch('/api/audit/algorithm-recheck', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recording_id: currentId, backend: backend, prompt_extra: extra })
+        });
+        const data = await res.json();
+        if (!res.ok) { alert(data.error || 'Re-check failed'); return; }
+        renderRecheckResult(data);
+    } catch (e) {
+        alert('Re-check request error: ' + e);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-magic"></i> Re-run re-check';
+    }
+});
+
+function renderRecheckResult(d) {
+    const box = document.getElementById('recheckResult');
+    box.style.display = 'block';
+    const v = RECHECK_VERDICT[d.verdict] || { text: d.verdict || '—', cls: 'bg-secondary' };
+    const vd = document.getElementById('recheckVerdict');
+    vd.className = 'badge ' + v.cls;
+    vd.textContent = v.text;
+    const conf = (d.confidence === null || d.confidence === undefined) ? '' : Number(d.confidence);
+    document.getElementById('recheckConfidence').textContent =
+        (d.confidence !== null && d.confidence !== undefined) ? ('confidence ' + (conf * 100).toFixed(0) + '%') : '';
+    document.getElementById('recheckCost').textContent =
+        'tokens ' + (Math.round(d.tokens_used || 0)) + ' · ' + (d.cost_credits || 0) + ' credits';
+    document.getElementById('recheckSummary').textContent = d.summary ? ('AI note: ' + d.summary) : '';
+
+    const issues = d.issues || [];
+    const iw = document.getElementById('recheckIssues');
+    iw.innerHTML = '';
+    if (!issues.length) {
+        iw.innerHTML = '<div class="small text-success">No obvious issues found.</div>';
+    } else {
+        const tbl = document.createElement('table');
+        tbl.className = 'table table-sm table-bordered small mb-0';
+        tbl.innerHTML = '<thead><tr><th style="width:90px;">Type</th><th style="width:120px;">Location</th><th>Issue</th><th>Suggestion</th></tr></thead>';
+        const tb = document.createElement('tbody');
+        issues.forEach(it => {
+            const tr = document.createElement('tr');
+            const esc = s => String(s == null ? '' : s).replace(/</g, '&lt;');
+            tr.innerHTML = `<td>${esc(it.type)}</td><td>${esc(it.location)}</td><td>${esc(it.description)}</td><td>${esc(it.suggestion)}</td>`;
+            tb.appendChild(tr);
+        });
+        tbl.appendChild(tb);
+        iw.appendChild(tbl);
+    }
+
+    const cw = document.getElementById('recheckCorrectedWrap');
+    if (d.corrected_text && d.corrected_text.trim()) {
+        cw.style.display = 'block';
+        document.getElementById('recheckCorrected').value = d.corrected_text;
+    } else {
+        cw.style.display = 'none';
+        document.getElementById('recheckCorrected').value = '';
+    }
+}
+
+document.getElementById('btnAdoptCorrected').addEventListener('click', () => {
+    const txt = document.getElementById('recheckCorrected').value;
+    if (!txt) { alert('No suggested corrected text'); return; }
+    document.getElementById('auditText').value = txt;
+    const unlock = document.getElementById('unlockEdit');
+    if (!unlock.checked) {
+        unlock.checked = true;
+        unlock.dispatchEvent(new Event('change'));
+    }
+    document.getElementById('auditText').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    alert('Adopted and direct-fix mode enabled. Please verify the content (description for images, text and timeline for video/audio) and click "Fix directly & approve".');
+});
+
+// Mark invalid (logical delete): system admins and inspectors only (enforced server-side); double confirm
+document.getElementById('btnInvalid').addEventListener('click', async () => {
+    if (!currentId) { alert('Select a task first'); return; }
+    if (!confirm('Mark this record as invalid (logical delete; physical file kept, traceable in Data Management)?')) return;
+    const res = await fetch('/api/manage/invalidate/' + currentId, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || 'Failed'); return; }
+    alert(data.message || 'Marked invalid');
+    currentId = null;
+    refreshPendingList();
+});
+
 refreshPendingList();
 </script>
 {% endblock %}
