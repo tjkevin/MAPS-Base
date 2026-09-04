@@ -77,16 +77,20 @@
                     <label class="form-label small mb-1 text-nowrap" for="f_md5">MD5</label>
                     <input type="text" class="form-control form-control-sm" id="f_md5" placeholder="32位">
                 </div>
-                <div class="col-lg-2 col-md-3 col-6">
+                <div class="col-lg-3 col-md-4 col-12">
                     <label class="form-label small mb-1 text-nowrap">无效数据</label>
-                    <div class="form-control form-control-sm bg-light d-flex align-items-center gap-3 py-0">
+                    <div class="form-control form-control-sm bg-light d-flex align-items-center flex-wrap column-gap-3 row-gap-1 py-0">
                         <div class="form-check my-0">
-                            <input class="form-check-input" type="checkbox" id="f_include_invalid">
-                            <label class="form-check-label small" for="f_include_invalid">含无效</label>
+                            <input class="form-check-input" type="radio" name="f_valid_mode" id="f_valid_only" value="valid" checked>
+                            <label class="form-check-label small text-nowrap" for="f_valid_only">仅有效</label>
                         </div>
                         <div class="form-check my-0">
-                            <input class="form-check-input" type="checkbox" id="f_invalid_only">
-                            <label class="form-check-label small" for="f_invalid_only">仅无效</label>
+                            <input class="form-check-input" type="radio" name="f_valid_mode" id="f_include_invalid" value="include">
+                            <label class="form-check-label small text-nowrap" for="f_include_invalid">含无效</label>
+                        </div>
+                        <div class="form-check my-0">
+                            <input class="form-check-input" type="radio" name="f_valid_mode" id="f_invalid_only" value="invalid">
+                            <label class="form-check-label small text-nowrap" for="f_invalid_only">仅无效</label>
                         </div>
                     </div>
                 </div>
@@ -181,27 +185,27 @@
                         <option value="9:0.5:0.5">训练 : 验证 : 测试 = 9 : 0.5 : 0.5</option>
                     </select>
                 </div>
-                <div class="col-12">
-                    <span class="small text-muted me-2"><i class="fas fa-file-export"></i> 导出内容：</span>
-                    <div class="form-check form-check-inline">
+                <div class="col-12 d-flex flex-wrap align-items-center row-gap-1 column-gap-3">
+                    <span class="small text-muted text-nowrap mb-0"><i class="fas fa-file-export"></i> 导出内容：</span>
+                    <div class="form-check m-0 d-inline-flex align-items-center">
                         <input class="form-check-input ds-field" type="checkbox" id="dsf_media" value="media" checked>
-                        <label class="form-check-label small" for="dsf_media">媒体文件</label>
+                        <label class="form-check-label small text-nowrap ms-1" for="dsf_media">媒体文件</label>
                     </div>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check m-0 d-inline-flex align-items-center">
                         <input class="form-check-input ds-field" type="checkbox" id="dsf_transcript" value="transcript" checked>
-                        <label class="form-check-label small" for="dsf_transcript">转写 / 描述文本</label>
+                        <label class="form-check-label small text-nowrap ms-1" for="dsf_transcript">转写 / 描述文本</label>
                     </div>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check m-0 d-inline-flex align-items-center">
                         <input class="form-check-input ds-field" type="checkbox" id="dsf_timeline" value="timeline">
-                        <label class="form-check-label small" for="dsf_timeline">时间轴标注</label>
+                        <label class="form-check-label small text-nowrap ms-1" for="dsf_timeline">时间轴标注</label>
                     </div>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check m-0 d-inline-flex align-items-center">
                         <input class="form-check-input ds-field" type="checkbox" id="dsf_meta" value="metadata" checked>
-                        <label class="form-check-label small" for="dsf_meta">元数据（类型 / 时长 / MD5 / 账号）</label>
+                        <label class="form-check-label small text-nowrap ms-1" for="dsf_meta">元数据（类型 / 时长 / MD5 / 账号）</label>
                     </div>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check m-0 d-inline-flex align-items-center">
                         <input class="form-check-input ds-field" type="checkbox" id="dsf_audit" value="audit">
-                        <label class="form-check-label small" for="dsf_audit">审核记录</label>
+                        <label class="form-check-label small text-nowrap ms-1" for="dsf_audit">审核记录</label>
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap gap-2 pt-1">
@@ -397,8 +401,9 @@ function buildQueryParams(page) {
     if (tn) p.set('task_no', tn);
     const md5 = document.getElementById('f_md5').value.trim();
     if (md5) p.set('md5', md5);
-    if (document.getElementById('f_include_invalid').checked) p.set('include_invalid', 'true');
-    if (document.getElementById('f_invalid_only').checked) p.set('invalid_only', 'true');
+    const validMode = (document.querySelector('input[name="f_valid_mode"]:checked') || {}).value || 'valid';
+    if (validMode === 'include') p.set('include_invalid', 'true');
+    else if (validMode === 'invalid') p.set('invalid_only', 'true');
     if (trashView) p.set('trash_only', 'true');
     return p;
 }
@@ -735,7 +740,12 @@ document.getElementById('dataList').addEventListener('change', e => { if (e.targ
 
 document.getElementById('btnSearch').addEventListener('click', () => loadData(1));
 document.getElementById('btnReset').addEventListener('click', () => {
-    document.querySelectorAll('[id^="f_"]').forEach(el => { if (el.type==='checkbox') el.checked=false; else el.value=''; });
+    document.querySelectorAll('[id^="f_"]').forEach(el => {
+        if (el.type === 'checkbox') el.checked = false;
+        else if (el.type !== 'radio') el.value = '';
+    });
+    const vo = document.getElementById('f_valid_only');
+    if (vo) vo.checked = true;  // 反馈#17：无效数据默认「仅有效」
     loadData(1);
 });
 

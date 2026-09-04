@@ -83,11 +83,11 @@
                 <div class="row g-3 mb-3">
                     <div class="col-md-4 border rounded p-3"><h6>Processing results</h6><p class="mb-1">Today <strong id="proc_today">—</strong></p><p class="mb-1">Week <strong id="proc_week">—</strong></p><p class="mb-0">Month <strong id="proc_month">—</strong></p><p class="small text-muted mt-2 mb-0">Avg duration (est.) <span id="proc_avg">—</span> s</p></div>
                     <div class="col-md-4 border rounded p-3"><h6>Top processor accounts (week)</h6><ol class="small mb-0" id="proc_rank"></ol></div>
-                    <div class="col-md-4 border rounded p-3"><h6>Tasks</h6><p class="mb-0">Active <strong id="tsk_act">—</strong> / Done <strong id="tsk_done">—</strong></p></div>
+                    <div class="col-md-4 border rounded p-3"><h6>Tasks</h6><p class="mb-1">In progress <strong id="tsk_act">—</strong></p><p class="mb-0 small text-muted">Completed in last 7d <strong id="tsk_done">—</strong></p></div>
                 </div>
                 <div class="row g-3">
                     <div class="col-lg-8"><h6>Audit pass trend (7 days)</h6><canvas id="chartPassTrend" height="100"></canvas></div>
-                    <div class="col-lg-4"><h6>Auditor accounts & pass rate</h6><ul class="list-unstyled small" id="auditor_list"></ul></div>
+                    <div class="col-lg-4"><h6>Auditor pass-rate ranking <small class="text-muted">(by pass rate)</small></h6><ul class="list-unstyled small mb-0" id="auditor_list"></ul></div>
                 </div>
             </div>
         </div>
@@ -163,7 +163,19 @@ async function loadDashboardStats() {
         dashChart = new Chart(ctx, { type: 'line', data: { labels: trend.map(x=>x.date), datasets: [{ label: 'Pass actions', data: trend.map(x=>x.pass_count), borderColor: '#0d6efd', tension: 0.2 }] }, options: { responsive: true, scales: { y: { beginAtZero: true } } } });
         const br = (q.auditor_breakdown || []).slice(0, 10);
         document.getElementById('auditor_list').innerHTML = br.length
-            ? br.map(x => `<li>${escapeHtml(x.username)}: ${(x.pass_rate != null ? x.pass_rate.toFixed(1) : '0.0')}% (${x.pass_actions}/${x.total_actions})</li>`).join('')
+            ? br.map((x, i) => {
+                const rate = x.pass_rate != null ? Number(x.pass_rate) : 0;
+                const medal = i === 0 ? '<span class="badge bg-warning text-dark">1</span>' : i === 1 ? '<span class="badge bg-secondary">2</span>' : i === 2 ? '<span class="badge" style="background:#cd7f32;color:#fff;">3</span>' : '<span class="text-muted">#' + (i + 1) + '</span>';
+                const barColor = rate >= 90 ? 'success' : rate >= 75 ? 'primary' : rate >= 60 ? 'warning' : 'danger';
+                return '<li class="d-flex align-items-center gap-2 mb-2">'
+                    + '<span style="width:2.4rem;" class="text-center flex-shrink-0 fs-6">' + medal + '</span>'
+                    + '<span class="flex-grow-1">'
+                    +   '<div class="d-flex justify-content-between gap-2"><span class="text-truncate">' + escapeHtml(x.nickname || x.username) + '</span>'
+                    +   '<span class="text-muted flex-shrink-0">' + rate.toFixed(1) + '%</span></div>'
+                    +   '<div class="progress" style="height:6px;"><div class="progress-bar bg-' + barColor + '" style="width:' + Math.min(100, rate).toFixed(1) + '%"></div></div>'
+                    +   '<div class="small text-muted">Pass ' + x.pass_actions + ' / total ' + x.total_actions + ' actions</div>'
+                    + '</span></li>';
+            }).join('')
             : '<li class="text-muted">No audit log sample yet</li>';
     } catch (e) { console.error(e); }
 }

@@ -12,6 +12,7 @@ from models import (
     TaskAssignment,
     TaskWorkflowLog,
     TaskReturnRequest,
+    TaskPointRecord,
 )
 from services.messaging import notify_task_users
 
@@ -172,8 +173,11 @@ def auto_assign(task, creator_id):
 
 def serialize_task_summary(task, include_assignments=False):
     ws = effective_workflow_status(task)
-    done = total_completed_for_task(task.id)
+    done_raw = total_completed_for_task(task.id)
     req = task.required_count or 0
+    # 反馈#17(4.2)：进度展示封顶——历史演示数据可能出现分配完成数之和 > 目标量（如 4367/13），
+    # 完成进度语义上不应超过目标，超出部分仅在分配明细中保留原值
+    done = min(done_raw, req) if req else done_raw
     pct = min(100, int(done * 100 / req)) if req else 0
     now = datetime.utcnow()
     urgent = task.end_date and (task.end_date - now) <= timedelta(hours=24) and ws not in (
@@ -204,6 +208,10 @@ def serialize_task_summary(task, include_assignments=False):
         'quality_score': task.quality_score,
         'urgent_deadline': urgent,
         'task_type': task.task_type,
+        # 反馈#17：双积分——任务积分奖励总额 / 算力点分配总额 / 已挣得任务积分
+        'reward_task_points': getattr(task, 'reward_task_points', 0) or 0,
+        'alloc_compute_points': getattr(task, 'alloc_compute_points', 0) or 0,
+        'task_points_earned_total': total_task_points_earned(task.id),
     }
     if include_assignments:
         assigns = TaskAssignment.query.filter_by(task_id=task.id).all()

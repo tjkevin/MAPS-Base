@@ -3875,6 +3875,41 @@ def _assignment_recipients(task):
     return [r.user_id for r in rows]
 
 
+def _task_per_item_points(task):
+    """反馈#17：任务积分每件奖励——奖励总额按目标量均摊（每件至少 1）；未设奖励返回 0。"""
+    reward = int(getattr(task, 'reward_task_points', 0) or 0)
+    if reward <= 0:
+        return 0
+    req = max(1, task.required_count or 1)
+    return max(1, int(round(reward / req)))
+
+
+def _grant_task_compute_points(task, user_id, quota, admin_id):
+    """反馈#17：任务发布/申领时按个人配额给执行人发放算力点。
+    幂等：assignment.compute_points_granted>0 不重复发；grant_credits 内部提交。"""
+    alloc = int(getattr(task, 'alloc_compute_points', 0) or 0)
+    if alloc <= 0 or not user_id or quota <= 0:
+        return 0
+    asg = TaskAssignment.query.filter_by(task_id=task.id, user_id=user_id).first()
+    if asg and (asg.compute_points_granted or 0) > 0:
+        return 0
+    req = max(1, task.required_count or 1)
+    amount = max(1, int(round(alloc * quota / req)))
+    try:
+        credit_service.grant_credits(
+            admin_id or task.created_by or user_id, user_id, amount, 'permanent',
+            f'任务 {task.task_no or task.id} 算力点分配（配额 {quota} 件）',
+            model_redis,
+        )
+        if asg:
+            asg.compute_points_granted = amount
+            db.session.commit()
+        return amount
+    except Exception:
+        app.logger.warning('任务算力点发放失败 task=%s user=%s', task.id, user_id, exc_info=True)
+        return 0
+
+
 # API Endpoints for Task Management（统计 + 兼容列表）
 @app.route('/api/tasks/statistics')
 @login_required
@@ -4177,6 +4212,9 @@ def workflow_tasks():
         task_subtype=(body.get('task_subtype') or '')[:40],
         assign_mode=(body.get('assign_mode') or 'manual').lower(),
         max_claim_per_user=max(1, int(body.get('max_claim_per_user') or 1)),
+        # 反馈#17：双积分——任务积分奖励（完成挣得）与算力点分配（发布时发放给执行人）
+        reward_task_points=max(0, int(body.get('reward_task_points') or 0)),
+        alloc_compute_points=max(0, int(body.get('alloc_compute_points') or 0)),
         workflow_status='draft',
         created_by=current_user.id,
         status='pending',
@@ -4300,6 +4338,14 @@ def workflow_task_publish(task_id):
 
     sync_legacy_status(task)
     log_task_action(task, current_user.id, 'publish', prev, task.workflow_status, {'assign_mode': mode})
+    db.session.flush()
+    # 反馈#17：发布时按个人配额给执行人发放任务算力点（公海模式在申领时发放）
+    if mode in ('manual', 'auto'):
+        try:
+            for asg in TaskAssignment.query.filter_by(task_id=task.id).all():
+                _grant_task_compute_points(task, asg.user_id, asg.target_quota or 1, current_user.id)
+        except Exception:
+            app.logger.warning('发布任务算力点发放异常 task=%s', task.id, exc_info=True)
     db.session.commit()
     return jsonify({'success': True, 'workflow_status': task.workflow_status})
 
@@ -4348,6 +4394,12 @@ def workflow_task_claim(task_id):
     task.workflow_status = 'pending_execute'
     sync_legacy_status(task)
     log_task_action(task, current_user.id, 'claim', prev, task.workflow_status, {'quota': take})
+    # 反馈#17：公海申领时按申领配额发放任务算力点
+    db.session.flush()
+    try:
+        _grant_task_compute_points(task, current_user.id, take, task.created_by or current_user.id)
+    except Exception:
+        app.logger.warning('申领任务算力点发放异常 task=%s user=%s', task.id, current_user.id, exc_info=True)
     notify_task_users(
         [current_user.id],
         current_user.id,
@@ -4377,6 +4429,7 @@ def workflow_task_progress(task_id):
     prev_done = asg.completed_count
     asg.completed_count = min(cap, asg.completed_count + delta)
     asg.status = 'in_progress'
+    actual_inc = asg.completed_count - prev_done  # 反馈#17：封顶后实际增量（任务积分按此计）
     log_task_action(
         task,
         current_user.id,
@@ -4395,6 +4448,17 @@ def workflow_task_progress(task_id):
             msg_type='task_quota_completed',
         )
     db.session.commit()
+    # 反馈#17：任务积分——完成上报即挣得（每件 per_item 点，追加流水，非消耗）
+    try:
+        per_item = _task_per_item_points(task)
+        if per_item > 0 and actual_inc > 0:
+            credit_service.earn_task_points(
+                current_user.id, per_item * actual_inc,
+                task_id=task.id, assignment_id=asg.id,
+                reason=f'完成任务 {task.task_no or task.id} 上报 {actual_inc} 件',
+            )
+    except Exception:
+        app.logger.warning('任务积分挣得记账失败 task=%s user=%s', task.id, current_user.id, exc_info=True)
     return jsonify({'success': True, 'completed_count': asg.completed_count, 'target_quota': cap})
 
 
@@ -5492,9 +5556,35 @@ def admin_credits_overview():
                 'local_per_min': Config.CREDIT_LOCAL_PER_MIN,
             },
             'users': credit_service.admin_overview(model_redis),
+            # 反馈#17：分时段发放/消耗（近7日/近30日/本月/本年/全部）
+            'range_stats': credit_service.credit_range_stats(),
+            # 反馈#17：任务积分总览（累计挣得/已结算/未结算）
+            'task_points_users': credit_service.task_points_overview(),
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/admin/task-points/settle', methods=['POST'])
+@login_required
+def admin_task_points_settle():
+    """反馈#17：结算任务积分（登记 earned→settled，不扣减）。可按人结算。"""
+    if not _is_system_admin():
+        return jsonify({'error': 'forbidden'}), 403
+    data = request.get_json(silent=True) or {}
+    user_id = None
+    try:
+        user_id = int(data.get('user_id') or 0) or None
+    except (TypeError, ValueError):
+        user_id = None
+    try:
+        result = credit_service.settle_task_points(current_user.id, user_id=user_id)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    if user_id:
+        _log_user_audit(current_user.id, user_id, 'task_points_settle', result)
+    db.session.commit()
+    return jsonify({'success': True, **result})
 
 
 @app.route('/api/admin/credits/grant', methods=['POST'])
@@ -5509,16 +5599,32 @@ def admin_credits_grant():
         credits = int(data.get('credits') or 0)
     except (TypeError, ValueError):
         return jsonify({'error': 'user_id/credits 必须为整数'}), 400
-    period = (data.get('period') or 'permanent').strip()
-    reason = (data.get('reason') or '管理员分配算力积分').strip()
+    period = (data.get('period') or 'permanent').strip().lower()
+    # 反馈#17：周期标签白名单 7日/30日/1年/自定义/永久（旧标签 202609 等按永久兼容）
+    if period not in ('7d', '30d', '1y', 'custom', 'permanent'):
+        period = 'permanent'
+    reason = (data.get('reason') or '管理员分配算力点').strip()
+    custom_expire = None
+    if period == 'custom':
+        custom_expire = _parse_task_datetime(data.get('expire_at') or data.get('expire_date'))
+        if not custom_expire:
+            return jsonify({'error': '自定义周期需提供失效日期（expire_at, YYYY-MM-DD）'}), 400
+        if custom_expire <= datetime.utcnow():
+            return jsonify({'error': '失效日期必须晚于当前时间'}), 400
     try:
-        row = credit_service.grant_credits(current_user.id, user_id, credits, period, reason, model_redis)
+        row = credit_service.grant_credits(
+            current_user.id, user_id, credits, period, reason, model_redis,
+            credit_type=credit_service.CREDIT_TYPE_COMPUTE,
+            custom_expire=custom_expire,
+        )
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
     _log_user_audit(current_user.id, user_id, 'credit_grant',
-                    {'credits': credits, 'period': period, 'reason': reason})
+                    {'credits': credits, 'period': period, 'reason': reason,
+                     'expire_at': row.expire_at.isoformat() if row.expire_at else None})
     db.session.commit()
     return jsonify({'success': True, 'grant_id': row.id,
+                    'expire_at': row.expire_at.isoformat() if row.expire_at else None,
                     'balance': credit_service.get_balance(user_id, model_redis)})
 
 
@@ -5709,6 +5815,13 @@ def admin_deepseek_usage():
         })
     user_rows.sort(key=lambda x: x['tokens'], reverse=True)
 
+    # 反馈#17：近24小时/近7日 token 费用累计 + 预计未来7日费用
+    try:
+        cost_stats = credit_service.llm_token_cost_stats(Config)
+    except Exception:
+        app.logger.warning('token 费用统计失败', exc_info=True)
+        cost_stats = None
+
     return jsonify({
         'success': True,
         'totals': {
@@ -5719,6 +5832,7 @@ def admin_deepseek_usage():
         },
         'daily': daily_series,
         'by_user': user_rows,
+        'cost_stats': cost_stats,
         'model': Config.DEEPSEEK_MODEL,
         'configured': bool(Config.DEEPSEEK_API_KEY),
     })
@@ -6018,6 +6132,19 @@ with app.app_context():
                 'output_format': "ALTER TABLE data_sets ADD COLUMN output_format VARCHAR(16) NULL DEFAULT 'jsonl'",
                 'include_fields': "ALTER TABLE data_sets ADD COLUMN include_fields VARCHAR(255) NULL DEFAULT 'media,transcript,metadata'",
                 'split_rule': "ALTER TABLE data_sets ADD COLUMN split_rule VARCHAR(16) NULL DEFAULT 'none'",
+            },
+            # 反馈#17：双积分体系（算力点 + 任务积分）
+            'user_credit_grants': {
+                'credit_type': "ALTER TABLE user_credit_grants ADD COLUMN credit_type VARCHAR(16) NULL DEFAULT 'compute'",
+                'expire_at': 'ALTER TABLE user_credit_grants ADD COLUMN expire_at DATETIME NULL',
+            },
+            'tasks': {
+                'reward_task_points': 'ALTER TABLE tasks ADD COLUMN reward_task_points INT NULL DEFAULT 0',
+                'alloc_compute_points': 'ALTER TABLE tasks ADD COLUMN alloc_compute_points INT NULL DEFAULT 0',
+            },
+            'task_assignments': {
+                'task_points_earned': 'ALTER TABLE task_assignments ADD COLUMN task_points_earned INT NULL DEFAULT 0',
+                'compute_points_granted': 'ALTER TABLE task_assignments ADD COLUMN compute_points_granted INT NULL DEFAULT 0',
             },
         }
         with db.engine.begin() as _conn:

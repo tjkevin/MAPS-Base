@@ -4,6 +4,13 @@
 {% block title %}用户管理 - MAPS{% endblock %}
 
 {% block content %}
+<style>
+    /* 反馈#17：用户页两表行高进一步压缩 */
+    .main-content .table-tighter tbody td,
+    .main-content .table-tighter tbody th { padding: .12rem .4rem; font-size: .82rem; vertical-align: middle; }
+    .main-content .table-tighter thead th { padding: .25rem .4rem; font-size: .8rem; }
+    .main-content .table-tighter .btn-group .btn { padding: .05rem .35rem; font-size: .78rem; }
+</style>
 <div class="container-fluid">
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
         <h1 class="h3 mb-0">用户管理</h1>
@@ -14,15 +21,24 @@
         </div>
     </div>
 
+    <!-- 反馈#17：用户信息 / 用户积分 拆为两个标签页 -->
+    <ul class="nav nav-tabs mb-3" id="userMainTabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" type="button" data-pane="users" onclick="switchUserPane('users')"><i class="fas fa-users me-1"></i>用户信息管理</button></li>
+        <li class="nav-item"><button class="nav-link" type="button" data-pane="credits" onclick="switchUserPane('credits')"><i class="fas fa-coins me-1"></i>用户积分管理</button></li>
+    </ul>
+
     <div class="card mb-3 d-none" id="recentSessionsCard">
         <div class="card-header">近 30 分钟内有登录记录的账号（辅助排查异常）</div>
         <div class="card-body"><pre class="small mb-0" id="recentSessionsPre"></pre></div>
     </div>
 
-    <!-- 算力积分管理（按人计量：发放/余额/消耗；提交前冻结、完成后按实际结算，MD5 复用免费） -->
+    <!-- ===== 用户积分管理标签页（算力点 + 任务积分） ===== -->
+    <div id="paneCredits" class="d-none">
+
+    <!-- 算力点管理（按人计量：发放/余额/消耗；提交前冻结、完成后按实际结算，MD5 复用免费） -->
     <div class="card mb-3 border-warning">
         <div class="card-header d-flex flex-wrap align-items-center gap-2">
-            <span><i class="fas fa-coins text-warning"></i> 算力积分管理</span>
+            <span><i class="fas fa-coins text-warning"></i> 算力点管理（外部算力 token / GPU 消耗）</span>
             <span id="creditEnforcedBadge" class="badge bg-secondary"></span>
             <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadCreditOverview()"><i class="fas fa-sync"></i> 刷新</button>
         </div>
@@ -33,24 +49,68 @@
                     <select class="form-select form-select-sm" id="grantUserId" required></select>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label small">发放积分</label>
+                    <label class="form-label small">发放算力点</label>
                     <input type="number" class="form-control form-control-sm" id="grantCredits" min="1" value="100" required>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label small">周期标签</label>
-                    <input class="form-control form-control-sm" id="grantPeriod" value="permanent" placeholder="如 202609">
+                    <label class="form-label small">发放周期</label>
+                    <select class="form-select form-select-sm" id="grantPeriod" onchange="onGrantPeriodChange('grant')">
+                        <option value="7d">7 日（到期消失）</option>
+                        <option value="30d">30 日（到期消失）</option>
+                        <option value="1y">1 年（到期消失）</option>
+                        <option value="custom">自定义到期日</option>
+                        <option value="permanent" selected>永久</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-none" id="grantExpireWrap">
+                    <label class="form-label small">到期日</label>
+                    <input type="date" class="form-control form-control-sm" id="grantExpire">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label small">事由</label>
-                    <input class="form-control form-control-sm" id="grantReason" value="管理员分配算力积分">
+                    <input class="form-control form-control-sm" id="grantReason" value="管理员分配算力点">
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-warning btn-sm w-100"><i class="fas fa-gift"></i> 发放</button>
                 </div>
+                <div class="col-12 small text-muted">限时周期（7日 / 30日 / 1年 / 自定义）的算力点到期后自动失效、不再计入余额。</div>
             </form>
             <div class="small text-muted mb-2" id="creditPricingInfo"></div>
+            <!-- 反馈#17：分时段累计发放 / 消耗 -->
+            <div class="row g-2 mb-2">
+                <div class="col-6 col-md-4 col-lg-auto">
+                    <div class="border rounded px-2 py-1 bg-light h-100">
+                        <div class="small text-muted">近 7 日</div>
+                        <div class="small text-nowrap">发放 <strong id="rs_7d_g">—</strong> · 消耗 <strong id="rs_7d_u">—</strong></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-auto">
+                    <div class="border rounded px-2 py-1 bg-light h-100">
+                        <div class="small text-muted">近 30 日</div>
+                        <div class="small text-nowrap">发放 <strong id="rs_30d_g">—</strong> · 消耗 <strong id="rs_30d_u">—</strong></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-auto">
+                    <div class="border rounded px-2 py-1 bg-light h-100">
+                        <div class="small text-muted">本月</div>
+                        <div class="small text-nowrap">发放 <strong id="rs_month_g">—</strong> · 消耗 <strong id="rs_month_u">—</strong></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-auto">
+                    <div class="border rounded px-2 py-1 bg-light h-100">
+                        <div class="small text-muted">本年</div>
+                        <div class="small text-nowrap">发放 <strong id="rs_year_g">—</strong> · 消耗 <strong id="rs_year_u">—</strong></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-auto">
+                    <div class="border rounded px-2 py-1 bg-light h-100">
+                        <div class="small text-muted">全部</div>
+                        <div class="small text-nowrap">发放 <strong id="rs_all_g">—</strong> · 消耗 <strong id="rs_all_u">—</strong></div>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
-                <table class="table table-sm table-striped align-middle mb-0">
+                <table class="table table-sm table-striped table-tighter align-middle mb-0">
                     <thead><tr><th>ID</th><th>账号</th><th>角色</th><th>当前余额</th><th>累计发放</th><th>累计消耗</th></tr></thead>
                     <tbody id="creditUserList"><tr><td colspan="6" class="text-muted small">加载中…</td></tr></tbody>
                 </table>
@@ -58,6 +118,27 @@
         </div>
     </div>
 
+    <!-- 反馈#17：任务积分（完成任务获得；earned 登记、管理员结算后 settled，只登记不扣减） -->
+    <div class="card mb-3 border-info">
+        <div class="card-header d-flex flex-wrap align-items-center gap-2">
+            <span><i class="fas fa-star text-info"></i> 任务积分管理（完成任务获得 · 结算登记）</span>
+            <span class="small text-muted">任务积分仅登记「已挣得 / 已结算」，不扣减；未结算流水确认后由管理员结算。</span>
+            <button class="btn btn-sm btn-outline-info ms-auto" type="button" onclick="settleTaskPoints(null)"><i class="fas fa-check-double"></i> 一键结算全部未结算</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="loadCreditOverview()"><i class="fas fa-sync"></i> 刷新</button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-tighter align-middle mb-0">
+                    <thead><tr><th>ID</th><th>账号</th><th>角色</th><th>累计挣得</th><th>已结算</th><th>未结算</th><th>操作</th></tr></thead>
+                    <tbody id="tpUserList"><tr><td colspan="7" class="text-muted small">加载中…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div><!-- /paneCredits -->
+
+    <!-- ===== 用户信息管理标签页 ===== -->
+    <div id="paneUsers">
     <!-- 反馈#8：模型后端与队列监控、外部大模型接口配置、外部大模型流量统计已统一迁移至「任务管理 → 模型后端与队列监控」 -->
     <div class="alert alert-info small py-2 mb-3">
         <i class="fas fa-circle-info"></i>
@@ -68,7 +149,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-sm align-middle">
+                <table class="table table-striped table-sm table-tighter align-middle">
                     <thead>
                         <tr>
                             <th style="min-width:36px">ID</th>
@@ -91,6 +172,7 @@
             </div>
         </div>
     </div>
+    </div><!-- /paneUsers -->
 </div>
 
 <div class="modal fade" id="addUserModal" tabindex="-1">
@@ -182,7 +264,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-coins text-warning"></i> 为用户分配算力积分</h5>
+                <h5 class="modal-title"><i class="fas fa-coins text-warning"></i> 为用户分配算力点</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -192,16 +274,26 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-md-6">
-                        <label class="form-label">发放积分数 *</label>
+                        <label class="form-label">发放算力点数 *</label>
                         <input type="number" class="form-control" id="grantToUserCredits" min="1" value="100">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">周期标签</label>
-                        <input class="form-control" id="grantToUserPeriod" value="permanent" placeholder="如 202609">
+                        <label class="form-label">发放周期</label>
+                        <select class="form-select" id="grantToUserPeriod" onchange="onGrantPeriodChange('grantToUser')">
+                            <option value="7d">7 日（到期消失）</option>
+                            <option value="30d">30 日（到期消失）</option>
+                            <option value="1y">1 年（到期消失）</option>
+                            <option value="custom">自定义到期日</option>
+                            <option value="permanent" selected>永久</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 d-none" id="grantToUserExpireWrap">
+                        <label class="form-label">到期日（自定义周期）</label>
+                        <input type="date" class="form-control" id="grantToUserExpire">
                     </div>
                     <div class="col-12">
                         <label class="form-label">事由</label>
-                        <input class="form-control" id="grantToUserReason" value="管理员分配算力积分" maxlength="250">
+                        <input class="form-control" id="grantToUserReason" value="管理员分配算力点" maxlength="250">
                     </div>
                 </div>
             </div>
@@ -561,6 +653,33 @@ async function loadCreditOverview() {
                 + '</td><td><span class="badge ' + (low ? 'bg-danger' : 'bg-warning text-dark') + '">' + u.balance
                 + '</span></td><td>' + u.granted_total + '</td><td>' + u.used_total + '</td></tr>';
         }).join('') || '<tr><td colspan="6" class="text-muted small">暂无用户</td></tr>';
+        // 反馈#17：分时段累计发放 / 消耗
+        const rs = j.range_stats || {};
+        ['7d', '30d', 'month', 'year', 'all'].forEach(k => {
+            const g = document.getElementById('rs_' + k + '_g');
+            const u = document.getElementById('rs_' + k + '_u');
+            if (g) g.textContent = (rs[k] && rs[k].granted) || 0;
+            if (u) u.textContent = (rs[k] && rs[k].used) || 0;
+        });
+        // 反馈#17：任务积分全员总览（累计挣得 / 已结算 / 未结算）
+        const tp = j.task_points_users || [];
+        const tpRows = tp.filter(u => (u.earned_total || 0) > 0 || (u.settled_total || 0) > 0);
+        const tpBox = document.getElementById('tpUserList');
+        if (tpBox) {
+            tpBox.innerHTML = tpRows.length ? tpRows.map(u => {
+                const uname = escapeHtml(u.nickname || u.username)
+                    + (u.nickname ? ' <span class="text-muted small">' + escapeHtml(u.username) + '</span>' : '');
+                const un = (u.unsettled || 0) > 0
+                    ? '<span class="badge bg-info">' + u.unsettled + '</span>'
+                    : '<span class="text-muted small">已结清</span>';
+                const act = (u.unsettled || 0) > 0
+                    ? '<button class="btn btn-sm btn-outline-info" onclick="settleTaskPoints(' + u.user_id + ')"><i class="fas fa-check"></i> 结算该用户</button>'
+                    : '<span class="text-muted small">—</span>';
+                return '<tr><td>' + u.user_id + '</td><td>' + uname + '</td><td>' + (ROLE_CN[u.role] || escapeHtml(u.role))
+                    + '</td><td>' + (u.earned_total || 0) + '</td><td>' + (u.settled_total || 0)
+                    + '</td><td>' + un + '</td><td>' + act + '</td></tr>';
+            }).join('') : '<tr><td colspan="7" class="text-muted small">暂无任务积分记录（成员完成任务获得奖励后显示）</td></tr>';
+        }
     } catch (e) {
         document.getElementById('creditUserList').innerHTML =
             '<tr><td colspan="6" class="text-danger small">加载失败：' + e.message + '</td></tr>';
@@ -580,17 +699,24 @@ async function postCreditGrant(body) {
 
 async function submitGrantCredits(ev) {
     ev.preventDefault();
+    const period = document.getElementById('grantPeriod').value;
     const body = {
         user_id: parseInt(document.getElementById('grantUserId').value, 10),
         credits: parseInt(document.getElementById('grantCredits').value, 10),
-        period: document.getElementById('grantPeriod').value.trim() || 'permanent',
+        period: period,
         reason: document.getElementById('grantReason').value.trim(),
     };
     if (!body.user_id) { alert('请先选择用户'); return; }
-    if (!body.credits || body.credits <= 0) { alert('发放积分必须为正整数'); return; }
+    if (!body.credits || body.credits <= 0) { alert('发放算力点必须为正整数'); return; }
+    if (period === 'custom') {
+        const d = document.getElementById('grantExpire').value;
+        if (!d) { alert('自定义周期请选择到期日'); return; }
+        body.expire_at = d;
+    }
     try {
         const j = await postCreditGrant(body);
-        alert('发放成功，该用户当前余额：' + j.balance + ' 积分');
+        alert('发放成功，该用户当前余额：' + j.balance + ' 算力点'
+            + (j.expire_at ? '；到期日：' + String(j.expire_at).slice(0, 10) : '；永久有效'));
         loadCreditOverview();
     } catch (e) {
         alert('发放失败：' + e.message);
@@ -605,7 +731,8 @@ function openGrantToUser(id) {
     document.getElementById('grantToUserBalance').textContent = u ? u.balance : '—';
     document.getElementById('grantToUserCredits').value = 100;
     document.getElementById('grantToUserPeriod').value = 'permanent';
-    document.getElementById('grantToUserReason').value = '管理员分配算力积分';
+    onGrantPeriodChange('grantToUser');
+    document.getElementById('grantToUserReason').value = '管理员分配算力点';
     bootstrap.Modal.getOrCreateInstance(document.getElementById('grantToUserModal')).show();
     document.getElementById('grantToUserModal').dataset.userId = id;
 }
@@ -614,18 +741,25 @@ async function submitGrantToUser() {
     const modal = document.getElementById('grantToUserModal');
     const user_id = parseInt(modal.dataset.userId || '0', 10);
     const credits = parseInt(document.getElementById('grantToUserCredits').value, 10);
+    const period = document.getElementById('grantToUserPeriod').value;
     const body = {
         user_id,
         credits,
-        period: document.getElementById('grantToUserPeriod').value.trim() || 'permanent',
-        reason: document.getElementById('grantToUserReason').value.trim() || '管理员分配算力积分',
+        period: period,
+        reason: document.getElementById('grantToUserReason').value.trim() || '管理员分配算力点',
     };
     if (!user_id) { alert('未指定目标用户'); return; }
-    if (!credits || credits <= 0) { alert('发放积分必须为正整数'); return; }
+    if (!credits || credits <= 0) { alert('发放算力点必须为正整数'); return; }
+    if (period === 'custom') {
+        const d = document.getElementById('grantToUserExpire').value;
+        if (!d) { alert('自定义周期请选择到期日'); return; }
+        body.expire_at = d;
+    }
     try {
         const j = await postCreditGrant(body);
         bootstrap.Modal.getInstance(modal).hide();
-        alert('发放成功，该用户当前余额：' + j.balance + ' 积分');
+        alert('发放成功，该用户当前余额：' + j.balance + ' 算力点'
+            + (j.expire_at ? '；到期日：' + String(j.expire_at).slice(0, 10) : '；永久有效'));
         loadCreditOverview();
     } catch (e) {
         alert('发放失败：' + e.message);
@@ -634,6 +768,42 @@ async function submitGrantToUser() {
 
 // 反馈#8：模型后端与队列监控、外部大模型接口配置、外部大模型流量统计
 // 已统一迁移至「任务管理 → 模型后端与队列监控」页，本页不再加载相关接口。
+
+// 反馈#17：用户信息 / 用户积分 标签页切换
+function switchUserPane(id) {
+    document.getElementById('paneUsers').classList.toggle('d-none', id !== 'users');
+    document.getElementById('paneCredits').classList.toggle('d-none', id !== 'credits');
+    document.querySelectorAll('#userMainTabs [data-pane]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pane === id);
+    });
+}
+
+// 反馈#17：发放周期（7日 / 30日 / 1年 / 自定义 / 永久）——仅「自定义」显示到期日
+function onGrantPeriodChange(prefix) {
+    const sel = document.getElementById(prefix + 'Period');
+    const wrap = document.getElementById(prefix + 'ExpireWrap');
+    if (!sel || !wrap) return;
+    wrap.classList.toggle('d-none', sel.value !== 'custom');
+}
+
+// 反馈#17：任务积分结算（earned→settled，只登记不扣减；userId 为空则结算全员）
+async function settleTaskPoints(userId) {
+    const who = userId ? ('用户 #' + userId + ' 的') : '全部';
+    if (!confirm('确认结算' + who + '未结算任务积分？结算仅做登记，不扣减任何积分。')) return;
+    try {
+        const r = await fetch('/api/admin/task-points/settle', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userId ? { user_id: userId } : {}),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(j.error || '结算失败');
+        alert('结算完成：' + (j.count || 0) + ' 条流水，共 ' + (j.points || 0) + ' 任务积分已登记为已结算。');
+        loadCreditOverview();
+    } catch (e) {
+        alert('结算失败：' + e.message);
+    }
+}
 
 loadUsers();
 loadCreditOverview();

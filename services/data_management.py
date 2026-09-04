@@ -16,7 +16,7 @@ from flask_login import current_user
 from sqlalchemy import or_, and_, func, desc as sdesc, asc as sasc
 
 from models import db, User, Recording, Task, ProcessingResult, AuditLog
-from models import FilterTemplate, DataSet, DataSetItem
+from models import FilterTemplate, DataSet, DataSetItem, TaskWorkflowLog
 
 
 STATUS_LABEL_CN = {
@@ -676,11 +676,14 @@ def compute_dashboard_stats():
             {
                 'user_id': aid,
                 'username': u.username if u else str(aid),
+                'nickname': (getattr(u, 'nickname', None) or (u.username if u else str(aid))),
                 'total_actions': cnt,
                 'pass_actions': passes,
                 'pass_rate': (passes / cnt * 100) if cnt else 0,
             }
         )
+    # 反馈#17：审核账号通过率按排名呈现（通过率降序，并列按审核量降序）
+    auditor_stats.sort(key=lambda x: (x['pass_rate'], x['total_actions']), reverse=True)
 
     trend = []
     for i in range(6, -1, -1):
@@ -693,8 +696,42 @@ def compute_dashboard_stats():
         ).count()
         trend.append({'date': str(d0), 'pass_count': p})
 
-    active_tasks = Task.query.filter_by(status='active').count()
-    done_tasks = Task.query.filter_by(status='completed').count()
+    # 反馈#17：进行中任务 = 工作流活跃态（含旧版 status='active' 兜底）；
+    # 已完成改为“近7日已完成”——以工作流日志进入 completed/archived 的时间为准
+    _inprogress_ws = (
+        'pending_assign', 'pending_claim', 'pending_execute', 'in_progress',
+        'pending_review', 'pending_fix', 'pending_score', 'paused',
+    )
+    active_tasks = (
+        Task.query.filter(
+            or_(
+                Task.workflow_status.in_(_inprogress_ws),
+                and_(Task.workflow_status.is_(None), Task.status == 'active'),
+            )
+        ).count()
+    )
+    _done_log_rows = (
+        db.session.query(TaskWorkflowLog.task_id)
+        .filter(
+            TaskWorkflowLog.to_status.in_(('completed', 'archived')),
+            TaskWorkflowLog.created_at >= week0,
+        )
+        .distinct()
+        .all()
+    )
+    _done_ids = {r[0] for r in _done_log_rows}
+    if _done_ids:
+        done_tasks = (
+            Task.query.filter(Task.id.in_(_done_ids))
+            .filter(
+                or_(
+                    Task.workflow_status.in_(('completed', 'archived')),
+                    and_(Task.workflow_status.is_(None), Task.status == 'completed'),
+                )
+            ).count()
+        )
+    else:
+        done_tasks = 0
 
     payload = {
         'totals': {

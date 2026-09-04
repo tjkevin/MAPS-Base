@@ -10,13 +10,14 @@
          算法处理收敛为一张卡片，内部「单条提交 / 批量处理」切换，不再用 ①② 大区块分隔 -->
     <p class="text-muted small mb-3"><i class="fas fa-circle-info me-1"></i>
         在下方工作区领取任务进行人工处理（系统按任务类型自动切换「文本检查 / 转录 / 图片描述」）；
-        也可使用算法处理，由外部算力自动转写与多模态理解（按算力积分计量，相同文件 MD5 复用免费）。
+        也可使用<strong>自动化处理（AI 算法）</strong>：单条提交、批量勾选处理或 AI 转写（Whisper），
+        由外部算力自动转写与多模态理解（按算力点计量，相同文件 MD5 复用免费）。
     </p>
 
     <div id="algorithmProcessingPanel" class="order-2 mb-4">
         <div class="card border-warning">
             <div class="card-header d-flex align-items-center flex-wrap gap-2">
-                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> 算法处理（外部算力）</strong>
+                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> 自动化处理（AI 算法 · 外部算力）</strong>
                 <span class="ms-auto d-flex align-items-center flex-wrap gap-2 small">
                     <i class="fas fa-coins text-warning"></i>
                     <span>我的算力积分</span>
@@ -27,11 +28,13 @@
             </div>
             <div class="card-body">
                 <!-- 反馈#16：单条 / 批量 模式切换 -->
-                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="算法处理模式">
+                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="自动化处理模式">
                     <input type="radio" class="btn-check" name="algoMode" id="algoModeSingleRadio" value="single" checked onchange="switchAlgoMode('single')">
                     <label class="btn btn-outline-primary text-nowrap" for="algoModeSingleRadio"><i class="fas fa-paper-plane me-1"></i>单条提交</label>
                     <input type="radio" class="btn-check" name="algoMode" id="algoModeBatchRadio" value="batch" onchange="switchAlgoMode('batch')">
                     <label class="btn btn-outline-primary text-nowrap" for="algoModeBatchRadio"><i class="fas fa-layer-group me-1"></i>批量处理</label>
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeTransRadio" value="trans" onchange="switchAlgoMode('trans')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeTransRadio"><i class="fas fa-microphone-lines me-1"></i>AI 转写（Whisper）</label>
                 </div>
 
                 <!-- 单条提交 -->
@@ -73,21 +76,24 @@
                     </div>
                 </div>
 
-                <!-- 反馈#16：批量处理 -->
+                <!-- 反馈#17：批量处理——可勾选候选列表 -->
                 <div id="algoModeBatch" class="d-none">
                     <div class="row g-2 align-items-end">
                         <div class="col-md-3 col-6">
-                            <label for="batchScope" class="form-label small mb-1">处理范围</label>
-                            <select class="form-select form-select-sm" id="batchScope">
+                            <label for="batchScope" class="form-label small mb-1">候选范围</label>
+                            <select class="form-select form-select-sm" id="batchScope" onchange="loadBatchCandidates()">
                                 <option value="own">本人采集的待处理数据</option>
                                 <option value="all">全部我有权限处理的数据</option>
                             </select>
                         </div>
-                        <div class="col-md-2 col-6">
-                            <label for="batchLimit" class="form-label small mb-1">数量（1-20）</label>
-                            <input type="number" class="form-control form-control-sm" id="batchLimit" value="5" min="1" max="20">
+                        <div class="col-md-3 col-6">
+                            <label for="batchKind" class="form-label small mb-1">处理类型</label>
+                            <select class="form-select form-select-sm" id="batchKind" onchange="loadBatchCandidates()">
+                                <option value="understand">多模态理解（转写/描述 · 外部算力）</option>
+                                <option value="transcribe">Whisper 转写（音/视频 · 局域网 GPU）</option>
+                            </select>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-6">
                             <label for="batchBackend" class="form-label small mb-1">推理后端</label>
                             <select class="form-select form-select-sm" id="batchBackend">
                                 <option value="auto">auto（自动路由）</option>
@@ -95,21 +101,60 @@
                                 <option value="local">local（局域网 BAGEL 优化版 · 图片理解）</option>
                                 <option value="autodl" disabled>autodl（满血版 · 预留待配置）</option>
                             </select>
+                            <div class="form-text small" id="batchBackendHint">Whisper 转写固定使用局域网 GPU。</div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-3 col-6">
                             <div class="form-check ms-1">
                                 <input class="form-check-input" type="checkbox" id="batchForceRecompute">
                                 <label class="form-check-label small" for="batchForceRecompute">强制重算（不复用 MD5）</label>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center flex-wrap gap-2 mt-3">
-                        <button type="button" class="btn btn-warning text-dark" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
-                            <i class="fas fa-layer-group"></i> 批量提交算法任务
-                        </button>
-                        <span class="small text-muted">自动选取范围内最早的待处理记录；任务完成后<strong>自动确认写回</strong>并进入待审核，每条状态见下方进度列表。</span>
+                    <div class="border rounded p-2 mt-3" style="max-height:300px;overflow-y:auto;background:#fff;" id="batchCandidateList">
+                        <div class="small text-muted py-2 text-center">候选列表加载中…</div>
                     </div>
+                    <div class="d-flex align-items-center flex-wrap gap-2 mt-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" id="batchSelectAll" onchange="toggleAllBatchCandidates(this.checked)">
+                            <label class="form-check-label small" for="batchSelectAll">全选当前候选</label>
+                        </div>
+                        <span class="small text-muted" id="batchSelectedCount">已选 0 / 20 条（单批上限 20）</span>
+                        <button type="button" class="btn btn-warning text-dark ms-auto" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
+                            <i class="fas fa-layer-group"></i> 对勾选项发起 AI 处理
+                        </button>
+                    </div>
+                    <div class="small text-muted mt-1">勾选后进入 AI 处理；任务完成后<strong>自动确认写回</strong>并进入待审核，每条状态见下方进度列表。</div>
                     <div id="batchProgress" class="mt-2"></div>
+                </div>
+
+                <!-- 反馈#17：AI 转写（Whisper）并入自动化处理（对工作区当前任务生效） -->
+                <div id="algoModeTrans" class="d-none">
+                    <div class="border rounded p-3" style="background:#f8f9fb;">
+                        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                            <span class="badge bg-light text-dark border me-1" id="transTaskCtx"><i class="fas fa-circle-info me-1"></i>工作区未领取任务</span>
+                            <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
+                                <i class="fas fa-microphone-lines"></i> AI 转写草稿（Whisper，入队）
+                            </button>
+                            <span class="small" id="aiTranscribeStatus"></span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
+                            <div class="form-check mb-0 small">
+                                <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
+                                <label class="form-check-label" for="chkWithKeyframes">同时用 <b>BAGEL</b> 描述关键帧，生成视频内容简述（+GPU 积分）</label>
+                            </div>
+                            <div class="form-check mb-0 small">
+                                <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
+                                <label class="form-check-label" for="chkWithLlmSummary">再用<b>外部大模型</b>生成更详细的视频描述（+更多积分）</label>
+                            </div>
+                        </div>
+                        <div class="small text-muted">对上方工作区当前领取的音频/视频任务生效：Whisper 在您的局域网 GPU 电脑上运行，任务进入队列异步处理，完成后自动按时间轴填入工作区转录草稿（<b>不会自动提交审核</b>，请人工校对后保存/提交）；相同文件（MD5）自动复用历史结果免积分；GPU 未开机/隧道未连通时会明确提示。</div>
+                        <div id="aiTranscribeSummary" class="d-none mt-2">
+                            <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI 视频内容简述（BAGEL 关键帧）</div>
+                            <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
+                            <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> 外部大模型详细视频描述</div>
+                            <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="algoResult" class="mt-3" style="min-height: 1.5em;"></div>
@@ -120,7 +165,7 @@
                 <div id="creditPricing" class="small text-muted mt-1"></div>
             </div>
             <div class="card-footer">
-                <span class="small text-muted"><strong>说明</strong>：算法处理由外部算力完成——autoDL 租用 GPU（BAGEL 满血版）、局域网 GPU（BAGEL 优化版）或外部大模型文本 API；云端本身不运行模型。图片、音视频等多模态理解任务自动路由至 BAGEL 后端。任务失败自动重试（最多 3 次），重试耗尽进入死信队列由管理员处理。</span>
+                <span class="small text-muted"><strong>说明</strong>：自动化处理（AI 算法）由外部算力完成——autoDL 租用 GPU（BAGEL 满血版）、局域网 GPU（BAGEL 优化版）或外部大模型文本 API；云端本身不运行模型。图片、音视频等多模态理解任务自动路由至 BAGEL 后端。任务失败自动重试（最多 3 次），重试耗尽进入死信队列由管理员处理。</span>
             </div>
         </div>
     </div>
@@ -213,31 +258,9 @@
                                         <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow">
                                             <i class="fas fa-plus"></i> 添加一条
                                         </button>
-                                        <!-- 反馈#10：Whisper AI 转写草稿（音/视频入队；视频可选关键帧简述/外部大模型详述） -->
-                                        <div class="border rounded p-2 mt-3" style="background:#f8f9fb;" id="aiTranscribeBox">
-                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
-                                                    <i class="fas fa-microphone-lines"></i> AI 转写草稿（Whisper，入队）
-                                                </button>
-                                                <span class="small" id="aiTranscribeStatus"></span>
-                                            </div>
-                                            <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
-                                                <div class="form-check mb-0 small">
-                                                    <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
-                                                    <label class="form-check-label" for="chkWithKeyframes">同时用 <b>BAGEL</b> 描述关键帧，生成视频内容简述（+GPU 积分）</label>
-                                                </div>
-                                                <div class="form-check mb-0 small">
-                                                    <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
-                                                    <label class="form-check-label" for="chkWithLlmSummary">再用<b>外部大模型</b>生成更详细的视频描述（+更多积分）</label>
-                                                </div>
-                                            </div>
-                                            <div class="small text-muted">Whisper 在您的局域网 GPU 电脑上运行，任务进入队列异步处理，完成后自动按时间轴填入下方草稿（<b>不会自动提交审核</b>，请人工校对后保存/提交）；相同文件（MD5）自动复用历史结果免积分；GPU 未开机/隧道未连通时会明确提示。</div>
-                                            <div id="aiTranscribeSummary" class="d-none mt-2">
-                                                <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI 视频内容简述（BAGEL 关键帧）</div>
-                                                <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
-                                                <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> 外部大模型详细视频描述</div>
-                                                <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
-                                            </div>
+                                        <!-- 反馈#17：Whisper AI 转写已并入下方"自动化处理"卡片（AI 转写模式） -->
+                                        <div class="small text-muted border rounded p-2 mt-3" style="background:#f8f9fb;">
+                                            <i class="fas fa-circle-info me-1"></i>AI 转写草稿（Whisper）已移入下方<strong>自动化处理</strong>卡片的<strong>"AI 转写（Whisper）"</strong>模式，对工作区当前领取的音/视频任务发起转写。
                                         </div>
                                     </div>
                                     <!-- 反馈#8：图片任务无时间轴，直接填写图片内容描述/转写文本 -->
@@ -578,6 +601,7 @@ function resetAiTranscribeCard(modality) {
     if (c2) c2.checked = false;
     const btn = document.getElementById('btnAiTranscribe');
     if (btn) btn.disabled = false;
+    if (typeof updateTransCtx === 'function') updateTransCtx();  // 反馈#17：同步转写模式任务徽章
 }
 const imageDescEl = document.getElementById('imageDesc2');
 if (imageDescEl) imageDescEl.addEventListener('input', () => { tlDirty = true; });
@@ -1068,10 +1092,123 @@ function pollAlgorithmTask(taskId) {
     }, 5000);
 }
 
-// ---------------- 反馈#16：批量算法处理（单批 ≤20 条；轮询完成后自动确认写回） ----------------
+// ---------------- 反馈#17：自动化处理——批量勾选 / AI 转写（Whisper 并入） ----------------
 function switchAlgoMode(mode) {
     document.getElementById('algoModeSingle').classList.toggle('d-none', mode !== 'single');
     document.getElementById('algoModeBatch').classList.toggle('d-none', mode !== 'batch');
+    document.getElementById('algoModeTrans').classList.toggle('d-none', mode !== 'trans');
+    if (mode === 'batch') loadBatchCandidates();
+    if (mode === 'trans') updateTransCtx();
+}
+
+// 反馈#17：批量候选列表（可勾选；转写类型仅音/视频，后端强制 local）
+async function loadBatchCandidates() {
+    const box = document.getElementById('batchCandidateList');
+    if (!box) return;
+    const scopeEl = document.getElementById('batchScope');
+    const kindEl = document.getElementById('batchKind');
+    const backendSel = document.getElementById('batchBackend');
+    const scope = scopeEl ? scopeEl.value : 'own';
+    const kind = kindEl ? kindEl.value : 'understand';
+    if (backendSel) {
+        backendSel.disabled = (kind === 'transcribe');
+        if (kind === 'transcribe') backendSel.value = 'local';
+    }
+    box.innerHTML = '<div class="small text-muted py-2 text-center"><i class="fas fa-circle-notch fa-spin"></i> 候选列表加载中…</div>';
+    let data = window._algoCandData;
+    try {
+        const resp = await fetch('/api/process/algo-candidates');
+        const j = await resp.json();
+        if (resp.ok) { data = j; window._algoCandData = j; }
+    } catch (e) { /* 退回缓存候选 */ }
+    if (!data) { box.innerHTML = '<div class="small text-danger py-2 text-center">候选列表加载失败，请刷新页面</div>'; return; }
+    const own = (data.own || []).slice();
+    const others = scope === 'all' ? (data.others || []) : [];
+    let pool = own.map(x => Object.assign({ _grp: 'own' }, x))
+        .concat(others.map(x => Object.assign({ _grp: 'other' }, x)));
+    if (kind === 'transcribe') pool = pool.filter(x => x.modality === 'audio' || x.modality === 'video');
+    window._batchPool = pool;
+    if (!pool.length) {
+        box.innerHTML = '<div class="small text-muted py-2 text-center">当前没有符合条件的待处理数据</div>';
+        updateBatchCount();
+        return;
+    }
+    const modBadge = {
+        image: '<span class="badge bg-secondary">图片</span>',
+        video: '<span class="badge bg-primary">视频</span>',
+        audio: '<span class="badge bg-info text-dark">音频</span>'
+    };
+    let html = '';
+    [['own', '本人采集'], ['other', '他人采集·有权限处理']].forEach(([g, label]) => {
+        const items = pool.filter(x => x._grp === g);
+        if (!items.length) return;
+        html += '<div class="small text-muted fw-bold px-1 pt-1">' + label + '（' + items.length + '）</div>';
+        items.forEach(it => {
+            html += '<label class="d-flex align-items-center gap-2 py-1 px-1 border-bottom mb-0" style="cursor:pointer;">'
+                + '<input type="checkbox" class="form-check-input m-0 batch-cand-check" value="' + it.id + '" onchange="onBatchCandidateChange()" style="flex-shrink:0;">'
+                + '<span class="badge bg-light text-dark border flex-shrink-0">#' + it.id + '</span>'
+                + '<span class="flex-shrink-0">' + (modBadge[it.modality] || '') + '</span>'
+                + '<span class="small flex-grow-1 text-truncate">' + escapeHtml(String(it.filename || '').slice(0, 60)) + '</span>'
+                + '<span class="small text-muted flex-shrink-0 text-nowrap">采集人：' + escapeHtml(it.uploader_name || '—') + '</span>'
+                + '</label>';
+        });
+    });
+    box.innerHTML = html;
+    const sa = document.getElementById('batchSelectAll');
+    if (sa) sa.checked = false;
+    updateBatchCount();
+}
+
+function getSelectedBatchIds() {
+    return Array.from(document.querySelectorAll('.batch-cand-check:checked')).map(c => parseInt(c.value, 10)).filter(n => n > 0);
+}
+
+function onBatchCandidateChange() {
+    let ids = getSelectedBatchIds();
+    if (ids.length > 20) {
+        alert('单批最多处理 20 条，已超出上限，请减少勾选数量。');
+        let cnt = 0;
+        document.querySelectorAll('.batch-cand-check').forEach(c => {
+            if (c.checked) { cnt += 1; if (cnt > 20) c.checked = false; }
+        });
+    }
+    updateBatchCount();
+}
+
+function updateBatchCount() {
+    const n = getSelectedBatchIds().length;
+    const el = document.getElementById('batchSelectedCount');
+    if (el) el.innerHTML = '已选 <strong class="' + (n > 20 ? 'text-danger' : '') + '">' + n + '</strong> / 20 条（单批上限 20）';
+}
+
+function toggleAllBatchCandidates(checked) {
+    const checks = Array.from(document.querySelectorAll('.batch-cand-check'));
+    if (checked) {
+        let cnt = 0;
+        checks.forEach(c => { c.checked = (cnt < 20); cnt += 1; });
+        if (checks.length > 20) alert('候选较多，已为您勾选前 20 条（单批上限）。');
+    } else {
+        checks.forEach(c => { c.checked = false; });
+    }
+    updateBatchCount();
+}
+
+// 反馈#17：AI 转写模式——显示工作区当前任务上下文徽章
+function updateTransCtx() {
+    const el = document.getElementById('transTaskCtx');
+    if (!el) return;
+    const rid = currentTaskIds[2];
+    const mod = currentModality[2];
+    if (!rid) {
+        el.className = 'badge bg-light text-dark border me-1';
+        el.innerHTML = '<i class="fas fa-circle-info me-1"></i>工作区未领取任务：请先在上方工作区领取一条音频/视频任务';
+    } else if (mod === 'image') {
+        el.className = 'badge bg-warning text-dark me-1';
+        el.innerHTML = '<i class="fas fa-image me-1"></i>当前任务 #' + rid + ' 为图片（不适用 Whisper，请用图片 AI 描述）';
+    } else {
+        el.className = 'badge bg-success me-1';
+        el.innerHTML = '<i class="fas fa-check me-1"></i>当前工作区任务：#' + rid + '（' + (mod === 'video' ? '视频' : '音频') + '）可转写';
+    }
 }
 
 let batchPollTimer = null;
@@ -1096,24 +1233,16 @@ function batchSetRow(rid, state, msg) {
 }
 
 async function submitBatchAlgorithm() {
-    const limit = Math.max(1, Math.min(20, parseInt(document.getElementById('batchLimit').value, 10) || 5));
-    const scope = document.getElementById('batchScope').value;
-    let cand = window._algoCandData;
-    try {
-        const resp = await fetch('/api/process/algo-candidates');
-        const data = await resp.json();
-        if (resp.ok) { cand = data; window._algoCandData = data; }
-    } catch (e) { /* 用缓存候选 */ }
-    if (!cand) { alert('候选数据加载失败，请刷新页面后重试'); return; }
-    let pool = (cand.own || []).slice();
-    if (scope === 'all') pool = pool.concat(cand.others || []);
-    if (!pool.length) { alert('当前没有可批量处理的待处理数据'); return; }
-    const ids = pool.slice(0, limit).map(x => x.id);
+    const kind = document.getElementById('batchKind').value;
+    const ids = getSelectedBatchIds();
+    if (!ids.length) { alert('请先勾选要处理的候选记录（可点"全选当前候选"）'); return; }
+    if (ids.length > 20) { alert('单批最多处理 20 条，请减少勾选数量'); return; }
     const payload = {
         recording_ids: ids,
-        backend: document.getElementById('batchBackend').value,
+        backend: kind === 'transcribe' ? 'local' : document.getElementById('batchBackend').value,
         force_recompute: document.getElementById('batchForceRecompute').checked
     };
+    if (kind === 'transcribe') payload.options = { task_kind: 'transcribe' };
     const btn = document.getElementById('batchSubmitBtn');
     const box = document.getElementById('batchProgress');
     btn.disabled = true;
@@ -1175,12 +1304,14 @@ function startBatchPolling() {
         if (!pending.length) {
             clearInterval(batchPollTimer);
             loadAlgoCandidates();
+            loadBatchCandidates();
             return;
         }
         if (n > 60) {
             clearInterval(batchPollTimer);
             pending.forEach(i => batchSetRow(i.recording_id, 'running', '仍在处理中，可稍后刷新数据管理查看'));
             loadAlgoCandidates();
+            loadBatchCandidates();
             return;
         }
         for (const it of pending) {

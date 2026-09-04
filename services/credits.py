@@ -12,12 +12,16 @@
 Web 侧完成（提交时冻结、状态轮询/确认时结算）。
 """
 import math
-from typing import Any, Dict, Optional, Tuple
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
 
 import redis
 from sqlalchemy import func
 
-from models import db, User, Recording, UserCreditGrant, ComputeUsageLog
+from models import (
+    db, User, Recording, Task, TaskAssignment,
+    UserCreditGrant, ComputeUsageLog, TaskPointRecord,
+)
 from services.model_backends import (
     BACKEND_AUTODL,
     BACKEND_LOCAL,
@@ -26,6 +30,37 @@ from services.model_backends import (
 )
 
 _BAL_PREFIX = "credit:balance:"
+
+# 反馈#17：算力点发放周期 → 有效天数（custom 显式给 expire_at；permanent/旧标签不过期）
+PERIOD_DAYS = {"7d": 7, "30d": 30, "1y": 365}
+# 任务积分类型常量
+CREDIT_TYPE_COMPUTE = "compute"  # 算力点（外部 token/GPU 消耗）
+CREDIT_TYPE_TASK = "task"        # 任务积分（完成任务挣得，结算登记，非消耗）
+
+
+def period_expire_at(period: str, custom_expire: Optional[datetime] = None) -> Optional[datetime]:
+    """按周期标签计算失效时刻：7d/30d/1y 顺延；custom 取传入日期；permanent/旧值返回 None（永久）。"""
+    p = (period or "permanent").strip().lower()
+    if p in PERIOD_DAYS:
+        return datetime.utcnow() + timedelta(days=PERIOD_DAYS[p])
+    if p == "custom":
+        return custom_expire
+    return None
+
+
+def range_start(range_key: Optional[str]) -> Optional[datetime]:
+    """统计区间起点：7d 近7日 / 30d 近30日 / month 本月 / year 本年；None=全部。"""
+    now = datetime.utcnow()
+    rk = (range_key or "all").strip().lower()
+    if rk == "7d":
+        return now - timedelta(days=7)
+    if rk == "30d":
+        return now - timedelta(days=30)
+    if rk == "month":
+        return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    if rk == "year":
+        return now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+    return None
 
 # 原子冻结：余额不足返回 -1，否则扣减并返回剩余余额
 _FREEZE_LUA = """
@@ -178,11 +213,23 @@ def enforcement_active(cfg) -> bool:
         return False
 
 
+def _valid_compute_grant_filters(q):
+    """反馈#17：算力点余额仅统计 compute 类型且未过期的发放（任务积分不进余额；到期消失）。"""
+    now = datetime.utcnow()
+    return q.filter(
+        db.or_(UserCreditGrant.credit_type == CREDIT_TYPE_COMPUTE,
+               UserCreditGrant.credit_type.is_(None)),
+        db.or_(UserCreditGrant.expire_at.is_(None),
+               UserCreditGrant.expire_at > now),
+    )
+
+
 def rebuild_balance(user_id: int) -> int:
-    """由 MySQL 流水重建余额：累计发放 - 成功消耗。"""
-    granted = db.session.query(
+    """由 MySQL 流水重建算力点余额：有效（未过期）算力点发放 - 成功消耗。"""
+    q = db.session.query(
         func.coalesce(func.sum(UserCreditGrant.credits), 0)
-    ).filter(UserCreditGrant.user_id == user_id).scalar() or 0
+    ).filter(UserCreditGrant.user_id == user_id)
+    granted = _valid_compute_grant_filters(q).scalar() or 0
     used = db.session.query(
         func.coalesce(func.sum(ComputeUsageLog.cost_credits), 0)
     ).filter(
@@ -368,37 +415,52 @@ def settle_task(task: Dict[str, Any], cfg, client: redis.Redis, task_key_prefix:
 # ---------------- 管理员发放 / 查询 ----------------
 
 def grant_credits(admin_id: int, user_id: int, credits: int,
-                  period: str, reason: str, client: redis.Redis) -> UserCreditGrant:
-    """管理员发放积分：写持久记录并累加 Redis 余额。"""
+                  period: str, reason: str, client: redis.Redis,
+                  credit_type: str = CREDIT_TYPE_COMPUTE,
+                  expire_at: Optional[datetime] = None,
+                  custom_expire: Optional[datetime] = None) -> UserCreditGrant:
+    """管理员发放积分：写持久记录并累加 Redis 余额（仅算力点影响余额）。
+    反馈#17：credit_type=compute 算力点（period 7d/30d/1y/custom/permanent，到期失效）；
+    credit_type=task 任务积分（管理员手工调整，任务挣得一般走 task_point_records）。"""
     credits = int(credits)
     if credits <= 0:
         raise ValueError("发放积分必须为正整数")
     user = db.session.get(User, user_id)
     if not user:
         raise ValueError("用户不存在")
+    ctype = credit_type if credit_type in (CREDIT_TYPE_COMPUTE, CREDIT_TYPE_TASK) else CREDIT_TYPE_COMPUTE
+    period = (period or "permanent")[:16]
+    if expire_at is None:
+        expire_at = period_expire_at(period, custom_expire)
     row = UserCreditGrant(
         user_id=user_id,
         credits=credits,
-        period=(period or "permanent")[:16],
+        credit_type=ctype,
+        period=period,
+        expire_at=expire_at if ctype == CREDIT_TYPE_COMPUTE else None,
         reason=(reason or "")[:250],
         granted_by=admin_id,
     )
     db.session.add(row)
     db.session.commit()
-    try:
-        if client.get(balance_key(user_id)) is None:
-            client.set(balance_key(user_id), rebuild_balance(user_id))
-        else:
-            client.incrby(balance_key(user_id), credits)
-    except redis.RedisError:
-        pass
+    if ctype == CREDIT_TYPE_COMPUTE:
+        try:
+            if client.get(balance_key(user_id)) is None:
+                client.set(balance_key(user_id), rebuild_balance(user_id))
+            else:
+                client.incrby(balance_key(user_id), credits)
+        except redis.RedisError:
+            pass
     return row
 
 
 def admin_overview(client: redis.Redis):
-    """管理员视角：全体用户余额 / 累计发放 / 累计消耗。"""
+    """管理员视角：全体用户算力点余额 / 累计发放 / 累计消耗（反馈#17：仅统计 compute 类型）。"""
     grants = dict(db.session.query(
         UserCreditGrant.user_id, func.coalesce(func.sum(UserCreditGrant.credits), 0)
+    ).filter(
+        db.or_(UserCreditGrant.credit_type == CREDIT_TYPE_COMPUTE,
+               UserCreditGrant.credit_type.is_(None))
     ).group_by(UserCreditGrant.user_id).all())
     used = dict(db.session.query(
         ComputeUsageLog.user_id, func.coalesce(func.sum(ComputeUsageLog.cost_credits), 0)
@@ -453,4 +515,180 @@ def my_credits(user_id: int, cfg, client: redis.Redis, limit: int = 10):
             }
             for r in rows
         ],
+    }
+
+
+# ---------------- 任务积分（反馈#17：挣得 + 结算登记，非消耗） ----------------
+
+def earn_task_points(user_id: int, points: int, task_id: Optional[int] = None,
+                     assignment_id: Optional[int] = None,
+                     reason: str = "") -> Optional[TaskPointRecord]:
+    """用户完成任务上报时挣得任务积分：追加流水（earned），并累加分配记录上的已挣得额。"""
+    points = int(points or 0)
+    if points <= 0 or not user_id:
+        return None
+    rec = TaskPointRecord(
+        user_id=user_id,
+        task_id=task_id,
+        task_assignment_id=assignment_id,
+        points=points,
+        reason=(reason or "")[:250],
+        status="earned",
+    )
+    db.session.add(rec)
+    if assignment_id:
+        a = db.session.get(TaskAssignment, assignment_id)
+        if a is not None:
+            a.task_points_earned = (a.task_points_earned or 0) + points
+    db.session.commit()
+    return rec
+
+
+def settle_task_points(admin_id: int, user_id: Optional[int] = None,
+                       record_ids: Optional[List[int]] = None) -> Dict[str, int]:
+    """结算任务积分：把未结算(earned)流水登记为 settled（只登记不扣减）。可按人或按记录 id 批量。"""
+    q = TaskPointRecord.query.filter_by(status="earned")
+    if user_id:
+        q = q.filter_by(user_id=user_id)
+    if record_ids:
+        q = q.filter(TaskPointRecord.id.in_(record_ids))
+    rows = q.all()
+    now = datetime.utcnow()
+    total = 0
+    for r in rows:
+        r.status = "settled"
+        r.settled_by = admin_id
+        r.settled_at = now
+        total += int(r.points or 0)
+    db.session.commit()
+    return {"count": len(rows), "points": total}
+
+
+def task_points_overview() -> List[Dict[str, Any]]:
+    """任务积分全员总览：累计挣得 / 已结算 / 未结算。"""
+    earned = dict(db.session.query(
+        TaskPointRecord.user_id, func.coalesce(func.sum(TaskPointRecord.points), 0)
+    ).group_by(TaskPointRecord.user_id).all())
+    settled = dict(db.session.query(
+        TaskPointRecord.user_id, func.coalesce(func.sum(TaskPointRecord.points), 0)
+    ).filter(TaskPointRecord.status == "settled").group_by(TaskPointRecord.user_id).all())
+    users = User.query.order_by(User.id.asc()).all()
+    rows = []
+    for u in users:
+        tot = int(earned.get(u.id, 0))
+        st = int(settled.get(u.id, 0))
+        rows.append({
+            "user_id": u.id,
+            "username": u.username,
+            "nickname": getattr(u, "nickname", None) or "",
+            "role": u.role,
+            "is_active": bool(u.is_active),
+            "earned_total": tot,
+            "settled_total": st,
+            "unsettled": tot - st,
+        })
+    return rows
+
+
+# ---------------- 分时段统计（反馈#17 用户积分页 / 监控页） ----------------
+
+def _granted_in_range(user_id: Optional[int], start: Optional[datetime],
+                      credit_type: str = CREDIT_TYPE_COMPUTE) -> int:
+    q = db.session.query(func.coalesce(func.sum(UserCreditGrant.credits), 0)).filter(
+        UserCreditGrant.credit_type == credit_type
+    )
+    if user_id:
+        q = q.filter(UserCreditGrant.user_id == user_id)
+    if start is not None:
+        q = q.filter(UserCreditGrant.created_at >= start)
+    return int(q.scalar() or 0)
+
+
+def _used_in_range(user_id: Optional[int], start: Optional[datetime]) -> int:
+    q = db.session.query(func.coalesce(func.sum(ComputeUsageLog.cost_credits), 0)).filter(
+        ComputeUsageLog.status == "success"
+    )
+    if user_id:
+        q = q.filter(ComputeUsageLog.user_id == user_id)
+    if start is not None:
+        q = q.filter(ComputeUsageLog.created_at >= start)
+    return int(q.scalar() or 0)
+
+
+def credit_range_stats() -> Dict[str, Any]:
+    """全员分时段算力点统计：近7日/近30日/本月/本年/全部 的发放与消耗。"""
+    out = {}
+    for key in ("7d", "30d", "month", "year", "all"):
+        start = range_start(key)
+        out[key] = {
+            "granted": _granted_in_range(None, start),
+            "used": _used_in_range(None, start),
+        }
+    return out
+
+
+def llm_token_cost_stats(cfg) -> Dict[str, Any]:
+    """反馈#17 监控页：外部大模型（DeepSeek）token 费用统计与预测。
+    - 近24小时 / 近7日 token 量、算力点消耗、折算费用（元，按 LLM_TOKEN_CASH_PER_1K）；
+    - 预计未来7日费用：以近7日日均为基准，结合进行中任务量加权（任务越多系数越高，封顶 1.6）。"""
+    now = datetime.utcnow()
+    d1 = now - timedelta(hours=24)
+    d7 = now - timedelta(days=7)
+    price = float(getattr(cfg, "LLM_TOKEN_CASH_PER_1K", 0.002) or 0.002)
+
+    def _agg(start: datetime) -> Dict[str, float]:
+        q = db.session.query(
+            func.coalesce(func.sum(ComputeUsageLog.metric_value), 0),
+            func.coalesce(func.sum(ComputeUsageLog.cost_credits), 0),
+            func.count(ComputeUsageLog.id),
+        ).filter(
+            ComputeUsageLog.backend == BACKEND_DEEPSEEK,
+            ComputeUsageLog.status == "success",
+            ComputeUsageLog.created_at >= start,
+        )
+        tokens, credits, calls = q.one()
+        tokens = float(tokens or 0)
+        return {
+            "tokens": int(tokens),
+            "credits": int(credits or 0),
+            "calls": int(calls or 0),
+            "cash": round(tokens / 1000.0 * price, 2),
+        }
+
+    last24h = _agg(d1)
+    last7d = _agg(d7)
+
+    # 近7日每日 token 费用序列（用于趋势与预测基准）
+    daily_rows = db.session.query(
+        func.date(ComputeUsageLog.created_at).label("d"),
+        func.coalesce(func.sum(ComputeUsageLog.metric_value), 0),
+    ).filter(
+        ComputeUsageLog.backend == BACKEND_DEEPSEEK,
+        ComputeUsageLog.status == "success",
+        ComputeUsageLog.created_at >= d7,
+    ).group_by("d").all()
+    daily_tokens = {str(r.d): float(r[1] or 0) for r in daily_rows}
+    daily_cash = [round(v / 1000.0 * price, 2) for v in daily_tokens.values()]
+
+    # 预测基准：近7日日均费用；无记录时回退近24h费用
+    avg_daily_cash = round(sum(daily_cash) / 7.0, 2) if daily_cash else round(last24h["cash"], 2)
+    # 任务量加权：进行中（已发布未完成）任务数越多，预期调用越密集
+    try:
+        active_tasks = Task.query.filter(
+            Task.workflow_status.in_(("pending_execute", "in_progress", "pending_review", "pending_acceptance"))
+        ).count()
+    except Exception:
+        active_tasks = 0
+    factor = min(1.6, 1.0 + 0.08 * max(0, active_tasks))
+    forecast7 = round(avg_daily_cash * 7 * factor, 2)
+
+    return {
+        "price_per_1k_tokens": price,
+        "last_24h": last24h,
+        "last_7d": last7d,
+        "daily_cash_7d": daily_cash,
+        "avg_daily_cash": avg_daily_cash,
+        "active_task_factor": round(factor, 2),
+        "active_tasks": int(active_tasks),
+        "forecast_next_7d_cash": forecast7,
     }

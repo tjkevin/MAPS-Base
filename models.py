@@ -115,6 +115,9 @@ class Task(db.Model):
     scored_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     scored_at = db.Column(db.DateTime)
     review_comments = db.Column(db.Text)
+    # 反馈#17：双积分体系——任务发起时分配
+    reward_task_points = db.Column(db.Integer, default=0)  # 任务积分总奖励（完成任务挣得，非消耗，定期/不定期结算）
+    alloc_compute_points = db.Column(db.Integer, default=0)  # 算力点预算（发布时发放给参与用户，调外部 token/GPU 消耗）
 
 
 class TaskAssignment(db.Model):
@@ -131,6 +134,9 @@ class TaskAssignment(db.Model):
     target_quota = db.Column(db.Integer, default=0)
     claimed_from_pool = db.Column(db.Boolean, default=False)
     status = db.Column(db.String(20), default='assigned')
+    # 反馈#17：双积分——该分配已累计挣得的任务积分 / 已发放的算力点
+    task_points_earned = db.Column(db.Integer, default=0)
+    compute_points_granted = db.Column(db.Integer, default=0)
 
 
 class TaskWorkflowLog(db.Model):
@@ -300,14 +306,39 @@ class SystemAnnouncement(db.Model):
 # ---------------- 算力积分（按人计量 DeepSeek API 与 GPU 算力消耗）----------------
 
 class UserCreditGrant(db.Model):
-    """积分分配记录：管理员按人发放，追加式流水（Redis 余额实时累加，本表为持久凭据）。"""
+    """积分分配记录：管理员按人发放，追加式流水（Redis 余额实时累加，本表为持久凭据）。
+    反馈#17 双积分体系：credit_type 区分
+      - compute（算力点）：调用外部大模型 token / GPU 算力时消耗，到期（expire_at）未用完即失效；
+      - task（任务积分）：一般由任务完成挣得（见 task_point_records），此类型保留给管理员手工调整。
+    period 周期标签：7d / 30d / 1y / custom / permanent（旧值如 202609 按永久兼容）。"""
     __tablename__ = 'user_credit_grants'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     credits = db.Column(db.Integer, nullable=False)  # 本次发放积分（正数）
-    period = db.Column(db.String(16), default='permanent', index=True)  # 周期标签：202609 / permanent
+    credit_type = db.Column(db.String(16), default='compute', index=True)  # compute（算力点）/ task（任务积分）
+    period = db.Column(db.String(16), default='permanent', index=True)  # 7d / 30d / 1y / custom / permanent
+    expire_at = db.Column(db.DateTime, index=True)  # 算力点失效时刻（NULL=永久）；到期未消耗即消失
     reason = db.Column(db.String(255))
     granted_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+
+class TaskPointRecord(db.Model):
+    """任务积分流水（反馈#17 双积分体系）：
+    用户完成任务挣得任务积分（追加式流水，非消耗型）；管理员定期/不定期结算，
+    结算仅登记状态（earned → settled），不扣减。
+    - 未结算余额 = SUM(points WHERE status='earned')
+    - 已结算 = SUM(points WHERE status='settled')；累计挣得 = SUM(all)"""
+    __tablename__ = 'task_point_records'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), index=True)
+    task_assignment_id = db.Column(db.Integer, db.ForeignKey('task_assignments.id'), index=True)
+    points = db.Column(db.Integer, nullable=False)  # 本次挣得任务积分（正数）
+    reason = db.Column(db.String(255))
+    status = db.Column(db.String(16), default='earned', index=True)  # earned（未结算）/ settled（已结算）
+    settled_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    settled_at = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
 

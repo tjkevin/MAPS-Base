@@ -12,13 +12,13 @@
     <ul class="nav nav-tabs mb-3" id="taskMainTabs" role="tablist">
         {% if current_user.role in ['admin', 'super_admin'] %}
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
+            <button class="nav-link active" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
                 <i class="fas fa-paper-plane"></i> Task Initiation
             </button>
         </li>
         {% endif %}
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
+            <button class="nav-link{% if current_user.role not in ['admin', 'super_admin'] %} active{% endif %}" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
                 <i class="fas fa-tasks"></i> Tasks &amp; Statistics
             </button>
         </li>
@@ -31,7 +31,7 @@
         {% endif %}
     </ul>
 
-    <div id="paneTasks">
+    <div id="paneTasks" {% if current_user.role in ['admin', 'super_admin'] %}class="d-none"{% endif %}>
     <div class="card mb-4">
         <div class="card-header">Workflow Tasks</div>
         <div class="card-body">
@@ -356,6 +356,13 @@
                         <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Total tokens</div><div class="fs-5 fw-bold" id="llmTotTokens">0</div></div></div>
                         <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Total credits used</div><div class="fs-5 fw-bold" id="llmTotCredits">0</div></div></div>
                     </div>
+                    <!-- Feedback #17: token cost totals & 7-day forecast (cash converted from token usage) -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-success-subtle"><div class="small text-muted">Token cost (last 24h)</div><div class="fs-5 fw-bold text-success" id="llmCash24h">¥0.00</div><div class="small text-muted" id="llmCash24hSub">0 tokens · 0 calls</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-success-subtle"><div class="small text-muted">Token cost (last 7d)</div><div class="fs-5 fw-bold text-success" id="llmCash7d">¥0.00</div><div class="small text-muted" id="llmCash7dSub">0 tokens · 0 calls</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-warning-subtle"><div class="small text-muted">Forecast next 7d</div><div class="fs-5 fw-bold text-warning" id="llmCashForecast">¥0.00</div><div class="small text-muted" id="llmCashForecastSub">7d daily avg x task factor</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">Unit price</div><div class="fs-6 fw-bold" id="llmCashPrice">¥0.002 / 1k tok</div><div class="small text-muted">Active-task factor <span id="llmCashFactor">1.00</span> (<span id="llmCashActive">0</span>)</div></div></div>
+                    </div>
                     <div class="row g-3">
                         <div class="col-md-5">
                             <div class="fw-semibold small mb-1">Token trend (last 30 days)</div>
@@ -431,7 +438,7 @@
     </div><!-- /paneMonitor -->
 
     <!-- Feedback #12: Task Initiation (admins/super-admins only; assignees can be specified) -->
-    <div id="paneInitiate" class="d-none">
+    <div id="paneInitiate">
         <div class="card mb-4 border-primary">
             <div class="card-header bg-primary text-white">
                 <i class="fas fa-paper-plane me-1"></i> Initiate a New Task
@@ -478,6 +485,17 @@
                     <div class="col-md-3">
                         <label class="form-label small fw-bold">Due date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control form-control-sm" id="ti_end">
+                    </div>
+                    <!-- Feedback #17: dual-credit allocation -->
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Task-point reward (total)</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_reward_tp" value="0" min="0" max="999999">
+                        <div class="form-text">Earned by members per item completed; not consumed — settled periodically (bookkeeping only).</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">Compute-point allocation (total)</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_alloc_cp" value="0" min="0" max="999999">
+                        <div class="form-text">Granted to assignees by quota at publish; consumed when calling external LLM/GPU.</div>
                     </div>
                     <div class="col-12" id="tiAssigneeWrap">
                         <label class="form-label small fw-bold">Assignees (tick members; the target count is split evenly among them)</label>
@@ -1076,6 +1094,8 @@ async function tiSubmitTask() {
         task_category: (tiEl('ti_category') || {}).value || 'process',
         assign_mode: mode,
         max_claim_per_user: Math.max(1, parseInt((tiEl('ti_maxclaim') || {}).value, 10) || 1),
+        reward_task_points: Math.max(0, parseInt((tiEl('ti_reward_tp') || {}).value, 10) || 0),
+        alloc_compute_points: Math.max(0, parseInt((tiEl('ti_alloc_cp') || {}).value, 10) || 0),
         start_date: startDate ? startDate + 'T00:00:00' : undefined,
         end_date: endDate + 'T23:59:59',
     };
@@ -1418,6 +1438,19 @@ async function loadLlmUsage() {
         document.getElementById('llmTotFailed').textContent = t.failed ?? 0;
         document.getElementById('llmTotTokens').textContent = Number(t.tokens || 0).toLocaleString();
         document.getElementById('llmTotCredits').textContent = t.credits ?? 0;
+        // Feedback #17: token cost metrics
+        const cs = j.cost_stats || {};
+        const fmtCash = v => '¥' + Number(v || 0).toFixed(2);
+        const c24 = cs.last_24h || {}, c7 = cs.last_7d || {};
+        document.getElementById('llmCash24h').textContent = fmtCash(c24.cash);
+        document.getElementById('llmCash24hSub').textContent = Number(c24.tokens || 0).toLocaleString() + ' tokens · ' + (c24.calls || 0) + ' calls';
+        document.getElementById('llmCash7d').textContent = fmtCash(c7.cash);
+        document.getElementById('llmCash7dSub').textContent = Number(c7.tokens || 0).toLocaleString() + ' tokens · ' + (c7.calls || 0) + ' calls';
+        document.getElementById('llmCashForecast').textContent = fmtCash(cs.forecast_next_7d_cash);
+        document.getElementById('llmCashForecastSub').textContent = 'avg ' + fmtCash(cs.avg_daily_cash) + ' x 7 x factor ' + (cs.active_task_factor ?? 1).toFixed(2);
+        document.getElementById('llmCashPrice').textContent = '¥' + Number(cs.price_per_1k_tokens || 0).toFixed(3) + ' / 1k tok';
+        document.getElementById('llmCashFactor').textContent = (cs.active_task_factor ?? 1).toFixed(2);
+        document.getElementById('llmCashActive').textContent = cs.active_tasks ?? 0;
         const daily = j.daily || [];
         const trend = document.getElementById('llmDailyTrend');
         if (!daily.length) {
@@ -1465,6 +1498,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else {
         loadWf('all');
+        // Feedback #17: admins land on the Task Initiation tab
+        if (WF_IS_ADMIN && document.getElementById('paneInitiate')) switchMainPane('paneInitiate');
     }
     loadComputeStats();
     // Feedback #9 req.3b: admin in-progress data overview

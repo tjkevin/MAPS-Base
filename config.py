@@ -157,6 +157,8 @@ class Config:
     CREDIT_ENABLED = os.environ.get('CREDIT_ENABLED', '1').strip().lower() in ('1', 'true', 'yes', 'on')
     # DeepSeek：每 1000 token 消耗积分
     CREDIT_DEEPSEEK_PER_1K = float(os.environ.get('CREDIT_DEEPSEEK_PER_1K') or 1)
+    # 反馈#17：外部大模型 token 费用折算（人民币元 / 千 token），用于监控页费用累计与预测
+    LLM_TOKEN_CASH_PER_1K = float(os.environ.get('LLM_TOKEN_CASH_PER_1K') or 0.002)
     # GPU：每次任务基础积分 + 每分钟媒体时长积分（autoDL 满血版按租用成本计价，local 优化版为沉没成本）
     CREDIT_AUTODL_BASE = int(os.environ.get('CREDIT_AUTODL_BASE') or 10)
     CREDIT_AUTODL_PER_MIN = float(os.environ.get('CREDIT_AUTODL_PER_MIN') or 3)

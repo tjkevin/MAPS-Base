@@ -12,13 +12,13 @@
     <ul class="nav nav-tabs mb-3" id="taskMainTabs" role="tablist">
         {% if current_user.role in ['admin', 'super_admin'] %}
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
+            <button class="nav-link active" id="mainTabInitiate" data-pane="paneInitiate" type="button" role="tab">
                 <i class="fas fa-paper-plane"></i> 任务发起
             </button>
         </li>
         {% endif %}
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
+            <button class="nav-link{% if current_user.role not in ['admin', 'super_admin'] %} active{% endif %}" id="mainTabTasks" data-pane="paneTasks" type="button" role="tab">
                 <i class="fas fa-tasks"></i> 任务与统计
             </button>
         </li>
@@ -356,6 +356,13 @@
                         <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">累计 tokens</div><div class="fs-5 fw-bold" id="llmTotTokens">0</div></div></div>
                         <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">累计消耗积分</div><div class="fs-5 fw-bold" id="llmTotCredits">0</div></div></div>
                     </div>
+                    <!-- 反馈#17：token 费用累计与预测（按 token 消耗折算人民币） -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-success-subtle"><div class="small text-muted">近24小时 token 费用</div><div class="fs-5 fw-bold text-success" id="llmCash24h">¥0.00</div><div class="small text-muted" id="llmCash24hSub">0 tokens · 0 次</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-success-subtle"><div class="small text-muted">近7日 token 费用累计</div><div class="fs-5 fw-bold text-success" id="llmCash7d">¥0.00</div><div class="small text-muted" id="llmCash7dSub">0 tokens · 0 次</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center border-warning-subtle"><div class="small text-muted">预计未来7日 token 费用</div><div class="fs-5 fw-bold text-warning" id="llmCashForecast">¥0.00</div><div class="small text-muted" id="llmCashForecastSub">按近7日日均 × 任务量系数</div></div></div>
+                        <div class="col-md-3"><div class="border rounded p-2 text-center"><div class="small text-muted">计费单价</div><div class="fs-6 fw-bold" id="llmCashPrice">¥0.002 / 千token</div><div class="small text-muted">进行中任务系数 <span id="llmCashFactor">1.00</span>（<span id="llmCashActive">0</span> 个）</div></div></div>
+                    </div>
                     <div class="row g-3">
                         <div class="col-md-5">
                             <div class="fw-semibold small mb-1">近 30 天 tokens 趋势</div>
@@ -431,7 +438,7 @@
     </div><!-- /paneMonitor -->
 
     <!-- 反馈#12：任务发起（有权限者=系统管理员/超级管理员，可指定完成人） -->
-    <div id="paneInitiate" class="d-none">
+    <div id="paneInitiate">
         <div class="card mb-4 border-primary">
             <div class="card-header bg-primary text-white">
                 <i class="fas fa-paper-plane me-1"></i> 发起新任务
@@ -478,6 +485,17 @@
                     <div class="col-md-3">
                         <label class="form-label small fw-bold">截止日期 <span class="text-danger">*</span></label>
                         <input type="date" class="form-control form-control-sm" id="ti_end">
+                    </div>
+                    <!-- 反馈#17：双积分分配 -->
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">任务积分奖励（总额）</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_reward_tp" value="0" min="0" max="999999">
+                        <div class="form-text">完成任务的成员按件挣得，非消耗，定期/不定期结算登记。</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold">算力点分配（总额）</label>
+                        <input type="number" class="form-control form-control-sm" id="ti_alloc_cp" value="0" min="0" max="999999">
+                        <div class="form-text">发布时按配额发放给执行人，调用外部大模型/GPU 时消耗。</div>
                     </div>
                     <div class="col-12" id="tiAssigneeWrap">
                         <label class="form-label small fw-bold">指定完成人（勾选，目标数量将在所选人员间均分）</label>
@@ -1074,6 +1092,8 @@ async function tiSubmitTask() {
         task_category: (tiEl('ti_category') || {}).value || 'process',
         assign_mode: mode,
         max_claim_per_user: Math.max(1, parseInt((tiEl('ti_maxclaim') || {}).value, 10) || 1),
+        reward_task_points: Math.max(0, parseInt((tiEl('ti_reward_tp') || {}).value, 10) || 0),
+        alloc_compute_points: Math.max(0, parseInt((tiEl('ti_alloc_cp') || {}).value, 10) || 0),
         start_date: startDate ? startDate + 'T00:00:00' : undefined,
         end_date: endDate + 'T23:59:59',
     };
@@ -1416,6 +1436,19 @@ async function loadLlmUsage() {
         document.getElementById('llmTotFailed').textContent = t.failed ?? 0;
         document.getElementById('llmTotTokens').textContent = Number(t.tokens || 0).toLocaleString();
         document.getElementById('llmTotCredits').textContent = t.credits ?? 0;
+        // 反馈#17：token 费用三指标
+        const cs = j.cost_stats || {};
+        const fmtCash = v => '¥' + Number(v || 0).toFixed(2);
+        const c24 = cs.last_24h || {}, c7 = cs.last_7d || {};
+        document.getElementById('llmCash24h').textContent = fmtCash(c24.cash);
+        document.getElementById('llmCash24hSub').textContent = Number(c24.tokens || 0).toLocaleString() + ' tokens · ' + (c24.calls || 0) + ' 次';
+        document.getElementById('llmCash7d').textContent = fmtCash(c7.cash);
+        document.getElementById('llmCash7dSub').textContent = Number(c7.tokens || 0).toLocaleString() + ' tokens · ' + (c7.calls || 0) + ' 次';
+        document.getElementById('llmCashForecast').textContent = fmtCash(cs.forecast_next_7d_cash);
+        document.getElementById('llmCashForecastSub').textContent = '日均 ' + fmtCash(cs.avg_daily_cash) + ' × 7 × 系数 ' + (cs.active_task_factor ?? 1).toFixed(2);
+        document.getElementById('llmCashPrice').textContent = '¥' + Number(cs.price_per_1k_tokens || 0).toFixed(3) + ' / 千token';
+        document.getElementById('llmCashFactor').textContent = (cs.active_task_factor ?? 1).toFixed(2);
+        document.getElementById('llmCashActive').textContent = cs.active_tasks ?? 0;
         const daily = j.daily || [];
         const trend = document.getElementById('llmDailyTrend');
         if (!daily.length) {
@@ -1463,6 +1496,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             wfHighlightId = null;
         }
     } else {
+        // 反馈#17：管理员进入默认落在“任务发起”标签
+        if (WF_IS_ADMIN && document.getElementById('paneInitiate')) switchMainPane('paneInitiate');
         loadWf('all');
     }
     loadComputeStats();

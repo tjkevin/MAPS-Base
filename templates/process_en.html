@@ -11,13 +11,13 @@
          a "single / batch" mode switch, no more strong 1/2 section separation -->
     <p class="text-muted small mb-3"><i class="fas fa-circle-info me-1"></i>
         Claim tasks in the workspace below for manual processing (the workspace switches automatically between text review / transcription / image description);
-        or use algorithm processing, where external compute performs automatic transcription and multimodal understanding (billed by compute credits; identical files are reused for free via MD5).
+        or use <strong>Automated processing (AI)</strong>: single submit, batch with a checkable list, or AI transcription (Whisper) — external compute performs automatic transcription and multimodal understanding (billed by compute points; identical files are reused for free via MD5).
     </p>
 
     <div id="algorithmProcessingPanel" class="order-2 mb-4">
         <div class="card border-warning">
             <div class="card-header d-flex align-items-center flex-wrap gap-2">
-                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> Algorithm processing (external compute)</strong>
+                <strong class="mb-0"><i class="fas fa-robot text-warning me-1"></i> Automated processing (AI &middot; external compute)</strong>
                 <span class="ms-auto d-flex align-items-center flex-wrap gap-2 small">
                     <i class="fas fa-coins text-warning"></i>
                     <span>My credits</span>
@@ -28,11 +28,13 @@
             </div>
             <div class="card-body">
                 <!-- Feedback #16: single / batch mode switch -->
-                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="Algorithm mode">
+                <div class="btn-group btn-group-sm mb-3" role="group" aria-label="Automated processing mode">
                     <input type="radio" class="btn-check" name="algoMode" id="algoModeSingleRadio" value="single" checked onchange="switchAlgoMode('single')">
                     <label class="btn btn-outline-primary text-nowrap" for="algoModeSingleRadio"><i class="fas fa-paper-plane me-1"></i>Single</label>
                     <input type="radio" class="btn-check" name="algoMode" id="algoModeBatchRadio" value="batch" onchange="switchAlgoMode('batch')">
                     <label class="btn btn-outline-primary text-nowrap" for="algoModeBatchRadio"><i class="fas fa-layer-group me-1"></i>Batch</label>
+                    <input type="radio" class="btn-check" name="algoMode" id="algoModeTransRadio" value="trans" onchange="switchAlgoMode('trans')">
+                    <label class="btn btn-outline-primary text-nowrap" for="algoModeTransRadio"><i class="fas fa-microphone-lines me-1"></i>AI transcription (Whisper)</label>
                 </div>
 
                 <!-- Single submit -->
@@ -74,21 +76,24 @@
                     </div>
                 </div>
 
-                <!-- Feedback #16: batch processing -->
+                <!-- Feedback #17: batch processing — checkable candidate list -->
                 <div id="algoModeBatch" class="d-none">
                     <div class="row g-2 align-items-end">
                         <div class="col-md-3 col-6">
-                            <label for="batchScope" class="form-label small mb-1">Scope</label>
-                            <select class="form-select form-select-sm" id="batchScope">
+                            <label for="batchScope" class="form-label small mb-1">Candidate scope</label>
+                            <select class="form-select form-select-sm" id="batchScope" onchange="loadBatchCandidates()">
                                 <option value="own">My pending uploads</option>
                                 <option value="all">All pending files I can process</option>
                             </select>
                         </div>
-                        <div class="col-md-2 col-6">
-                            <label for="batchLimit" class="form-label small mb-1">Count (1-20)</label>
-                            <input type="number" class="form-control form-control-sm" id="batchLimit" value="5" min="1" max="20">
+                        <div class="col-md-3 col-6">
+                            <label for="batchKind" class="form-label small mb-1">Processing type</label>
+                            <select class="form-select form-select-sm" id="batchKind" onchange="loadBatchCandidates()">
+                                <option value="understand">Multimodal understanding (transcribe/describe &middot; external compute)</option>
+                                <option value="transcribe">Whisper transcription (audio/video &middot; LAN GPU)</option>
+                            </select>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-6">
                             <label for="batchBackend" class="form-label small mb-1">Inference backend</label>
                             <select class="form-select form-select-sm" id="batchBackend">
                                 <option value="auto">auto (automatic routing)</option>
@@ -96,21 +101,60 @@
                                 <option value="local">local (LAN BAGEL optimized &middot; image understanding)</option>
                                 <option value="autodl" disabled>autodl (full edition &middot; reserved)</option>
                             </select>
+                            <div class="form-text small" id="batchBackendHint">Whisper transcription always uses the LAN GPU.</div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-3 col-6">
                             <div class="form-check ms-1">
                                 <input class="form-check-input" type="checkbox" id="batchForceRecompute">
                                 <label class="form-check-label small" for="batchForceRecompute">Force recompute (no MD5 reuse)</label>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center flex-wrap gap-2 mt-3">
-                        <button type="button" class="btn btn-warning text-dark" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
-                            <i class="fas fa-layer-group"></i> Submit batch
-                        </button>
-                        <span class="small text-muted">The earliest pending records within scope are selected automatically; completed tasks are <strong>auto-confirmed</strong> into pending review. Per-item status appears below.</span>
+                    <div class="border rounded p-2 mt-3" style="max-height:300px;overflow-y:auto;background:#fff;" id="batchCandidateList">
+                        <div class="small text-muted py-2 text-center">Loading candidates…</div>
                     </div>
+                    <div class="d-flex align-items-center flex-wrap gap-2 mt-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" id="batchSelectAll" onchange="toggleAllBatchCandidates(this.checked)">
+                            <label class="form-check-label small" for="batchSelectAll">Select all shown</label>
+                        </div>
+                        <span class="small text-muted" id="batchSelectedCount">Selected 0 / 20 (max per batch: 20)</span>
+                        <button type="button" class="btn btn-warning text-dark ms-auto" id="batchSubmitBtn" onclick="submitBatchAlgorithm()">
+                            <i class="fas fa-layer-group"></i> Run AI on checked items
+                        </button>
+                    </div>
+                    <div class="small text-muted mt-1">Checked items enter AI processing; completed tasks are <strong>auto-confirmed</strong> into pending review. Per-item status appears below.</div>
                     <div id="batchProgress" class="mt-2"></div>
+                </div>
+
+                <!-- Feedback #17: AI transcription (Whisper) merged into automated processing; acts on the workspace task -->
+                <div id="algoModeTrans" class="d-none">
+                    <div class="border rounded p-3" style="background:#f8f9fb;">
+                        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                            <span class="badge bg-light text-dark border me-1" id="transTaskCtx"><i class="fas fa-circle-info me-1"></i>No task claimed in the workspace</span>
+                            <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
+                                <i class="fas fa-microphone-lines"></i> AI transcription draft (Whisper, queued)
+                            </button>
+                            <span class="small" id="aiTranscribeStatus"></span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
+                            <div class="form-check mb-0 small">
+                                <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
+                                <label class="form-check-label" for="chkWithKeyframes">Also have <b>BAGEL</b> describe keyframes and produce a video content summary (+GPU credits)</label>
+                            </div>
+                            <div class="form-check mb-0 small">
+                                <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
+                                <label class="form-check-label" for="chkWithLlmSummary">Then generate a more detailed video description with an <b>external LLM</b> (+more credits)</label>
+                            </div>
+                        </div>
+                        <div class="small text-muted">Applies to the audio/video task currently claimed in the workspace above: Whisper runs on your LAN GPU machine; the task is queued and processed asynchronously, then the draft is filled into the workspace timeline automatically (<b>it is NOT auto-submitted</b> — review and edit before saving/submitting). Identical files (MD5) reuse past results for free; a clear message is shown if the GPU is offline or the tunnel is down.</div>
+                        <div id="aiTranscribeSummary" class="d-none mt-2">
+                            <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI video content summary (BAGEL keyframes)</div>
+                            <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
+                            <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> External LLM detailed video description</div>
+                            <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="algoResult" class="mt-3" style="min-height: 1.5em;"></div>
@@ -121,7 +165,7 @@
                 <div id="creditPricing" class="small text-muted mt-1"></div>
             </div>
             <div class="card-footer">
-                <span class="small text-muted"><strong>Note</strong>: Algorithm processing runs on external compute — autoDL rented GPUs (full BAGEL), LAN GPUs (optimized BAGEL), or the External LLM text API; the cloud itself runs no models. Image, audio and video tasks are routed automatically to BAGEL backends. Failed tasks retry automatically (up to 3 times); exhausted retries enter the dead-letter queue for administrators.</span>
+                <span class="small text-muted"><strong>Note</strong>: Automated processing (AI) runs on external compute — autoDL rented GPUs (full BAGEL), LAN GPUs (optimized BAGEL), or the External LLM text API; the cloud itself runs no models. Image, audio and video tasks are routed automatically to BAGEL backends. Failed tasks retry automatically (up to 3 times); exhausted retries enter the dead-letter queue for administrators.</span>
             </div>
         </div>
     </div>
@@ -214,31 +258,9 @@
                                         <button type="button" class="btn btn-sm btn-outline-secondary" id="btnAddTimelineRow">
                                             <i class="fas fa-plus"></i> Add entry
                                         </button>
-                                        <!-- Feedback #10: Whisper AI transcription draft (audio/video, queued; video optionally keyframe summary / external LLM description) -->
-                                        <div class="border rounded p-2 mt-3" style="background:#f8f9fb;" id="aiTranscribeBox">
-                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                                                <button type="button" class="btn btn-sm btn-primary" id="btnAiTranscribe" onclick="aiTranscribe()">
-                                                    <i class="fas fa-microphone-lines"></i> AI transcription draft (Whisper, queued)
-                                                </button>
-                                                <span class="small" id="aiTranscribeStatus"></span>
-                                            </div>
-                                            <div class="d-flex flex-wrap gap-3 mb-1" id="aiTranscribeVideoOpts">
-                                                <div class="form-check mb-0 small">
-                                                    <input class="form-check-input" type="checkbox" id="chkWithKeyframes">
-                                                    <label class="form-check-label" for="chkWithKeyframes">Also have <b>BAGEL</b> describe keyframes and produce a video content summary (+GPU credits)</label>
-                                                </div>
-                                                <div class="form-check mb-0 small">
-                                                    <input class="form-check-input" type="checkbox" id="chkWithLlmSummary">
-                                                    <label class="form-check-label" for="chkWithLlmSummary">Then generate a more detailed video description with an <b>external LLM</b> (+more credits)</label>
-                                                </div>
-                                            </div>
-                                            <div class="small text-muted">Whisper runs on your LAN GPU machine; the task is queued and processed asynchronously, then the draft is filled into the timeline below automatically (<b>it is NOT auto-submitted</b> — review and edit before saving/submitting). Identical files (MD5) reuse past results for free; a clear message is shown if the GPU is offline or the tunnel is down.</div>
-                                            <div id="aiTranscribeSummary" class="d-none mt-2">
-                                                <div class="small fw-bold mb-1"><i class="fas fa-film"></i> AI video content summary (BAGEL keyframes)</div>
-                                                <div class="small bg-white border rounded p-2 mb-2" id="aiKfSummary" style="white-space:pre-wrap;max-height:180px;overflow:auto;"></div>
-                                                <div class="small fw-bold mb-1 d-none" id="aiLlmTitle"><i class="fas fa-file-lines"></i> External LLM detailed video description</div>
-                                                <div class="small bg-white border rounded p-2 d-none" id="aiLlmSummary" style="white-space:pre-wrap;max-height:260px;overflow:auto;"></div>
-                                            </div>
+                                        <!-- Feedback #17: Whisper AI transcription moved into the Automated processing card below (AI transcription mode) -->
+                                        <div class="small text-muted border rounded p-2 mt-3" style="background:#f8f9fb;">
+                                            <i class="fas fa-circle-info me-1"></i>AI transcription draft (Whisper) has moved into the <strong>Automated processing</strong> card below, under the <strong>"AI transcription (Whisper)"</strong> mode. It transcribes the audio/video task currently claimed in the workspace.
                                         </div>
                                     </div>
                                     <!-- Feedback #8: images have no timeline — describe the image content directly -->
@@ -579,6 +601,7 @@ function resetAiTranscribeCard(modality) {
     if (c2) c2.checked = false;
     const btn = document.getElementById('btnAiTranscribe');
     if (btn) btn.disabled = false;
+    if (typeof updateTransCtx === 'function') updateTransCtx();  // Feedback #17: sync trans-mode context badge
 }
 const imageDescEl = document.getElementById('imageDesc2');
 if (imageDescEl) imageDescEl.addEventListener('input', () => { tlDirty = true; });
@@ -1070,10 +1093,121 @@ function pollAlgorithmTask(taskId) {
     }, 5000);
 }
 
-// ---------------- Feedback #16: batch algorithm processing (up to 20 per batch; auto-confirm when done) ----------------
+// ---------------- Feedback #17: automated processing — checkable batch list / AI transcription (Whisper merged) ----------------
 function switchAlgoMode(mode) {
     document.getElementById('algoModeSingle').classList.toggle('d-none', mode !== 'single');
     document.getElementById('algoModeBatch').classList.toggle('d-none', mode !== 'batch');
+    document.getElementById('algoModeTrans').classList.toggle('d-none', mode !== 'trans');
+    if (mode === 'batch') loadBatchCandidates();
+    if (mode === 'trans') updateTransCtx();
+}
+
+async function loadBatchCandidates() {
+    const box = document.getElementById('batchCandidateList');
+    if (!box) return;
+    const scopeEl = document.getElementById('batchScope');
+    const kindEl = document.getElementById('batchKind');
+    const backendSel = document.getElementById('batchBackend');
+    const scope = scopeEl ? scopeEl.value : 'own';
+    const kind = kindEl ? kindEl.value : 'understand';
+    if (backendSel) {
+        backendSel.disabled = (kind === 'transcribe');
+        if (kind === 'transcribe') backendSel.value = 'local';
+    }
+    box.innerHTML = '<div class="small text-muted py-2 text-center"><i class="fas fa-circle-notch fa-spin"></i> Loading candidates…</div>';
+    let data = window._algoCandData;
+    try {
+        const resp = await fetch('/api/process/algo-candidates?lang=en');
+        const j = await resp.json();
+        if (resp.ok) { data = j; window._algoCandData = j; }
+    } catch (e) { /* fall back to cached candidates */ }
+    if (!data) { box.innerHTML = '<div class="small text-danger py-2 text-center">Candidate list failed to load; please refresh the page</div>'; return; }
+    const own = (data.own || []).slice();
+    const others = scope === 'all' ? (data.others || []) : [];
+    let pool = own.map(x => Object.assign({ _grp: 'own' }, x))
+        .concat(others.map(x => Object.assign({ _grp: 'other' }, x)));
+    if (kind === 'transcribe') pool = pool.filter(x => x.modality === 'audio' || x.modality === 'video');
+    window._batchPool = pool;
+    if (!pool.length) {
+        box.innerHTML = '<div class="small text-muted py-2 text-center">No eligible pending files at the moment</div>';
+        updateBatchCount();
+        return;
+    }
+    const modBadge = {
+        image: '<span class="badge bg-secondary">Image</span>',
+        video: '<span class="badge bg-primary">Video</span>',
+        audio: '<span class="badge bg-info text-dark">Audio</span>'
+    };
+    let html = '';
+    [['own', "My uploads"], ['other', "Others' uploads (you can process)"]].forEach(([g, label]) => {
+        const items = pool.filter(x => x._grp === g);
+        if (!items.length) return;
+        html += '<div class="small text-muted fw-bold px-1 pt-1">' + label + ' (' + items.length + ')</div>';
+        items.forEach(it => {
+            html += '<label class="d-flex align-items-center gap-2 py-1 px-1 border-bottom mb-0" style="cursor:pointer;">'
+                + '<input type="checkbox" class="form-check-input m-0 batch-cand-check" value="' + it.id + '" onchange="onBatchCandidateChange()" style="flex-shrink:0;">'
+                + '<span class="badge bg-light text-dark border flex-shrink-0">#' + it.id + '</span>'
+                + '<span class="flex-shrink-0">' + (modBadge[it.modality] || '') + '</span>'
+                + '<span class="small flex-grow-1 text-truncate">' + escapeHtml(String(it.filename || '').slice(0, 60)) + '</span>'
+                + '<span class="small text-muted flex-shrink-0 text-nowrap">Uploader: ' + escapeHtml(it.uploader_name || '-') + '</span>'
+                + '</label>';
+        });
+    });
+    box.innerHTML = html;
+    const sa = document.getElementById('batchSelectAll');
+    if (sa) sa.checked = false;
+    updateBatchCount();
+}
+
+function getSelectedBatchIds() {
+    return Array.from(document.querySelectorAll('.batch-cand-check:checked')).map(c => parseInt(c.value, 10)).filter(n => n > 0);
+}
+
+function onBatchCandidateChange() {
+    const ids = getSelectedBatchIds();
+    if (ids.length > 20) {
+        alert('Up to 20 items per batch; please uncheck some items.');
+        let cnt = 0;
+        document.querySelectorAll('.batch-cand-check').forEach(c => {
+            if (c.checked) { cnt += 1; if (cnt > 20) c.checked = false; }
+        });
+    }
+    updateBatchCount();
+}
+
+function updateBatchCount() {
+    const n = getSelectedBatchIds().length;
+    const el = document.getElementById('batchSelectedCount');
+    if (el) el.innerHTML = 'Selected <strong class="' + (n > 20 ? 'text-danger' : '') + '">' + n + '</strong> / 20 (max per batch: 20)';
+}
+
+function toggleAllBatchCandidates(checked) {
+    const checks = Array.from(document.querySelectorAll('.batch-cand-check'));
+    if (checked) {
+        let cnt = 0;
+        checks.forEach(c => { c.checked = (cnt < 20); cnt += 1; });
+        if (checks.length > 20) alert('Many candidates available; the first 20 are checked (max per batch).');
+    } else {
+        checks.forEach(c => { c.checked = false; });
+    }
+    updateBatchCount();
+}
+
+function updateTransCtx() {
+    const el = document.getElementById('transTaskCtx');
+    if (!el) return;
+    const rid = currentTaskIds[2];
+    const mod = currentModality[2];
+    if (!rid) {
+        el.className = 'badge bg-light text-dark border me-1';
+        el.innerHTML = '<i class="fas fa-circle-info me-1"></i>No task claimed: claim an audio/video task in the workspace above first';
+    } else if (mod === 'image') {
+        el.className = 'badge bg-warning text-dark me-1';
+        el.innerHTML = '<i class="fas fa-image me-1"></i>Current task #' + rid + ' is an image (Whisper not applicable — use AI image description)';
+    } else {
+        el.className = 'badge bg-success me-1';
+        el.innerHTML = '<i class="fas fa-check me-1"></i>Current workspace task: #' + rid + ' (' + (mod === 'video' ? 'video' : 'audio') + ') — ready to transcribe';
+    }
 }
 
 let batchPollTimer = null;
@@ -1098,24 +1232,16 @@ function batchSetRow(rid, state, msg) {
 }
 
 async function submitBatchAlgorithm() {
-    const limit = Math.max(1, Math.min(20, parseInt(document.getElementById('batchLimit').value, 10) || 5));
-    const scope = document.getElementById('batchScope').value;
-    let cand = window._algoCandData;
-    try {
-        const resp = await fetch('/api/process/algo-candidates?lang=en');
-        const data = await resp.json();
-        if (resp.ok) { cand = data; window._algoCandData = data; }
-    } catch (e) { /* use cached candidates */ }
-    if (!cand) { alert('Candidate data failed to load, please refresh the page and retry'); return; }
-    let pool = (cand.own || []).slice();
-    if (scope === 'all') pool = pool.concat(cand.others || []);
-    if (!pool.length) { alert('There are currently no pending files available for batch processing'); return; }
-    const ids = pool.slice(0, limit).map(x => x.id);
+    const kind = document.getElementById('batchKind').value;
+    const ids = getSelectedBatchIds();
+    if (!ids.length) { alert('Please tick at least one candidate (or use "Select all shown").'); return; }
+    if (ids.length > 20) { alert('Up to 20 items per batch; please uncheck some items.'); return; }
     const payload = {
         recording_ids: ids,
-        backend: document.getElementById('batchBackend').value,
+        backend: kind === 'transcribe' ? 'local' : document.getElementById('batchBackend').value,
         force_recompute: document.getElementById('batchForceRecompute').checked
     };
+    if (kind === 'transcribe') payload.options = { task_kind: 'transcribe' };
     const btn = document.getElementById('batchSubmitBtn');
     const box = document.getElementById('batchProgress');
     btn.disabled = true;
@@ -1177,12 +1303,14 @@ function startBatchPolling() {
         if (!pending.length) {
             clearInterval(batchPollTimer);
             loadAlgoCandidates();
+            loadBatchCandidates();
             return;
         }
         if (n > 60) {
             clearInterval(batchPollTimer);
             pending.forEach(i => batchSetRow(i.recording_id, 'running', 'Still processing; check Data Management later'));
             loadAlgoCandidates();
+            loadBatchCandidates();
             return;
         }
         for (const it of pending) {

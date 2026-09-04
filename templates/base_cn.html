@@ -213,10 +213,20 @@
         .main-content .form-label,
         .main-content label { font-size: 0.84rem; }
 
-        /* 反馈#16：表单控件高度体系统一——复选框/单选框与小号输入框、下拉框等高对齐，
-           避免筛选行里复选框"悬空"导致整排歪扭 */
-        .main-content .form-control-sm,
-        .main-content .form-select-sm { min-height: calc(1.5em + 0.625rem + 2px); }
+        /* 反馈#16/#17：表单控件高度体系统一——复选框/单选框与小号输入框、下拉框等高对齐，
+           避免筛选行里复选框"悬空"导致整排歪扭。
+           反馈#17 根因修复：自定义 .form-control{padding:12px 15px} 与 Bootstrap 的
+           .form-control-sm 同优先级但后加载，压掉了小号输入框的内边距，导致同排
+           文本框(≈46px)比下拉框(≈29px)高；此处用双类选择器(.form-control.form-control-sm)
+           显式统一小号控件 padding/min-height，保证 输入框=下拉框=复选框容器 等高 */
+        .form-control.form-control-sm,
+        .form-select.form-select-sm {
+            padding: .28rem .6rem;
+            min-height: calc(1.5em + 0.625rem + 2px);
+            font-size: .85rem;
+            line-height: 1.4;
+        }
+        .form-select.form-select-sm { padding-right: 1.7rem; }
         .main-content .form-check-input { width: 1rem; height: 1rem; cursor: pointer; flex: 0 0 auto; }
         .main-content .row.align-items-end .form-check,
         .main-content .row.align-items-center .form-check {
@@ -435,6 +445,12 @@
         .table tbody td {
             padding: 15px;
             border-color: rgba(0, 0, 0, 0.05);
+        }
+        /* 反馈#17：紧凑表格（.table-sm）行高收紧——自定义 .table tbody td{padding:15px}
+           特异性高于 Bootstrap .table-sm 规则，需用双类选择器压回 */
+        .main-content .table.table-sm tbody td,
+        .main-content .table.table-sm tbody th {
+            padding: .3rem .5rem;
         }
 
         /* 表单样式 */
