@@ -278,7 +278,9 @@
             <div class="card mb-3 border-info">
                 <div class="card-header d-flex flex-wrap align-items-center gap-2">
                     <span><i class="fas fa-microchip text-info"></i> Model Backend Status</span>
-                    <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" onclick="loadModelQuota()"><i class="fas fa-sync"></i> Refresh</button>
+                    <button class="btn btn-sm btn-outline-info ms-auto" type="button" onclick="openBagelConfig('autodl')"><i class="fas fa-gear"></i> autoDL config</button>
+                    <button class="btn btn-sm btn-outline-info" type="button" onclick="openBagelConfig('local')"><i class="fas fa-gear"></i> LAN config</button>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" onclick="loadModelQuota()"><i class="fas fa-sync"></i> Refresh</button>
                     <button class="btn btn-sm btn-outline-danger" type="button" onclick="recoverStuck()"><i class="fas fa-ambulance"></i> Scan stuck tasks</button>
                     <button class="btn btn-sm btn-outline-dark" type="button" onclick="loadDeadTasks()"><i class="fas fa-skull"></i> Dead-letter queue</button>
                 </div>
@@ -539,6 +541,83 @@
         </div>
     </div><!-- /paneInitiate -->
     {% endif %}
+</div>
+
+<!-- Feedback #18: BAGEL backend config (autoDL full / LAN optimized) -->
+<div class="modal fade" id="bagelConfigModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bagelCfgTitle"><i class="fas fa-microchip text-info"></i> BAGEL backend config</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="bc_enabled" checked>
+                    <label class="form-check-label" for="bc_enabled">Enable this backend (when disabled it is excluded from health checks and task routing)</label>
+                </div>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <label class="form-label small mb-1">Service base URL</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_service_url" placeholder="autoDL: https://u-xxxx.westc.seetacloud.com:8000 ｜ LAN: http://192.168.1.50:8000 (or SSH tunnel http://host.docker.internal:18080)">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small mb-1">Access token (Bearer key)</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_service_token" placeholder="Leave empty to keep the saved token; enter a new one to replace it">
+                        <div class="form-text small" id="bc_token_hint"></div>
+                    </div>
+                    <div class="col-md-6 form-check ms-2 mt-3">
+                        <input class="form-check-input" type="checkbox" id="bc_clear_token">
+                        <label class="form-check-label small" for="bc_clear_token">Clear the saved token</label>
+                    </div>
+                    <!-- LAN optimized only -->
+                    <div class="col-12 d-none" id="bc_os_wrap">
+                        <label class="form-label small d-block mb-1">Operating system of the LAN machine</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bc_os" id="bc_os_linux" value="linux" checked>
+                            <label class="form-check-label small" for="bc_os_linux">Linux</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bc_os" id="bc_os_windows" value="windows">
+                            <label class="form-check-label small" for="bc_os_windows">Windows</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-none" id="bc_model_path_wrap">
+                        <label class="form-label small mb-1">Local path of the NF4 quantized model</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_model_path" placeholder="Linux: /data/models/sft_nf4 ｜ Windows: D:\bagel\sft_nf4">
+                    </div>
+                    <div class="col-md-6 d-none" id="bc_gpu_index_wrap">
+                        <label class="form-label small mb-1">GPU index (multi-GPU machines)</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_gpu_index" placeholder="e.g. 0">
+                    </div>
+                    <!-- autoDL full only -->
+                    <div class="col-md-6 d-none" id="bc_model_wrap">
+                        <label class="form-label small mb-1">Model variant</label>
+                        <select class="form-select form-select-sm" id="bc_model">
+                            <option value="sft_nf4">sft_nf4 (quantized, ~8.8GiB resident)</option>
+                            <option value="sft_bf16">sft_bf16 (full precision, ~27.2GiB)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 d-none" id="bc_gpu_spec_wrap">
+                        <label class="form-label small mb-1">GPU model / quantity (note)</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_gpu_spec" placeholder="e.g. RTX 4090 x1 / A100 40G x2 (record only)">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small mb-1">Remark</label>
+                        <input type="text" class="form-control form-control-sm" id="bc_remark" placeholder="Deployment, tunnel, owner etc. (record only)">
+                    </div>
+                    <div class="col-12">
+                        <div class="small border rounded p-2 bg-light mb-0" id="bc_health"><i class="fas fa-heart-pulse me-1"></i> Health: —</div>
+                    </div>
+                </div>
+                <div class="form-text small mt-2 mb-0">Parameters can be saved before the backend is online; disable the enable switch to keep current routing unaffected, then re-enable once it is up.</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-info btn-sm text-white" onclick="saveBagelConfig()"><i class="fas fa-save"></i> Save config</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -1169,11 +1248,97 @@ if (document.getElementById('paneInitiate')) {
 
 // ---------------- Backend status ----------------
 function gpuBoxHtml(key, info) {
+    if (info.enabled === false) return key + ': <span class="badge bg-secondary">Disabled</span><div class="text-muted mt-1">' + escapeHtml(info.health_detail || '') + '</div>';
     if (!info.configured) return key + ': <span class="badge bg-secondary">Not configured</span>';
     const badge = info.healthy
         ? '<span class="badge bg-success">Healthy</span>'
         : '<span class="badge bg-danger">Unavailable (auto failover)</span>';
     return key + ': ' + badge + '<div class="text-muted mt-1">' + (info.health_detail || info.detail || '') + '</div>';
+}
+
+// Feedback #18: BAGEL backend config (autoDL full / LAN optimized)
+let _bagelCfgTarget = null;
+async function openBagelConfig(target) {
+    _bagelCfgTarget = target;
+    const title = document.getElementById('bagelCfgTitle');
+    title.innerHTML = '<i class="fas fa-microchip text-info"></i> '
+        + (target === 'autodl' ? 'autoDL full (BAGEL) config' : 'LAN optimized (BAGEL) config');
+    document.getElementById('bc_os_wrap').classList.toggle('d-none', target !== 'local');
+    document.getElementById('bc_model_path_wrap').classList.toggle('d-none', target !== 'local');
+    document.getElementById('bc_gpu_index_wrap').classList.toggle('d-none', target !== 'local');
+    document.getElementById('bc_model_wrap').classList.toggle('d-none', target !== 'autodl');
+    document.getElementById('bc_gpu_spec_wrap').classList.toggle('d-none', target !== 'autodl');
+    document.getElementById('bc_enabled').checked = true;
+    document.getElementById('bc_service_url').value = '';
+    document.getElementById('bc_service_token').value = '';
+    document.getElementById('bc_clear_token').checked = false;
+    document.getElementById('bc_token_hint').textContent = '';
+    document.getElementById('bc_model_path').value = '';
+    document.getElementById('bc_gpu_index').value = '';
+    document.getElementById('bc_gpu_spec').value = '';
+    document.getElementById('bc_remark').value = '';
+    document.getElementById('bc_health').innerHTML = '<i class="fas fa-heart-pulse me-1"></i> Health: loading…';
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('bagelConfigModal')).show();
+    try {
+        const r = await fetch('/api/admin/bagel/config?target=' + target);
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        const c = j.config || {};
+        document.getElementById('bc_enabled').checked = c.enabled !== false;
+        document.getElementById('bc_service_url').value = c.service_url || '';
+        document.getElementById('bc_token_hint').textContent = c.service_token_set
+            ? ('Saved token: ' + (c.service_token_masked || '****')) : 'No token saved yet';
+        if (target === 'local') {
+            const radio = document.querySelector('input[name="bc_os"][value="' + (c.os === 'windows' ? 'windows' : 'linux') + '"]');
+            if (radio) radio.checked = true;
+            document.getElementById('bc_model_path').value = c.model_path || '';
+            document.getElementById('bc_gpu_index').value = c.gpu_index || '';
+        } else {
+            if (c.model) document.getElementById('bc_model').value = c.model;
+            document.getElementById('bc_gpu_spec').value = c.gpu_spec || '';
+        }
+        document.getElementById('bc_remark').value = c.remark || '';
+        const hb = c.healthy
+            ? '<span class="badge bg-success">Healthy</span>'
+            : '<span class="badge bg-secondary">' + escapeHtml(c.health_detail || 'Not probed') + '</span>';
+        document.getElementById('bc_health').innerHTML = '<i class="fas fa-heart-pulse me-1"></i> Health: ' + hb;
+    } catch (e) {
+        document.getElementById('bc_health').innerHTML = '<i class="fas fa-heart-pulse me-1"></i> Health: <span class="text-danger small">' + escapeHtml(String(e.message)) + '</span>';
+    }
+}
+
+async function saveBagelConfig() {
+    const target = _bagelCfgTarget;
+    if (!target) return;
+    const osRadio = document.querySelector('input[name="bc_os"]:checked');
+    const body = {
+        target: target,
+        enabled: document.getElementById('bc_enabled').checked,
+        service_url: document.getElementById('bc_service_url').value.trim(),
+        service_token: document.getElementById('bc_service_token').value.trim(),
+        clear_token: document.getElementById('bc_clear_token').checked,
+        remark: document.getElementById('bc_remark').value.trim(),
+    };
+    if (target === 'local') {
+        body.os = osRadio ? osRadio.value : 'linux';
+        body.model_path = document.getElementById('bc_model_path').value.trim();
+        body.gpu_index = document.getElementById('bc_gpu_index').value.trim();
+    } else {
+        body.model = document.getElementById('bc_model').value;
+        body.gpu_spec = document.getElementById('bc_gpu_spec').value.trim();
+    }
+    try {
+        const r = await fetch('/api/admin/bagel/config', {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+        });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'fail');
+        alert('Config saved and applied immediately');
+        bootstrap.Modal.getInstance(document.getElementById('bagelConfigModal')).hide();
+        loadModelQuota();
+    } catch (e) {
+        alert('Save failed: ' + e.message);
+    }
 }
 
 async function loadModelQuota() {

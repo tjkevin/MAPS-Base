@@ -536,6 +536,81 @@ def _mask_secret(s):
     return s[:3] + '*' * (len(s) - 7) + s[-4:]
 
 
+# 反馈#18：BAGEL GPU 后端（autoDL 满血版 / 局域网优化版）运行时配置，持久化于 system_settings。
+# 每个目标后端的可配置字段：(setting 键后缀, Config 属性, 类型)
+_BAGEL_CONFIG_FIELDS = {
+    'autodl': [
+        ('enabled', 'BAGEL_AUTODL_ENABLED', 'bool'),
+        ('service_url', 'BAGEL_AUTODL_SERVICE_URL', 'url'),
+        ('service_token', 'BAGEL_AUTODL_SERVICE_TOKEN', 'str'),
+        ('model', 'BAGEL_AUTODL_MODEL', 'str'),
+        ('gpu_spec', 'BAGEL_AUTODL_GPU_SPEC', 'str'),
+        ('remark', None, 'str'),
+    ],
+    'local': [
+        ('enabled', 'BAGEL_LOCAL_ENABLED', 'bool'),
+        ('os', 'BAGEL_LOCAL_OS', 'os'),
+        ('service_url', 'BAGEL_LOCAL_SERVICE_URL', 'url'),
+        ('service_token', 'BAGEL_LOCAL_SERVICE_TOKEN', 'str'),
+        ('model_path', 'BAGEL_LOCAL_MODEL_PATH', 'str'),
+        ('gpu_index', 'BAGEL_LOCAL_GPU_INDEX', 'str'),
+        ('remark', None, 'str'),
+    ],
+}
+
+
+def _bagel_setting_key(target, suffix):
+    return f'bagel_{target}_{suffix}'
+
+
+def _apply_bagel_settings():
+    """启动时 / 管理员保存后：把 DB 中 BAGEL 后端配置应用到 Config 运行时值（DB 优先于环境变量）。"""
+    applied = []
+    for target, fields in _BAGEL_CONFIG_FIELDS.items():
+        for suffix, attr, kind in fields:
+            if not attr:
+                continue
+            v = _get_setting(_bagel_setting_key(target, suffix))
+            if v is None or str(v).strip() == '':
+                continue
+            v = str(v).strip()
+            try:
+                if kind == 'bool':
+                    setattr(Config, attr, v not in ('0', 'false', 'False', ''))
+                elif kind == 'url':
+                    setattr(Config, attr, v.rstrip('/'))
+                elif kind == 'os':
+                    setattr(Config, attr, v if v in ('windows', 'linux') else 'linux')
+                else:
+                    setattr(Config, attr, v)
+                applied.append(_bagel_setting_key(target, suffix))
+            except Exception:
+                pass
+    return applied
+
+
+def _bagel_config_snapshot(target):
+    """组装某 BAGEL 后端的当前配置（token 掩码返回）。"""
+    fields = _BAGEL_CONFIG_FIELDS.get(target)
+    if not fields:
+        return None
+    out = {'target': target}
+    for suffix, attr, kind in fields:
+        if attr:
+            v = getattr(Config, attr, None)
+        else:
+            v = _get_setting(_bagel_setting_key(target, suffix), '') or ''
+        if kind == 'bool':
+            out[suffix] = bool(v)
+        else:
+            out[suffix] = '' if v is None else str(v)
+    token = out.get('service_token') or ''
+    out['service_token_masked'] = _mask_secret(token)
+    out['service_token_set'] = bool(token)
+    out.pop('service_token', None)
+    return out
+
+
 def _log_login_event(user_id, username_attempted, success, event_type, message=None):
     """登录/登出/限流事件统一入 system_event_logs（event_type='login'，action_type 为具体子类）。"""
     try:
@@ -5638,14 +5713,18 @@ def admin_model_quota():
 
     def _gpu_info(target):
         url = (getattr(Config, f'BAGEL_{target.upper()}_SERVICE_URL', '') or Config.BAGEL_SERVICE_URL)
+        enabled = bool(getattr(Config, f'BAGEL_{target.upper()}_ENABLED', True))
         healthy, detail = (False, '未探活')
-        if url:
+        if not enabled:
+            healthy, detail = False, '已停用（管理员配置中未启用）'
+        elif url:
             try:
                 healthy, detail = gpu_backend_health(target, Config, model_redis)
             except Exception as e:
                 detail = f'探活异常: {e}'
         return {'label': 'BAGEL满血版(autoDL)' if target == 'autodl' else 'BAGEL优化版(局域网)',
-                'url': url, 'configured': bool(url), 'healthy': healthy, 'health_detail': detail}
+                'url': url, 'configured': bool(url), 'enabled': enabled,
+                'healthy': healthy, 'health_detail': detail}
 
     try:
         workers = bagel_queue.list_workers()
@@ -5755,6 +5834,91 @@ def admin_deepseek_config_put():
     db.session.commit()
     return jsonify({'success': True, 'message': 'DeepSeek 配置已保存并即时生效',
                     'changes': changes, 'configured': bool(Config.DEEPSEEK_API_KEY)})
+
+
+# ---------------- 反馈#18：BAGEL GPU 后端（autoDL 满血版 / 局域网优化版）配置 ----------------
+
+@app.route('/api/admin/bagel/config', methods=['GET'])
+@login_required
+def admin_bagel_config_get():
+    """系统管理员查看 BAGEL 后端配置（autoDL / 局域网；Token 掩码返回）。"""
+    if not _is_system_admin():
+        return jsonify({'error': 'forbidden'}), 403
+    target = (request.args.get('target') or '').strip().lower()
+    if target not in _BAGEL_CONFIG_FIELDS:
+        return jsonify({'error': 'target 必须为 autodl 或 local'}), 400
+    snap = _bagel_config_snapshot(target)
+    # 附带当前健康状态，便于配置弹窗展示
+    snap['healthy'] = False
+    snap['health_detail'] = '未探活'
+    url = getattr(Config, f'BAGEL_{target.upper()}_SERVICE_URL', '') or ''
+    if url and snap.get('enabled'):
+        try:
+            snap['healthy'], snap['health_detail'] = gpu_backend_health(target, Config, model_redis)
+        except Exception as e:
+            snap['health_detail'] = f'探活异常: {e}'
+    elif not snap.get('enabled'):
+        snap['health_detail'] = '已停用（配置中未启用）'
+    return jsonify({'success': True, 'config': snap})
+
+
+@app.route('/api/admin/bagel/config', methods=['PUT'])
+@login_required
+def admin_bagel_config_put():
+    """系统管理员保存 BAGEL 后端配置：持久化到 system_settings 并即时写回 Config 运行时值。
+    autoDL/局域网尚未开通时可先保存参数，启用开关关闭即不参与探活与路由。"""
+    if not _is_system_admin():
+        return jsonify({'error': 'forbidden'}), 403
+    data = request.get_json(silent=True) or {}
+    target = (data.get('target') or '').strip().lower()
+    if target not in _BAGEL_CONFIG_FIELDS:
+        return jsonify({'error': 'target 必须为 autodl 或 local'}), 400
+    changes = []
+    remark_map = {
+        'autodl': 'autoDL 满血版 BAGEL 后端配置（反馈#18）',
+        'local': '局域网优化版 BAGEL 后端配置（反馈#18）',
+    }
+    for suffix, attr, kind in _BAGEL_CONFIG_FIELDS[target]:
+        if suffix not in data:
+            continue
+        raw = data.get(suffix)
+        key = _bagel_setting_key(target, suffix)
+        if kind == 'bool':
+            val = '1' if bool(raw) else '0'
+        else:
+            val = str(raw or '').strip()
+        if kind == 'url' and val:
+            if not val.startswith('http'):
+                return jsonify({'error': '服务地址需以 http(s):// 开头'}), 400
+            val = val.rstrip('/')
+        if kind == 'os' and val and val not in ('windows', 'linux'):
+            return jsonify({'error': '操作系统需为 windows 或 linux'}), 400
+        # service_token 留空表示不修改（掩码回填场景）；显式 clear_token=1 清空
+        if suffix == 'service_token':
+            if data.get('clear_token'):
+                val = ''
+            elif not val:
+                continue
+        _set_setting(key, val, remark=remark_map[target])
+        # 即时写回运行时 Config
+        if attr:
+            if kind == 'bool':
+                setattr(Config, attr, val == '1')
+            elif kind == 'url':
+                setattr(Config, attr, val)
+            elif kind == 'os':
+                setattr(Config, attr, val or 'linux')
+            else:
+                setattr(Config, attr, val)
+        changes.append(suffix)
+    try:
+        _log_user_audit(current_user.id, current_user.id, 'bagel_config_update',
+                        {'target': target, 'changes': changes})
+    except Exception:
+        pass
+    db.session.commit()
+    return jsonify({'success': True, 'message': 'BAGEL 后端配置已保存',
+                    'changes': changes, 'config': _bagel_config_snapshot(target)})
 
 
 @app.route('/api/admin/deepseek/usage')
@@ -6198,6 +6362,14 @@ with app.app_context():
             app.logger.info('已加载 DB 中的 DeepSeek 配置: %s', ','.join(_applied))
     except Exception:
         app.logger.warning('加载 DeepSeek 运行时配置失败', exc_info=True)
+
+    # 反馈#18：启动时把 DB 中 BAGEL 后端（autoDL / 局域网）配置应用到运行时
+    try:
+        _applied_bagel = _apply_bagel_settings()
+        if _applied_bagel:
+            app.logger.info('已加载 DB 中的 BAGEL 后端配置: %s', ','.join(_applied_bagel))
+    except Exception:
+        app.logger.warning('加载 BAGEL 后端运行时配置失败', exc_info=True)
 
     try:
         from services.messaging import ensure_default_templates, get_or_create_channel_config

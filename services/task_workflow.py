@@ -80,6 +80,14 @@ def total_completed_for_task(task_id):
     return int(q.scalar() or 0)
 
 
+def total_task_points_earned(task_id):
+    """反馈#17：某任务下成员已挣得的任务积分合计（task_point_records 流水求和，含未结算/已结算）。"""
+    q = db.session.query(func.coalesce(func.sum(TaskPointRecord.points), 0)).filter(
+        TaskPointRecord.task_id == task_id
+    )
+    return int(q.scalar() or 0)
+
+
 def total_quota_for_task(task_id):
     q = db.session.query(func.coalesce(func.sum(TaskAssignment.target_quota), 0)).filter(
         TaskAssignment.task_id == task_id

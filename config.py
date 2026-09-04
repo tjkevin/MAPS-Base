@@ -139,6 +139,18 @@ class Config:
     BAGEL_AUTODL_V1_TIMEOUT = int(os.environ.get('BAGEL_AUTODL_V1_TIMEOUT') or 300)
     # autoDL 健康检查超时（秒，公网入口略慢于内网）
     BAGEL_AUTODL_HEALTH_TIMEOUT = float(os.environ.get('BAGEL_AUTODL_HEALTH_TIMEOUT') or 8)
+
+    # 反馈#18：BAGEL 后端运行时配置（管理员在任务管理页维护，持久化于 system_settings，DB 优先于环境变量）
+    BAGEL_AUTODL_ENABLED = (os.environ.get('BAGEL_AUTODL_ENABLED') or '1').strip() not in ('0', 'false', 'False', '')
+    BAGEL_LOCAL_ENABLED = (os.environ.get('BAGEL_LOCAL_ENABLED') or '1').strip() not in ('0', 'false', 'False', '')
+    # 局域网优化版所在操作系统：windows / linux（影响部署/脚本说明，不影响 HTTP 协议）
+    BAGEL_LOCAL_OS = (os.environ.get('BAGEL_LOCAL_OS') or 'linux').strip().lower()
+    # 局域网 NF4 量化模型在该机的本地路径（如 D:\\bagel\\sft_nf4 或 /data/models/sft_nf4）
+    BAGEL_LOCAL_MODEL_PATH = os.environ.get('BAGEL_LOCAL_MODEL_PATH') or ''
+    # 局域网 GPU 编号（多卡机指定，如 0）
+    BAGEL_LOCAL_GPU_INDEX = os.environ.get('BAGEL_LOCAL_GPU_INDEX') or ''
+    # autoDL GPU 机型/数量说明（如 RTX 4090 ×1 / A100 40G ×2，纯记录）
+    BAGEL_AUTODL_GPU_SPEC = os.environ.get('BAGEL_AUTODL_GPU_SPEC') or ''
     # 外部worker（autoDL/局域网）下载云端文件的基地址与共享Token；留空则外部worker无法取文件
     MODEL_FILE_BASE_URL = (os.environ.get('MODEL_FILE_BASE_URL') or '').rstrip('/')
     MODEL_FILE_TOKEN = os.environ.get('MODEL_FILE_TOKEN') or ''

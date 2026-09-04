@@ -24,7 +24,7 @@
     <!-- Feedback #17: split user information / user credits into two tabs -->
     <ul class="nav nav-tabs mb-3" id="userMainTabs" role="tablist">
         <li class="nav-item"><button class="nav-link active" type="button" data-pane="users" onclick="switchUserPane('users')"><i class="fas fa-users me-1"></i>User accounts</button></li>
-        <li class="nav-item"><button class="nav-link" type="button" data-pane="credits" onclick="switchUserPane('credits')"><i class="fas fa-coins me-1"></i>Credits &amp; points</button></li>
+        <li class="nav-item"><button class="nav-link" type="button" data-pane="credits" onclick="switchUserPane('credits')"><i class="fas fa-coins me-1"></i>Compute &amp; task points</button></li>
     </ul>
 
     <div class="card mb-3 d-none" id="recentSessionsCard">
@@ -73,9 +73,8 @@
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-warning btn-sm w-100"><i class="fas fa-gift"></i> Grant</button>
                 </div>
-                <div class="col-12 small text-muted">Time-limited compute points (7 days / 30 days / 1 year / custom) expire automatically and stop counting towards the balance.</div>
             </form>
-            <div class="small text-muted mb-2" id="creditPricingInfo"></div>
+            <a href="#" role="button" class="small link-primary text-decoration-none mb-2 d-inline-block" data-bs-toggle="modal" data-bs-target="#pricingInfoModal"><i class="fas fa-circle-info"></i> Pricing notes &amp; statistics</a>
             <!-- Feedback #17: granted / used by time range -->
             <div class="row g-2 mb-2">
                 <div class="col-6 col-md-4 col-lg-auto">
@@ -162,7 +161,6 @@
                             <th style="min-width:84px;max-width:110px">Admin remark</th>
                             <th style="min-width:78px">Valid until</th>
                             <th style="min-width:92px">Last login</th>
-                            <th style="min-width:56px">Credits</th>
                             <th style="min-width:48px">Status</th>
                             <th style="min-width:100px">Actions</th>
                         </tr>
@@ -304,6 +302,20 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="pricingInfoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-coins text-warning me-1"></i>Pricing notes &amp; statistics</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="small text-muted mb-2" id="creditPricingInfo"></div>
+                <div class="small text-muted border-top pt-2">Time-limited compute points (7 days / 30 days / 1 year / custom) expire automatically and stop counting towards the balance; reusing an identical-MD5 file result is free. Task points are only recorded (earned / settled) and never deducted.</div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -400,7 +412,6 @@ async function loadUsers() {
                 <td class="small text-muted" style="max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${escapeHtml(user.admin_remark || '')}">${escapeHtml(user.admin_remark || '—')}</td>
                 <td>${valid}</td>
                 <td>${last}</td>
-                <td id="creditCell-${user.id}">${renderCreditCell(user.id)}</td>
                 <td>${statusBadge(user)}</td>
                 <td>
                     <div class="btn-group btn-group-sm flex-wrap">

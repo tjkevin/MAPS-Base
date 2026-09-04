@@ -24,7 +24,7 @@
     <!-- 反馈#17：用户信息 / 用户积分 拆为两个标签页 -->
     <ul class="nav nav-tabs mb-3" id="userMainTabs" role="tablist">
         <li class="nav-item"><button class="nav-link active" type="button" data-pane="users" onclick="switchUserPane('users')"><i class="fas fa-users me-1"></i>用户信息管理</button></li>
-        <li class="nav-item"><button class="nav-link" type="button" data-pane="credits" onclick="switchUserPane('credits')"><i class="fas fa-coins me-1"></i>用户积分管理</button></li>
+        <li class="nav-item"><button class="nav-link" type="button" data-pane="credits" onclick="switchUserPane('credits')"><i class="fas fa-coins me-1"></i>用户算力点及积分管理</button></li>
     </ul>
 
     <div class="card mb-3 d-none" id="recentSessionsCard">
@@ -73,9 +73,8 @@
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-warning btn-sm w-100"><i class="fas fa-gift"></i> 发放</button>
                 </div>
-                <div class="col-12 small text-muted">限时周期（7日 / 30日 / 1年 / 自定义）的算力点到期后自动失效、不再计入余额。</div>
             </form>
-            <div class="small text-muted mb-2" id="creditPricingInfo"></div>
+            <a href="#" role="button" class="small link-primary text-decoration-none mb-2 d-inline-block" data-bs-toggle="modal" data-bs-target="#pricingInfoModal"><i class="fas fa-circle-info"></i> 计价说明及统计</a>
             <!-- 反馈#17：分时段累计发放 / 消耗 -->
             <div class="row g-2 mb-2">
                 <div class="col-6 col-md-4 col-lg-auto">
@@ -162,7 +161,6 @@
                             <th style="min-width:84px;max-width:110px">管理员备注</th>
                             <th style="min-width:78px">有效期</th>
                             <th style="min-width:92px">最近登录</th>
-                            <th style="min-width:56px">积分余额</th>
                             <th style="min-width:48px">状态</th>
                             <th style="min-width:100px">操作</th>
                         </tr>
@@ -304,6 +302,20 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="pricingInfoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-coins text-warning me-1"></i>计价说明及统计</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="small text-muted mb-2" id="creditPricingInfo"></div>
+                <div class="small text-muted border-top pt-2">限时周期（7 日 / 30 日 / 1 年 / 自定义）的算力点到期后自动失效、不再计入余额；MD5 相同文件复用历史结果免费。任务积分仅登记「已挣得 / 已结算」，不扣减。</div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -400,7 +412,6 @@ async function loadUsers() {
                 <td class="small text-muted" style="max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${escapeHtml(user.admin_remark || '')}">${escapeHtml(user.admin_remark || '—')}</td>
                 <td>${valid}</td>
                 <td>${last}</td>
-                <td id="creditCell-${user.id}">${renderCreditCell(user.id)}</td>
                 <td>${statusBadge(user)}</td>
                 <td>
                     <div class="btn-group btn-group-sm flex-wrap">
